@@ -1,7 +1,56 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+interface MethodStep {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  longDescription: string;
+  icon: string;
+  colorClass: string;
+  phases: string[];
+  image: string;
+}
+
+const methodSteps: Record<number, MethodStep> = {
+  1: {
+    id: 'think',
+    title: 'THINK',
+    subtitle: 'Context-First Discovery',
+    description: 'Before a single line of code is written, we deconstruct the problem space.',
+    longDescription: 'We avoid the trap of solutionism. By mapping the terrain of your business needs against technical feasibility, we ensure that what we build solves the right problem. This phase involves deep stakeholder interviews, data maturity assessments, and architectural blueprinting.',
+    icon: 'psychology',
+    colorClass: 'text-primary',
+    phases: ['Stakeholder Interviews', 'Data Maturity Assessment', 'Technical Feasibility Study', 'Architectural Blueprinting'],
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB0syEMF0AI2Td4_32Ins264eiSZjPh9BWtQyKHDk6xcuK3ohFRWG4HcfDKrQ1alBCyruEZ6R4UGIYaGarjZwqkJuPeOOHKZNm_YsGt1JJDnYt5bWZCEkFwZPI7TgMM91_MdN4LhSPMAktFHF48xtbzqg70wVP4SN8dY3UQ-dbwu3pocHPgPMk-weMmLqs7OJ-WxT6Z37hWkMpfQxvCdEquOpNQCI8h5AZA2mMq6IHxDFWQloFs0BCJiF2GzIQ0zbslX5Kg33XWaOyi'
+  },
+  2: {
+    id: 'build',
+    title: 'BUILD',
+    subtitle: 'Engineering Excellence',
+    description: 'Rapid prototyping meets robust architecture. Systems designed for scale.',
+    longDescription: 'We write production-grade code from day one. Our engineering culture prioritizes clean, testable, and documented code. Whether it is a data lakehouse or a custom agentic workflow, we build resilient foundations that can handle the scale of tomorrow.',
+    icon: 'build',
+    colorClass: 'text-emerald-400',
+    phases: ['Agile Development Sprints', 'CI/CD Pipeline Setup', 'Automated Testing Suites', 'Cloud Infrastructure IaC'],
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwUTc-60iyPqbS7h5OTVQWphY7LFpu6Yy2CEwbPgICptkLqSuhr5RIi6UwtORIe9BqlTtB5aTVYYzJGFbxuDApyxMRmJtdJEHxfuxLiNjO6MW2bczLxVGUANeQzwbPA7h0jWgHAcps0yVM778TEiEIvNn02whEfEWzhY1h7lym59twZJ2Yr9Spp_oIl7Z6vXlkfa7h0S_R_MCQDza0ZbCBefSNPUmHDtyC_6qXN3iAMqnkUwXylOnOSTjYUZgvBNZ8Ssf_h7MjXZZd'
+  },
+  3: {
+    id: 'evolve',
+    title: 'EVOLVE',
+    subtitle: 'Continuous Improvement',
+    description: 'Delivery is just the start. We implement feedback loops for continuous scaling.',
+    longDescription: 'Software is a living organism. We implement observability, monitoring, and feedback loops that allow the system to learn and improve over time. We train your internal teams to take ownership, ensuring long-term sustainability.',
+    icon: 'rocket_launch',
+    colorClass: 'text-purple-400',
+    phases: ['Performance Monitoring', 'User Feedback Loops', 'Model Retraining', 'Knowledge Transfer'],
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCR4aTbp1qcH_JDidwSq3phITiYRzWtPuqAQeIxNpOn0JA2CZksrAEy-zPb1zbblOhGD8xqR8VLU_dBJEbBnoJGP030cuekjK3zwb0vWUvc6T6dEUibjFLspIWsyoWKetRoqquzh2lIwzy2a-3xLU5MnfNHtEb_FyhQ9wsnwyRweD58OEnl0kElgE_GhjeKd8C95zAvllbmI_JnKGMXgdtxZqR3zmM3i7_MtrcUD7ddYdtcIb0DWydLbz3ewwGMTyhQOvyya2Fy-y5K'
+  }
+};
+
 const Methodology: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
+  const [selectedStep, setSelectedStep] = useState<MethodStep | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   
   // Refs for each step container
@@ -63,7 +112,11 @@ const Methodology: React.FC = () => {
           </div>
 
           {/* Step 1: Think */}
-          <div ref={step1Ref} className={`md:text-right md:pr-12 md:py-12 order-1 group transition-opacity duration-700 ${activeStep === 1 ? 'opacity-100' : 'opacity-30 blur-[1px]'}`}>
+          <div 
+            ref={step1Ref} 
+            onClick={() => setSelectedStep(methodSteps[1])}
+            className={`md:text-right md:pr-12 md:py-12 order-1 group transition-opacity duration-700 cursor-pointer ${activeStep === 1 ? 'opacity-100' : 'opacity-30 blur-[1px]'}`}
+          >
             <div className={`glass-card p-8 rounded-2xl relative overflow-hidden transition-all duration-500 border-white/5 ${activeStep === 1 ? 'bg-primary/5 border-primary/50 shadow-[0_0_30px_rgba(37,226,244,0.1)]' : ''}`}>
               <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
               <h3 className={`text-3xl font-bold mb-2 transition-colors ${activeStep === 1 ? 'text-white' : 'text-gray-500'}`}>THINK</h3>
@@ -74,6 +127,7 @@ const Methodology: React.FC = () => {
               <div className="mt-6 flex md:justify-end gap-2">
                 <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300">Discovery</span>
                 <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300">Architecture</span>
+                <span className="material-symbols-outlined text-sm text-primary animate-bounce ml-2">open_in_new</span>
               </div>
             </div>
           </div>
@@ -97,7 +151,11 @@ const Methodology: React.FC = () => {
           </div>
 
           {/* Step 2: Build */}
-          <div ref={step2Ref} className={`md:pl-12 md:py-12 order-6 group transition-opacity duration-700 ${activeStep === 2 ? 'opacity-100' : 'opacity-30 blur-[1px]'}`}>
+          <div 
+            ref={step2Ref} 
+            onClick={() => setSelectedStep(methodSteps[2])}
+            className={`md:pl-12 md:py-12 order-6 group transition-opacity duration-700 cursor-pointer ${activeStep === 2 ? 'opacity-100' : 'opacity-30 blur-[1px]'}`}
+          >
             <div className={`glass-card p-8 rounded-2xl relative overflow-hidden transition-all duration-500 border-white/5 ${activeStep === 2 ? 'bg-emerald-500/5 border-emerald-500/50 shadow-[0_0_30px_rgba(16,185,129,0.1)]' : ''}`}>
               <div className="absolute top-0 left-0 w-20 h-20 bg-emerald-500/10 rounded-br-full -ml-4 -mt-4 transition-transform group-hover:scale-150"></div>
               <h3 className={`text-3xl font-bold mb-2 transition-colors ${activeStep === 2 ? 'text-white' : 'text-gray-500'}`}>BUILD</h3>
@@ -108,12 +166,17 @@ const Methodology: React.FC = () => {
               <div className="mt-6 flex gap-2">
                 <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300">Development</span>
                 <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300">Testing</span>
+                <span className="material-symbols-outlined text-sm text-emerald-400 animate-bounce ml-2">open_in_new</span>
               </div>
             </div>
           </div>
 
           {/* Step 3: Evolve */}
-          <div ref={step3Ref} className={`md:text-right md:pr-12 md:py-12 order-7 group transition-opacity duration-700 ${activeStep === 3 ? 'opacity-100' : 'opacity-30 blur-[1px]'}`}>
+          <div 
+            ref={step3Ref} 
+            onClick={() => setSelectedStep(methodSteps[3])}
+            className={`md:text-right md:pr-12 md:py-12 order-7 group transition-opacity duration-700 cursor-pointer ${activeStep === 3 ? 'opacity-100' : 'opacity-30 blur-[1px]'}`}
+          >
             <div className={`glass-card p-8 rounded-2xl relative overflow-hidden transition-all duration-500 border-white/5 ${activeStep === 3 ? 'bg-purple-500/5 border-purple-500/50 shadow-[0_0_30px_rgba(168,85,247,0.1)]' : ''}`}>
               <div className="absolute bottom-0 right-0 w-20 h-20 bg-purple-500/10 rounded-tl-full -mr-4 -mb-4 transition-transform group-hover:scale-150"></div>
               <h3 className={`text-3xl font-bold mb-2 transition-colors ${activeStep === 3 ? 'text-white' : 'text-gray-500'}`}>EVOLVE</h3>
@@ -124,6 +187,7 @@ const Methodology: React.FC = () => {
               <div className="mt-6 flex md:justify-end gap-2">
                 <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300">Scaling</span>
                 <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300">Maintenance</span>
+                <span className="material-symbols-outlined text-sm text-purple-400 animate-bounce ml-2">open_in_new</span>
               </div>
             </div>
           </div>
@@ -139,6 +203,69 @@ const Methodology: React.FC = () => {
 
         </div>
       </div>
+
+      {/* Pop-up Modal */}
+      {selectedStep && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-background-dark/80 backdrop-blur-sm animate-in fade-in duration-300"
+            onClick={() => setSelectedStep(null)}
+          ></div>
+          <div className="relative w-full max-w-4xl bg-background-card border border-white/10 rounded-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col md:flex-row max-h-[90vh]">
+             {/* Modal Sidebar / Image */}
+             <div className="w-full md:w-1/3 bg-surface-dark relative hidden md:block">
+                <img src={selectedStep.image} alt={selectedStep.title} className="w-full h-full object-cover opacity-50 mix-blend-overlay" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background-card"></div>
+                <div className="absolute bottom-8 left-8">
+                   <div className={`size-16 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center ${selectedStep.colorClass} mb-4 backdrop-blur-md`}>
+                      <span className="material-symbols-outlined text-4xl">{selectedStep.icon}</span>
+                   </div>
+                   <h3 className="text-white text-xl font-bold leading-tight">{selectedStep.title}</h3>
+                </div>
+             </div>
+
+             {/* Modal Content */}
+             <div className="flex-1 p-8 md:p-10 overflow-y-auto">
+                <button 
+                  onClick={() => setSelectedStep(null)}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+                >
+                   <span className="material-symbols-outlined text-3xl">close</span>
+                </button>
+
+                <div className="md:hidden mb-6 flex items-center gap-4">
+                    <div className={`size-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center ${selectedStep.colorClass}`}>
+                      <span className="material-symbols-outlined text-2xl">{selectedStep.icon}</span>
+                   </div>
+                   <h3 className="text-white text-xl font-bold">{selectedStep.title}</h3>
+                </div>
+
+                <h4 className={`text-sm font-bold uppercase tracking-widest mb-4 ${selectedStep.colorClass}`}>
+                   {selectedStep.subtitle}
+                </h4>
+                <p className="text-gray-300 text-lg leading-relaxed mb-8 border-b border-white/10 pb-8">
+                   {selectedStep.longDescription}
+                </p>
+
+                <h5 className="text-white font-bold mb-4">Key Phases</h5>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                   {selectedStep.phases.map((phase, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                         <span className={`material-symbols-outlined text-lg mt-0.5 ${selectedStep.colorClass}`}>check_circle</span>
+                         <span className="text-gray-400 text-sm">{phase}</span>
+                      </li>
+                   ))}
+                </ul>
+
+                <div className="mt-10 pt-6 border-t border-white/10 flex justify-end">
+                   <button onClick={() => setSelectedStep(null)} className="px-6 py-3 rounded-lg border border-white/20 text-white font-bold hover:bg-white/5 transition-colors">
+                      Close
+                   </button>
+                </div>
+             </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

@@ -16,19 +16,20 @@ const Team: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-[900px] mx-auto">
           
-          {/* Profile 1 */}
-          <div className="group relative h-[450px] rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-[0_0_20px_rgba(37,226,244,0.15)] transition-all duration-500">
-            <div className="absolute inset-0 bg-gray-800 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDwUTc-60iyPqbS7h5OTVQWphY7LFpu6Yy2CEwbPgICptkLqSuhr5RIi6UwtORIe9BqlTtB5aTVYYzJGFbxuDApyxMRmJtdJEHxfuxLiNjO6MW2bczLxVGUANeQzwbPA7h0jWgHAcps0yVM778TEiEIvNn02whEfEWzhY1h7lym59twZJ2Yr9Spp_oIl7Z6vXlkfa7h0S_R_MCQDza0ZbCBefSNPUmHDtyC_6qXN3iAMqnkUwXylOnOSTjYUZgvBNZ8Ssf_h7MjXZZd')" }}></div>
+          {/* Profile 1 - Dr. Syed (Green Theme) */}
+          <div className="group relative h-[450px] rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-all duration-500 hover:border-emerald-500/30 border border-transparent">
+            {/* Image with grayscale effect */}
+            <div className="absolute inset-0 bg-gray-800 bg-cover bg-center transition-all duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDwUTc-60iyPqbS7h5OTVQWphY7LFpu6Yy2CEwbPgICptkLqSuhr5RIi6UwtORIe9BqlTtB5aTVYYzJGFbxuDApyxMRmJtdJEHxfuxLiNjO6MW2bczLxVGUANeQzwbPA7h0jWgHAcps0yVM778TEiEIvNn02whEfEWzhY1h7lym59twZJ2Yr9Spp_oIl7Z6vXlkfa7h0S_R_MCQDza0ZbCBefSNPUmHDtyC_6qXN3iAMqnkUwXylOnOSTjYUZgvBNZ8Ssf_h7MjXZZd')" }}></div>
             <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-90"></div>
             
             <div className="absolute bottom-0 left-0 w-full p-8 flex flex-col justify-end h-full">
               <div className="translate-y-12 group-hover:translate-y-0 transition-transform duration-500">
                 <h3 className="text-2xl font-bold text-white mb-1">Dr. Syed Fawad Ali</h3>
-                <p className="text-primary font-medium mb-4">Lead AI Scientist</p>
+                <p className="text-emerald-400 font-medium mb-4">Lead AI Scientist</p>
                 
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 flex flex-wrap gap-2">
                    {['NLP', 'Computer Vision', 'Generative AI'].map(tag => (
-                      <span key={tag} className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs text-white border border-white/10">{tag}</span>
+                      <span key={tag} className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs text-white border border-emerald-500/20">{tag}</span>
                    ))}
                 </div>
                 
@@ -39,19 +40,20 @@ const Team: React.FC = () => {
             </div>
           </div>
 
-          {/* Profile 2 */}
-          <div className="group relative h-[450px] rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-[0_0_20px_rgba(37,226,244,0.15)] transition-all duration-500">
-            <div className="absolute inset-0 bg-gray-800 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBLmbLKx5KODpM8MVzOTdbUQRpWuk2JotA07vprchgwiv0nlTpnwH4VCmbCbrA4oFdzcPyyBo-tgf6_WT9E34FWF2CdmwAT_g-4_Bd2WbKvsq1YH3lBHceL9UWWQ1DEuOtXORlLFzWj3xjB9CQjvuCyv0L7KiOLTsO7RUWnptpmWhtGUqvYRM4xC-wUcCeg1mnKm7klH7Jp5xh9GtyFc7OBbiYCuszoQf8Ow_dTgWsGVpKiYRqLzdzg4cj7CvG_fZP0RBSKTYK11u5k')" }}></div>
+          {/* Profile 2 - Felipe Araya (Purple Theme) */}
+          <div className="group relative h-[450px] rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-[0_0_20px_rgba(168,85,247,0.2)] transition-all duration-500 hover:border-purple-500/30 border border-transparent">
+             {/* Image with grayscale effect */}
+            <div className="absolute inset-0 bg-gray-800 bg-cover bg-center transition-all duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBLmbLKx5KODpM8MVzOTdbUQRpWuk2JotA07vprchgwiv0nlTpnwH4VCmbCbrA4oFdzcPyyBo-tgf6_WT9E34FWF2CdmwAT_g-4_Bd2WbKvsq1YH3lBHceL9UWWQ1DEuOtXORlLFzWj3xjB9CQjvuCyv0L7KiOLTsO7RUWnptpmWhtGUqvYRM4xC-wUcCeg1mnKm7klH7Jp5xh9GtyFc7OBbiYCuszoQf8Ow_dTgWsGVpKiYRqLzdzg4cj7CvG_fZP0RBSKTYK11u5k')" }}></div>
             <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-90"></div>
             
             <div className="absolute bottom-0 left-0 w-full p-8 flex flex-col justify-end h-full">
               <div className="translate-y-12 group-hover:translate-y-0 transition-transform duration-500">
                 <h3 className="text-2xl font-bold text-white mb-1">Felipe Araya</h3>
-                <p className="text-primary font-medium mb-4">Lead Data Engineer</p>
+                <p className="text-purple-400 font-medium mb-4">Lead Data Engineer</p>
                 
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 flex flex-wrap gap-2">
                    {['Scalable Infrastructure', 'Cloud Architecture'].map(tag => (
-                      <span key={tag} className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs text-white border border-white/10">{tag}</span>
+                      <span key={tag} className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs text-white border border-purple-500/20">{tag}</span>
                    ))}
                 </div>
                 
