@@ -35,7 +35,7 @@ const Hero: React.FC = () => {
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.95]">
           Possibility? <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-accent-green text-glow animate-text-gradient bg-[length:200%_auto]">
-            Engineered<span className="text-primary animate-pulse">_</span>
+            Engineered<span className="text-primary animate-pulse">!</span>
           </span>
         </h1>
 
