@@ -77,7 +77,7 @@ const WhyUs: React.FC = () => {
                    <div className="size-14 rounded-2xl bg-gradient-to-br from-gray-800 to-black border border-white/10 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
                       <span className="material-symbols-outlined text-accent-green text-2xl">speed</span>
                    </div>
-                   <h3 className="text-2xl font-bold text-white mb-3">Velocity > Bloat</h3>
+                   <h3 className="text-2xl font-bold text-white mb-3">Velocity &gt; Bloat</h3>
                    <p className="text-slate-400 text-sm leading-relaxed">
                       We ship MVPs in weeks, not months. Our agile pods cut through bureaucracy to deliver value instantly.
                    </p>
