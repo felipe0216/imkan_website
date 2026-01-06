@@ -7,7 +7,7 @@ const SceneA: React.FC<{ isActive: boolean }> = ({ isActive }) => {
   const [aiText, setAiText] = useState('');
   const [showSources, setShowSources] = useState(false);
 
-  const userMessage = "What services does Orion Logistics provide, and which industries do you specialise in?";
+  const userMessage = "What services does Orion Logistics provide?";
   const aiResponse = `**Orion Logistics — Service Overview**
 
 We provide end-to-end supply chain services, including:
@@ -30,24 +30,35 @@ Retail & e-commerce, manufacturing, healthcare & pharmaceuticals.`;
 
     const timeouts: NodeJS.Timeout[] = [];
 
-    // Stage 1: Show user message instantly (300ms)
+    // Stage 1: Type user message (300ms start, 20ms per character - fast)
     const userTimeout = setTimeout(() => {
       setTypingStage(1);
-      setUserText(userMessage); // Instant display
+      
+      // Type user message character by character (fast)
+      let currentIndex = 0;
+      const typingInterval = setInterval(() => {
+        if (currentIndex <= userMessage.length) {
+          setUserText(userMessage.slice(0, currentIndex));
+          currentIndex++;
+        } else {
+          clearInterval(typingInterval);
+        }
+      }, 20); // 20ms per character - faster than AI response
+      timeouts.push(typingInterval as unknown as NodeJS.Timeout);
     }, 300);
     timeouts.push(userTimeout);
 
-    // Stage 2: Show AI thinking (1500ms)
+    // Stage 2: Show AI thinking (2200ms - after user finishes typing)
     const thinkingTimeout = setTimeout(() => {
       setTypingStage(2);
-    }, 1500);
+    }, 2200);
     timeouts.push(thinkingTimeout);
 
-    // Stage 3: Start AI response typing (1900ms)
+    // Stage 3: Start AI response typing (2600ms)
     const responseTimeout = setTimeout(() => {
       setTypingStage(3);
       
-      // Type AI response character by character
+      // Type AI response character by character (slower than user)
       let currentIndex = 0;
       const typingInterval = setInterval(() => {
         if (currentIndex <= aiResponse.length) {
@@ -56,9 +67,9 @@ Retail & e-commerce, manufacturing, healthcare & pharmaceuticals.`;
         } else {
           clearInterval(typingInterval);
         }
-      }, 15);
+      }, 25); // 25ms per character - slower than user typing
       timeouts.push(typingInterval as unknown as NodeJS.Timeout);
-    }, 1900);
+    }, 2600);
     timeouts.push(responseTimeout);
 
     return () => {
@@ -177,13 +188,16 @@ Retail & e-commerce, manufacturing, healthcare & pharmaceuticals.`;
                 </div>
               </div>
 
-              {/* User Message - Far Right (Instant appearance) */}
+              {/* User Message - Far Right (Typing effect) */}
               {typingStage >= 1 && (
                 <div className="flex gap-4 justify-end animate-fadeIn">
                   <div className="flex-1 max-w-[65%] flex flex-col items-end">
                     <div className="text-[11px] text-gray-500 mb-1.5 mr-1">You</div>
                     <div className="bg-blue-600 rounded-2xl rounded-tr-sm px-5 py-3.5 text-[13px] text-white leading-relaxed shadow-lg">
                       {userText}
+                      {userText.length < userMessage.length && (
+                        <span className="inline-block w-[2px] h-4 bg-white/80 ml-1 animate-pulse"></span>
+                      )}
                     </div>
                   </div>
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-600 to-gray-700 flex items-center justify-center flex-shrink-0">
@@ -678,14 +692,6 @@ const HeroBackground: React.FC = () => {
     return () => clearInterval(sceneInterval);
   }, [prefersReducedMotion]);
 
-  // TESTING: Show only Scene B
-  return (
-    <div className="absolute inset-0">
-      <SceneB isActive={true} />
-    </div>
-  );
-
-  /* ORIGINAL CODE - Restore when Scene B is complete
   if (prefersReducedMotion) {
     // Show static version for reduced motion
     return (
@@ -697,7 +703,7 @@ const HeroBackground: React.FC = () => {
 
   return (
     <div className="absolute inset-0">
-      {/* Scene A - Orion Logistics Knowledge Chatbot *\/
+      {/* Scene A - Orion Logistics Knowledge Chatbot */}
       <div 
         className={`absolute inset-0 transition-opacity duration-1000 ${
           currentScene === 0 ? 'opacity-100' : 'opacity-0'
@@ -706,7 +712,7 @@ const HeroBackground: React.FC = () => {
         <SceneA isActive={currentScene === 0} />
       </div>
 
-      {/* Scene B - Aster Retail Analytics Co-Pilot *\/
+      {/* Scene B - Aster Retail Analytics Co-Pilot */}
       <div 
         className={`absolute inset-0 transition-opacity duration-1000 ${
           currentScene === 1 ? 'opacity-100' : 'opacity-0'
@@ -716,7 +722,6 @@ const HeroBackground: React.FC = () => {
       </div>
     </div>
   );
-  */
 };
 
 export default HeroBackground;
