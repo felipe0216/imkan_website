@@ -275,100 +275,147 @@ Retail & e-commerce, manufacturing, healthcare & pharmaceuticals.`;
 };
 
 // Scene B: Data Analytics Dashboard
-const SceneB: React.FC<{ isActive: boolean }> = ({ isActive }) => {
-  const [typingStage, setTypingStage] = useState(0);
-  const [userText, setUserText] = useState('');
-  const [sqlText, setSqlText] = useState('');
-  const [sqlScrollProgress, setSqlScrollProgress] = useState(0);
-  const [showChart, setShowChart] = useState(false);
-
-  const userMessage = "Show total monthly revenue for 2024.";
-  const sqlQuery = `SELECT
+// Constants
+const SCENE_B_CONFIG = {
+  user: {
+    message: "Show total monthly revenue for 2024.",
+    typingSpeed: 15, // ms per character (quick)
+    startDelay: 300,
+  },
+  sql: {
+    query: `SELECT
   DATE_TRUNC('month', order_date) AS month,
   SUM(revenue_usd) AS total_revenue
 FROM sales_orders
 WHERE EXTRACT(YEAR FROM order_date) = 2024
 GROUP BY month
-ORDER BY month ASC;`;
+ORDER BY month ASC;`,
+    typingSpeed: 0, // No typing effect - instant appearance
+    startDelay: 1400, // After user finishes + loading delay
+  },
+  loading: {
+    startDelay: 1000, // Shows while user is still typing
+    duration: 400, // How long loading shows before SQL
+  },
+  chart: {
+    // Calculated: sql.startDelay + (sql.query.length * sql.typingSpeed) + small buffer
+    startDelay: 1500, // After SQL fully typed
+    data: [
+      { month: 'Jan', revenue: 1150 },
+      { month: 'Feb', revenue: 1620 },
+      { month: 'Mar', revenue: 1380 },
+      { month: 'Apr', revenue: 1890 },
+      { month: 'May', revenue: 1540 },
+      { month: 'Jun', revenue: 2100 },
+      { month: 'Jul', revenue: 1720 },
+      { month: 'Aug', revenue: 2250 },
+      { month: 'Sep', revenue: 1950 },
+      { month: 'Oct', revenue: 2480 },
+      { month: 'Nov', revenue: 2180 },
+      { month: 'Dec', revenue: 2720 },
+    ],
+    maxValue: 3000,
+    yAxisLabels: ['3.0M', '2.25M', '1.5M', '0.75M', '0'],
+  },
+};
 
-  // Chart data - 12 months with realistic random fluctuations
-  const chartData = [
-    { month: 'Jan', revenue: 1150 },
-    { month: 'Feb', revenue: 1620 },
-    { month: 'Mar', revenue: 1380 },
-    { month: 'Apr', revenue: 1890 },
-    { month: 'May', revenue: 1540 },
-    { month: 'Jun', revenue: 2100 },
-    { month: 'Jul', revenue: 1720 },
-    { month: 'Aug', revenue: 2250 },
-    { month: 'Sep', revenue: 1950 },
-    { month: 'Oct', revenue: 2480 },
-    { month: 'Nov', revenue: 2180 },
-    { month: 'Dec', revenue: 2720 },
+// SQL syntax highlighter
+const highlightSQLLine = (line: string, index: number) => {
+  const keywords = [
+    { word: 'SELECT', color: 'text-pink-400' },
+    { word: 'FROM', color: 'text-pink-400', valueColor: 'text-blue-300' },
+    { word: 'WHERE', color: 'text-pink-400' },
+    { word: 'GROUP BY', color: 'text-pink-400' },
+    { word: 'ORDER BY', color: 'text-pink-400' },
   ];
-  
-  const maxValue = 3000;
+
+  const trimmed = line.trim();
+  for (const { word, color, valueColor } of keywords) {
+    if (trimmed.startsWith(word)) {
+      const value = line.substring(line.indexOf(word) + word.length);
+      return (
+        <div key={index} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
+          <span className={`${color} font-semibold`}>{word}</span>
+          <span className={valueColor || 'text-gray-300'}>{value}</span>
+        </div>
+      );
+    }
+  }
+  return (
+    <div key={index} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
+      <span className="text-gray-400">{line}</span>
+    </div>
+  );
+};
+
+const SceneB: React.FC<{ isActive: boolean }> = ({ isActive }) => {
+  const [typingStage, setTypingStage] = useState(0);
+  const [userText, setUserText] = useState('');
+  const [sqlText, setSqlText] = useState('');
+  const [showChart, setShowChart] = useState(false);
+
+  const { user, sql, loading, chart } = SCENE_B_CONFIG;
+  const totalRevenue = chart.data.reduce((sum, data) => sum + data.revenue, 0);
+
+  // Helper function for typing animation
+  const createTypingAnimation = (
+    text: string,
+    setText: (text: string) => void,
+    speed: number,
+    timeouts: NodeJS.Timeout[]
+  ) => {
+    if (speed === 0) {
+      // Instant appearance (copy/paste style)
+      setText(text);
+      return;
+    }
+    
+    // Typing animation
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index <= text.length) {
+        setText(text.slice(0, index));
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, speed);
+    timeouts.push(interval as unknown as NodeJS.Timeout);
+  };
 
   useEffect(() => {
     if (!isActive) {
       setTypingStage(0);
       setUserText('');
       setSqlText('');
-      setSqlScrollProgress(0);
       setShowChart(false);
       return;
     }
 
     const timeouts: NodeJS.Timeout[] = [];
 
-    // Stage 1: Type user prompt (300ms start)
-    const userPromptTimeout = setTimeout(() => {
+    // Stage 1: Type user prompt
+    timeouts.push(setTimeout(() => {
       setTypingStage(1);
-      
-      // Type user message character by character
-      let currentIndex = 0;
-      const typingInterval = setInterval(() => {
-        if (currentIndex <= userMessage.length) {
-          setUserText(userMessage.slice(0, currentIndex));
-          currentIndex++;
-        } else {
-          clearInterval(typingInterval);
-        }
-      }, 35); // 35ms per character for user typing
-      timeouts.push(typingInterval as unknown as NodeJS.Timeout);
-    }, 300);
-    timeouts.push(userPromptTimeout);
+      createTypingAnimation(user.message, setUserText, user.typingSpeed, timeouts);
+    }, user.startDelay) as unknown as NodeJS.Timeout);
 
-    // Stage 2: Show loading wheel (1600ms - after user prompt finishes)
-    const loadingTimeout = setTimeout(() => {
+    // Stage 2: Show loading indicator
+    timeouts.push(setTimeout(() => {
       setTypingStage(2);
-    }, 1600);
-    timeouts.push(loadingTimeout);
+    }, loading.startDelay) as unknown as NodeJS.Timeout);
 
-    // Stage 3: Start SQL typing (1900ms - fast typing)
-    const sqlTimeout = setTimeout(() => {
+    // Stage 3: Type SQL query
+    timeouts.push(setTimeout(() => {
       setTypingStage(3);
-      
-      // Type SQL character by character (fast) - NO SCROLL
-      let currentIndex = 0;
-      const typingInterval = setInterval(() => {
-        if (currentIndex <= sqlQuery.length) {
-          setSqlText(sqlQuery.slice(0, currentIndex));
-          currentIndex++;
-        } else {
-          clearInterval(typingInterval);
-        }
-      }, 8); // 8ms per character - very fast
-      timeouts.push(typingInterval as unknown as NodeJS.Timeout);
-    }, 1900);
-    timeouts.push(sqlTimeout);
+      createTypingAnimation(sql.query, setSqlText, sql.typingSpeed, timeouts);
+    }, sql.startDelay) as unknown as NodeJS.Timeout);
 
-    // Stage 4: Show chart instantly (3200ms - copy/paste effect)
-    const chartTimeout = setTimeout(() => {
+    // Stage 4: Show chart
+    timeouts.push(setTimeout(() => {
       setTypingStage(4);
       setShowChart(true);
-    }, 3200);
-    timeouts.push(chartTimeout);
+    }, chart.startDelay) as unknown as NodeJS.Timeout);
 
     return () => {
       timeouts.forEach(timeout => clearTimeout(timeout));
@@ -421,7 +468,7 @@ ORDER BY month ASC;`;
                   {typingStage >= 1 ? (
                     <div className="text-[13px] text-white font-semibold">
                       {userText}
-                      {userText.length < userMessage.length && (
+                      {userText.length < user.message.length && (
                         <span className="inline-block w-[2px] h-4 bg-purple-500 ml-1 animate-pulse"></span>
                       )}
                     </div>
@@ -451,7 +498,7 @@ ORDER BY month ASC;`;
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] text-gray-500 font-mono">PostgreSQL 15.2</span>
-                    {sqlText.length >= sqlQuery.length && (
+                    {sqlText.length >= sql.query.length && (
                       <div className="px-2 py-0.5 bg-emerald-500/20 border border-emerald-500/30 rounded text-[9px] text-emerald-400 font-bold">
                         VALID
                       </div>
@@ -464,62 +511,15 @@ ORDER BY month ASC;`;
                 >
                   <pre className="p-4 font-mono text-[12px] leading-relaxed">
                     <code className="text-gray-300">
-                      {sqlText.split('\n').map((line, i) => {
-                        // Syntax highlighting for SQL keywords
-                        if (line.trim().startsWith('SELECT')) {
-                          return (
-                            <div key={i} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
-                              <span className="text-pink-400 font-semibold">SELECT</span>
-                              <span className="text-gray-300">{line.substring(line.indexOf('SELECT') + 6)}</span>
-                            </div>
-                          );
-                        } else if (line.trim().startsWith('FROM')) {
-                          return (
-                            <div key={i} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
-                              <span className="text-pink-400 font-semibold">FROM</span>
-                              <span className="text-blue-300">{line.substring(line.indexOf('FROM') + 4)}</span>
-                            </div>
-                          );
-                        } else if (line.trim().startsWith('WHERE')) {
-                          return (
-                            <div key={i} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
-                              <span className="text-pink-400 font-semibold">WHERE</span>
-                              <span className="text-gray-300">{line.substring(line.indexOf('WHERE') + 5)}</span>
-                            </div>
-                          );
-                        } else if (line.trim().startsWith('GROUP')) {
-                          return (
-                            <div key={i} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
-                              <span className="text-pink-400 font-semibold">GROUP BY</span>
-                              <span className="text-gray-300">{line.substring(line.indexOf('BY') + 2)}</span>
-                            </div>
-                          );
-                        } else if (line.trim().startsWith('ORDER')) {
-                          return (
-                            <div key={i} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
-                              <span className="text-pink-400 font-semibold">ORDER BY</span>
-                              <span className="text-gray-300">{line.substring(line.indexOf('BY') + 2)}</span>
-                            </div>
-                          );
-                        } else {
-                          return (
-                            <div key={i} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
-                              <span className="text-gray-400">{line}</span>
-                            </div>
-                          );
-                        }
-                      })}
-                      {sqlText.length < sqlQuery.length && (
-                        <span className="inline-block w-[2px] h-4 bg-purple-500 ml-1 animate-pulse"></span>
-                      )}
+                      {sqlText.split('\n').map((line, i) => highlightSQLLine(line, i))}
                     </code>
                   </pre>
                 </div>
 
-                {sqlText.length >= sqlQuery.length && (
+                {sqlText.length >= sql.query.length && (
                   <div className="px-4 py-2 bg-gray-900/50 border-t border-gray-700/50 flex items-center justify-between">
                     <span className="text-[10px] text-gray-500">Query execution time: 0.043s</span>
-                    <span className="text-[10px] text-emerald-400 font-semibold">✓ 144 rows returned</span>
+                    <span className="text-[10px] text-emerald-400 font-semibold">✓ {chart.data.length} rows returned</span>
                   </div>
                 )}
               </div>
@@ -553,11 +553,18 @@ ORDER BY month ASC;`;
                     <div className="flex-1 flex gap-3 min-h-0 pb-8">
                       {/* Y-axis labels */}
                       <div className="relative text-right pr-2" style={{ width: '45px' }}>
-                        <div className="absolute top-0 text-[10px] text-gray-500">3.0M</div>
-                        <div className="absolute text-[10px] text-gray-500" style={{ top: '25%' }}>2.25M</div>
-                        <div className="absolute text-[10px] text-gray-500" style={{ top: '50%' }}>1.5M</div>
-                        <div className="absolute text-[10px] text-gray-500" style={{ top: '75%' }}>0.75M</div>
-                        <div className="absolute bottom-0 text-[10px] text-gray-500">0</div>
+                        {chart.yAxisLabels.map((label, i) => (
+                          <div
+                            key={i}
+                            className="absolute text-[10px] text-gray-500"
+                            style={{
+                              top: i === 0 ? '0' : i === chart.yAxisLabels.length - 1 ? 'auto' : `${i * 25}%`,
+                              bottom: i === chart.yAxisLabels.length - 1 ? '0' : 'auto'
+                            }}
+                          >
+                            {label}
+                          </div>
+                        ))}
                       </div>
 
                       {/* Chart canvas */}
@@ -577,9 +584,9 @@ ORDER BY month ASC;`;
 
                         {/* Bars */}
                         <div className="absolute inset-0">
-                          {chartData.map((data, i) => {
-                            const barWidth = 100 / chartData.length;
-                            const heightPercent = (data.revenue / maxValue) * 100;
+                          {chart.data.map((data, i) => {
+                            const barWidth = 100 / chart.data.length;
+                            const heightPercent = (data.revenue / chart.maxValue) * 100;
                             
                             return (
                               <div key={i}>
@@ -617,7 +624,7 @@ ORDER BY month ASC;`;
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-[10px] text-gray-500">2024 Total:</span>
-                        <span className="text-[10px] text-purple-400 font-bold">$22.98M</span>
+                        <span className="text-[10px] text-purple-400 font-bold">${(totalRevenue / 1000).toFixed(2)}M</span>
                       </div>
                     </div>
                   </div>
