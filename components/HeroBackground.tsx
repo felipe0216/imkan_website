@@ -274,6 +274,374 @@ Retail & e-commerce, manufacturing, healthcare & pharmaceuticals.`;
   );
 };
 
+// Scene B: Data Analytics Dashboard
+const SceneB: React.FC<{ isActive: boolean }> = ({ isActive }) => {
+  const [typingStage, setTypingStage] = useState(0);
+  const [userText, setUserText] = useState('');
+  const [sqlText, setSqlText] = useState('');
+  const [sqlScrollProgress, setSqlScrollProgress] = useState(0);
+  const [showChart, setShowChart] = useState(false);
+
+  const userMessage = "Show total monthly revenue for 2024.";
+  const sqlQuery = `SELECT
+  DATE_TRUNC('month', order_date) AS month,
+  SUM(revenue_usd) AS total_revenue
+FROM sales_orders
+WHERE EXTRACT(YEAR FROM order_date) = 2024
+GROUP BY month
+ORDER BY month ASC;`;
+
+  // Chart data - 12 months with realistic random fluctuations
+  const chartData = [
+    { month: 'Jan', revenue: 1150 },
+    { month: 'Feb', revenue: 1620 },
+    { month: 'Mar', revenue: 1380 },
+    { month: 'Apr', revenue: 1890 },
+    { month: 'May', revenue: 1540 },
+    { month: 'Jun', revenue: 2100 },
+    { month: 'Jul', revenue: 1720 },
+    { month: 'Aug', revenue: 2250 },
+    { month: 'Sep', revenue: 1950 },
+    { month: 'Oct', revenue: 2480 },
+    { month: 'Nov', revenue: 2180 },
+    { month: 'Dec', revenue: 2720 },
+  ];
+  
+  const maxValue = 3000;
+
+  useEffect(() => {
+    if (!isActive) {
+      setTypingStage(0);
+      setUserText('');
+      setSqlText('');
+      setSqlScrollProgress(0);
+      setShowChart(false);
+      return;
+    }
+
+    const timeouts: NodeJS.Timeout[] = [];
+
+    // Stage 1: Type user prompt (300ms start)
+    const userPromptTimeout = setTimeout(() => {
+      setTypingStage(1);
+      
+      // Type user message character by character
+      let currentIndex = 0;
+      const typingInterval = setInterval(() => {
+        if (currentIndex <= userMessage.length) {
+          setUserText(userMessage.slice(0, currentIndex));
+          currentIndex++;
+        } else {
+          clearInterval(typingInterval);
+        }
+      }, 35); // 35ms per character for user typing
+      timeouts.push(typingInterval as unknown as NodeJS.Timeout);
+    }, 300);
+    timeouts.push(userPromptTimeout);
+
+    // Stage 2: Show loading wheel (1600ms - after user prompt finishes)
+    const loadingTimeout = setTimeout(() => {
+      setTypingStage(2);
+    }, 1600);
+    timeouts.push(loadingTimeout);
+
+    // Stage 3: Start SQL typing (1900ms - fast typing)
+    const sqlTimeout = setTimeout(() => {
+      setTypingStage(3);
+      
+      // Type SQL character by character (fast) - NO SCROLL
+      let currentIndex = 0;
+      const typingInterval = setInterval(() => {
+        if (currentIndex <= sqlQuery.length) {
+          setSqlText(sqlQuery.slice(0, currentIndex));
+          currentIndex++;
+        } else {
+          clearInterval(typingInterval);
+        }
+      }, 8); // 8ms per character - very fast
+      timeouts.push(typingInterval as unknown as NodeJS.Timeout);
+    }, 1900);
+    timeouts.push(sqlTimeout);
+
+    // Stage 4: Show chart instantly (3200ms - copy/paste effect)
+    const chartTimeout = setTimeout(() => {
+      setTypingStage(4);
+      setShowChart(true);
+    }, 3200);
+    timeouts.push(chartTimeout);
+
+    return () => {
+      timeouts.forEach(timeout => clearTimeout(timeout));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isActive]);
+
+  return (
+    <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0f0f23] via-[#1a1a2e] to-[#16213e] text-gray-100 flex font-sans overflow-hidden pt-20">
+      {/* Main Dashboard Container - No Sidebar, Modern Layout */}
+      <div className="flex-1 flex flex-col p-6 gap-4">
+        {/* Top Bar - Analytics Dashboard Header */}
+        <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-purple-900/40 to-indigo-900/40 rounded-2xl border border-purple-500/20 backdrop-blur-sm">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <h1 className="text-[16px] font-bold text-white tracking-tight">Aster Retail Analytics Platform</h1>
+              <p className="text-[12px] text-purple-300">Real-time Business Intelligence Dashboard</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="px-3 py-1.5 bg-emerald-500/20 border border-emerald-400/30 rounded-lg text-[11px] text-emerald-300 font-semibold flex items-center gap-2">
+              <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse shadow-lg shadow-emerald-400/50"></span>
+              DATABASE LIVE
+            </div>
+            <div className="text-[11px] text-gray-400">
+              <span className="text-purple-400 font-medium">production_db</span> • 847K rows
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content - Split Panel Layout */}
+        <div className="flex-1 grid grid-cols-2 gap-4">
+          {/* Left Panel - Query Input & SQL Output */}
+          <div className="flex flex-col gap-4">
+            {/* Query Input Card */}
+            <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 rounded-2xl border border-gray-700/50 p-5 backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <div className="text-[11px] text-gray-400 font-medium mb-1">NATURAL LANGUAGE QUERY</div>
+                  {typingStage >= 1 ? (
+                    <div className="text-[13px] text-white font-semibold">
+                      {userText}
+                      {userText.length < userMessage.length && (
+                        <span className="inline-block w-[2px] h-4 bg-purple-500 ml-1 animate-pulse"></span>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="text-[13px] text-gray-600 font-semibold">Enter your query...</div>
+                  )}
+                </div>
+              </div>
+              
+              {typingStage === 2 && (
+                <div className="flex items-center gap-3 mt-3 px-3 py-2 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+                  <div className="w-4 h-4 border-2 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+                  <span className="text-[11px] text-purple-300 font-medium">Generating SQL query...</span>
+                </div>
+              )}
+            </div>
+
+            {/* SQL Output Panel */}
+            {typingStage >= 3 && (
+              <div className="flex-1 bg-[#0d1117] rounded-2xl border border-gray-700/50 overflow-hidden flex flex-col shadow-2xl animate-fadeIn">
+                <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-indigo-900/50 to-purple-900/50 border-b border-gray-700/50">
+                  <div className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                    <span className="text-[12px] text-gray-300 font-semibold">Generated SQL Query</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-gray-500 font-mono">PostgreSQL 15.2</span>
+                    {sqlText.length >= sqlQuery.length && (
+                      <div className="px-2 py-0.5 bg-emerald-500/20 border border-emerald-500/30 rounded text-[9px] text-emerald-400 font-bold">
+                        VALID
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                <div 
+                  className="flex-1 overflow-hidden relative"
+                >
+                  <pre className="p-4 font-mono text-[12px] leading-relaxed">
+                    <code className="text-gray-300">
+                      {sqlText.split('\n').map((line, i) => {
+                        // Syntax highlighting for SQL keywords
+                        if (line.trim().startsWith('SELECT')) {
+                          return (
+                            <div key={i} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
+                              <span className="text-pink-400 font-semibold">SELECT</span>
+                              <span className="text-gray-300">{line.substring(line.indexOf('SELECT') + 6)}</span>
+                            </div>
+                          );
+                        } else if (line.trim().startsWith('FROM')) {
+                          return (
+                            <div key={i} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
+                              <span className="text-pink-400 font-semibold">FROM</span>
+                              <span className="text-blue-300">{line.substring(line.indexOf('FROM') + 4)}</span>
+                            </div>
+                          );
+                        } else if (line.trim().startsWith('WHERE')) {
+                          return (
+                            <div key={i} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
+                              <span className="text-pink-400 font-semibold">WHERE</span>
+                              <span className="text-gray-300">{line.substring(line.indexOf('WHERE') + 5)}</span>
+                            </div>
+                          );
+                        } else if (line.trim().startsWith('GROUP')) {
+                          return (
+                            <div key={i} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
+                              <span className="text-pink-400 font-semibold">GROUP BY</span>
+                              <span className="text-gray-300">{line.substring(line.indexOf('BY') + 2)}</span>
+                            </div>
+                          );
+                        } else if (line.trim().startsWith('ORDER')) {
+                          return (
+                            <div key={i} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
+                              <span className="text-pink-400 font-semibold">ORDER BY</span>
+                              <span className="text-gray-300">{line.substring(line.indexOf('BY') + 2)}</span>
+                            </div>
+                          );
+                        } else {
+                          return (
+                            <div key={i} className="hover:bg-gray-800/30 px-2 -mx-2 rounded">
+                              <span className="text-gray-400">{line}</span>
+                            </div>
+                          );
+                        }
+                      })}
+                      {sqlText.length < sqlQuery.length && (
+                        <span className="inline-block w-[2px] h-4 bg-purple-500 ml-1 animate-pulse"></span>
+                      )}
+                    </code>
+                  </pre>
+                </div>
+
+                {sqlText.length >= sqlQuery.length && (
+                  <div className="px-4 py-2 bg-gray-900/50 border-t border-gray-700/50 flex items-center justify-between">
+                    <span className="text-[10px] text-gray-500">Query execution time: 0.043s</span>
+                    <span className="text-[10px] text-emerald-400 font-semibold">✓ 144 rows returned</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Right Panel - Data Visualization */}
+          <div className="flex flex-col gap-4">
+            {showChart ? (
+              <>
+                {/* Chart Header */}
+                <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 rounded-2xl border border-gray-700/50 p-5 backdrop-blur-sm animate-fadeIn">
+                  <div className="flex items-center justify-between mb-2">
+                    <div>
+                      <h2 className="text-[15px] font-bold text-white">Total Monthly Revenue</h2>
+                      <p className="text-[11px] text-gray-400 mt-0.5">January - December 2024</p>
+                    </div>
+                    <div className="px-3 py-1.5 bg-blue-500/10 border border-blue-400/20 rounded-lg">
+                      <span className="text-[11px] text-blue-300 font-semibold">BAR CHART</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Chart Canvas */}
+                <div className="flex-1 bg-gradient-to-br from-gray-900/90 to-gray-800/90 rounded-2xl border border-gray-700/50 p-6 backdrop-blur-sm overflow-hidden animate-fadeIn">
+                  <div className="h-full flex flex-col">
+                    {/* Chart title */}
+                    <div className="text-[11px] text-gray-400 font-semibold mb-4">Revenue (USD thousands)</div>
+                    
+                    {/* Main chart area */}
+                    <div className="flex-1 flex gap-3 min-h-0 pb-8">
+                      {/* Y-axis labels */}
+                      <div className="relative text-right pr-2" style={{ width: '45px' }}>
+                        <div className="absolute top-0 text-[10px] text-gray-500">3.0M</div>
+                        <div className="absolute text-[10px] text-gray-500" style={{ top: '25%' }}>2.25M</div>
+                        <div className="absolute text-[10px] text-gray-500" style={{ top: '50%' }}>1.5M</div>
+                        <div className="absolute text-[10px] text-gray-500" style={{ top: '75%' }}>0.75M</div>
+                        <div className="absolute bottom-0 text-[10px] text-gray-500">0</div>
+                      </div>
+
+                      {/* Chart canvas */}
+                      <div className="flex-1 relative">
+                        {/* Grid lines */}
+                        <div className="absolute inset-0 flex flex-col pointer-events-none">
+                          <div className="h-px bg-gray-800/60"></div>
+                          <div className="flex-1"></div>
+                          <div className="h-px bg-gray-800/60"></div>
+                          <div className="flex-1"></div>
+                          <div className="h-px bg-gray-800/60"></div>
+                          <div className="flex-1"></div>
+                          <div className="h-px bg-gray-800/60"></div>
+                          <div className="flex-1"></div>
+                          <div className="h-px bg-gray-800/60"></div>
+                        </div>
+
+                        {/* Bars */}
+                        <div className="absolute inset-0">
+                          {chartData.map((data, i) => {
+                            const barWidth = 100 / chartData.length;
+                            const heightPercent = (data.revenue / maxValue) * 100;
+                            
+                            return (
+                              <div key={i}>
+                                <div
+                                  className="absolute bottom-0 bg-gradient-to-t from-indigo-600 via-purple-500 to-purple-400 rounded-t-sm"
+                                  style={{
+                                    left: `${i * barWidth + 1}%`,
+                                    width: `${barWidth - 2}%`,
+                                    height: `${heightPercent}%`,
+                                    minHeight: '2px'
+                                  }}
+                                />
+                                <div
+                                  className="absolute text-[9px] text-gray-500"
+                                  style={{
+                                    left: `${i * barWidth + barWidth / 2}%`,
+                                    transform: 'translateX(-50%)',
+                                    bottom: '-24px'
+                                  }}
+                                >
+                                  {data.month}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Legend */}
+                    <div className="flex items-center justify-center gap-6 pt-4 mt-4 border-t border-gray-800/50">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded bg-gradient-to-br from-indigo-600 to-purple-400"></div>
+                        <span className="text-[10px] text-gray-400">Monthly Revenue</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] text-gray-500">2024 Total:</span>
+                        <span className="text-[10px] text-purple-400 font-bold">$22.98M</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="flex-1 bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl border border-dashed border-gray-700/50 flex items-center justify-center backdrop-blur-sm">
+                <div className="text-center">
+                  <div className="w-16 h-16 mx-auto mb-3 rounded-2xl bg-gray-800/50 flex items-center justify-center">
+                    <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                  <div className="text-[12px] text-gray-500 font-medium">Awaiting query execution...</div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Main Background Component
 const HeroBackground: React.FC = () => {
   const [currentScene, setCurrentScene] = useState(0);
@@ -297,12 +665,20 @@ const HeroBackground: React.FC = () => {
 
     // Scene timing: 5 seconds per scene
     const sceneInterval = setInterval(() => {
-      setCurrentScene((prev) => (prev + 1) % 1); // Only Scene A for now
+      setCurrentScene((prev) => (prev + 1) % 2); // Rotate between Scene A and Scene B
     }, 5000);
 
     return () => clearInterval(sceneInterval);
   }, [prefersReducedMotion]);
 
+  // TESTING: Show only Scene B
+  return (
+    <div className="absolute inset-0">
+      <SceneB isActive={true} />
+    </div>
+  );
+
+  /* ORIGINAL CODE - Restore when Scene B is complete
   if (prefersReducedMotion) {
     // Show static version for reduced motion
     return (
@@ -314,7 +690,7 @@ const HeroBackground: React.FC = () => {
 
   return (
     <div className="absolute inset-0">
-      {/* Scene A */}
+      {/* Scene A - Orion Logistics Knowledge Chatbot *\/
       <div 
         className={`absolute inset-0 transition-opacity duration-1000 ${
           currentScene === 0 ? 'opacity-100' : 'opacity-0'
@@ -322,8 +698,18 @@ const HeroBackground: React.FC = () => {
       >
         <SceneA isActive={currentScene === 0} />
       </div>
+
+      {/* Scene B - Aster Retail Analytics Co-Pilot *\/
+      <div 
+        className={`absolute inset-0 transition-opacity duration-1000 ${
+          currentScene === 1 ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <SceneB isActive={currentScene === 1} />
+      </div>
     </div>
   );
+  */
 };
 
 export default HeroBackground;
