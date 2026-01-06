@@ -1,24 +1,31 @@
 import React from 'react';
+import HeroBackground from './HeroBackground';
 
 const Hero: React.FC = () => {
   return (
     <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 z-0">
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-grid-pattern bg-[length:40px_40px] opacity-10"></div>
-
-        {/* Radial Glow */}
-        <div className="absolute inset-0 hero-glow"></div>
-        {/* Bottom Fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background-dark to-transparent"></div>
-        
-        {/* Animated Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[128px] animate-pulse-slow"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[128px] animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
+      {/* Layer 3: Full-Screen Demo Background (Bottom) */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <HeroBackground />
       </div>
 
-      <div className="relative z-10 container max-w-7xl mx-auto px-6 flex flex-col items-center text-center">
+      {/* Layer 2: Readability Overlay (Middle) */}
+      <div className="absolute inset-0 w-full h-full z-10">
+        {/* Primary overlay - ensures text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background-dark/70 via-background-dark/50 to-background-dark/75"></div>
+        
+        {/* Subtle noise texture overlay */}
+        <div className="absolute inset-0 opacity-[0.02] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=')]"></div>
+        
+        {/* Center vignette to emphasize hero text */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(10,15,20,0.4)_100%)]"></div>
+        
+        {/* Bottom gradient fade for smooth transition */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background-dark via-background-dark/50 to-transparent"></div>
+      </div>
+
+      {/* Layer 1: Foreground Content (Top) - Always Dominant */}
+      <div className="relative z-20 container max-w-7xl mx-auto px-6 flex flex-col items-center text-center">
         {/* Tag */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/20 text-primary text-xs font-bold tracking-wide uppercase mb-8 backdrop-blur-sm cursor-default hover:bg-primary/10 transition-colors">
           <span className="relative flex h-2 w-2">
@@ -56,7 +63,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-white/30">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-white/30 z-20">
         <span className="material-symbols-outlined">keyboard_arrow_down</span>
       </div>
     </section>

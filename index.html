@@ -39,6 +39,7 @@
               'beam': 'beam 3s linear infinite',
               'shimmer': 'shimmer 2s infinite',
               'text-gradient': 'text-gradient 5s ease infinite',
+              'fadeIn': 'fadeIn 0.6s ease-out',
             },
             keyframes: {
               scan: {
@@ -59,6 +60,10 @@
               'text-gradient': {
                 '0%, 100%': { backgroundSize: '200% 200%', backgroundPosition: 'left center' },
                 '50%': { backgroundSize: '200% 200%', backgroundPosition: 'right center' },
+              },
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' }
               }
             }
           },
