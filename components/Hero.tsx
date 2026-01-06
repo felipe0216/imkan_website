@@ -7,9 +7,6 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 z-0">
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-grid-pattern bg-[length:40px_40px] opacity-10"></div>
-        
-        {/* Cybernetic Scanner */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-primary/50 shadow-[0_0_20px_rgba(37,226,244,0.6)] animate-scan z-0"></div>
 
         {/* Radial Glow */}
         <div className="absolute inset-0 hero-glow"></div>
