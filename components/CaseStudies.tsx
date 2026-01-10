@@ -297,6 +297,7 @@ const CaseStudies: React.FC = () => {
   const closeModal = () => {
     setSelectedCase(null);
   };
+
   return (
     <section id="cases" className="w-full py-24 bg-background-dark relative overflow-hidden border-t border-white/5">
        {/* Background Stream Lines */}
@@ -355,7 +356,13 @@ const CaseStudies: React.FC = () => {
                    {/* Content Body */}
                    <div className="absolute bottom-0 left-0 right-0 p-6 h-2/5 flex flex-col justify-between bg-surface-dark/95 backdrop-blur-xl border-t border-white/5">
                       <div>
-                         <h3 className={`text-xl font-bold mb-2 text-white group-hover:${item.colorClass} transition-all duration-300`}>{item.title}</h3>
+                         <h3 className={`text-xl font-bold mb-2 text-white transition-all duration-300 ${
+                           item.colorClass === 'text-primary' ? 'group-hover:text-primary' : 
+                           item.colorClass === 'text-accent-green' ? 'group-hover:text-accent-green' : 
+                           'group-hover:text-purple-400'
+                         }`}>
+                           {item.title}
+                         </h3>
                          <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
                             {item.description}
                          </p>
@@ -374,8 +381,12 @@ const CaseStudies: React.FC = () => {
                          <div className="flex gap-2">
                             {/* Removed status indicator */}
                          </div>
-                         <button className={`text-white hover:${item.colorClass} hover:opacity-80 transition-all duration-300 flex items-center gap-2 text-sm font-bold group/btn`}>
-                            Read More <span className="material-symbols-outlined text-base group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                         <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold ${
+                           item.colorClass === 'text-primary' ? 'group-hover:text-primary' : 
+                           item.colorClass === 'text-accent-green' ? 'group-hover:text-accent-green' : 
+                           'group-hover:text-purple-400'
+                         }`}>
+                            Read More <span className="material-symbols-outlined text-base transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
                          </button>
                       </div>
                    </div>
@@ -429,7 +440,13 @@ const CaseStudies: React.FC = () => {
                {/* Content Body */}
                <div className="absolute bottom-0 left-0 right-0 p-6 h-2/5 flex flex-col justify-between bg-surface-dark/95 backdrop-blur-xl border-t border-white/5">
                   <div>
-                     <h3 className={`text-xl font-bold mb-2 text-white group-hover:${cases[5].colorClass} transition-all duration-300`}>{cases[5].title}</h3>
+                     <h3 className={`text-xl font-bold mb-2 text-white transition-all duration-300 ${
+                       cases[5].colorClass === 'text-primary' ? 'group-hover:text-primary' : 
+                       cases[5].colorClass === 'text-accent-green' ? 'group-hover:text-accent-green' : 
+                       'group-hover:text-purple-400'
+                     }`}>
+                       {cases[5].title}
+                     </h3>
                      <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
                         {cases[5].description}
                      </p>
@@ -448,7 +465,11 @@ const CaseStudies: React.FC = () => {
                      <div className="flex gap-2">
                         {/* Removed status indicator */}
                      </div>
-                     <button className={`text-white hover:${cases[5].colorClass} hover:opacity-80 transition-all duration-300 flex items-center gap-2 text-sm font-bold group/btn`}>
+                     <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold group/btn ${
+                       cases[5].colorClass === 'text-primary' ? 'hover:text-primary' : 
+                       cases[5].colorClass === 'text-accent-green' ? 'hover:text-accent-green' : 
+                       'hover:text-purple-400'
+                     }`}>
                         Read More <span className="material-symbols-outlined text-base group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
                      </button>
                   </div>
@@ -460,24 +481,23 @@ const CaseStudies: React.FC = () => {
                {/* Stronger fade overlay when collapsed - shrouded in mystery */}
                {!showAll && (
                  <>
-                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background-dark/70 to-background-dark pointer-events-none"></div>
-                   <div className="absolute inset-0 bg-background-dark/40 pointer-events-none"></div>
+                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background-dark/70 to-background-dark pointer-events-none z-10"></div>
+                   <div className="absolute inset-0 bg-background-dark/40 pointer-events-none z-10"></div>
                  </>
                )}
             </div>
 
-            {/* "See All Solutions" button overlay on 6th card when collapsed */}
+            {/* "See All Solutions" button - Positioned over the 6th card, OUTSIDE the blur filter */}
             {!showAll && (
-              <div className="absolute inset-0 flex items-center justify-end pr-4 pointer-events-none z-50">
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ zIndex: 100 }}>
                 <button 
                   onClick={(e) => {
                     e.stopPropagation();
                     setShowAll(true);
                   }}
-                  className="relative overflow-hidden bg-primary text-background-dark font-bold text-sm px-6 py-3 rounded-xl hover:bg-white transition-colors duration-300 shadow-[0_0_15px_rgba(37,226,244,0.3)] hover:shadow-[0_0_20px_rgba(37,226,244,0.5)] group pointer-events-auto"
-                  style={{ filter: 'none', backdropFilter: 'none' }}
+                  className="bg-primary text-background-dark font-bold text-sm px-6 py-3 rounded-xl hover:bg-white transition-colors duration-300 shadow-[0_0_15px_rgba(37,226,244,0.3)] hover:shadow-[0_0_20px_rgba(37,226,244,0.5)] group pointer-events-auto"
                 >
-                  <span className="relative z-10 flex items-center gap-2">
+                  <span className="flex items-center gap-2">
                     See All Solutions
                     <span className="material-symbols-outlined text-lg opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">chevron_right</span>
                   </span>
@@ -526,7 +546,13 @@ const CaseStudies: React.FC = () => {
                    {/* Content Body */}
                    <div className="absolute bottom-0 left-0 right-0 p-6 h-2/5 flex flex-col justify-between bg-surface-dark/95 backdrop-blur-xl border-t border-white/5">
                       <div>
-                         <h3 className={`text-xl font-bold mb-2 text-white group-hover:${item.colorClass} transition-all duration-300`}>{item.title}</h3>
+                         <h3 className={`text-xl font-bold mb-2 text-white transition-all duration-300 ${
+                           item.colorClass === 'text-primary' ? 'group-hover:text-primary' : 
+                           item.colorClass === 'text-accent-green' ? 'group-hover:text-accent-green' : 
+                           'group-hover:text-purple-400'
+                         }`}>
+                           {item.title}
+                         </h3>
                          <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
                             {item.description}
                          </p>
@@ -545,8 +571,12 @@ const CaseStudies: React.FC = () => {
                          <div className="flex gap-2">
                             {/* Removed status indicator */}
                          </div>
-                         <button className={`text-white hover:${item.colorClass} hover:opacity-80 transition-all duration-300 flex items-center gap-2 text-sm font-bold group/btn`}>
-                            Read More <span className="material-symbols-outlined text-base group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                         <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold ${
+                           item.colorClass === 'text-primary' ? 'group-hover:text-primary' : 
+                           item.colorClass === 'text-accent-green' ? 'group-hover:text-accent-green' : 
+                           'group-hover:text-purple-400'
+                         }`}>
+                            Read More <span className="material-symbols-outlined text-base transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
                          </button>
                       </div>
                    </div>
