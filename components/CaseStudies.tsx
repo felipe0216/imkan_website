@@ -16,7 +16,6 @@ interface CaseStudy {
   results: string[];
   tech: string[];
   techStackDetailed: string;
-  badge: string;
 }
 
 const cases: CaseStudy[] = [
@@ -41,8 +40,7 @@ const cases: CaseStudy[] = [
       "Decreased false positive rate by 75% through ML-based pattern recognition"
     ],
     tech: ["Kafka", "AWS Kinesis", "Databricks"],
-    techStackDetailed: "Apache Kafka for event streaming, AWS Kinesis for data ingestion, Databricks (Spark) for distributed ML processing, Python (scikit-learn, TensorFlow) for anomaly detection models, AWS S3 for data lake storage, Amazon RDS (PostgreSQL) for metadata management, Grafana for monitoring dashboards, AWS Lambda for serverless alerting.",
-    badge: "PRODUCTION"
+    techStackDetailed: "Apache Kafka for event streaming, AWS Kinesis for data ingestion, Databricks (Spark) for distributed ML processing, Python (scikit-learn, TensorFlow) for anomaly detection models, AWS S3 for data lake storage, Amazon RDS (PostgreSQL) for metadata management, Grafana for monitoring dashboards, AWS Lambda for serverless alerting."
   },
   // Vision 2030 Priority: Real Estate & Giga-Projects (Case 2)
   {
@@ -65,8 +63,7 @@ const cases: CaseStudy[] = [
       "Accelerated average sales cycle by 30% through better qualification"
     ],
     tech: ["Azure ML", "Power BI", "Snowflake"],
-    techStackDetailed: "Azure Machine Learning for model training and deployment, Snowflake for cloud data warehouse, Azure Synapse Analytics for data integration, Python (XGBoost, LightGBM) for gradient boosting models, Power BI for business intelligence dashboards, Azure Data Factory for ETL orchestration, Azure Cosmos DB for real-time user activity tracking, REST APIs for CRM integration.",
-    badge: "PRODUCTION"
+    techStackDetailed: "Azure Machine Learning for model training and deployment, Snowflake for cloud data warehouse, Azure Synapse Analytics for data integration, Python (XGBoost, LightGBM) for gradient boosting models, Power BI for business intelligence dashboards, Azure Data Factory for ETL orchestration, Azure Cosmos DB for real-time user activity tracking, REST APIs for CRM integration."
   },
   // Vision 2030 Priority: Logistics & Supply Chain (Case 3)
   {
@@ -89,8 +86,7 @@ const cases: CaseStudy[] = [
       "Validated all changes through simulation before rollout, eliminating costly mistakes"
     ],
     tech: ["Google OR-Tools", "GCP BigQuery", "Vertex AI"],
-    techStackDetailed: "Google OR-Tools for vehicle routing optimization, GCP BigQuery for data warehousing and analytics, Vertex AI for predictive demand forecasting, Python (SimPy, NumPy) for discrete event simulation, Google Maps API for real-time traffic data, Cloud Run for containerized microservices, Firestore for real-time courier tracking, Looker for operational dashboards.",
-    badge: "PRODUCTION"
+    techStackDetailed: "Google OR-Tools for vehicle routing optimization, GCP BigQuery for data warehousing and analytics, Vertex AI for predictive demand forecasting, Python (SimPy, NumPy) for discrete event simulation, Google Maps API for real-time traffic data, Cloud Run for containerized microservices, Firestore for real-time courier tracking, Looker for operational dashboards."
   },
   // Vision 2030 Priority: Banking & Digital Payments (Case 4)
   {
@@ -113,8 +109,7 @@ const cases: CaseStudy[] = [
       "Increased customer retention by 25% through targeted CLV-based interventions"
     ],
     tech: ["Snowflake", "AWS SageMaker", "Tableau"],
-    techStackDetailed: "Snowflake for cloud data warehouse, AWS SageMaker for ML model training and deployment, Python (XGBoost, CatBoost) for gradient boosting classifiers, AWS Lambda for serverless scoring APIs, Amazon S3 for feature storage, Tableau for risk analytics dashboards, AWS Step Functions for workflow orchestration, Amazon RDS (PostgreSQL) for application database.",
-    badge: "PRODUCTION"
+    techStackDetailed: "Snowflake for cloud data warehouse, AWS SageMaker for ML model training and deployment, Python (XGBoost, CatBoost) for gradient boosting classifiers, AWS Lambda for serverless scoring APIs, Amazon S3 for feature storage, Tableau for risk analytics dashboards, AWS Step Functions for workflow orchestration, Amazon RDS (PostgreSQL) for application database."
   },
   // Vision 2030 Priority: Retail & E-commerce (Case 5)
   {
@@ -137,8 +132,7 @@ const cases: CaseStudy[] = [
       "Accelerated sourcing decisions and improved supplier negotiations"
     ],
     tech: ["BigQuery", "Prophet", "Looker"],
-    techStackDetailed: "Google BigQuery for cloud data warehouse, Prophet (Facebook) for time-series forecasting, Python (Pandas, Statsmodels) for statistical analysis, Looker for BI dashboards, GCP Cloud Functions for automated forecasting runs, Cloud Scheduler for daily batch jobs, BigQuery ML for in-warehouse model training, Pub/Sub for event-driven alerts.",
-    badge: "PRODUCTION"
+    techStackDetailed: "Google BigQuery for cloud data warehouse, Prophet (Facebook) for time-series forecasting, Python (Pandas, Statsmodels) for statistical analysis, Looker for BI dashboards, GCP Cloud Functions for automated forecasting runs, Cloud Scheduler for daily batch jobs, BigQuery ML for in-warehouse model training, Pub/Sub for event-driven alerts."
   },
   // Vision 2030 Priority: Tourism & Hospitality (Case 6)
   {
@@ -161,8 +155,7 @@ const cases: CaseStudy[] = [
       "Unlocked hyper-personalized booking recommendations"
     ],
     tech: ["Databricks", "Delta Lake", "dbt"],
-    techStackDetailed: "Databricks for unified analytics platform, Delta Lake for ACID transactions on data lake, dbt (data build tool) for SQL-based transformation workflows, Apache Spark for distributed data processing, Python (PySpark) for ETL logic, AWS S3 for raw data storage, AWS Glue for metadata catalog, Tableau for self-service analytics, Great Expectations for data quality validation.",
-    badge: "PRODUCTION"
+    techStackDetailed: "Databricks for unified analytics platform, Delta Lake for ACID transactions on data lake, dbt (data build tool) for SQL-based transformation workflows, Apache Spark for distributed data processing, Python (PySpark) for ETL logic, AWS S3 for raw data storage, AWS Glue for metadata catalog, Tableau for self-service analytics, Great Expectations for data quality validation."
   },
   // Vision 2030 Priority: Banking Digital Transformation (Case 7)
   {
@@ -185,8 +178,7 @@ const cases: CaseStudy[] = [
       "Reduced time-to-production for new models by 60%"
     ],
     tech: ["Kafka", "Redis", "Feast"],
-    techStackDetailed: "Apache Kafka for event streaming, Feast (feature store framework) for feature management, Redis for low-latency feature serving, Apache Flink for stream processing, Kubernetes for container orchestration, PostgreSQL for feature metadata, AWS S3 for offline feature storage, MLflow for model versioning, Python (PySpark, Pandas) for feature engineering.",
-    badge: "PRODUCTION"
+    techStackDetailed: "Apache Kafka for event streaming, Feast (feature store framework) for feature management, Redis for low-latency feature serving, Apache Flink for stream processing, Kubernetes for container orchestration, PostgreSQL for feature metadata, AWS S3 for offline feature storage, MLflow for model versioning, Python (PySpark, Pandas) for feature engineering."
   },
   // Vision 2030 Priority: Tourism Infrastructure (Case 8)
   {
@@ -209,8 +201,7 @@ const cases: CaseStudy[] = [
       "Reduced query response times from hours to seconds"
     ],
     tech: ["Snowflake", "Fivetran", "Sigma"],
-    techStackDetailed: "Snowflake for cloud data warehouse, Fivetran for automated data integration, Sigma Computing for self-service BI, dbt for transformation logic, Apache Airflow for workflow orchestration, AWS Kinesis for real-time streaming ingestion, Monte Carlo for data observability, Atlan for data catalog and governance, Snowpipe for continuous data loading.",
-    badge: "PRODUCTION"
+    techStackDetailed: "Snowflake for cloud data warehouse, Fivetran for automated data integration, Sigma Computing for self-service BI, dbt for transformation logic, Apache Airflow for workflow orchestration, AWS Kinesis for real-time streaming ingestion, Monte Carlo for data observability, Atlan for data catalog and governance, Snowpipe for continuous data loading."
   },
   // Vision 2030 Priority: Retail Sector Growth (Case 9)
   {
@@ -233,8 +224,7 @@ const cases: CaseStudy[] = [
       "Empowered 100+ business users with self-service analytics"
     ],
     tech: ["Azure Synapse", "ADF", "Power BI"],
-    techStackDetailed: "Azure Synapse Analytics for unified analytics platform, Azure Data Factory (ADF) for ETL orchestration, Power BI for business intelligence, Azure Data Lake Gen2 for data lake storage, Azure Databricks for advanced analytics, Python (PySpark) for data transformations, Azure DevOps for CI/CD pipelines, Microsoft Purview for data governance and cataloging.",
-    badge: "PRODUCTION"
+    techStackDetailed: "Azure Synapse Analytics for unified analytics platform, Azure Data Factory (ADF) for ETL orchestration, Power BI for business intelligence, Azure Data Lake Gen2 for data lake storage, Azure Databricks for advanced analytics, Python (PySpark) for data transformations, Azure DevOps for CI/CD pipelines, Microsoft Purview for data governance and cataloging."
   },
   // Vision 2030 Priority: Healthcare Quality & AI (Case 10)
   {
@@ -257,8 +247,7 @@ const cases: CaseStudy[] = [
       "Enabled confident deployment of AI in clinical workflows"
     ],
     tech: ["OpenAI API", "LangChain", "MLflow"],
-    techStackDetailed: "OpenAI GPT-4 API for LLM capabilities, LangChain for LLM orchestration and chaining, MLflow for experiment tracking and model registry, PostgreSQL for audit logs and versioning, FastAPI for REST APIs, Docker for containerization, Kubernetes for orchestration, Prometheus + Grafana for monitoring, Python (NLTK, spaCy) for NLP evaluation, Weights & Biases for model performance tracking.",
-    badge: "PRODUCTION"
+    techStackDetailed: "OpenAI GPT-4 API for LLM capabilities, LangChain for LLM orchestration and chaining, MLflow for experiment tracking and model registry, PostgreSQL for audit logs and versioning, FastAPI for REST APIs, Docker for containerization, Kubernetes for orchestration, Prometheus + Grafana for monitoring, Python (NLTK, spaCy) for NLP evaluation, Weights & Biases for model performance tracking."
   },
   // Vision 2030 Priority: Customer Service AI (Case 11)
   {
@@ -281,10 +270,29 @@ const cases: CaseStudy[] = [
       "Enabled 24/7 customer service with instant response times"
     ],
     tech: ["LangGraph", "ChromaDB", "Azure OpenAI"],
-    techStackDetailed: "LangGraph for agentic workflow orchestration, Azure OpenAI Service (GPT-4) for conversational AI, ChromaDB for vector database and semantic search, LangChain for LLM chaining, Redis for session management, FastAPI for backend APIs, PostgreSQL for transaction logs, Twilio for omnichannel communication, Salesforce API for CRM integration, Stripe API for payment processing.",
-    badge: "PRODUCTION"
+    techStackDetailed: "LangGraph for agentic workflow orchestration, Azure OpenAI Service (GPT-4) for conversational AI, ChromaDB for vector database and semantic search, LangChain for LLM chaining, Redis for session management, FastAPI for backend APIs, PostgreSQL for transaction logs, Twilio for omnichannel communication, Salesforce API for CRM integration, Stripe API for payment processing."
   }
 ];
+
+// Helper function to get hover color classes
+const getHoverColorClass = (colorClass: string): string => {
+  const hoverMap: Record<string, string> = {
+    'text-primary': 'group-hover:text-primary',
+    'text-accent-green': 'group-hover:text-accent-green',
+    'text-purple-400': 'group-hover:text-purple-400',
+  };
+  return hoverMap[colorClass] || 'group-hover:text-white';
+};
+
+// Helper function to get gradient styles for dynamic colors
+const getGradientStyle = (color: string) => {
+  const gradientMap: Record<string, string> = {
+    'primary': 'linear-gradient(to right, #25e2f4, transparent)',
+    'accent-green': 'linear-gradient(to right, #a3e635, transparent)',
+    'purple': 'linear-gradient(to right, rgb(168, 85, 247), transparent)',
+  };
+  return { backgroundImage: gradientMap[color] || gradientMap['primary'] };
+};
 
 const CaseStudies: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
@@ -330,7 +338,7 @@ const CaseStudies: React.FC = () => {
                 <div className="w-full h-full bg-surface-dark border border-white/10 rounded-xl overflow-hidden relative transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] group-hover:border-white/20">
                    
                    {/* Holographic Top Bar */}
-                   <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-${item.color} to-transparent z-20`}></div>
+                   <div className="absolute top-0 left-0 right-0 h-1 z-20" style={getGradientStyle(item.color)}></div>
 
                    {/* Image Container */}
                    <div className="h-3/5 w-full relative overflow-hidden">
@@ -356,11 +364,7 @@ const CaseStudies: React.FC = () => {
                    {/* Content Body */}
                    <div className="absolute bottom-0 left-0 right-0 p-6 h-2/5 flex flex-col justify-between bg-surface-dark/95 backdrop-blur-xl border-t border-white/5">
                       <div>
-                         <h3 className={`text-xl font-bold mb-2 text-white transition-all duration-300 ${
-                           item.colorClass === 'text-primary' ? 'group-hover:text-primary' : 
-                           item.colorClass === 'text-accent-green' ? 'group-hover:text-accent-green' : 
-                           'group-hover:text-purple-400'
-                         }`}>
+                         <h3 className={`text-xl font-bold mb-2 text-white transition-all duration-300 ${getHoverColorClass(item.colorClass)}`}>
                            {item.title}
                          </h3>
                          <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
@@ -381,11 +385,7 @@ const CaseStudies: React.FC = () => {
                          <div className="flex gap-2">
                             {/* Removed status indicator */}
                          </div>
-                         <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold ${
-                           item.colorClass === 'text-primary' ? 'group-hover:text-primary' : 
-                           item.colorClass === 'text-accent-green' ? 'group-hover:text-accent-green' : 
-                           'group-hover:text-purple-400'
-                         }`}>
+                         <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold ${getHoverColorClass(item.colorClass)}`}>
                             Read More <span className="material-symbols-outlined text-base transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
                          </button>
                       </div>
@@ -466,11 +466,7 @@ const CaseStudies: React.FC = () => {
                        <div className="flex gap-2">
                           {/* Removed status indicator */}
                        </div>
-                       <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold group/btn ${
-                         cases[5].colorClass === 'text-primary' ? 'hover:text-primary' : 
-                         cases[5].colorClass === 'text-accent-green' ? 'hover:text-accent-green' : 
-                         'hover:text-purple-400'
-                       }`}>
+                       <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold group/btn ${getHoverColorClass(cases[5].colorClass).replace('group-hover:', 'hover:')}`}>
                           Read More <span className="material-symbols-outlined text-base group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
                        </button>
                     </div>
@@ -522,7 +518,7 @@ const CaseStudies: React.FC = () => {
                 <div className="w-full h-full bg-surface-dark border border-white/10 rounded-xl overflow-hidden relative transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] group-hover:border-white/20">
                    
                    {/* Holographic Top Bar */}
-                   <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-${item.color} to-transparent z-20`}></div>
+                   <div className="absolute top-0 left-0 right-0 h-1 z-20" style={getGradientStyle(item.color)}></div>
 
                    {/* Image Container */}
                    <div className="h-3/5 w-full relative overflow-hidden">
@@ -548,11 +544,7 @@ const CaseStudies: React.FC = () => {
                    {/* Content Body */}
                    <div className="absolute bottom-0 left-0 right-0 p-6 h-2/5 flex flex-col justify-between bg-surface-dark/95 backdrop-blur-xl border-t border-white/5">
                       <div>
-                         <h3 className={`text-xl font-bold mb-2 text-white transition-all duration-300 ${
-                           item.colorClass === 'text-primary' ? 'group-hover:text-primary' : 
-                           item.colorClass === 'text-accent-green' ? 'group-hover:text-accent-green' : 
-                           'group-hover:text-purple-400'
-                         }`}>
+                         <h3 className={`text-xl font-bold mb-2 text-white transition-all duration-300 ${getHoverColorClass(item.colorClass)}`}>
                            {item.title}
                          </h3>
                          <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
@@ -573,11 +565,7 @@ const CaseStudies: React.FC = () => {
                          <div className="flex gap-2">
                             {/* Removed status indicator */}
                          </div>
-                         <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold ${
-                           item.colorClass === 'text-primary' ? 'group-hover:text-primary' : 
-                           item.colorClass === 'text-accent-green' ? 'group-hover:text-accent-green' : 
-                           'group-hover:text-purple-400'
-                         }`}>
+                         <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold ${getHoverColorClass(item.colorClass)}`}>
                             Read More <span className="material-symbols-outlined text-base transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
                          </button>
                       </div>
