@@ -397,99 +397,101 @@ const CaseStudies: React.FC = () => {
              </div>
           ))}
 
-          {/* 6th card - Half visible with fade when collapsed, full when expanded */}
-          <div 
-            className="group relative h-[500px] perspective-1000 transition-all duration-700 ease-out overflow-hidden"
-            style={{
-              width: showAll ? '420px' : '210px',
-              opacity: showAll ? 1 : 0.3,
-              filter: showAll ? 'none' : 'blur(2px)',
-              pointerEvents: showAll ? 'auto' : 'none',
-            }}
-            onClick={() => showAll && handleCaseClick(cases[5])}
-          >
-            {/* Connecting Line */}
-            <div className="absolute top-1/2 -left-8 w-8 h-[1px] bg-white/20 hidden md:block"></div>
+          {/* 6th card wrapper - Button positioned OUTSIDE to avoid blur cascade */}
+          <div className="relative h-[500px] transition-all duration-700 ease-out" style={{ width: showAll ? '420px' : '210px' }}>
+            {/* 6th card - Half visible with fade when collapsed, full when expanded */}
+            <div 
+              className="group relative h-full perspective-1000 overflow-hidden"
+              style={{
+                opacity: showAll ? 1 : 0.3,
+                filter: showAll ? 'none' : 'blur(2px)',
+                pointerEvents: showAll ? 'auto' : 'none',
+              }}
+              onClick={() => showAll && handleCaseClick(cases[5])}
+            >
+              {/* Connecting Line */}
+              <div className="absolute top-1/2 -left-8 w-8 h-[1px] bg-white/20 hidden md:block"></div>
 
-            <div className="w-[340px] md:w-[420px] h-full bg-surface-dark border border-white/10 rounded-xl overflow-hidden relative transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] group-hover:border-white/20">
-               
-               {/* Holographic Top Bar */}
-               <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-${cases[5].color} to-transparent z-20`}></div>
+              <div className="w-[340px] md:w-[420px] h-full bg-surface-dark border border-white/10 rounded-xl overflow-hidden relative transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] group-hover:border-white/20">
+                 
+                 {/* Holographic Top Bar */}
+                 <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-${cases[5].color} to-transparent z-20`}></div>
 
-               {/* Image Container */}
-               <div className="h-3/5 w-full relative overflow-hidden">
-                  <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 grayscale" style={{ backgroundImage: `url(${cases[5].image})` }}></div>
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-dark/50 to-surface-dark"></div>
-                  
-                  {/* Floating Category Tag */}
-                  <div className="absolute top-6 left-6 backdrop-blur-md bg-black/30 border border-white/10 px-3 py-1 rounded text-xs font-mono text-white/80 uppercase tracking-widest">
-                     {cases[5].category}
-                  </div>
+                 {/* Image Container */}
+                 <div className="h-3/5 w-full relative overflow-hidden">
+                    <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 grayscale" style={{ backgroundImage: `url(${cases[5].image})` }}></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-dark/50 to-surface-dark"></div>
+                    
+                    {/* Floating Category Tag */}
+                    <div className="absolute top-6 left-6 backdrop-blur-md bg-black/30 border border-white/10 px-3 py-1 rounded text-xs font-mono text-white/80 uppercase tracking-widest">
+                       {cases[5].category}
+                    </div>
 
-                  {/* Stat Overlay (Hidden until hover) */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100">
-                     <div className={`text-5xl font-black text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] tracking-tighter`}>
-                        {cases[5].stat}
-                     </div>
-                     <div className={`text-xs font-bold uppercase tracking-widest mt-1 ${cases[5].colorClass}`}>
-                        {cases[5].statLabel}
-                     </div>
-                  </div>
-               </div>
+                    {/* Stat Overlay (Hidden until hover) */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100">
+                       <div className={`text-5xl font-black text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] tracking-tighter`}>
+                          {cases[5].stat}
+                       </div>
+                       <div className={`text-xs font-bold uppercase tracking-widest mt-1 ${cases[5].colorClass}`}>
+                          {cases[5].statLabel}
+                       </div>
+                    </div>
+                 </div>
 
-               {/* Content Body */}
-               <div className="absolute bottom-0 left-0 right-0 p-6 h-2/5 flex flex-col justify-between bg-surface-dark/95 backdrop-blur-xl border-t border-white/5">
-                  <div>
-                     <h3 className={`text-xl font-bold mb-2 text-white transition-all duration-300 ${
-                       cases[5].colorClass === 'text-primary' ? 'group-hover:text-primary' : 
-                       cases[5].colorClass === 'text-accent-green' ? 'group-hover:text-accent-green' : 
-                       'group-hover:text-purple-400'
-                     }`}>
-                       {cases[5].title}
-                     </h3>
-                     <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
-                        {cases[5].description}
-                     </p>
-                  </div>
-                  
-                  {/* Technology Stack Badges */}
-                  <div className="flex flex-wrap gap-1.5 mt-2 mb-2">
-                     {cases[5].tech.map((tech, idx) => (
-                        <span key={idx} className="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-[9px] text-gray-400 font-mono uppercase tracking-wider">
-                           {tech}
-                        </span>
-                     ))}
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                     <div className="flex gap-2">
-                        {/* Removed status indicator */}
-                     </div>
-                     <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold group/btn ${
-                       cases[5].colorClass === 'text-primary' ? 'hover:text-primary' : 
-                       cases[5].colorClass === 'text-accent-green' ? 'hover:text-accent-green' : 
-                       'hover:text-purple-400'
-                     }`}>
-                        Read More <span className="material-symbols-outlined text-base group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-                     </button>
-                  </div>
-               </div>
-               
-               {/* Scanline Effect */}
-               <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.3)_50%)] bg-[size:100%_4px] pointer-events-none opacity-20"></div>
+                 {/* Content Body */}
+                 <div className="absolute bottom-0 left-0 right-0 p-6 h-2/5 flex flex-col justify-between bg-surface-dark/95 backdrop-blur-xl border-t border-white/5">
+                    <div>
+                       <h3 className={`text-xl font-bold mb-2 text-white transition-all duration-300 ${
+                         cases[5].colorClass === 'text-primary' ? 'group-hover:text-primary' : 
+                         cases[5].colorClass === 'text-accent-green' ? 'group-hover:text-accent-green' : 
+                         'group-hover:text-purple-400'
+                       }`}>
+                         {cases[5].title}
+                       </h3>
+                       <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
+                          {cases[5].description}
+                       </p>
+                    </div>
+                    
+                    {/* Technology Stack Badges */}
+                    <div className="flex flex-wrap gap-1.5 mt-2 mb-2">
+                       {cases[5].tech.map((tech, idx) => (
+                          <span key={idx} className="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-[9px] text-gray-400 font-mono uppercase tracking-wider">
+                             {tech}
+                          </span>
+                       ))}
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                       <div className="flex gap-2">
+                          {/* Removed status indicator */}
+                       </div>
+                       <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold group/btn ${
+                         cases[5].colorClass === 'text-primary' ? 'hover:text-primary' : 
+                         cases[5].colorClass === 'text-accent-green' ? 'hover:text-accent-green' : 
+                         'hover:text-purple-400'
+                       }`}>
+                          Read More <span className="material-symbols-outlined text-base group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                       </button>
+                    </div>
+                 </div>
+                 
+                 {/* Scanline Effect */}
+                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.3)_50%)] bg-[size:100%_4px] pointer-events-none opacity-20"></div>
 
-               {/* Stronger fade overlay when collapsed - shrouded in mystery */}
-               {!showAll && (
-                 <>
-                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background-dark/70 to-background-dark pointer-events-none z-10"></div>
-                   <div className="absolute inset-0 bg-background-dark/40 pointer-events-none z-10"></div>
-                 </>
-               )}
+                 {/* Stronger fade overlay when collapsed - shrouded in mystery */}
+                 {!showAll && (
+                   <>
+                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background-dark/70 to-background-dark pointer-events-none z-10"></div>
+                     <div className="absolute inset-0 bg-background-dark/40 pointer-events-none z-10"></div>
+                   </>
+                 )}
+              </div>
             </div>
 
-            {/* "See All Solutions" button - Positioned over the 6th card, OUTSIDE the blur filter */}
+            {/* "See All Solutions" button - Positioned OUTSIDE the blur filter as a sibling */}
             {!showAll && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ zIndex: 100 }}>
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-50">
                 <button 
                   onClick={(e) => {
                     e.stopPropagation();
