@@ -196,44 +196,89 @@ const WhyUs: React.FC = () => {
           </div>
         </div>
 
-        {/* Card Deck Carousel with Fan Effect */}
-        <div className="relative w-full" style={{ minHeight: '650px', paddingBottom: '80px' }}>
-          {/* All Cards - Stacked Fan Effect */}
-          <div className="absolute left-0 right-0 top-0 flex items-start justify-center pt-8">
+        {/* Card Deck Carousel with Subtle Stack & Side Navigation */}
+        <div className="relative w-full px-4 md:px-16" style={{ minHeight: '580px' }}>
+          
+          {/* Previous Button - Left Side */}
+          <button
+            onClick={handlePrev}
+            disabled={currentIndex === 0}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-[200] group size-12 md:size-14 rounded-full transition-all duration-300 flex items-center justify-center ${
+              currentIndex === 0
+                ? 'bg-white/5 border border-white/5 text-gray-600 cursor-not-allowed'
+                : 'bg-surface-dark/80 backdrop-blur-xl border border-white/20 text-white hover:bg-primary hover:border-primary hover:shadow-[0_0_20px_rgba(37,226,244,0.5)] hover:scale-110'
+            }`}
+          >
+            <span className="material-symbols-outlined text-xl group-hover:-translate-x-0.5 transition-transform">
+              chevron_left
+            </span>
+          </button>
+
+          {/* Next Button - Right Side */}
+          <button
+            onClick={handleNext}
+            disabled={currentIndex === differentiators.length - 1}
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-[200] group size-12 md:size-14 rounded-full transition-all duration-300 flex items-center justify-center ${
+              currentIndex === differentiators.length - 1
+                ? 'bg-white/5 border border-white/5 text-gray-600 cursor-not-allowed'
+                : 'bg-surface-dark/80 backdrop-blur-xl border border-white/20 text-white hover:bg-primary hover:border-primary hover:shadow-[0_0_20px_rgba(37,226,244,0.5)] hover:scale-110'
+            }`}
+          >
+            <span className="material-symbols-outlined text-xl group-hover:translate-x-0.5 transition-transform">
+              chevron_right
+            </span>
+          </button>
+
+          {/* All Cards - Subtle Stacked Effect */}
+          <div className="relative flex items-start justify-center" style={{ minHeight: '580px' }}>
             {differentiators.map((card, index) => {
               const isActive = index === currentIndex;
               const isPast = index < currentIndex;
               const isFuture = index > currentIndex;
               
-              // Fan effect calculations - More dramatic for visibility
+              // Subtle stack effect - only show edge of next cards
               const positionFromActive = index - currentIndex;
               
-              // More visible rotation and offsets
-              const rotation = isFuture ? positionFromActive * 6 : isPast ? -10 : 0; // 6 degrees per card, -10 for past
-              const xOffset = isFuture ? positionFromActive * 50 : isPast ? -100 : 0; // 50px right per card
-              const yOffset = isFuture ? -positionFromActive * 20 : isPast ? -50 : 0; // 20px up per card
-              const scale = isActive ? 1 : isFuture ? 0.96 - (positionFromActive * 0.02) : 0.85;
-              const opacity = isPast ? 0 : isFuture ? Math.max(0.5, 1 - (positionFromActive * 0.12)) : 1;
+              // Subtle rotation to the left (negative for leftward tilt) and minimal offsets
+              const rotation = isFuture 
+                ? positionFromActive * -2  // Subtle leftward tilt for future cards
+                : isPast 
+                  ? -45  // Exit to the left with dramatic angle
+                  : 0;
+              
+              const xOffset = isFuture 
+                ? positionFromActive * 15  // Only 15px offset - just peek the edge
+                : isPast 
+                  ? -300  // Exit far to the left
+                  : 0;
+              
+              const yOffset = 0; // Keep vertical alignment
+              
+              const scale = isActive ? 1 : isFuture ? 0.98 : 0.92; // Subtle scale for depth
+              const opacity = isPast ? 0 : isFuture ? (positionFromActive === 1 ? 0.7 : 0.4) : 1; // Only first card behind is more visible
               const zIndex = isPast ? 0 : isFuture ? differentiators.length - index + 10 : 100;
               
               return (
                 <div
                   key={card.id}
-                  className="absolute w-full max-w-4xl"
+                  className="absolute w-full max-w-5xl"
                   style={{
                     transform: `
-                      translate(${xOffset}px, ${yOffset}px) 
-                      rotate(${rotation}deg) 
+                      translateX(${xOffset}px) 
+                      translateY(${yOffset}px) 
+                      rotateZ(${rotation}deg) 
                       scale(${scale})
                     `,
-                    transformOrigin: 'center center',
+                    transformOrigin: 'center left',
                     zIndex: zIndex,
                     opacity: opacity,
                     pointerEvents: isActive ? 'auto' : 'none',
-                    transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)', // Smooth bounce-back effect
+                    transition: 'all 0.7s cubic-bezier(0.22, 1, 0.36, 1)', // Smooth, professional easing
                   }}
                 >
-                  <div className={`glass-card rounded-3xl p-6 md:p-10 border ${isActive ? 'border-white/20 shadow-2xl' : 'border-white/10'} bg-surface-dark relative overflow-hidden min-h-[500px]`}>
+                  <div className={`glass-card rounded-2xl md:rounded-3xl p-5 md:p-8 border ${isActive ? 'border-white/20 shadow-2xl' : 'border-white/10'} bg-surface-dark relative overflow-hidden`}
+                    style={{ minHeight: '520px' }}
+                  >
                     {/* Accent Gradient Overlay */}
                     <div 
                       className={`absolute inset-0 transition-opacity duration-500 ${isActive ? 'opacity-5' : 'opacity-0'}`}
@@ -246,29 +291,29 @@ const WhyUs: React.FC = () => {
                     {(isActive || Math.abs(positionFromActive) <= 2) && (
                       <div className="relative z-10">
                         {/* Header - Always visible for stacked cards */}
-                        <div className="flex items-start justify-between mb-6 flex-wrap gap-4">
-                          <div className="flex items-center gap-3 md:gap-4">
+                        <div className="flex items-start justify-between mb-4 md:mb-5 flex-wrap gap-3 md:gap-4">
+                          <div className="flex items-center gap-2 md:gap-3">
                             <div 
-                              className="size-14 md:size-16 rounded-2xl bg-gradient-to-br from-gray-800 to-black border border-white/10 flex items-center justify-center shadow-lg flex-shrink-0"
+                              className="size-12 md:size-14 rounded-xl md:rounded-2xl bg-gradient-to-br from-gray-800 to-black border border-white/10 flex items-center justify-center shadow-lg flex-shrink-0"
                               style={{ boxShadow: isActive ? `0 0 30px ${card.accentColor}20` : 'none' }}
                             >
-                              <span className={`material-symbols-outlined text-2xl md:text-3xl ${card.colorClass}`}>
+                              <span className={`material-symbols-outlined text-xl md:text-2xl ${card.colorClass}`}>
                                 {card.icon}
                               </span>
                             </div>
                             <div>
-                              <h3 className="text-xl md:text-3xl font-bold text-white mb-1">
+                              <h3 className="text-lg md:text-2xl font-bold text-white mb-0.5">
                                 {card.title}
                               </h3>
-                              <p className={`text-xs md:text-sm font-medium ${card.colorClass}`}>
+                              <p className={`text-[10px] md:text-xs font-medium ${card.colorClass}`}>
                                 {card.subtitle}
                               </p>
                             </div>
                           </div>
                           
                           {/* Card Number Badge */}
-                          <div className="size-10 md:size-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
-                            <span className="text-white text-base md:text-lg font-bold">{card.id}</span>
+                          <div className="size-9 md:size-10 rounded-lg md:rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
+                            <span className="text-white text-sm md:text-base font-bold">{card.id}</span>
                           </div>
                         </div>
 
@@ -276,21 +321,21 @@ const WhyUs: React.FC = () => {
                         {isActive && (
                           <>
                             {/* Description */}
-                            <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-6 max-w-3xl">
+                            <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-4 md:mb-5 max-w-3xl">
                               {card.description}
                             </p>
 
                             {/* Features Grid */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-1.5 md:gap-2 mb-4 md:mb-5">
                               {card.features.map((feature, idx) => (
                                 <div 
                                   key={idx} 
-                                  className="flex items-start gap-2 p-2 md:p-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-all duration-300 group"
+                                  className="flex items-start gap-1.5 md:gap-2 p-2 md:p-2.5 rounded-lg md:rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-all duration-300 group"
                                 >
-                                  <span className={`material-symbols-outlined text-sm mt-0.5 ${card.colorClass} group-hover:scale-110 transition-transform flex-shrink-0`}>
+                                  <span className={`material-symbols-outlined text-xs md:text-sm mt-0.5 ${card.colorClass} group-hover:scale-110 transition-transform flex-shrink-0`}>
                                     check_circle
                                   </span>
-                                  <span className="text-gray-400 text-xs md:text-sm leading-relaxed flex-1">
+                                  <span className="text-gray-400 text-[10px] md:text-xs leading-relaxed flex-1">
                                     {feature}
                                   </span>
                                 </div>
@@ -299,14 +344,14 @@ const WhyUs: React.FC = () => {
 
                             {/* Visual Elements / Stats */}
                             {card.stats && (
-                              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
                                 {card.stats.map((stat, idx) => (
                                   <div 
                                     key={idx}
-                                    className="p-3 rounded-xl bg-black/40 border border-white/5 hover:border-white/10 transition-all"
+                                    className="p-2 md:p-2.5 rounded-lg md:rounded-xl bg-black/40 border border-white/5 hover:border-white/10 transition-all"
                                   >
-                                    <div className="text-[10px] md:text-xs text-gray-500 mb-1">{stat.label}</div>
-                                    <div className={`text-xl md:text-2xl font-bold ${stat.color}`}>
+                                    <div className="text-[9px] md:text-[10px] text-gray-500 mb-0.5">{stat.label}</div>
+                                    <div className={`text-base md:text-xl font-bold ${stat.color}`}>
                                       {stat.value}
                                     </div>
                                   </div>
@@ -316,7 +361,7 @@ const WhyUs: React.FC = () => {
 
                             {/* Additional Visuals Based on Card Type */}
                             {card.visual === 'velocity' && (
-                              <div className="flex gap-1 items-end h-16 w-full mt-4 opacity-50 hover:opacity-100 transition-opacity">
+                              <div className="flex gap-1 items-end h-12 md:h-14 w-full mt-3 opacity-50 hover:opacity-100 transition-opacity">
                                 {[40, 70, 50, 90, 60, 85, 45, 95, 65, 80, 55, 75].map((height, i) => (
                                   <div key={i} className="flex-1 bg-accent-green/20 rounded-t-sm relative overflow-hidden">
                                     <div 
@@ -329,27 +374,27 @@ const WhyUs: React.FC = () => {
                             )}
 
                             {card.visual === 'health' && (
-                              <div className="p-4 bg-black/40 rounded-xl border border-white/5 mt-4">
-                                <div className="flex items-center justify-between mb-3">
-                                  <span className="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">System Health Monitor</span>
-                                  <span className="text-[10px] text-green-400 font-bold">99.97% Uptime</span>
+                              <div className="p-3 md:p-4 bg-black/40 rounded-lg md:rounded-xl border border-white/5 mt-3">
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-[9px] md:text-[10px] text-gray-500 uppercase tracking-wider font-semibold">System Health Monitor</span>
+                                  <span className="text-[9px] md:text-[10px] text-green-400 font-bold">99.97% Uptime</span>
                                 </div>
-                                <div className="space-y-2">
+                                <div className="space-y-1.5 md:space-y-2">
                                   {[
                                     { name: 'API Gateway', uptime: 100 },
                                     { name: 'Database Cluster', uptime: 100 },
                                     { name: 'ML Inference', uptime: 98 },
                                     { name: 'Data Pipeline', uptime: 100 },
                                   ].map((service, idx) => (
-                                    <div key={idx} className="flex items-center gap-3">
-                                      <span className="text-[10px] text-gray-400 w-28">{service.name}</span>
-                                      <div className="flex-1 h-1.5 bg-gray-800 rounded-full overflow-hidden">
+                                    <div key={idx} className="flex items-center gap-2 md:gap-3">
+                                      <span className="text-[9px] md:text-[10px] text-gray-400 w-20 md:w-24">{service.name}</span>
+                                      <div className="flex-1 h-1 md:h-1.5 bg-gray-800 rounded-full overflow-hidden">
                                         <div 
                                           className="h-full bg-green-500 rounded-full transition-all duration-1000"
                                           style={{ width: `${service.uptime}%`, transitionDelay: `${idx * 100}ms` }}
                                         ></div>
                                       </div>
-                                      <span className="text-[10px] text-green-400 font-bold w-10 text-right">{service.uptime}%</span>
+                                      <span className="text-[9px] md:text-[10px] text-green-400 font-bold w-8 md:w-10 text-right">{service.uptime}%</span>
                                     </div>
                                   ))}
                                 </div>
@@ -357,7 +402,7 @@ const WhyUs: React.FC = () => {
                             )}
 
                             {card.visual === 'workflow' && (
-                              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+                              <div className="grid grid-cols-3 gap-2 mt-3">
                                 {[
                                   { icon: 'psychology', label: 'Reasoning', desc: 'Context understanding', color: 'purple' },
                                   { icon: 'search', label: 'Retrieval', desc: 'Knowledge access', color: 'blue' },
@@ -365,32 +410,32 @@ const WhyUs: React.FC = () => {
                                 ].map((step, idx) => (
                                   <div 
                                     key={idx}
-                                    className="p-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-all group"
+                                    className="p-2 md:p-2.5 rounded-lg md:rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-all group"
                                   >
-                                    <span className={`material-symbols-outlined text-${step.color}-400 text-xl mb-1 block group-hover:scale-110 transition-transform`}>
+                                    <span className={`material-symbols-outlined text-${step.color}-400 text-base md:text-lg mb-0.5 block group-hover:scale-110 transition-transform`}>
                                       {step.icon}
                                     </span>
-                                    <div className={`text-${step.color}-400 text-xs font-bold mb-0.5`}>{step.label}</div>
-                                    <div className="text-gray-500 text-[10px]">{step.desc}</div>
+                                    <div className={`text-${step.color}-400 text-[9px] md:text-[10px] font-bold mb-0.5`}>{step.label}</div>
+                                    <div className="text-gray-500 text-[8px] md:text-[9px]">{step.desc}</div>
                                   </div>
                                 ))}
                               </div>
                             )}
 
                             {card.visual === 'library' && (
-                              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4">
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5 md:gap-2 mt-3">
                                 {[
                                   { icon: 'database', label: 'Data Pipelines', count: '12+' },
                                   { icon: 'smart_toy', label: 'AI Agents', count: '8+' },
                                   { icon: 'dashboard', label: 'Dashboards', count: '15+' },
                                   { icon: 'integration_instructions', label: 'Integrations', count: '20+' },
                                 ].map((item, i) => (
-                                  <div key={i} className="p-3 rounded-xl bg-white/5 border border-white/5 hover:border-emerald-500/30 transition-all group text-center">
-                                    <span className="material-symbols-outlined text-emerald-400 text-2xl mb-1 block group-hover:scale-110 transition-transform">
+                                  <div key={i} className="p-2 md:p-2.5 rounded-lg md:rounded-xl bg-white/5 border border-white/5 hover:border-emerald-500/30 transition-all group text-center">
+                                    <span className="material-symbols-outlined text-emerald-400 text-lg md:text-xl mb-0.5 block group-hover:scale-110 transition-transform">
                                       {item.icon}
                                     </span>
-                                    <div className="text-white text-xs font-semibold mb-0.5">{item.label}</div>
-                                    <div className="text-gray-500 text-[10px]">{item.count} templates</div>
+                                    <div className="text-white text-[9px] md:text-[10px] font-semibold mb-0.5">{item.label}</div>
+                                    <div className="text-gray-500 text-[8px] md:text-[9px]">{item.count} templates</div>
                                   </div>
                                 ))}
                               </div>
@@ -406,66 +451,27 @@ const WhyUs: React.FC = () => {
           </div>
         </div>
 
-        {/* Navigation Controls */}
-        <div className="flex items-center justify-between mt-12 gap-4">
-          {/* Previous Button */}
-          <button
-            onClick={handlePrev}
-            disabled={currentIndex === 0}
-            className={`group flex items-center gap-3 px-6 py-4 rounded-xl font-bold transition-all duration-300 ${
-              currentIndex === 0
-                ? 'bg-white/5 border border-white/5 text-gray-600 cursor-not-allowed'
-                : 'bg-white/10 border border-white/10 hover:border-primary/40 text-white hover:bg-white/15'
-            }`}
-          >
-            <span className="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">
-              arrow_back
-            </span>
-            <span className="hidden md:inline">Previous</span>
-          </button>
-
-          {/* Dot Indicators */}
-          <div className="flex items-center gap-2">
-            {differentiators.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => {
-                  setDirection(idx > currentIndex ? 'next' : 'prev');
-                  setCurrentIndex(idx);
-                }}
-                className="group relative"
-              >
-                <div 
-                  className={`size-2.5 rounded-full transition-all duration-300 ${
-                    idx === currentIndex 
-                      ? 'bg-primary scale-125 shadow-[0_0_10px_rgba(37,226,244,0.5)]' 
-                      : 'bg-white/20 hover:bg-white/40'
-                  }`}
-                ></div>
-              </button>
-            ))}
-          </div>
-
-          {/* Next Button */}
-          <button
-            onClick={handleNext}
-            disabled={currentIndex === differentiators.length - 1}
-            className={`group flex items-center gap-3 px-6 py-4 rounded-xl font-bold transition-all duration-300 relative overflow-hidden ${
-              currentIndex === differentiators.length - 1
-                ? 'bg-white/5 border border-white/5 text-gray-600 cursor-not-allowed'
-                : 'bg-primary hover:bg-white text-background-dark hover:shadow-[0_0_20px_rgba(37,226,244,0.5)]'
-            }`}
-          >
-            <span className="relative z-10 hidden md:inline">
-              {currentIndex === differentiators.length - 1 ? 'Complete' : 'Next'}
-            </span>
-            <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform relative z-10">
-              {currentIndex === differentiators.length - 1 ? 'check' : 'arrow_forward'}
-            </span>
-            {currentIndex !== differentiators.length - 1 && (
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
-            )}
-          </button>
+        {/* Dot Indicators - Bottom Center */}
+        <div className="flex items-center justify-center gap-2 mt-8 md:mt-10">
+          {differentiators.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                setDirection(idx > currentIndex ? 'next' : 'prev');
+                setCurrentIndex(idx);
+              }}
+              className="group p-1.5 rounded-full transition-all duration-300"
+              aria-label={`Go to differentiator ${idx + 1}`}
+            >
+              <div 
+                className={`size-2 md:size-2.5 rounded-full transition-all duration-300 ${
+                  idx === currentIndex 
+                    ? 'bg-primary scale-125 shadow-[0_0_10px_rgba(37,226,244,0.5)]' 
+                    : 'bg-white/20 hover:bg-white/40'
+                }`}
+              ></div>
+            </button>
+          ))}
         </div>
       </div>
     </section>
