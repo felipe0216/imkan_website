@@ -49,7 +49,7 @@ const cases: CaseStudy[] = [
     category: "Real Estate & PropTech",
     color: "accent-green",
     colorClass: "text-accent-green",
-    image: "/images/use_cases/real estate.jpg",
+    image: "/images/use_cases/real_estate.png",
     stat: "5x",
     statLabel: "Lead Conversion Rate",
     description: "Predictive models for high-intent buyer targeting",
@@ -72,7 +72,7 @@ const cases: CaseStudy[] = [
     category: "Logistics & Delivery",
     color: "purple",
     colorClass: "text-purple-400",
-    image: "/images/use_cases/route optimization.png",
+    image: "/images/use_cases/route_optimization.png",
     stat: "-32%",
     statLabel: "Operational Costs",
     description: "Simulation-based route and courier pay optimization",
@@ -164,7 +164,7 @@ const cases: CaseStudy[] = [
     category: "Banking & Financial Services",
     color: "primary",
     colorClass: "text-primary",
-    image: "/images/use_cases/feature store.png",
+    image: "/images/use_cases/feature_store.png",
     stat: "45%",
     statLabel: "Productivity Gain",
     description: "Centralized ML features for instant model deployment",
@@ -187,7 +187,7 @@ const cases: CaseStudy[] = [
     category: "Travel & Tourism",
     color: "accent-green",
     colorClass: "text-accent-green",
-    image: "/images/use_cases/travel analytics.png",
+    image: "/images/use_cases/travel_analytics.png",
     stat: "65%",
     statLabel: "Faster Insights",
     description: "Modern cloud data warehouse with streaming",
@@ -398,7 +398,7 @@ const CaseStudies: React.FC = () => {
           ))}
 
           {/* 6th card wrapper - Button positioned OUTSIDE to avoid blur cascade */}
-          <div className="relative h-[500px] transition-all duration-700 ease-out" style={{ width: showAll ? '420px' : '210px' }}>
+          <div className="relative h-[500px] transition-all duration-700 ease-out" style={{ width: showAll ? '420px' : '210px', marginRight: showAll ? 0 : '-210px' }}>
             {/* 6th card - Half visible with fade when collapsed, full when expanded */}
             <div 
               className="group relative h-full perspective-1000 overflow-hidden"
