@@ -26,7 +26,7 @@ const cases: CaseStudy[] = [
     category: "Banking & Financial Services",
     color: "primary",
     colorClass: "text-primary",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA-78fnI0oHE_voePsvgEjlZ7NjOg6Oy-yqfw0NajqadDA0o0tL-tHvcIjW5CxzrY8oODajNM_UEeeEQwuPNXxFNd87gzOb-olQhxmaNrI3e4JrOIl3bhQ_cw6EBCQ6K8NheHPzsfuOnBftaazFaE_jmcn9T7-xtDzufCrhO0Ehsl2xoY3enrePnu5fVgoHPURlxI1EnOnnbjieJ9WYO-qJEva5OSf-UiCCqLsZyQ2yVySpt-QYzFf3VqqhidM40EF7tUCNRZ6arRy9",
+    image: "/images/use_cases/fraud_detection_security.png",
     stat: "<10s",
     statLabel: "Detection Time (was 1 day)",
     description: "Automated AI pipeline for real-time log analysis",
@@ -49,7 +49,7 @@ const cases: CaseStudy[] = [
     category: "Real Estate & PropTech",
     color: "accent-green",
     colorClass: "text-accent-green",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBiAUtwmNOCf9uLL9fqXqYI7FbLmJqGx_CMleCMDQkeHcn4hhrM4njqZTENVpkSvkv1-g9QqJhnNBKeCLeh3dazOcobHPwbEy1eBBxvLKQ82p1fDeEU3uYH7Q5Y6XGV-IvmeKF_bxibeQqPehAvsY_KeRVl5pWmzjN_-OB-0OdqJ43eYgeVgPdQYcbMnkiqwCNde-A02Y-TrjELJ3tC0idyQjFhlBkCcLKh05WCeKV2zGV4eqzCUwy1oywq5RQdI5ShDDrPTPSTQeDR",
+    image: "/images/use_cases/real_estate.png",
     stat: "5x",
     statLabel: "Lead Conversion Rate",
     description: "Predictive models for high-intent buyer targeting",
@@ -72,7 +72,7 @@ const cases: CaseStudy[] = [
     category: "Logistics & Delivery",
     color: "purple",
     colorClass: "text-purple-400",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBWrwowXE15IR0b_WQEq4wU0dKsmFXL_v4t6phFOrv85KrsH20y18FQNOJ6INQRhHMKgEZKYNf9MU9p7sjvxntrEJkm69lQWaSRGrPodEDe010RTGg4NGAyNtn6_T-HVbHCO3Dv2I6feZzGJ5uE-sC-oqbL36jLB5D9h3Gc8yndcvF78FRxDATnL_OjU_T1fT19TEnvMKTchzXVTBTjg6GsYoLVz9TPZoLs2i169sDZ-y1CN9nEOqas2PhtQDMY6_Zbeb2CAud4ecC1",
+    image: "/images/use_cases/route_optimization.png",
     stat: "-32%",
     statLabel: "Operational Costs",
     description: "Simulation-based route and courier pay optimization",
@@ -95,7 +95,7 @@ const cases: CaseStudy[] = [
     category: "Banking & Financial Services",
     color: "primary",
     colorClass: "text-primary",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA-78fnI0oHE_voePsvgEjlZ7NjOg6Oy-yqfw0NajqadDA0o0tL-tHvcIjW5CxzrY8oODajNM_UEeeEQwuPNXxFNd87gzOb-olQhxmaNrI3e4JrOIl3bhQ_cw6EBCQ6K8NheHPzsfuOnBftaazFaE_jmcn9T7-xtDzufCrhO0Ehsl2xoY3enrePnu5fVgoHPURlxI1EnOnnbjieJ9WYO-qJEva5OSf-UiCCqLsZyQ2yVySpt-QYzFf3VqqhidM40EF7tUCNRZ6arRy9",
+    image: "/images/use_cases/credit_risk3.png",
     stat: "70%",
     statLabel: "Automated Decisions",
     description: "Automated credit decisions and customer value prediction",
@@ -118,7 +118,7 @@ const cases: CaseStudy[] = [
     category: "Retail & E-commerce",
     color: "accent-green",
     colorClass: "text-accent-green",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCR4aTbp1qcH_JDidwSq3phITiYRzWtPuqAQeIxNpOn0JA2CZksrAEy-zPb1zbblOhGD8xqR8VLU_dBJEbBnoJGP030cuekjK3zwb0vWUvc6T6dEUibjFLspIWsyoWKetRoqquzh2lIwzy2a-3xLU5MnfNHtEb_FyhQ9wsnwyRweD58OEnl0kElgE_GhjeKd8C95zAvllbmI_JnKGMXgdtxZqR3zmM3i7_MtrcUD7ddYdtcIb0DWydLbz3ewwGMTyhQOvyya2Fy-y5K",
+    image: "/images/use_cases/sales_forecasting.png",
     stat: "87%",
     statLabel: "Forecast Accuracy",
     description: "AI-powered inventory optimization and purchasing",
@@ -141,7 +141,7 @@ const cases: CaseStudy[] = [
     category: "Travel & Tourism",
     color: "purple",
     colorClass: "text-purple-400",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBLmbLKx5KODpM8MVzOTdbUQRpWuk2JotA07vprchgwiv0nlTpnwH4VCmbCbrA4oFdzcPyyBo-tgf6_WT9E34FWF2CdmwAT_g-4_Bd2WbKvsq1YH3lBHceL9UWWQ1DEuOtXORlLFzWj3xjB9CQjvuCyv0L7KiOLTsO7RUWnptpmWhtGUqvYRM4xC-wUcCeg1mnKm7klH7Jp5xh9GtyFc7OBbiYCuszoQf8Ow_dTgWsGVpKiYRqLzdzg4cj7CvG_fZP0RBSKTYK11u5k",
+    image: "/images/use_cases/travel_booking.png",
     stat: "70%",
     statLabel: "Complexity Reduction",
     description: "Simplifying legacy PNR data for AI models",
@@ -164,7 +164,7 @@ const cases: CaseStudy[] = [
     category: "Banking & Financial Services",
     color: "primary",
     colorClass: "text-primary",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDwUTc-60iyPqbS7h5OTVQWphY7LFpu6Yy2CEwbPgICptkLqSuhr5RIi6UwtORIe9BqlTtB5aTVYYzJGFbxuDApyxMRmJtdJEHxfuxLiNjO6MW2bczLxVGUANeQzwbPA7h0jWgHAcps0yVM778TEiEIvNn02whEfEWzhY1h7lym59twZJ2Yr9Spp_oIl7Z6vXlkfa7h0S_R_MCQDza0ZbCBefSNPUmHDtyC_6qXN3iAMqnkUwXylOnOSTjYUZgvBNZ8Ssf_h7MjXZZd",
+    image: "/images/use_cases/feature_store.png",
     stat: "45%",
     statLabel: "Productivity Gain",
     description: "Centralized ML features for instant model deployment",
@@ -187,7 +187,7 @@ const cases: CaseStudy[] = [
     category: "Travel & Tourism",
     color: "accent-green",
     colorClass: "text-accent-green",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBLmbLKx5KODpM8MVzOTdbUQRpWuk2JotA07vprchgwiv0nlTpnwH4VCmbCbrA4oFdzcPyyBo-tgf6_WT9E34FWF2CdmwAT_g-4_Bd2WbKvsq1YH3lBHceL9UWWQ1DEuOtXORlLFzWj3xjB9CQjvuCyv0L7KiOLTsO7RUWnptpmWhtGUqvYRM4xC-wUcCeg1mnKm7klH7Jp5xh9GtyFc7OBbiYCuszoQf8Ow_dTgWsGVpKiYRqLzdzg4cj7CvG_fZP0RBSKTYK11u5k",
+    image: "/images/use_cases/travel_analytics.png",
     stat: "65%",
     statLabel: "Faster Insights",
     description: "Modern cloud data warehouse with streaming",
@@ -210,7 +210,7 @@ const cases: CaseStudy[] = [
     category: "Retail & E-commerce",
     color: "purple",
     colorClass: "text-purple-400",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCR4aTbp1qcH_JDidwSq3phITiYRzWtPuqAQeIxNpOn0JA2CZksrAEy-zPb1zbblOhGD8xqR8VLU_dBJEbBnoJGP030cuekjK3zwb0vWUvc6T6dEUibjFLspIWsyoWKetRoqquzh2lIwzy2a-3xLU5MnfNHtEb_FyhQ9wsnwyRweD58OEnl0kElgE_GhjeKd8C95zAvllbmI_JnKGMXgdtxZqR3zmM3i7_MtrcUD7ddYdtcIb0DWydLbz3ewwGMTyhQOvyya2Fy-y5K",
+    image: "/images/use_cases/infrastructure.png",
     stat: ">1TB",
     statLabel: "Data Activated",
     description: "AI-ready data warehouse from scattered sources",
@@ -233,7 +233,7 @@ const cases: CaseStudy[] = [
     category: "Healthcare & Clinical AI",
     color: "primary",
     colorClass: "text-primary",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB0syEMF0AI2Td4_32Ins264eiSZjPh9BWtQyKHDk6xcuK3ohFRWG4HcfDKrQ1alBCyruEZ6R4UGIYaGarjZwqkJuPeOOHKZNm_YsGt1JJDnYt5bWZCEkFwZPI7TgMM91_MdN4LhSPMAktFHF48xtbzqg70wVP4SN8dY3UQ-dbwu3pocHPgPMk-weMmLqs7OJ-WxT6Z37hWkMpfQxvCdEquOpNQCI8h5AZA2mMq6IHxDFWQloFs0BCJiF2GzIQ0zbslX5Kg33XWaOyi",
+    image: "/images/use_cases/ai_healthcare4.png",
     stat: "NHS-Scale",
     statLabel: "Governance Ready",
     description: "Multi-layer LLM validation for patient safety",
@@ -256,7 +256,7 @@ const cases: CaseStudy[] = [
     category: "Customer Service & AI Agents",
     color: "accent-green",
     colorClass: "text-accent-green",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCR4aTbp1qcH_JDidwSq3phITiYRzWtPuqAQeIxNpOn0JA2CZksrAEy-zPb1zbblOhGD8xqR8VLU_dBJEbBnoJGP030cuekjK3zwb0vWUvc6T6dEUibjFLspIWsyoWKetRoqquzh2lIwzy2a-3xLU5MnfNHtEb_FyhQ9wsnwyRweD58OEnl0kElgE_GhjeKd8C95zAvllbmI_JnKGMXgdtxZqR3zmM3i7_MtrcUD7ddYdtcIb0DWydLbz3ewwGMTyhQOvyya2Fy-y5K",
+    image: "/images/use_cases/ai_negotiation3.png",
     stat: "60%",
     statLabel: "Workload Reduction",
     description: "Autonomous agents for pricing and workflows",
@@ -398,7 +398,7 @@ const CaseStudies: React.FC = () => {
           ))}
 
           {/* 6th card wrapper - Button positioned OUTSIDE to avoid blur cascade */}
-          <div className="relative h-[500px] transition-all duration-700 ease-out" style={{ width: showAll ? '420px' : '210px' }}>
+          <div className="relative h-[500px] transition-all duration-700 ease-out" style={{ width: showAll ? '420px' : '210px', marginRight: showAll ? 0 : '-210px' }}>
             {/* 6th card - Half visible with fade when collapsed, full when expanded */}
             <div 
               className="group relative h-full perspective-1000 overflow-hidden"
@@ -415,11 +415,11 @@ const CaseStudies: React.FC = () => {
               <div className="w-[340px] md:w-[420px] h-full bg-surface-dark border border-white/10 rounded-xl overflow-hidden relative transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] group-hover:border-white/20">
                  
                  {/* Holographic Top Bar */}
-                 <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-${cases[5].color} to-transparent z-20`}></div>
+                 <div className="absolute top-0 left-0 right-0 h-1 z-20" style={getGradientStyle(cases[5].color)}></div>
 
                  {/* Image Container */}
                  <div className="h-3/5 w-full relative overflow-hidden">
-                    <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 grayscale" style={{ backgroundImage: `url(${cases[5].image})` }}></div>
+                    <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0" style={{ backgroundImage: `url(${cases[5].image})` }}></div>
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-dark/50 to-surface-dark"></div>
                     
                     {/* Floating Category Tag */}
@@ -441,11 +441,7 @@ const CaseStudies: React.FC = () => {
                  {/* Content Body */}
                  <div className="absolute bottom-0 left-0 right-0 p-6 h-2/5 flex flex-col justify-between bg-surface-dark/95 backdrop-blur-xl border-t border-white/5">
                     <div>
-                       <h3 className={`text-xl font-bold mb-2 text-white transition-all duration-300 ${
-                         cases[5].colorClass === 'text-primary' ? 'group-hover:text-primary' : 
-                         cases[5].colorClass === 'text-accent-green' ? 'group-hover:text-accent-green' : 
-                         'group-hover:text-purple-400'
-                       }`}>
+                       <h3 className={`text-xl font-bold mb-2 text-white transition-all duration-300 ${getHoverColorClass(cases[5].colorClass)}`}>
                          {cases[5].title}
                        </h3>
                        <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
@@ -466,8 +462,8 @@ const CaseStudies: React.FC = () => {
                        <div className="flex gap-2">
                           {/* Removed status indicator */}
                        </div>
-                       <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold group/btn ${getHoverColorClass(cases[5].colorClass).replace('group-hover:', 'hover:')}`}>
-                          Read More <span className="material-symbols-outlined text-base group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                       <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold ${getHoverColorClass(cases[5].colorClass)}`}>
+                          Read More <span className="material-symbols-outlined text-base transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
                        </button>
                     </div>
                  </div>
