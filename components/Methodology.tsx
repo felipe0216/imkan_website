@@ -58,6 +58,17 @@ const Methodology: React.FC = () => {
   const step2Ref = useRef<HTMLDivElement>(null);
   const step3Ref = useRef<HTMLDivElement>(null);
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const cards = document.getElementsByClassName('spotlight-card');
+    for (const card of cards) {
+      const rect = (card as HTMLElement).getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+      (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       // We want to trigger when the element is somewhat in the center of the viewport
@@ -84,7 +95,7 @@ const Methodology: React.FC = () => {
   }, []);
 
   return (
-    <section id="methodology" ref={sectionRef} className="relative w-full px-6 py-24 bg-background-dark overflow-hidden">
+    <section id="methodology" ref={sectionRef} className="relative w-full px-6 py-24 bg-background-dark overflow-hidden" onMouseMove={handleMouseMove}>
       {/* Background Ambience */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
       
@@ -117,17 +128,27 @@ const Methodology: React.FC = () => {
             onClick={() => setSelectedStep(methodSteps[1])}
             className={`md:text-right md:pr-12 md:py-12 order-1 group transition-opacity duration-700 cursor-pointer ${activeStep === 1 ? 'opacity-100' : 'opacity-30 blur-[1px]'}`}
           >
-            <div className={`glass-card p-8 rounded-2xl relative overflow-hidden transition-all duration-500 border-white/5 ${activeStep === 1 ? 'bg-primary/5 border-primary/50 shadow-[0_0_30px_rgba(37,226,244,0.1)]' : ''}`}>
+            <div className={`spotlight-card glass-card p-8 rounded-2xl relative overflow-hidden transition-all duration-500 border-white/5 group ${activeStep === 1 ? 'bg-primary/5 border-primary/50 shadow-[0_0_30px_rgba(37,226,244,0.1)]' : ''}`}>
+              {/* Spotlight Effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl overflow-hidden pointer-events-none z-0">
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(37, 226, 244, 0.15), transparent 40%)`
+                  }}
+                ></div>
+              </div>
+
               <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
-              <h3 className={`text-3xl font-bold mb-2 transition-colors ${activeStep === 1 ? 'text-white' : 'text-gray-500'}`}>THINK</h3>
-              <h4 className="text-primary font-medium mb-4 text-sm tracking-wide">CONTEXT-FIRST</h4>
-              <p className="text-slate-400 leading-relaxed text-sm">
+              <h3 className={`text-3xl font-bold mb-2 transition-colors relative z-10 ${activeStep === 1 ? 'text-white' : 'text-gray-500'}`}>THINK</h3>
+              <h4 className="text-primary font-medium mb-4 text-sm tracking-wide relative z-10">CONTEXT-FIRST</h4>
+              <p className="text-slate-400 leading-relaxed text-sm relative z-10">
                 Before a single line of code is written, we deconstruct the problem space. We map the terrain of your business needs against technical feasibility.
               </p>
               <div className="mt-6 flex md:justify-end gap-2">
-                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300">Discovery</span>
-                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300">Architecture</span>
-                <span className="material-symbols-outlined text-sm text-primary animate-bounce ml-2">open_in_new</span>
+                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Discovery</span>
+                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Architecture</span>
+                <span className="material-symbols-outlined text-sm text-primary animate-bounce ml-2 relative z-10">open_in_new</span>
               </div>
             </div>
           </div>
@@ -156,17 +177,27 @@ const Methodology: React.FC = () => {
             onClick={() => setSelectedStep(methodSteps[2])}
             className={`md:pl-12 md:py-12 order-6 group transition-opacity duration-700 cursor-pointer ${activeStep === 2 ? 'opacity-100' : 'opacity-30 blur-[1px]'}`}
           >
-            <div className={`glass-card p-8 rounded-2xl relative overflow-hidden transition-all duration-500 border-white/5 ${activeStep === 2 ? 'bg-emerald-500/5 border-emerald-500/50 shadow-[0_0_30px_rgba(16,185,129,0.1)]' : ''}`}>
+            <div className={`spotlight-card glass-card p-8 rounded-2xl relative overflow-hidden transition-all duration-500 border-white/5 group ${activeStep === 2 ? 'bg-emerald-500/5 border-emerald-500/50 shadow-[0_0_30px_rgba(16,185,129,0.1)]' : ''}`}>
+              {/* Spotlight Effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl overflow-hidden pointer-events-none z-0">
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(52, 211, 153, 0.15), transparent 40%)`
+                  }}
+                ></div>
+              </div>
+
               <div className="absolute top-0 left-0 w-20 h-20 bg-emerald-500/10 rounded-br-full -ml-4 -mt-4 transition-transform group-hover:scale-150"></div>
-              <h3 className={`text-3xl font-bold mb-2 transition-colors ${activeStep === 2 ? 'text-white' : 'text-gray-500'}`}>BUILD</h3>
-              <h4 className="text-emerald-400 font-medium mb-4 text-sm tracking-wide">ENGINEERING EXCELLENCE</h4>
-              <p className="text-slate-400 leading-relaxed text-sm">
+              <h3 className={`text-3xl font-bold mb-2 transition-colors relative z-10 ${activeStep === 2 ? 'text-white' : 'text-gray-500'}`}>BUILD</h3>
+              <h4 className="text-emerald-400 font-medium mb-4 text-sm tracking-wide relative z-10">ENGINEERING EXCELLENCE</h4>
+              <p className="text-slate-400 leading-relaxed text-sm relative z-10">
                 Rapid prototyping meets robust architecture. We build systems designed to handle the scale of tomorrow while delivering value today.
               </p>
               <div className="mt-6 flex gap-2">
-                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300">Development</span>
-                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300">Testing</span>
-                <span className="material-symbols-outlined text-sm text-emerald-400 animate-bounce ml-2">open_in_new</span>
+                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Development</span>
+                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Testing</span>
+                <span className="material-symbols-outlined text-sm text-emerald-400 animate-bounce ml-2 relative z-10">open_in_new</span>
               </div>
             </div>
           </div>
@@ -177,17 +208,27 @@ const Methodology: React.FC = () => {
             onClick={() => setSelectedStep(methodSteps[3])}
             className={`md:text-right md:pr-12 md:py-12 order-7 group transition-opacity duration-700 cursor-pointer ${activeStep === 3 ? 'opacity-100' : 'opacity-30 blur-[1px]'}`}
           >
-            <div className={`glass-card p-8 rounded-2xl relative overflow-hidden transition-all duration-500 border-white/5 ${activeStep === 3 ? 'bg-purple-500/5 border-purple-500/50 shadow-[0_0_30px_rgba(168,85,247,0.1)]' : ''}`}>
+            <div className={`spotlight-card glass-card p-8 rounded-2xl relative overflow-hidden transition-all duration-500 border-white/5 group ${activeStep === 3 ? 'bg-purple-500/5 border-purple-500/50 shadow-[0_0_30px_rgba(168,85,247,0.1)]' : ''}`}>
+              {/* Spotlight Effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl overflow-hidden pointer-events-none z-0">
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(168, 85, 247, 0.15), transparent 40%)`
+                  }}
+                ></div>
+              </div>
+
               <div className="absolute bottom-0 right-0 w-20 h-20 bg-purple-500/10 rounded-tl-full -mr-4 -mb-4 transition-transform group-hover:scale-150"></div>
-              <h3 className={`text-3xl font-bold mb-2 transition-colors ${activeStep === 3 ? 'text-white' : 'text-gray-500'}`}>EVOLVE</h3>
-              <h4 className="text-purple-400 font-medium mb-4 text-sm tracking-wide">CONTINUOUS IMPROVEMENT</h4>
-              <p className="text-slate-400 leading-relaxed text-sm">
+              <h3 className={`text-3xl font-bold mb-2 transition-colors relative z-10 ${activeStep === 3 ? 'text-white' : 'text-gray-500'}`}>EVOLVE</h3>
+              <h4 className="text-purple-400 font-medium mb-4 text-sm tracking-wide relative z-10">CONTINUOUS IMPROVEMENT</h4>
+              <p className="text-slate-400 leading-relaxed text-sm relative z-10">
                 Delivery is just the start. We implement feedback loops that allow systems to learn and scale alongside your organizational growth.
               </p>
               <div className="mt-6 flex md:justify-end gap-2">
-                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300">Scaling</span>
-                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300">Maintenance</span>
-                <span className="material-symbols-outlined text-sm text-purple-400 animate-bounce ml-2">open_in_new</span>
+                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Scaling</span>
+                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Maintenance</span>
+                <span className="material-symbols-outlined text-sm text-purple-400 animate-bounce ml-2 relative z-10">open_in_new</span>
               </div>
             </div>
           </div>

@@ -154,8 +154,19 @@ const WhyUs: React.FC = () => {
     }
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const cards = document.getElementsByClassName('spotlight-card');
+    for (const card of cards) {
+      const rect = (card as HTMLElement).getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+      (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+    }
+  };
+
   return (
-    <section id="why-us" className="w-full bg-[#0B1215] border-t border-white/5 relative overflow-hidden py-24">
+    <section id="why-us" className="w-full bg-[#0B1215] border-t border-white/5 relative overflow-hidden py-24" onMouseMove={handleMouseMove}>
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(37,226,244,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(37,226,244,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]"></div>
       
@@ -263,9 +274,21 @@ const WhyUs: React.FC = () => {
                     transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)', // Smooth, professional easing
                   }}
                 >
-                  <div className={`glass-card rounded-2xl md:rounded-3xl p-5 md:p-8 border ${isActive ? 'border-white/20 shadow-2xl' : 'border-white/10'} bg-surface-dark relative overflow-hidden`}
+                  <div className={`spotlight-card glass-card rounded-2xl md:rounded-3xl p-5 md:p-8 border ${isActive ? 'border-white/20 shadow-2xl' : 'border-white/10'} bg-surface-dark relative overflow-hidden group`}
                     style={{ minHeight: '420px' }}
                   >
+                    {/* Spotlight Effect - Only on active card */}
+                    {isActive && (
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl overflow-hidden pointer-events-none z-0">
+                        <div 
+                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                          style={{
+                            background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${card.accentColor}25, transparent 40%)`
+                          }}
+                        ></div>
+                      </div>
+                    )}
+
                     {/* Accent Gradient Overlay */}
                     <div 
                       className={`absolute inset-0 transition-opacity duration-500 ${isActive ? 'opacity-5' : 'opacity-0'}`}
