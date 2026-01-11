@@ -154,9 +154,6 @@ const WhyUs: React.FC = () => {
     }
   };
 
-  const currentCard = differentiators[currentIndex];
-  const progress = ((currentIndex + 1) / differentiators.length) * 100;
-
   return (
     <section className="w-full bg-[#0B1215] border-t border-white/5 relative overflow-hidden py-24">
       {/* Background Grid */}
@@ -184,20 +181,8 @@ const WhyUs: React.FC = () => {
           </p>
         </div>
 
-        {/* Progress Bar */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs text-gray-500 font-mono uppercase tracking-wider">
-              {currentIndex + 1} / {differentiators.length}
-            </span>
-            <span className="text-xs text-gray-500 font-mono">
-              {currentCard.title}
-            </span>
-          </div>
-        </div>
-
         {/* Card Deck Carousel with Subtle Stack & Side Navigation */}
-        <div className="relative w-full px-4 md:px-16" style={{ minHeight: '580px' }}>
+        <div className="relative w-full px-4 md:px-16" style={{ minHeight: '480px' }}>
           
           {/* Previous Button - Left Side */}
           <button
@@ -230,7 +215,7 @@ const WhyUs: React.FC = () => {
           </button>
 
           {/* All Cards - Subtle Stacked Effect */}
-          <div className="relative flex items-start justify-center" style={{ minHeight: '580px' }}>
+          <div className="relative flex items-start justify-center" style={{ minHeight: '480px' }}>
             {differentiators.map((card, index) => {
               const isActive = index === currentIndex;
               const isPast = index < currentIndex;
@@ -277,7 +262,7 @@ const WhyUs: React.FC = () => {
                   }}
                 >
                   <div className={`glass-card rounded-2xl md:rounded-3xl p-5 md:p-8 border ${isActive ? 'border-white/20 shadow-2xl' : 'border-white/10'} bg-surface-dark relative overflow-hidden`}
-                    style={{ minHeight: '520px' }}
+                    style={{ minHeight: '420px' }}
                   >
                     {/* Accent Gradient Overlay */}
                     <div 
@@ -452,7 +437,7 @@ const WhyUs: React.FC = () => {
         </div>
 
         {/* Dot Indicators - Bottom Center */}
-        <div className="flex items-center justify-center gap-2 mt-8 md:mt-10">
+        <div className="flex items-center justify-center gap-2 mt-4 md:mt-5">
           {differentiators.map((_, idx) => (
             <button
               key={idx}
