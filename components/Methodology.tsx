@@ -17,34 +17,40 @@ const methodSteps: Record<number, MethodStep> = {
     id: 'think',
     title: 'THINK',
     subtitle: 'Context-First Discovery',
-    description: 'Before a single line of code is written, we deconstruct the problem space.',
-    longDescription: 'We avoid the trap of solutionism. By mapping the terrain of your business needs against technical feasibility, we ensure that what we build solves the right problem. This phase involves deep stakeholder interviews, data maturity assessments, and architectural blueprinting.',
+    description: 'Before we build anything, we align business outcomes with data reality and AI feasibility.',
+    longDescription: 'We avoid the trap of solutionism. We clarify the decisions that matter, define measurable outcomes, and map your data landscape against technical feasibility, security, and AI risk. This stage produces a clear scope, target architecture, and delivery plan across data platforms, analytics, machine learning, and agentic AI. So what we build solves the right problem.',
     icon: 'psychology',
     colorClass: 'text-primary',
-    phases: ['Stakeholder Interviews', 'Data Maturity Assessment', 'Technical Feasibility Study', 'Architectural Blueprinting'],
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB0syEMF0AI2Td4_32Ins264eiSZjPh9BWtQyKHDk6xcuK3ohFRWG4HcfDKrQ1alBCyruEZ6R4UGIYaGarjZwqkJuPeOOHKZNm_YsGt1JJDnYt5bWZCEkFwZPI7TgMM91_MdN4LhSPMAktFHF48xtbzqg70wVP4SN8dY3UQ-dbwu3pocHPgPMk-weMmLqs7OJ-WxT6Z37hWkMpfQxvCdEquOpNQCI8h5AZA2mMq6IHxDFWQloFs0BCJiF2GzIQ0zbslX5Kg33XWaOyi'
+    phases: ['Stakeholder Interviews', 'Use-Case & Value Definition','Data & AI Readiness Assessment','Target Architecture Blueprint'],
+    image: '/images/methodology/think.png'
   },
   2: {
     id: 'build',
     title: 'BUILD',
     subtitle: 'Engineering Excellence',
-    description: 'Rapid prototyping meets robust architecture. Systems designed for scale.',
-    longDescription: 'We write production-grade code from day one. Our engineering culture prioritizes clean, testable, and documented code. Whether it is a data lakehouse or a custom agentic workflow, we build resilient foundations that can handle the scale of tomorrow.',
+    description: 'We engineer production-grade data, analytics, and AI systems—secure, testable, and built to scale.',
+    longDescription: 'We deliver production-grade engineering from day one. We build modern data platforms and pipelines, analytics layers, and AI capabilities (ML and agentic workflows) with strong quality gates, documentation, and repeatable delivery. Whether it’s a lakehouse, a decision intelligence layer, or AI automation, we implement resilient foundations designed to perform today and scale tomorrow.',
     icon: 'build',
     colorClass: 'text-emerald-400',
-    phases: ['Agile Development Sprints', 'CI/CD Pipeline Setup', 'Automated Testing Suites', 'Cloud Infrastructure IaC'],
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwUTc-60iyPqbS7h5OTVQWphY7LFpu6Yy2CEwbPgICptkLqSuhr5RIi6UwtORIe9BqlTtB5aTVYYzJGFbxuDApyxMRmJtdJEHxfuxLiNjO6MW2bczLxVGUANeQzwbPA7h0jWgHAcps0yVM778TEiEIvNn02whEfEWzhY1h7lym59twZJ2Yr9Spp_oIl7Z6vXlkfa7h0S_R_MCQDza0ZbCBefSNPUmHDtyC_6qXN3iAMqnkUwXylOnOSTjYUZgvBNZ8Ssf_h7MjXZZd'
+    phases: ['Data Platform & Pipeline Engineering',
+    'Analytics & Semantic Layer Delivery',
+    'ML/AI & Agentic Workflow Implementation',
+    'Quality, Security & CI/CD Automation'],
+    image: '/images/methodology/build.png'
   },
   3: {
     id: 'evolve',
     title: 'EVOLVE',
     subtitle: 'Continuous Improvement',
-    description: 'Delivery is just the start. We implement feedback loops for continuous scaling.',
-    longDescription: 'Software is a living organism. We implement observability, monitoring, and feedback loops that allow the system to learn and improve over time. We train your internal teams to take ownership, ensuring long-term sustainability.',
+    description: 'After go-live, we operationalize performance, adoption, and AI sustainability through measurable feedback loops.',
+    longDescription: 'Delivery is the start of long-term value. We implement observability, monitoring, and operating rhythms that keep data, analytics, and AI reliable as your needs evolve. We manage model performance and retraining, strengthen governance and Responsible AI controls, and enable your teams with documentation and knowledge transfer, while ensuring sustainable ownership and continuous improvement.',
     icon: 'rocket_launch',
     colorClass: 'text-purple-400',
-    phases: ['Performance Monitoring', 'User Feedback Loops', 'Model Retraining', 'Knowledge Transfer'],
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCR4aTbp1qcH_JDidwSq3phITiYRzWtPuqAQeIxNpOn0JA2CZksrAEy-zPb1zbblOhGD8xqR8VLU_dBJEbBnoJGP030cuekjK3zwb0vWUvc6T6dEUibjFLspIWsyoWKetRoqquzh2lIwzy2a-3xLU5MnfNHtEb_FyhQ9wsnwyRweD58OEnl0kElgE_GhjeKd8C95zAvllbmI_JnKGMXgdtxZqR3zmM3i7_MtrcUD7ddYdtcIb0DWydLbz3ewwGMTyhQOvyya2Fy-y5K'
+    phases: ['Observability & Performance Monitoring',
+    'Adoption & Feedback Loop Management',
+    'Model Monitoring & Retraining Cadence',
+    'Enablement & Operational Ownership'],
+    image: '/images/methodology/evolve.png'
   }
 };
 
