@@ -155,7 +155,7 @@ const WhyUs: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-[#0B1215] border-t border-white/5 relative overflow-hidden py-24">
+    <section id="why-us" className="w-full bg-[#0B1215] border-t border-white/5 relative overflow-hidden py-24">
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(37,226,244,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(37,226,244,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]"></div>
       
@@ -163,9 +163,9 @@ const WhyUs: React.FC = () => {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[100px] animate-pulse-slow"></div>
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent-green/5 rounded-full blur-[100px] animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-[150]">
-        {/* Header - Higher z-index to stay above cards */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 relative z-[150]">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* Header - Higher z-index to stay above cards but below navbar */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 relative z-30">
           <div>
             <div className="flex items-center gap-2 mb-3">
                <span className="h-px w-8 bg-primary"></span>
@@ -188,7 +188,7 @@ const WhyUs: React.FC = () => {
           <button
             onClick={handlePrev}
             disabled={currentIndex === 0}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-[200] group size-12 md:size-14 rounded-full transition-all duration-300 flex items-center justify-center ${
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-[25] group size-12 md:size-14 rounded-full transition-all duration-300 flex items-center justify-center ${
               currentIndex === 0
                 ? 'bg-white/5 border border-white/5 text-gray-600 cursor-not-allowed'
                 : 'bg-surface-dark/80 backdrop-blur-xl border border-white/20 text-white hover:bg-primary hover:border-primary hover:shadow-[0_0_20px_rgba(37,226,244,0.5)] hover:scale-110'
@@ -203,7 +203,7 @@ const WhyUs: React.FC = () => {
           <button
             onClick={handleNext}
             disabled={currentIndex === differentiators.length - 1}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-[200] group size-12 md:size-14 rounded-full transition-all duration-300 flex items-center justify-center ${
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-[25] group size-12 md:size-14 rounded-full transition-all duration-300 flex items-center justify-center ${
               currentIndex === differentiators.length - 1
                 ? 'bg-white/5 border border-white/5 text-gray-600 cursor-not-allowed'
                 : 'bg-surface-dark/80 backdrop-blur-xl border border-white/20 text-white hover:bg-primary hover:border-primary hover:shadow-[0_0_20px_rgba(37,226,244,0.5)] hover:scale-110'
@@ -243,7 +243,7 @@ const WhyUs: React.FC = () => {
               
               const scale = isActive ? 1 : isFuture ? 0.99 : 0.95; // Very subtle scale
               const opacity = isPast ? 0 : isFuture ? (positionFromActive === 1 ? 0.8 : 0.5) : 1;
-              const zIndex = isPast ? 0 : isFuture ? differentiators.length - index + 10 : 100;
+              const zIndex = isPast ? 0 : isFuture ? differentiators.length - index + 5 : 20; // Max z-20, below header's z-30 and navbar's z-50
               
               return (
                 <div
