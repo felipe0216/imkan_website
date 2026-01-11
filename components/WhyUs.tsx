@@ -17,16 +17,16 @@ const differentiators: Differentiator[] = [
   {
     id: 1,
     title: 'Founder-Led, Hands-On',
-    subtitle: 'Direct Access to Technical Leadership',
-    description: 'You work directly with Dr. Syed and Felipe from day one. No account managers playing telephone. No junior-only teams. No delegation to inexperienced consultants. Just senior engineers who have built and scaled production systems.',
+    subtitle: 'Direct Technical Leadership on Every Project',
+    description: 'Every project is directly led and overseen by Dr. Syed and Felipe from day one, ensuring full strategic control, technical excellence, and accountability. No junior-only teams. No delegation to inexperienced consultants. You work with a curated team of mid and senior-level engineers under direct founder supervision.',
     icon: 'group',
     colorClass: 'text-primary',
     accentColor: '#25e2f4',
     features: [
-      'Direct access to Technical C-Suite throughout engagement',
-      'Accountability from concept to production delivery',
-      '15+ years combined expertise on every project',
-      'Hands-on code reviews and architecture decisions'
+      'Founders actively leading architecture and delivery decisions',
+      'Curated mid-senior engineering team under direct oversight',
+      'Accountability from strategy through production deployment',
+      'Hands-on code reviews, sprint planning, and technical governance'
     ],
     visual: 'team',
   },
@@ -34,12 +34,12 @@ const differentiators: Differentiator[] = [
     id: 2,
     title: 'Weeks, Not Quarters',
     subtitle: 'Rapid Deployment Without Compromise',
-    description: 'Ship production MVPs in weeks, not months. Our battle-tested accelerators, reusable patterns, and proven frameworks eliminate the need to reinvent the wheel on every project.',
+    description: 'Ship production MVPs in weeks, not months. Our proven accelerators, reusable patterns, and production-ready frameworks eliminate the need to reinvent the wheel on every project.',
     icon: 'speed',
     colorClass: 'text-accent-green',
     accentColor: '#a3e635',
     features: [
-      'MVPs deployed in 2-4 weeks vs industry standard 12-16 weeks',
+      'MVPs deployed in 3-6 weeks vs industry standard 12-16 weeks',
       'Reusable component library across data, AI, and analytics',
       'Pre-built integrations for Saudi platforms (Nafath, Etimad)',
       'Agile sprints with weekly deployments'
@@ -47,14 +47,14 @@ const differentiators: Differentiator[] = [
     visual: 'velocity',
     stats: [
       { label: 'Traditional Firms', value: '12-16 weeks', color: 'text-gray-600' },
-      { label: 'Imkan.ai', value: '2-4 weeks', color: 'text-accent-green' },
+      { label: 'Imkan.ai', value: '3-6 weeks', color: 'text-accent-green' },
     ],
   },
   {
     id: 3,
     title: 'Production-Grade DNA',
     subtitle: 'Built for Scale from Day One',
-    description: 'We don\'t ship proof-of-concepts. Every system is architected for reliability, scalability, and security from the first line of code. Production-ready infrastructure, not prototypes.',
+    description: 'Every system is architected for reliability, scalability, and security from the first line of code. No MVPs that break in production. No prototypes that need rebuilding. Production-ready infrastructure from day one.',
     icon: 'engineering',
     colorClass: 'text-blue-400',
     accentColor: '#60a5fa',
@@ -120,7 +120,7 @@ const differentiators: Differentiator[] = [
   },
   {
     id: 7,
-    title: 'Battle-Tested Accelerators',
+    title: 'Production-Ready Accelerators',
     subtitle: 'Start 60% Ahead',
     description: 'Proven components, frameworks, and patterns refined across 15+ production deployments. No greenfield development—leverage what already works.',
     icon: 'inventory_2',
@@ -361,29 +361,61 @@ const WhyUs: React.FC = () => {
                             )}
 
                             {card.visual === 'health' && (
-                              <div className="p-3 md:p-4 bg-black/40 rounded-lg md:rounded-xl border border-white/5 mt-3">
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-[9px] md:text-[10px] text-gray-500 uppercase tracking-wider font-semibold">System Health Monitor</span>
-                                  <span className="text-[9px] md:text-[10px] text-green-400 font-bold">99.97% Uptime</span>
-                                </div>
-                                <div className="space-y-1.5 md:space-y-2">
-                                  {[
-                                    { name: 'API Gateway', uptime: 100 },
-                                    { name: 'Database Cluster', uptime: 100 },
-                                    { name: 'ML Inference', uptime: 98 },
-                                    { name: 'Data Pipeline', uptime: 100 },
-                                  ].map((service, idx) => (
-                                    <div key={idx} className="flex items-center gap-2 md:gap-3">
-                                      <span className="text-[9px] md:text-[10px] text-gray-400 w-20 md:w-24">{service.name}</span>
-                                      <div className="flex-1 h-1 md:h-1.5 bg-gray-800 rounded-full overflow-hidden">
-                                        <div 
-                                          className="h-full bg-green-500 rounded-full transition-all duration-1000"
-                                          style={{ width: `${service.uptime}%`, transitionDelay: `${idx * 100}ms` }}
-                                        ></div>
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mt-3">
+                                {/* System Health Panel */}
+                                <div className="p-3 md:p-4 bg-black/40 rounded-lg md:rounded-xl border border-green-500/20">
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <span className="material-symbols-outlined text-green-400 text-sm md:text-base">
+                                      health_and_safety
+                                    </span>
+                                    <span className="text-[9px] md:text-[10px] text-gray-400 uppercase tracking-wider font-semibold flex-1">System Health</span>
+                                    <span className="text-[10px] md:text-xs text-green-400 font-bold">99.97%</span>
+                                  </div>
+                                  <div className="space-y-1.5">
+                                    {[
+                                      { name: 'API', status: 100, color: 'bg-green-500' },
+                                      { name: 'Database', status: 100, color: 'bg-green-500' },
+                                      { name: 'ML Pipeline', status: 98, color: 'bg-green-500' },
+                                      { name: 'Data Lake', status: 100, color: 'bg-green-500' },
+                                    ].map((service, idx) => (
+                                      <div key={idx} className="flex items-center gap-2">
+                                        <div className="size-1.5 md:size-2 rounded-full bg-green-500 animate-pulse"></div>
+                                        <span className="text-[9px] md:text-[10px] text-gray-400 flex-1">{service.name}</span>
+                                        <span className="text-[9px] md:text-[10px] text-green-400 font-bold">{service.status}%</span>
                                       </div>
-                                      <span className="text-[9px] md:text-[10px] text-green-400 font-bold w-8 md:w-10 text-right">{service.uptime}%</span>
-                                    </div>
-                                  ))}
+                                    ))}
+                                  </div>
+                                </div>
+
+                                {/* Cost Monitoring Panel */}
+                                <div className="p-3 md:p-4 bg-black/40 rounded-lg md:rounded-xl border border-blue-500/20">
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <span className="material-symbols-outlined text-blue-400 text-sm md:text-base">
+                                      payments
+                                    </span>
+                                    <span className="text-[9px] md:text-[10px] text-gray-400 uppercase tracking-wider font-semibold flex-1">Cost Monitor</span>
+                                    <span className="text-[10px] md:text-xs text-blue-400 font-bold">-32%</span>
+                                  </div>
+                                  <div className="space-y-1.5">
+                                    {[
+                                      { name: 'Compute', cost: '$2.4K', trend: 'down', percent: '-18%' },
+                                      { name: 'Storage', cost: '$890', trend: 'down', percent: '-25%' },
+                                      { name: 'Network', cost: '$340', trend: 'stable', percent: '+2%' },
+                                      { name: 'ML Training', cost: '$1.1K', trend: 'down', percent: '-45%' },
+                                    ].map((item, idx) => (
+                                      <div key={idx} className="flex items-center gap-2">
+                                        <span className={`material-symbols-outlined text-[10px] md:text-xs ${
+                                          item.trend === 'down' ? 'text-green-400' : item.trend === 'up' ? 'text-red-400' : 'text-gray-500'
+                                        }`}>
+                                          {item.trend === 'down' ? 'trending_down' : item.trend === 'up' ? 'trending_up' : 'remove'}
+                                        </span>
+                                        <span className="text-[9px] md:text-[10px] text-gray-400 flex-1">{item.name}</span>
+                                        <span className={`text-[9px] md:text-[10px] font-bold ${
+                                          item.trend === 'down' ? 'text-green-400' : item.trend === 'up' ? 'text-red-400' : 'text-gray-400'
+                                        }`}>{item.percent}</span>
+                                      </div>
+                                    ))}
+                                  </div>
                                 </div>
                               </div>
                             )}
