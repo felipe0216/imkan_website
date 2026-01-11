@@ -25,7 +25,7 @@ const servicesData: Record<string, ServiceDetail> = {
       'Data Governance, Compliance & Sovereignty Frameworks',
       'Value-Driven AI Use Case Discovery & Roadmapping Workshops'
     ],
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB0syEMF0AI2Td4_32Ins264eiSZjPh9BWtQyKHDk6xcuK3ohFRWG4HcfDKrQ1alBCyruEZ6R4UGIYaGarjZwqkJuPeOOHKZNm_YsGt1JJDnYt5bWZCEkFwZPI7TgMM91_MdN4LhSPMAktFHF48xtbzqg70wVP4SN8dY3UQ-dbwu3pocHPgPMk-weMmLqs7OJ-WxT6Z37hWkMpfQxvCdEquOpNQCI8h5AZA2mMq6IHxDFWQloFs0BCJiF2GzIQ0zbslX5Kg33XWaOyi'
+    image: '/images/services/strategy.jpg'
   },
   engineering: {
     id: 'engineering',
@@ -40,7 +40,7 @@ const servicesData: Record<string, ServiceDetail> = {
       'Cloud-Native Data Orchestration & Integration',
       'Built-in Data Quality, Observability & Reliability Controls'
     ],
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwUTc-60iyPqbS7h5OTVQWphY7LFpu6Yy2CEwbPgICptkLqSuhr5RIi6UwtORIe9BqlTtB5aTVYYzJGFbxuDApyxMRmJtdJEHxfuxLiNjO6MW2bczLxVGUANeQzwbPA7h0jWgHAcps0yVM778TEiEIvNn02whEfEWzhY1h7lym59twZJ2Yr9Spp_oIl7Z6vXlkfa7h0S_R_MCQDza0ZbCBefSNPUmHDtyC_6qXN3iAMqnkUwXylOnOSTjYUZgvBNZ8Ssf_h7MjXZZd'
+    image: '/images/services/data-platform.png'
   },
   agentic: {
     id: 'agentic',
@@ -55,7 +55,7 @@ const servicesData: Record<string, ServiceDetail> = {
       'RAG (Retrieval Augmented Generation) Systems',
       'End-to-End MLOps & AI Operations'
     ],
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCR4aTbp1qcH_JDidwSq3phITiYRzWtPuqAQeIxNpOn0JA2CZksrAEy-zPb1zbblOhGD8xqR8VLU_dBJEbBnoJGP030cuekjK3zwb0vWUvc6T6dEUibjFLspIWsyoWKetRoqquzh2lIwzy2a-3xLU5MnfNHtEb_FyhQ9wsnwyRweD58OEnl0kElgE_GhjeKd8C95zAvllbmI_JnKGMXgdtxZqR3zmM3i7_MtrcUD7ddYdtcIb0DWydLbz3ewwGMTyhQOvyya2Fy-y5K'
+    image: '/images/services/agentic-ai.png'
   },
   decision: {
     id: 'decision',
@@ -70,7 +70,7 @@ const servicesData: Record<string, ServiceDetail> = {
       'Scenario Planning & Simulation',
       'KPI Engineering & Visualization'
     ],
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA-78fnI0oHE_voePsvgEjlZ7NjOg6Oy-yqfw0NajqadDA0o0tL-tHvcIjW5CxzrY8oODajNM_UEeeEQwuPNXxFNd87gzOb-olQhxmaNrI3e4JrOIl3bhQ_cw6EBCQ6K8NheHPzsfuOnBftaazFaE_jmcn9T7-xtDzufCrhO0Ehsl2xoY3enrePnu5fVgoHPURlxI1EnOnnbjieJ9WYO-qJEva5OSf-UiCCqLsZyQ2yVySpt-QYzFf3VqqhidM40EF7tUCNRZ6arRy9'
+    image: '/images/services/data-visu.png'
   }
 };
 
