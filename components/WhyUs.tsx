@@ -10,7 +10,7 @@ interface Differentiator {
   accentColor: string;
   features: string[];
   stats?: { label: string; value: string; color: string }[];
-  visual?: 'team' | 'velocity' | 'health' | 'workflow' | 'metrics' | 'library';
+  visual?: 'team' | 'velocity' | 'workflow';
 }
 
 const differentiators: Differentiator[] = [
@@ -18,7 +18,7 @@ const differentiators: Differentiator[] = [
     id: 1,
     title: 'Founder-Led, Hands-On',
     subtitle: 'Direct Technical Leadership on Every Project',
-    description: 'Every project is directly led and overseen by Dr. Syed and Felipe from day one, ensuring full strategic control, technical excellence, and accountability. No junior-only teams. No delegation to inexperienced consultants. You work with a curated team of mid and senior-level engineers under direct founder supervision.',
+    description: 'Every project is directly led and overseen by Dr. Syed and Felipe from day one, ensuring full strategic control, technical excellence, and accountability at every stage. We don\'t delegate critical decisions to junior consultants or account managers who lack deep technical expertise. Instead, you work with a carefully curated team of mid and senior-level engineers under direct founder supervision, with active involvement in architecture design, code reviews, sprint planning, and technical governance. This hands-on approach ensures alignment between business objectives and technical execution, with clear ownership from strategy through production deployment.',
     icon: 'group',
     colorClass: 'text-primary',
     accentColor: '#25e2f4',
@@ -34,7 +34,7 @@ const differentiators: Differentiator[] = [
     id: 2,
     title: 'Weeks, Not Quarters',
     subtitle: 'Rapid Deployment Without Compromise',
-    description: 'Ship production MVPs in weeks, not months. Our proven accelerators, reusable patterns, and production-ready frameworks eliminate the need to reinvent the wheel on every project.',
+    description: 'Ship production-ready MVPs in weeks, not months or quarters. Our proven accelerators, battle-tested frameworks, and extensive library of reusable patterns eliminate the need to reinvent the wheel on every project. We leverage pre-built components for data pipelines, AI workflows, and analytics dashboards, alongside native integrations with Saudi platforms like Nafath, Etimad, and Absher. This approach combines speed with quality—delivering production-grade systems in 3-6 weeks compared to the industry standard of 12-16 weeks, without cutting corners on security, scalability, or best practices.',
     icon: 'speed',
     colorClass: 'text-accent-green',
     accentColor: '#a3e635',
@@ -45,26 +45,21 @@ const differentiators: Differentiator[] = [
       'Agile sprints with weekly deployments'
     ],
     visual: 'velocity',
-    stats: [
-      { label: 'Traditional Firms', value: '12-16 weeks', color: 'text-gray-600' },
-      { label: 'Imkan.ai', value: '3-6 weeks', color: 'text-accent-green' },
-    ],
   },
   {
     id: 3,
     title: 'Production-Grade DNA',
     subtitle: 'Built for Scale from Day One',
-    description: 'Every system is architected for reliability, scalability, and security from the first line of code. No MVPs that break in production. No prototypes that need rebuilding. Production-ready infrastructure from day one.',
+    description: 'Every system is architected for reliability, scalability, and security from the first line of code. We implement automated testing, continuous integration/deployment pipelines, comprehensive observability, and security controls as foundational elements, not afterthoughts. No MVPs that break in production. No prototypes that need rebuilding. Production-ready infrastructure from day one, designed to handle enterprise scale and evolving business requirements.',
     icon: 'engineering',
     colorClass: 'text-blue-400',
     accentColor: '#60a5fa',
     features: [
-      'Automated testing & CI/CD pipelines built-in',
-      'Observability and monitoring from day one',
-      'Security & compliance by design (PDPL, NCA)',
-      'DataOps, MLOps, and DevOps best practices'
+      'Automated testing & CI/CD pipelines built-in from project inception',
+      'Observability, monitoring, and alerting systems deployed on day one',
+      'Security & compliance by design (PDPL, NCA frameworks integrated)',
+      'DataOps, MLOps, and DevOps best practices across all deliverables'
     ],
-    visual: 'health',
   },
   {
     id: 4,
@@ -86,7 +81,7 @@ const differentiators: Differentiator[] = [
     id: 5,
     title: 'Saudi-First by Design',
     subtitle: 'Sovereign AI Aligned with Vision 2030',
-    description: 'Homegrown expertise deeply aligned with the Kingdom\'s transformation. We understand data sovereignty, local compliance frameworks, and the nuance of the Saudi market better than any offshore consultancy.',
+    description: 'Homegrown expertise deeply aligned with the Kingdom\'s digital transformation and Vision 2030 objectives. We understand data sovereignty requirements, local compliance frameworks (PDPL, NCA, CITC), and the unique nuances of the Saudi market far better than any offshore consultancy. Our solutions prioritize in-kingdom data residency, native integrations with government platforms (Nafath, Etimad, Absher, Qiwa), and Arabic-first AI capabilities with Gulf dialect support. This local-first approach ensures not just compliance, but true cultural and regulatory alignment that enables faster approvals, reduced risk, and seamless integration with national digital infrastructure.',
     icon: 'flag',
     colorClass: 'text-orange-400',
     accentColor: '#fb923c',
@@ -101,38 +96,31 @@ const differentiators: Differentiator[] = [
     id: 6,
     title: 'Outcomes, Not Outputs',
     subtitle: 'Measured by Business Impact',
-    description: 'Every engagement is measured by business results, not lines of code or hours billed. Clear KPIs aligned to your strategic objectives from day one.',
+    description: 'Every engagement is measured by business results and tangible impact, not lines of code, story points, or hours billed. We establish clear KPI frameworks aligned to your strategic objectives from day one, whether that\'s revenue growth, cost reduction, operational efficiency, or risk mitigation. Throughout the engagement, we track ROI and performance metrics continuously, providing transparent reporting and data-driven insights. Success metrics are defined and agreed upon before any code is written, ensuring complete alignment between technical delivery and business outcomes. This results-oriented approach means we\'re invested in your success, not just task completion.',
     icon: 'trending_up',
     colorClass: 'text-primary',
     accentColor: '#25e2f4',
     features: [
-      'KPI frameworks aligned to business outcomes',
-      'ROI tracking and reporting throughout engagement',
-      'Success metrics defined before code is written',
-      'Continuous optimization based on real-world performance'
-    ],
-    visual: 'metrics',
-    stats: [
-      { label: 'Detection Time Reduction', value: '8,640x', color: 'text-primary' },
-      { label: 'Conversion Rate Improvement', value: '5x', color: 'text-accent-green' },
-      { label: 'Forecast Accuracy', value: '87%', color: 'text-purple-400' },
+      'KPI frameworks aligned to business outcomes from project inception',
+      'ROI tracking and transparent reporting throughout engagement',
+      'Success metrics defined and agreed before code is written',
+      'Continuous optimization based on real-world performance data'
     ],
   },
   {
     id: 7,
     title: 'Production-Ready Accelerators',
     subtitle: 'Start 60% Ahead',
-    description: 'Proven components, frameworks, and patterns refined across 15+ production deployments. No greenfield development—leverage what already works.',
+    description: 'Proven components, frameworks, and architectural patterns refined across 15+ production deployments spanning multiple industries and use cases. No greenfield development, we use tested solutions that already work at enterprise scale. Our accelerator library includes data pipeline templates for common ingestion patterns, AI agent frameworks for autonomous workflows, pre-built dashboard and visualization components, and extensive integrations with enterprise systems and Saudi government platforms. Each accelerator is production-hardened, documented, and maintained, allowing us to focus on your unique business logic rather than rebuilding foundational infrastructure.',
     icon: 'inventory_2',
     colorClass: 'text-emerald-400',
     accentColor: '#34d399',
     features: [
-      '12+ production-ready data pipeline templates',
+      '12+ production-ready data pipeline templates for common patterns',
       '8+ AI agent frameworks and orchestration patterns',
       '15+ dashboard and visualization accelerators',
-      '20+ pre-built integrations for enterprise systems'
+      '20+ pre-built integrations for enterprise and government systems'
     ],
-    visual: 'library',
   },
 ];
 
@@ -352,24 +340,7 @@ const WhyUs: React.FC = () => {
                               ))}
                             </div>
 
-                            {/* Visual Elements / Stats */}
-                            {card.stats && (
-                              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
-                                {card.stats.map((stat, idx) => (
-                                  <div 
-                                    key={idx}
-                                    className="p-2 md:p-2.5 rounded-lg md:rounded-xl bg-black/40 border border-white/5 hover:border-white/10 transition-all"
-                                  >
-                                    <div className="text-[9px] md:text-[10px] text-gray-500 mb-0.5">{stat.label}</div>
-                                    <div className={`text-base md:text-xl font-bold ${stat.color}`}>
-                                      {stat.value}
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-
-                            {/* Additional Visuals Based on Card Type */}
+                            {/* Visual Elements */}
                             {card.visual === 'velocity' && (
                               <div className="flex gap-1 items-end h-12 md:h-14 w-full mt-3 opacity-50 hover:opacity-100 transition-opacity">
                                 {[40, 70, 50, 90, 60, 85, 45, 95, 65, 80, 55, 75].map((height, i) => (
@@ -383,101 +354,22 @@ const WhyUs: React.FC = () => {
                               </div>
                             )}
 
-                            {card.visual === 'health' && (
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mt-3">
-                                {/* System Health Panel */}
-                                <div className="p-3 md:p-4 bg-black/40 rounded-lg md:rounded-xl border border-green-500/20">
-                                  <div className="flex items-center gap-2 mb-2">
-                                    <span className="material-symbols-outlined text-green-400 text-sm md:text-base">
-                                      health_and_safety
-                                    </span>
-                                    <span className="text-[9px] md:text-[10px] text-gray-400 uppercase tracking-wider font-semibold flex-1">System Health</span>
-                                    <span className="text-[10px] md:text-xs text-green-400 font-bold">99.97%</span>
-                                  </div>
-                                  <div className="space-y-1.5">
-                                    {[
-                                      { name: 'API', status: 100, color: 'bg-green-500' },
-                                      { name: 'Database', status: 100, color: 'bg-green-500' },
-                                      { name: 'ML Pipeline', status: 98, color: 'bg-green-500' },
-                                      { name: 'Data Lake', status: 100, color: 'bg-green-500' },
-                                    ].map((service, idx) => (
-                                      <div key={idx} className="flex items-center gap-2">
-                                        <div className="size-1.5 md:size-2 rounded-full bg-green-500 animate-pulse"></div>
-                                        <span className="text-[9px] md:text-[10px] text-gray-400 flex-1">{service.name}</span>
-                                        <span className="text-[9px] md:text-[10px] text-green-400 font-bold">{service.status}%</span>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-
-                                {/* Cost Monitoring Panel */}
-                                <div className="p-3 md:p-4 bg-black/40 rounded-lg md:rounded-xl border border-blue-500/20">
-                                  <div className="flex items-center gap-2 mb-2">
-                                    <span className="material-symbols-outlined text-blue-400 text-sm md:text-base">
-                                      payments
-                                    </span>
-                                    <span className="text-[9px] md:text-[10px] text-gray-400 uppercase tracking-wider font-semibold flex-1">Cost Monitor</span>
-                                    <span className="text-[10px] md:text-xs text-blue-400 font-bold">-32%</span>
-                                  </div>
-                                  <div className="space-y-1.5">
-                                    {[
-                                      { name: 'Compute', cost: '$2.4K', trend: 'down', percent: '-18%' },
-                                      { name: 'Storage', cost: '$890', trend: 'down', percent: '-25%' },
-                                      { name: 'Network', cost: '$340', trend: 'stable', percent: '+2%' },
-                                      { name: 'ML Training', cost: '$1.1K', trend: 'down', percent: '-45%' },
-                                    ].map((item, idx) => (
-                                      <div key={idx} className="flex items-center gap-2">
-                                        <span className={`material-symbols-outlined text-[10px] md:text-xs ${
-                                          item.trend === 'down' ? 'text-green-400' : item.trend === 'up' ? 'text-red-400' : 'text-gray-500'
-                                        }`}>
-                                          {item.trend === 'down' ? 'trending_down' : item.trend === 'up' ? 'trending_up' : 'remove'}
-                                        </span>
-                                        <span className="text-[9px] md:text-[10px] text-gray-400 flex-1">{item.name}</span>
-                                        <span className={`text-[9px] md:text-[10px] font-bold ${
-                                          item.trend === 'down' ? 'text-green-400' : item.trend === 'up' ? 'text-red-400' : 'text-gray-400'
-                                        }`}>{item.percent}</span>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              </div>
-                            )}
-
                             {card.visual === 'workflow' && (
                               <div className="grid grid-cols-3 gap-2 mt-3">
                                 {[
-                                  { icon: 'psychology', label: 'Reasoning', desc: 'Context understanding', color: 'purple' },
-                                  { icon: 'search', label: 'Retrieval', desc: 'Knowledge access', color: 'blue' },
-                                  { icon: 'integration_instructions', label: 'Execution', desc: 'Action deployment', color: 'emerald' },
+                                  { icon: 'psychology', label: 'Reasoning', desc: 'Context understanding' },
+                                  { icon: 'search', label: 'Retrieval', desc: 'Knowledge access' },
+                                  { icon: 'integration_instructions', label: 'Execution', desc: 'Action deployment' },
                                 ].map((step, idx) => (
                                   <div 
                                     key={idx}
                                     className="p-2 md:p-2.5 rounded-lg md:rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-all group"
                                   >
-                                    <span className={`material-symbols-outlined text-${step.color}-400 text-base md:text-lg mb-0.5 block group-hover:scale-110 transition-transform`}>
+                                    <span className={`material-symbols-outlined ${card.colorClass} text-base md:text-lg mb-0.5 block group-hover:scale-110 transition-transform`}>
                                       {step.icon}
                                     </span>
-                                    <div className={`text-${step.color}-400 text-[9px] md:text-[10px] font-bold mb-0.5`}>{step.label}</div>
+                                    <div className={`${card.colorClass} text-[9px] md:text-[10px] font-bold mb-0.5`}>{step.label}</div>
                                     <div className="text-gray-500 text-[8px] md:text-[9px]">{step.desc}</div>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-
-                            {card.visual === 'library' && (
-                              <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5 md:gap-2 mt-3">
-                                {[
-                                  { icon: 'database', label: 'Data Pipelines', count: '12+' },
-                                  { icon: 'smart_toy', label: 'AI Agents', count: '8+' },
-                                  { icon: 'dashboard', label: 'Dashboards', count: '15+' },
-                                  { icon: 'integration_instructions', label: 'Integrations', count: '20+' },
-                                ].map((item, i) => (
-                                  <div key={i} className="p-2 md:p-2.5 rounded-lg md:rounded-xl bg-white/5 border border-white/5 hover:border-emerald-500/30 transition-all group text-center">
-                                    <span className="material-symbols-outlined text-emerald-400 text-lg md:text-xl mb-0.5 block group-hover:scale-110 transition-transform">
-                                      {item.icon}
-                                    </span>
-                                    <div className="text-white text-[9px] md:text-[10px] font-semibold mb-0.5">{item.label}</div>
-                                    <div className="text-gray-500 text-[8px] md:text-[9px]">{item.count} templates</div>
                                   </div>
                                 ))}
                               </div>
