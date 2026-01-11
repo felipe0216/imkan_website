@@ -150,10 +150,10 @@ const Team: React.FC = () => {
   };
 
   return (
-    <section id="about" className="w-full py-20 md:py-24 bg-[#0d1a1b] relative overflow-hidden">
+    <section id="about" className="w-full py-20 md:py-24 bg-background-dark relative overflow-hidden">
       {/* Decorative background elements */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-900/10 rounded-full blur-[80px] pointer-events-none"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] animate-pulse-slow pointer-events-none"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-[120px] animate-pulse-slow pointer-events-none" style={{ animationDelay: '2s' }}></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col items-center mb-16">
@@ -169,10 +169,10 @@ const Team: React.FC = () => {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="w-full glass-card rounded-xl px-4 py-3 border border-white/10 flex items-center justify-between hover:border-primary/30 transition-all duration-300"
+              className="w-full glass-card rounded-xl px-4 py-3 border border-white/10 flex items-center justify-between hover:border-purple-500/30 transition-all duration-300"
             >
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-primary">filter_list</span>
+                <span className="material-symbols-outlined text-purple-400">filter_list</span>
                 <span className="text-white font-medium text-sm">
                   {specialties.find(s => s.id === selectedSpecialty)?.name || 'Filter Specialty'}
                 </span>
@@ -194,18 +194,18 @@ const Team: React.FC = () => {
                     }}
                     className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300 ${
                       selectedSpecialty === specialty.id
-                        ? 'bg-primary/10 border border-primary/30 text-white'
+                        ? 'bg-purple-500/10 border border-purple-500/30 text-white'
                         : 'bg-transparent text-gray-400 hover:bg-white/5 hover:text-white'
                     }`}
                   >
                     <span className={`material-symbols-outlined text-lg ${
-                      selectedSpecialty === specialty.id ? 'text-primary' : 'text-gray-500'
+                      selectedSpecialty === specialty.id ? 'text-purple-400' : 'text-gray-500'
                     }`}>
                       {specialty.icon}
                     </span>
                     <span className="text-sm font-medium">{specialty.name}</span>
                     {selectedSpecialty === specialty.id && (
-                      <span className="ml-auto size-2 rounded-full bg-primary animate-pulse-slow"></span>
+                      <span className="ml-auto size-2 rounded-full bg-purple-500 animate-pulse-slow"></span>
                     )}
                   </button>
                 ))}
@@ -215,26 +215,30 @@ const Team: React.FC = () => {
 
           {/* Desktop Sidebar - Specialty Filter */}
           <div className="hidden lg:block w-80 flex-shrink-0">
-            <div className="glass-card rounded-2xl p-5 border border-white/10 sticky top-24">
-              <nav className="space-y-2">
-                {specialties.map((specialty) => (
+            <div className="glass-card rounded-2xl border border-white/10 sticky top-24 overflow-hidden" style={{ height: '450px' }}>
+              <nav className="flex flex-col justify-between h-full p-5">
+                {specialties.map((specialty, index) => (
                   <button
                     key={specialty.id}
                     onClick={() => setSelectedSpecialty(specialty.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group ${
+                    className={`w-full flex items-center gap-3 px-4 rounded-xl transition-all duration-300 group ${
                       selectedSpecialty === specialty.id
-                        ? 'bg-primary/10 border border-primary/30 text-white shadow-[0_0_15px_rgba(37,226,244,0.15)]'
+                        ? 'bg-purple-500/10 border border-purple-500/30 text-white shadow-[0_0_15px_rgba(168,85,247,0.15)]'
                         : 'bg-white/5 border border-transparent text-gray-400 hover:bg-white/10 hover:text-white hover:border-white/10'
                     }`}
+                    style={{ 
+                      height: 'calc((100% - 0px) / 5)',
+                      minHeight: '70px'
+                    }}
                   >
-                    <span className={`material-symbols-outlined text-xl transition-colors ${
-                      selectedSpecialty === specialty.id ? 'text-primary' : 'text-gray-500 group-hover:text-primary'
+                    <span className={`material-symbols-outlined text-2xl transition-colors ${
+                      selectedSpecialty === specialty.id ? 'text-purple-400' : 'text-gray-500 group-hover:text-purple-400'
                     }`}>
                       {specialty.icon}
                     </span>
-                    <span className="text-sm font-medium text-left">{specialty.name}</span>
+                    <span className="text-base font-medium text-left flex-1">{specialty.name}</span>
                     {selectedSpecialty === specialty.id && (
-                      <span className="ml-auto size-2 rounded-full bg-primary animate-pulse-slow"></span>
+                      <span className="size-2 rounded-full bg-purple-500 animate-pulse-slow flex-shrink-0"></span>
                     )}
                   </button>
                 ))}
