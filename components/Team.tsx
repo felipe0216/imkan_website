@@ -39,7 +39,7 @@ const teamMembers: TeamMember[] = [
     specialty: ['Founders', 'AI & Machine Learning', 'Research & Development'],
     tags: ['Agentic AI', 'MLOps', 'Production Deployments'],
     description: 'Leads AI innovation from research to production. Deep expertise in advanced machine learning, generative AI, autonomous agent systems, MLOps pipelines, model deployment, and intelligent monitoring systems that drive business value.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBLmbLKx5KODpM8MVzOTdbUQRpWuk2JotA07vprchgwiv0nlTpnwH4VCmbCbrA4oFdzcPyyBo-tgf6_WT9E34FWF2CdmwAT_g-4_Bd2WbKvsq1YH3lBHceL9UWWQ1DEuOtXORlLFzWj3xjB9CQjvuCyv0L7KiOLTsO7RUWnptpmWhtGUqvYRM4xC-wUcCeg1mnKm7klH7Jp5xh9GtyFc7OBbiYCuszoQf8Ow_dTgWsGVpKiYRqLzdzg4cj7CvG_fZP0RBSKTYK11u5k',
+    image: '/images/profile_pictures/real_felipe.png',
     colorTheme: 'purple'
   },
   {
@@ -49,7 +49,7 @@ const teamMembers: TeamMember[] = [
     specialty: ['Founders', 'Data Engineering', 'Cloud Infrastructure', 'Research & Development'],
     tags: ['Data Architecture', 'ETL Pipelines', 'Governance'],
     description: 'Expert in building enterprise data foundations from the ground up. Specializes in data strategy, modern data warehousing, ETL/ELT pipelines, data quality frameworks, and scalable cloud infrastructure that enables AI at scale.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwUTc-60iyPqbS7h5OTVQWphY7LFpu6Yy2CEwbPgICptkLqSuhr5RIi6UwtORIe9BqlTtB5aTVYYzJGFbxuDApyxMRmJtdJEHxfuxLiNjO6MW2bczLxVGUANeQzwbPA7h0jWgHAcps0yVM778TEiEIvNn02whEfEWzhY1h7lym59twZJ2Yr9Spp_oIl7Z6vXlkfa7h0S_R_MCQDza0ZbCBefSNPUmHDtyC_6qXN3iAMqnkUwXylOnOSTjYUZgvBNZ8Ssf_h7MjXZZd',
+    image: '/images/profile_pictures/real_syed.png',
     colorTheme: 'emerald'
   },
   {
@@ -324,6 +324,17 @@ const Team: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
               {filteredMembers.map((member) => {
                 const colors = getSpecialtyColors(selectedSpecialty);
+                // Custom background positioning for specific members
+                const getBackgroundPosition = () => {
+                  if (member.id === '2') { // Felipe Araya
+                    return 'center 25%'; // Move down slightly more for better framing
+                  }
+                  if (member.id === '1') { // Dr. Syed
+                    return 'center 30%'; // Better positioning for mobile and desktop
+                  }
+                  return 'center center'; // Default for others
+                };
+                
                 return (
                   <div 
                     key={member.id}
@@ -331,8 +342,11 @@ const Team: React.FC = () => {
                   >
                     {/* Image with grayscale effect */}
                     <div 
-                      className="absolute inset-0 bg-gray-800 bg-cover bg-center transition-all duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0" 
-                      style={{ backgroundImage: `url('${member.image}')` }}
+                      className="absolute inset-0 bg-gray-800 bg-cover transition-all duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0" 
+                      style={{ 
+                        backgroundImage: `url('${member.image}')`,
+                        backgroundPosition: getBackgroundPosition()
+                      }}
                     ></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-90"></div>
                     
