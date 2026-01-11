@@ -13,14 +13,24 @@ interface TeamMember {
 
 const teamMembers: TeamMember[] = [
   {
-    id: '1',
-    name: 'Dr. Syed Fawad Ali',
-    role: 'Co-founder & Lead Data Engineer',
-    specialty: ['Founders', 'Data Engineering', 'Cloud Infrastructure', 'Research & Development'],
-    tags: ['Data Architecture', 'ETL Pipelines', 'Data Governance'],
-    description: 'Expert in building enterprise data foundations from the ground up. Specializes in data strategy, modern data warehousing, ETL/ELT pipelines, data quality frameworks, and scalable cloud infrastructure that enables AI at scale.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwUTc-60iyPqbS7h5OTVQWphY7LFpu6Yy2CEwbPgICptkLqSuhr5RIi6UwtORIe9BqlTtB5aTVYYzJGFbxuDApyxMRmJtdJEHxfuxLiNjO6MW2bczLxVGUANeQzwbPA7h0jWgHAcps0yVM778TEiEIvNn02whEfEWzhY1h7lym59twZJ2Yr9Spp_oIl7Z6vXlkfa7h0S_R_MCQDza0ZbCBefSNPUmHDtyC_6qXN3iAMqnkUwXylOnOSTjYUZgvBNZ8Ssf_h7MjXZZd',
+    id: '5',
+    name: 'Aisha Malik',
+    role: 'Cloud Solutions Architect',
+    specialty: ['Cloud Infrastructure'],
+    tags: ['AWS', 'Kubernetes', 'Infrastructure as Code'],
+    description: 'Designs and implements scalable cloud architectures for enterprise AI workloads. Expert in multi-cloud strategies, container orchestration, and building resilient distributed systems.',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=faces',
     colorTheme: 'emerald'
+  },
+  {
+    id: '7',
+    name: 'Alex Rivera',
+    role: 'Research Engineer',
+    specialty: ['Research & Development'],
+    tags: ['Reinforcement Learning', 'LLMs', 'Research'],
+    description: 'Bridges cutting-edge AI research with practical applications. Focuses on reinforcement learning, large language models, and prototyping novel AI architectures for next-generation intelligent systems.',
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=faces',
+    colorTheme: 'cyan'
   },
   {
     id: '2',
@@ -31,6 +41,16 @@ const teamMembers: TeamMember[] = [
     description: 'Leads AI innovation from research to production. Deep expertise in advanced machine learning, generative AI, autonomous agent systems, MLOps pipelines, model deployment, and intelligent monitoring systems that drive business value.',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBLmbLKx5KODpM8MVzOTdbUQRpWuk2JotA07vprchgwiv0nlTpnwH4VCmbCbrA4oFdzcPyyBo-tgf6_WT9E34FWF2CdmwAT_g-4_Bd2WbKvsq1YH3lBHceL9UWWQ1DEuOtXORlLFzWj3xjB9CQjvuCyv0L7KiOLTsO7RUWnptpmWhtGUqvYRM4xC-wUcCeg1mnKm7klH7Jp5xh9GtyFc7OBbiYCuszoQf8Ow_dTgWsGVpKiYRqLzdzg4cj7CvG_fZP0RBSKTYK11u5k',
     colorTheme: 'purple'
+  },
+  {
+    id: '1',
+    name: 'Dr. Syed Fawad Ali',
+    role: 'Co-founder & Lead Data Engineer',
+    specialty: ['Founders', 'Data Engineering', 'Cloud Infrastructure', 'Research & Development'],
+    tags: ['Data Architecture', 'ETL Pipelines', 'Governance'],
+    description: 'Expert in building enterprise data foundations from the ground up. Specializes in data strategy, modern data warehousing, ETL/ELT pipelines, data quality frameworks, and scalable cloud infrastructure that enables AI at scale.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwUTc-60iyPqbS7h5OTVQWphY7LFpu6Yy2CEwbPgICptkLqSuhr5RIi6UwtORIe9BqlTtB5aTVYYzJGFbxuDApyxMRmJtdJEHxfuxLiNjO6MW2bczLxVGUANeQzwbPA7h0jWgHAcps0yVM778TEiEIvNn02whEfEWzhY1h7lym59twZJ2Yr9Spp_oIl7Z6vXlkfa7h0S_R_MCQDza0ZbCBefSNPUmHDtyC_6qXN3iAMqnkUwXylOnOSTjYUZgvBNZ8Ssf_h7MjXZZd',
+    colorTheme: 'emerald'
   },
   {
     id: '3',
@@ -47,20 +67,10 @@ const teamMembers: TeamMember[] = [
     name: 'James Chen',
     role: 'Senior Data Engineer',
     specialty: ['Data Engineering'],
-    tags: ['Real-time Processing', 'Data Lakes', 'Apache Spark'],
+    tags: ['Real-time Processing', 'Data Lakes', 'Spark'],
     description: 'Builds high-performance data pipelines and streaming architectures. Specializes in real-time data processing, distributed systems, and optimizing data workflows for petabyte-scale operations.',
     image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&h=400&fit=crop&crop=faces',
     colorTheme: 'blue'
-  },
-  {
-    id: '5',
-    name: 'Aisha Malik',
-    role: 'Cloud Solutions Architect',
-    specialty: ['Cloud Infrastructure'],
-    tags: ['AWS', 'Kubernetes', 'Infrastructure as Code'],
-    description: 'Designs and implements scalable cloud architectures for enterprise AI workloads. Expert in multi-cloud strategies, container orchestration, and building resilient distributed systems.',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=faces',
-    colorTheme: 'emerald'
   },
   {
     id: '6',
@@ -71,16 +81,6 @@ const teamMembers: TeamMember[] = [
     description: 'Automates deployment pipelines and ensures system reliability at scale. Specializes in infrastructure automation, observability platforms, and implementing robust DevOps practices for ML systems.',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=faces',
     colorTheme: 'purple'
-  },
-  {
-    id: '7',
-    name: 'Alex Rivera',
-    role: 'Research Engineer',
-    specialty: ['Research & Development'],
-    tags: ['Reinforcement Learning', 'LLMs', 'Research'],
-    description: 'Bridges cutting-edge AI research with practical applications. Focuses on reinforcement learning, large language models, and prototyping novel AI architectures for next-generation intelligent systems.',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=faces',
-    colorTheme: 'cyan'
   }
 ];
 
@@ -108,6 +108,71 @@ const Team: React.FC = () => {
     };
     return member.specialty.includes(specialtyMap[selectedSpecialty]);
   });
+
+  const getSpecialtyColors = (specialtyId: string) => {
+    switch(specialtyId) {
+      case 'founders':
+        return {
+          bg: 'bg-emerald-500/10',
+          border: 'border-emerald-400/30',
+          text: 'text-emerald-400',
+          shadow: 'shadow-[0_0_15px_rgba(52,211,153,0.15)]',
+          dot: 'bg-emerald-400',
+          hoverBorder: 'hover:border-emerald-400/30',
+          hoverShadow: 'hover:shadow-[0_0_20px_rgba(52,211,153,0.2)]'
+        };
+      case 'ai-ml':
+        return {
+          bg: 'bg-purple-500/10',
+          border: 'border-purple-500/30',
+          text: 'text-purple-400',
+          shadow: 'shadow-[0_0_15px_rgba(168,85,247,0.15)]',
+          dot: 'bg-purple-500',
+          hoverBorder: 'hover:border-purple-500/30',
+          hoverShadow: 'hover:shadow-[0_0_20px_rgba(168,85,247,0.2)]'
+        };
+      case 'data-eng':
+        return {
+          bg: 'bg-blue-500/10',
+          border: 'border-blue-500/30',
+          text: 'text-blue-400',
+          shadow: 'shadow-[0_0_15px_rgba(59,130,246,0.15)]',
+          dot: 'bg-blue-500',
+          hoverBorder: 'hover:border-blue-500/30',
+          hoverShadow: 'hover:shadow-[0_0_20px_rgba(59,130,246,0.2)]'
+        };
+      case 'cloud':
+        return {
+          bg: 'bg-primary/10',
+          border: 'border-primary/30',
+          text: 'text-primary',
+          shadow: 'shadow-[0_0_15px_rgba(37,226,244,0.15)]',
+          dot: 'bg-primary',
+          hoverBorder: 'hover:border-primary/30',
+          hoverShadow: 'hover:shadow-[0_0_20px_rgba(37,226,244,0.2)]'
+        };
+      case 'research':
+        return {
+          bg: 'bg-accent-green/10',
+          border: 'border-accent-green/30',
+          text: 'text-accent-green',
+          shadow: 'shadow-[0_0_15px_rgba(163,230,53,0.15)]',
+          dot: 'bg-accent-green',
+          hoverBorder: 'hover:border-accent-green/30',
+          hoverShadow: 'hover:shadow-[0_0_20px_rgba(163,230,53,0.2)]'
+        };
+      default:
+        return {
+          bg: 'bg-primary/10',
+          border: 'border-primary/30',
+          text: 'text-primary',
+          shadow: 'shadow-[0_0_15px_rgba(37,226,244,0.15)]',
+          dot: 'bg-primary',
+          hoverBorder: 'hover:border-primary/30',
+          hoverShadow: 'hover:shadow-[0_0_20px_rgba(37,226,244,0.2)]'
+        };
+    }
+  };
 
   const getColorClasses = (theme: string) => {
     switch(theme) {
@@ -169,10 +234,10 @@ const Team: React.FC = () => {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="w-full glass-card rounded-xl px-4 py-3 border border-white/10 flex items-center justify-between hover:border-purple-500/30 transition-all duration-300"
+              className={`w-full glass-card rounded-xl px-4 py-3 border border-white/10 flex items-center justify-between hover:${getSpecialtyColors(selectedSpecialty).border} transition-all duration-300`}
             >
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-purple-400">filter_list</span>
+                <span className={`material-symbols-outlined ${getSpecialtyColors(selectedSpecialty).text}`}>filter_list</span>
                 <span className="text-white font-medium text-sm">
                   {specialties.find(s => s.id === selectedSpecialty)?.name || 'Filter Specialty'}
                 </span>
@@ -185,30 +250,34 @@ const Team: React.FC = () => {
             {/* Mobile Dropdown Menu */}
             {isMobileMenuOpen && (
               <div className="mt-2 glass-card rounded-xl p-3 border border-white/10 space-y-1 animate-in slide-in-from-top-2 duration-300">
-                {specialties.map((specialty) => (
-                  <button
-                    key={specialty.id}
-                    onClick={() => {
-                      setSelectedSpecialty(specialty.id);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300 ${
-                      selectedSpecialty === specialty.id
-                        ? 'bg-purple-500/10 border border-purple-500/30 text-white'
-                        : 'bg-transparent text-gray-400 hover:bg-white/5 hover:text-white'
-                    }`}
-                  >
-                    <span className={`material-symbols-outlined text-lg ${
-                      selectedSpecialty === specialty.id ? 'text-purple-400' : 'text-gray-500'
-                    }`}>
-                      {specialty.icon}
-                    </span>
-                    <span className="text-sm font-medium">{specialty.name}</span>
-                    {selectedSpecialty === specialty.id && (
-                      <span className="ml-auto size-2 rounded-full bg-purple-500 animate-pulse-slow"></span>
-                    )}
-                  </button>
-                ))}
+                {specialties.map((specialty) => {
+                  const colors = getSpecialtyColors(specialty.id);
+                  const isActive = selectedSpecialty === specialty.id;
+                  return (
+                    <button
+                      key={specialty.id}
+                      onClick={() => {
+                        setSelectedSpecialty(specialty.id);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300 ${
+                        isActive
+                          ? `${colors.bg} border ${colors.border} text-white`
+                          : 'bg-transparent text-gray-400 hover:bg-white/5 hover:text-white'
+                      }`}
+                    >
+                      <span className={`material-symbols-outlined text-lg ${
+                        isActive ? colors.text : 'text-gray-500'
+                      }`}>
+                        {specialty.icon}
+                      </span>
+                      <span className="text-sm font-medium">{specialty.name}</span>
+                      {isActive && (
+                        <span className={`ml-auto size-2 rounded-full ${colors.dot} animate-pulse-slow`}></span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -217,31 +286,35 @@ const Team: React.FC = () => {
           <div className="hidden lg:block w-80 flex-shrink-0">
             <div className="glass-card rounded-2xl border border-white/10 sticky top-24 overflow-hidden" style={{ height: '450px' }}>
               <nav className="flex flex-col justify-between h-full p-5">
-                {specialties.map((specialty, index) => (
-                  <button
-                    key={specialty.id}
-                    onClick={() => setSelectedSpecialty(specialty.id)}
-                    className={`w-full flex items-center gap-3 px-4 rounded-xl transition-all duration-300 group ${
-                      selectedSpecialty === specialty.id
-                        ? 'bg-purple-500/10 border border-purple-500/30 text-white shadow-[0_0_15px_rgba(168,85,247,0.15)]'
-                        : 'bg-white/5 border border-transparent text-gray-400 hover:bg-white/10 hover:text-white hover:border-white/10'
-                    }`}
-                    style={{ 
-                      height: 'calc((100% - 0px) / 5)',
-                      minHeight: '70px'
-                    }}
-                  >
-                    <span className={`material-symbols-outlined text-2xl transition-colors ${
-                      selectedSpecialty === specialty.id ? 'text-purple-400' : 'text-gray-500 group-hover:text-purple-400'
-                    }`}>
-                      {specialty.icon}
-                    </span>
-                    <span className="text-base font-medium text-left flex-1">{specialty.name}</span>
-                    {selectedSpecialty === specialty.id && (
-                      <span className="size-2 rounded-full bg-purple-500 animate-pulse-slow flex-shrink-0"></span>
-                    )}
-                  </button>
-                ))}
+                {specialties.map((specialty, index) => {
+                  const colors = getSpecialtyColors(specialty.id);
+                  const isActive = selectedSpecialty === specialty.id;
+                  return (
+                    <button
+                      key={specialty.id}
+                      onClick={() => setSelectedSpecialty(specialty.id)}
+                      className={`w-full flex items-center gap-3 px-4 rounded-xl transition-all duration-300 group ${
+                        isActive
+                          ? `${colors.bg} border ${colors.border} text-white ${colors.shadow}`
+                          : 'bg-white/5 border border-transparent text-gray-400 hover:bg-white/10 hover:text-white hover:border-white/10'
+                      }`}
+                      style={{ 
+                        height: 'calc((100% - 0px) / 5)',
+                        minHeight: '70px'
+                      }}
+                    >
+                      <span className={`material-symbols-outlined text-2xl transition-colors ${
+                        isActive ? colors.text : `text-gray-500 group-hover:${colors.text}`
+                      }`}>
+                        {specialty.icon}
+                      </span>
+                      <span className="text-base font-medium text-left flex-1">{specialty.name}</span>
+                      {isActive && (
+                        <span className={`size-2 rounded-full ${colors.dot} animate-pulse-slow flex-shrink-0`}></span>
+                      )}
+                    </button>
+                  );
+                })}
               </nav>
             </div>
           </div>
@@ -250,11 +323,11 @@ const Team: React.FC = () => {
           <div className="flex-1">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
               {filteredMembers.map((member) => {
-                const colors = getColorClasses(member.colorTheme);
+                const colors = getSpecialtyColors(selectedSpecialty);
                 return (
                   <div 
                     key={member.id}
-                    className={`group relative h-[450px] rounded-2xl overflow-hidden cursor-pointer shadow-lg ${colors.shadow} transition-all duration-500 ${colors.hoverBorder} border border-transparent`}
+                    className={`group relative h-[450px] rounded-2xl overflow-hidden cursor-pointer shadow-lg ${colors.hoverShadow} transition-all duration-500 ${colors.hoverBorder} border border-transparent`}
                   >
                     {/* Image with grayscale effect */}
                     <div 
@@ -263,12 +336,13 @@ const Team: React.FC = () => {
                     ></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/40 to-transparent opacity-90"></div>
                     
-                    <div className="absolute bottom-0 left-0 w-full p-8 flex flex-col justify-end h-full">
+                    {/* Fixed positioning for consistent alignment */}
+                    <div className="absolute bottom-0 left-0 w-full p-8">
                       <div className="translate-y-12 group-hover:translate-y-0 transition-transform duration-500">
-                        <h3 className="text-2xl font-bold text-white mb-1">{member.name}</h3>
-                        <p className={`${colors.text} font-medium mb-4`}>{member.role}</p>
+                        <h3 className="text-2xl font-bold text-white leading-tight" style={{ marginBottom: '8px' }}>{member.name}</h3>
+                        <p className={`${colors.text} font-medium leading-tight`} style={{ marginBottom: '16px' }}>{member.role}</p>
                         
-                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 flex flex-wrap gap-2">
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 flex flex-wrap gap-2" style={{ marginBottom: '16px' }}>
                           {member.tags.map(tag => (
                             <span 
                               key={tag} 
@@ -279,7 +353,7 @@ const Team: React.FC = () => {
                           ))}
                         </div>
                         
-                        <p className="mt-4 text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200 line-clamp-3 leading-relaxed">
+                        <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200 line-clamp-3 leading-relaxed">
                           {member.description}
                         </p>
                       </div>
