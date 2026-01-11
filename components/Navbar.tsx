@@ -17,6 +17,7 @@ const Navbar: React.FC = () => {
     { name: 'Home', target: 'home' },
     { name: 'Services', target: 'services' },
     { name: 'Methodology', target: 'methodology' },
+    { name: 'Why Us', target: 'why-us' },
     { name: 'Cases', target: 'cases' },
     { name: 'About', target: 'about' },
   ];
@@ -94,13 +95,13 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Nav - Centered Island Style */}
         <div className="hidden md:block absolute left-1/2 -translate-x-1/2">
-          <nav className="flex items-center gap-1 p-1.5 rounded-full bg-white/5 border border-white/5 backdrop-blur-md shadow-lg transition-all duration-300 hover:border-white/10 hover:bg-white/10">
+          <nav className="flex items-center gap-0.5 p-1.5 rounded-full bg-white/5 border border-white/5 backdrop-blur-md shadow-lg transition-all duration-300 hover:border-white/10 hover:bg-white/10">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={`#${link.target}`}
                 onClick={(e) => handleScrollTo(e, link.target)}
-                className="px-6 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300 relative group overflow-hidden"
+                className="px-4 py-2 rounded-full text-xs font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300 relative group overflow-hidden whitespace-nowrap"
               >
                 <span className="relative z-10">{link.name}</span>
                 {/* Hover Glow */}
@@ -111,15 +112,15 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* CTA & Actions */}
-        <div className="hidden md:flex items-center gap-6">
-          <button className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-bold group">
+        <div className="hidden md:flex items-center gap-3 lg:gap-6">
+          <button className="hidden lg:flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-bold group">
             <span>Portal</span>
             <span className="material-symbols-outlined text-lg group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">arrow_outward</span>
           </button>
-          <button className="relative overflow-hidden bg-white text-black font-bold text-sm px-6 py-3 rounded-xl hover:bg-primary transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(37,226,244,0.4)] group">
+          <button className="relative overflow-hidden bg-white text-black font-bold text-xs lg:text-sm px-4 lg:px-6 py-2.5 lg:py-3 rounded-xl hover:bg-primary transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(37,226,244,0.4)] group whitespace-nowrap">
             <span className="relative z-10 flex items-center gap-2">
               Start Project
-              <span className="material-symbols-outlined text-lg opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">chevron_right</span>
+              <span className="material-symbols-outlined text-base lg:text-lg opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">chevron_right</span>
             </span>
           </button>
         </div>
