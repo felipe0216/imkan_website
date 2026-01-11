@@ -163,9 +163,9 @@ const WhyUs: React.FC = () => {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[100px] animate-pulse-slow"></div>
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent-green/5 rounded-full blur-[100px] animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div className="max-w-7xl mx-auto px-6 relative z-[150]">
+        {/* Header - Higher z-index to stay above cards */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 relative z-[150]">
           <div>
             <div className="flex items-center gap-2 mb-3">
                <span className="h-px w-8 bg-primary"></span>
@@ -221,26 +221,28 @@ const WhyUs: React.FC = () => {
               const isPast = index < currentIndex;
               const isFuture = index > currentIndex;
               
-              // Subtle stack effect - only show edge of next cards
+              // Subtle stack effect - straight edges, no rotation
               const positionFromActive = index - currentIndex;
               
-              // Subtle rotation to the left (negative for leftward tilt) and minimal offsets
-              const rotation = isFuture 
-                ? positionFromActive * -2  // Subtle leftward tilt for future cards
-                : isPast 
-                  ? -45  // Exit to the left with dramatic angle
-                  : 0;
+              // No rotation - keep edges perfectly straight
+              const rotation = isPast ? -8 : 0;  // Only slight tilt when exiting
               
+              // Horizontal offset only - creates clean stack
               const xOffset = isFuture 
-                ? positionFromActive * 15  // Only 15px offset - just peek the edge
+                ? positionFromActive * 12  // Reduced to 12px for tighter, cleaner stack
                 : isPast 
                   ? -300  // Exit far to the left
                   : 0;
               
-              const yOffset = 0; // Keep vertical alignment
+              // Slight vertical offset for depth perception
+              const yOffset = isFuture 
+                ? positionFromActive * 3  // Subtle 3px drop per card for depth
+                : isPast 
+                  ? -20 
+                  : 0;
               
-              const scale = isActive ? 1 : isFuture ? 0.98 : 0.92; // Subtle scale for depth
-              const opacity = isPast ? 0 : isFuture ? (positionFromActive === 1 ? 0.7 : 0.4) : 1; // Only first card behind is more visible
+              const scale = isActive ? 1 : isFuture ? 0.99 : 0.95; // Very subtle scale
+              const opacity = isPast ? 0 : isFuture ? (positionFromActive === 1 ? 0.8 : 0.5) : 1;
               const zIndex = isPast ? 0 : isFuture ? differentiators.length - index + 10 : 100;
               
               return (
@@ -254,11 +256,11 @@ const WhyUs: React.FC = () => {
                       rotateZ(${rotation}deg) 
                       scale(${scale})
                     `,
-                    transformOrigin: 'center left',
+                    transformOrigin: 'center center',  // Center origin for straight edges
                     zIndex: zIndex,
                     opacity: opacity,
                     pointerEvents: isActive ? 'auto' : 'none',
-                    transition: 'all 0.7s cubic-bezier(0.22, 1, 0.36, 1)', // Smooth, professional easing
+                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)', // Smooth, professional easing
                   }}
                 >
                   <div className={`glass-card rounded-2xl md:rounded-3xl p-5 md:p-8 border ${isActive ? 'border-white/20 shadow-2xl' : 'border-white/10'} bg-surface-dark relative overflow-hidden`}
