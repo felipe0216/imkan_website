@@ -16,7 +16,7 @@ const teamMembers: TeamMember[] = [
     id: '1',
     name: 'Dr. Syed Fawad Ali',
     role: 'Co-founder & Lead Data Engineer',
-    specialty: ['Founders', 'Data Engineering', 'Cloud Infrastructure'],
+    specialty: ['Founders', 'Data Engineering', 'Cloud Infrastructure', 'Research & Development'],
     tags: ['Data Architecture', 'ETL Pipelines', 'Data Governance'],
     description: 'Expert in building enterprise data foundations from the ground up. Specializes in data strategy, modern data warehousing, ETL/ELT pipelines, data quality frameworks, and scalable cloud infrastructure that enables AI at scale.',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwUTc-60iyPqbS7h5OTVQWphY7LFpu6Yy2CEwbPgICptkLqSuhr5RIi6UwtORIe9BqlTtB5aTVYYzJGFbxuDApyxMRmJtdJEHxfuxLiNjO6MW2bczLxVGUANeQzwbPA7h0jWgHAcps0yVM778TEiEIvNn02whEfEWzhY1h7lym59twZJ2Yr9Spp_oIl7Z6vXlkfa7h0S_R_MCQDza0ZbCBefSNPUmHDtyC_6qXN3iAMqnkUwXylOnOSTjYUZgvBNZ8Ssf_h7MjXZZd',
@@ -31,6 +31,56 @@ const teamMembers: TeamMember[] = [
     description: 'Leads AI innovation from research to production. Deep expertise in advanced machine learning, generative AI, autonomous agent systems, MLOps pipelines, model deployment, and intelligent monitoring systems that drive business value.',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBLmbLKx5KODpM8MVzOTdbUQRpWuk2JotA07vprchgwiv0nlTpnwH4VCmbCbrA4oFdzcPyyBo-tgf6_WT9E34FWF2CdmwAT_g-4_Bd2WbKvsq1YH3lBHceL9UWWQ1DEuOtXORlLFzWj3xjB9CQjvuCyv0L7KiOLTsO7RUWnptpmWhtGUqvYRM4xC-wUcCeg1mnKm7klH7Jp5xh9GtyFc7OBbiYCuszoQf8Ow_dTgWsGVpKiYRqLzdzg4cj7CvG_fZP0RBSKTYK11u5k',
     colorTheme: 'purple'
+  },
+  {
+    id: '3',
+    name: 'Maria Santos',
+    role: 'Senior Data Scientist',
+    specialty: ['AI & Machine Learning'],
+    tags: ['Deep Learning', 'NLP', 'Model Optimization'],
+    description: 'Specializes in building and fine-tuning neural networks for production environments. Expert in natural language processing, computer vision, and developing custom ML solutions that solve complex business problems.',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=faces',
+    colorTheme: 'cyan'
+  },
+  {
+    id: '4',
+    name: 'James Chen',
+    role: 'Senior Data Engineer',
+    specialty: ['Data Engineering'],
+    tags: ['Real-time Processing', 'Data Lakes', 'Apache Spark'],
+    description: 'Builds high-performance data pipelines and streaming architectures. Specializes in real-time data processing, distributed systems, and optimizing data workflows for petabyte-scale operations.',
+    image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&h=400&fit=crop&crop=faces',
+    colorTheme: 'blue'
+  },
+  {
+    id: '5',
+    name: 'Aisha Malik',
+    role: 'Cloud Solutions Architect',
+    specialty: ['Cloud Infrastructure'],
+    tags: ['AWS', 'Kubernetes', 'Infrastructure as Code'],
+    description: 'Designs and implements scalable cloud architectures for enterprise AI workloads. Expert in multi-cloud strategies, container orchestration, and building resilient distributed systems.',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=faces',
+    colorTheme: 'emerald'
+  },
+  {
+    id: '6',
+    name: 'David Kumar',
+    role: 'DevOps Engineer',
+    specialty: ['Cloud Infrastructure'],
+    tags: ['CI/CD', 'Terraform', 'Monitoring'],
+    description: 'Automates deployment pipelines and ensures system reliability at scale. Specializes in infrastructure automation, observability platforms, and implementing robust DevOps practices for ML systems.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=faces',
+    colorTheme: 'purple'
+  },
+  {
+    id: '7',
+    name: 'Alex Rivera',
+    role: 'Research Engineer',
+    specialty: ['Research & Development'],
+    tags: ['Reinforcement Learning', 'LLMs', 'Research'],
+    description: 'Bridges cutting-edge AI research with practical applications. Focuses on reinforcement learning, large language models, and prototyping novel AI architectures for next-generation intelligent systems.',
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=faces',
+    colorTheme: 'cyan'
   }
 ];
 
