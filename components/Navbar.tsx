@@ -13,6 +13,31 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Toggle mobile menu with scroll lock
+  const toggleMenu = () => {
+    if (!isOpen) {
+      // Lock body scroll BEFORE opening menu
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+      // Store scroll position for later restoration
+      document.body.setAttribute('data-scroll-y', scrollY.toString());
+      setIsOpen(true);
+    } else {
+      // Restore scroll position when closing
+      const scrollY = document.body.getAttribute('data-scroll-y');
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      document.body.removeAttribute('data-scroll-y');
+      window.scrollTo(0, parseInt(scrollY || '0'));
+      setIsOpen(false);
+    }
+  };
+
   const navLinks = [
     { name: 'Home', target: 'home' },
     { name: 'Services', target: 'services' },
@@ -24,20 +49,28 @@ const Navbar: React.FC = () => {
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    setIsOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 90; // Height of the fixed header plus some breathing room
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+    
+    // Close menu first (this will restore scroll)
+    if (isOpen) {
+      toggleMenu();
     }
+    
+    // Then scroll to target after a brief delay
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        const offset = 90; // Height of the fixed header plus some breathing room
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
   };
 
   return (
@@ -128,7 +161,7 @@ const Navbar: React.FC = () => {
         {/* Mobile Toggle */}
         <button
           className="md:hidden relative z-50 p-2 text-white hover:text-primary transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={toggleMenu}
         >
           <span className="material-symbols-outlined text-3xl">
             {isOpen ? 'close' : 'menu'}
@@ -137,28 +170,54 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 bg-[#05080a] z-40 transition-transform duration-500 ease-in-out flex flex-col items-center justify-center gap-8 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div 
+        className={`fixed inset-0 bg-[#05080a] z-40 overflow-auto transition-all duration-300 ${
+          isOpen 
+            ? 'opacity-100 pointer-events-auto' 
+            : 'opacity-0 pointer-events-none'
+        }`}
+      >
         {/* Background Effect */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(37,226,244,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(37,226,244,0.03)_1px,transparent_1px)] bg-[size:40px_40px] opacity-30 pointer-events-none"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-        <nav className="flex flex-col items-center gap-6 relative z-10">
-          {navLinks.map((link, idx) => (
-            <a
-              key={link.name}
-              href={`#${link.target}`}
-              onClick={(e) => handleScrollTo(e, link.target)}
-              className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-gray-300 hover:from-primary hover:to-white transition-all duration-500 transform hover:scale-105 hover:tracking-wide"
-              style={{ transitionDelay: `${idx * 50}ms` }}
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
+        {/* Content Container - Always Centered */}
+        <div 
+          className={`min-h-full flex flex-col items-center justify-center gap-6 px-6 py-24 transition-all duration-300 ${
+            isOpen 
+              ? 'opacity-100 scale-100' 
+              : 'opacity-0 scale-95'
+          }`}
+        >
+          <nav className="flex flex-col items-center gap-5 relative z-10 w-full max-w-md">
+            {navLinks.map((link, idx) => (
+              <a
+                key={link.name}
+                href={`#${link.target}`}
+                onClick={(e) => handleScrollTo(e, link.target)}
+                className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-gray-300 hover:from-primary hover:to-white transition-all duration-500 transform hover:scale-105 hover:tracking-wide text-center"
+                style={{ 
+                  transitionDelay: isOpen ? `${idx * 50}ms` : '0ms',
+                  opacity: isOpen ? 1 : 0,
+                  transform: isOpen ? 'translateY(0)' : 'translateY(-10px)'
+                }}
+              >
+                {link.name}
+              </a>
+            ))}
+          </nav>
 
-        <button className="mt-8 bg-primary text-black font-bold text-xl px-12 py-4 rounded-xl shadow-[0_0_30px_rgba(37,226,244,0.3)] hover:shadow-[0_0_50px_rgba(37,226,244,0.6)] transition-shadow relative z-10">
-          Start Project
-        </button>
+          <button 
+            className="mt-6 bg-primary text-black font-bold text-base sm:text-lg px-8 sm:px-10 py-3 sm:py-4 rounded-xl shadow-[0_0_30px_rgba(37,226,244,0.3)] hover:shadow-[0_0_50px_rgba(37,226,244,0.6)] transition-all relative z-10 whitespace-nowrap"
+            style={{
+              transitionDelay: isOpen ? '300ms' : '0ms',
+              opacity: isOpen ? 1 : 0,
+              transform: isOpen ? 'translateY(0)' : 'translateY(-10px)'
+            }}
+          >
+            Start Project
+          </button>
+        </div>
       </div>
     </header>
   );
