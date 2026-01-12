@@ -85,7 +85,7 @@ const teamMembers: TeamMember[] = [
 ];
 
 const specialties = [
-  { id: 'founders', name: 'Founders Team', icon: 'workspace_premium' },
+  { id: 'founders', name: 'Architects of Intelligence Team', icon: 'workspace_premium' },
   { id: 'ai-ml', name: 'AI & Machine Learning Team', icon: 'psychology' },
   { id: 'data-eng', name: 'Data Engineering Team', icon: 'storage' },
   { id: 'cloud', name: 'Cloud Infrastructure Team', icon: 'cloud' },
