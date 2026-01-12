@@ -322,7 +322,7 @@ const CaseStudies: React.FC = () => {
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const cardWidth = window.innerWidth >= 768 ? 420 : 340; // md breakpoint
-      const gap = 32; // gap-8 = 2rem = 32px
+      const gap = window.innerWidth >= 768 ? 32 : 16; // gap-8 (32px) on desktop, gap-4 (16px) on mobile
       const scrollAmount = cardWidth + gap;
       
       const targetScroll = scrollContainerRef.current.scrollLeft + 
@@ -376,18 +376,18 @@ const CaseStudies: React.FC = () => {
       </div>
 
       {/* Horizontal Scroll Area - Contained within max-w-7xl */}
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-6 relative z-10">
         <div 
           ref={scrollContainerRef}
-          className="w-full overflow-x-auto pb-6 no-scrollbar relative" 
+          className="w-full overflow-x-auto pb-6 no-scrollbar relative snap-x snap-mandatory" 
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          <div className="flex gap-8 w-max">
+          <div className="flex gap-4 md:gap-8 w-max px-4 md:px-0">
             {/* First 5 cards - always visible */}
             {cases.slice(0, 5).map((item) => (
              <div 
                key={item.id} 
-               className="group relative w-[340px] md:w-[420px] h-[500px] perspective-1000 cursor-pointer"
+               className="group relative w-[340px] md:w-[420px] h-[500px] perspective-1000 cursor-pointer snap-center flex-shrink-0"
                onClick={() => handleCaseClick(item)}
              >
                 {/* Connecting Line (Decorative) */}
@@ -457,7 +457,7 @@ const CaseStudies: React.FC = () => {
 
             {/* "See All Solutions" CTA Card - Appears after card 5 when collapsed */}
             {!showAll && (
-              <div className="relative w-[340px] md:w-[420px] h-[500px] flex items-center justify-center">
+              <div className="relative w-[340px] md:w-[420px] h-[500px] flex items-center justify-center snap-center flex-shrink-0">
                 <div className="absolute inset-0 glass-card rounded-xl border border-white/20 flex items-center justify-center backdrop-blur-md">
                   {/* Background gradient */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-purple-500/10 to-transparent opacity-50 rounded-xl"></div>
@@ -485,9 +485,9 @@ const CaseStudies: React.FC = () => {
 
             {/* Cards 6-11 - Only visible when expanded */}
             {showAll && cases.slice(5).map((item) => (
-             <div 
-               key={item.id} 
-               className="group relative w-[340px] md:w-[420px] h-[500px] perspective-1000 animate-fadeIn cursor-pointer"
+             <div
+               key={item.id}
+               className="group relative w-[340px] md:w-[420px] h-[500px] perspective-1000 animate-fadeIn cursor-pointer snap-center flex-shrink-0"
                style={{ animationDelay: `${(item.id - 6) * 50}ms` }}
                onClick={() => handleCaseClick(item)}
              >
