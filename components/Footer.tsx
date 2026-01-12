@@ -134,7 +134,7 @@ const Footer: React.FC = () => {
 
         {/* Footer Bottom */}
         <div className="border-t border-white/5 pt-6 md:pt-8 flex justify-center md:justify-start items-center">
-           <p className="text-gray-600 text-sm">© 2024 Imkan.ai. Building the future of KSA.</p>
+           <p className="text-gray-600 text-sm">© {new Date().getFullYear()} Imkan.ai. Building the future of KSA.</p>
         </div>
       </div>
     </footer>

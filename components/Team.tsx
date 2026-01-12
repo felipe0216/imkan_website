@@ -174,46 +174,6 @@ const Team: React.FC = () => {
     }
   };
 
-  const getColorClasses = (theme: string) => {
-    switch(theme) {
-      case 'emerald':
-        return {
-          text: 'text-emerald-400',
-          border: 'border-emerald-500/20',
-          shadow: 'hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]',
-          hoverBorder: 'hover:border-emerald-500/30'
-        };
-      case 'purple':
-        return {
-          text: 'text-purple-400',
-          border: 'border-purple-500/20',
-          shadow: 'hover:shadow-[0_0_20px_rgba(168,85,247,0.2)]',
-          hoverBorder: 'hover:border-purple-500/30'
-        };
-      case 'cyan':
-        return {
-          text: 'text-primary',
-          border: 'border-primary/20',
-          shadow: 'hover:shadow-[0_0_20px_rgba(37,226,244,0.2)]',
-          hoverBorder: 'hover:border-primary/30'
-        };
-      case 'blue':
-        return {
-          text: 'text-blue-400',
-          border: 'border-blue-500/20',
-          shadow: 'hover:shadow-[0_0_20px_rgba(59,130,246,0.2)]',
-          hoverBorder: 'hover:border-blue-500/30'
-        };
-      default:
-        return {
-          text: 'text-primary',
-          border: 'border-primary/20',
-          shadow: 'hover:shadow-[0_0_20px_rgba(37,226,244,0.2)]',
-          hoverBorder: 'hover:border-primary/30'
-        };
-    }
-  };
-
   return (
     <section id="about" className="w-full py-20 md:py-24 bg-background-dark relative overflow-hidden">
       {/* Decorative background elements */}
