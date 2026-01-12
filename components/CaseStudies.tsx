@@ -350,6 +350,15 @@ const CaseStudies: React.FC = () => {
     checkScrollPosition();
   }, [showAll]);
 
+  // Recheck scroll position on window resize (mobile ↔ desktop transitions)
+  useEffect(() => {
+    const handleResize = () => {
+      checkScrollPosition();
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <section id="cases" className="w-full py-24 bg-background-dark relative overflow-hidden border-t border-white/5">
        {/* Background Stream Lines */}
@@ -549,15 +558,25 @@ const CaseStudies: React.FC = () => {
           </div>
         </div>
 
-        {/* Navigation Arrows */}
+        {/* Navigation Arrows - Responsive for Mobile & Desktop */}
         {/* Left Arrow */}
         {canScrollLeft && (
           <button
             onClick={() => scroll('left')}
-            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 size-12 items-center justify-center rounded-full bg-primary/90 hover:bg-primary text-background-dark backdrop-blur-md shadow-[0_0_20px_rgba(37,226,244,0.4)] hover:shadow-[0_0_30px_rgba(37,226,244,0.6)] transition-all duration-300 hover:scale-110 group"
+            className="flex absolute left-1 md:left-0 top-1/2 -translate-y-1/2 z-20 
+                       size-10 md:size-12 
+                       items-center justify-center rounded-full 
+                       bg-primary/90 hover:bg-primary active:bg-primary 
+                       text-background-dark backdrop-blur-md 
+                       shadow-[0_0_15px_rgba(37,226,244,0.3)] md:shadow-[0_0_20px_rgba(37,226,244,0.4)] 
+                       hover:shadow-[0_0_25px_rgba(37,226,244,0.5)] md:hover:shadow-[0_0_30px_rgba(37,226,244,0.6)] 
+                       transition-all duration-300 
+                       hover:scale-105 md:hover:scale-110 
+                       active:scale-95
+                       group"
             aria-label="Scroll left"
           >
-            <span className="material-symbols-outlined text-2xl group-hover:-translate-x-0.5 transition-transform duration-300">chevron_left</span>
+            <span className="material-symbols-outlined text-xl md:text-2xl group-hover:-translate-x-0.5 transition-transform duration-300">chevron_left</span>
           </button>
         )}
 
@@ -565,10 +584,20 @@ const CaseStudies: React.FC = () => {
         {canScrollRight && (
           <button
             onClick={() => scroll('right')}
-            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 size-12 items-center justify-center rounded-full bg-primary/90 hover:bg-primary text-background-dark backdrop-blur-md shadow-[0_0_20px_rgba(37,226,244,0.4)] hover:shadow-[0_0_30px_rgba(37,226,244,0.6)] transition-all duration-300 hover:scale-110 group"
+            className="flex absolute right-1 md:right-0 top-1/2 -translate-y-1/2 z-20 
+                       size-10 md:size-12 
+                       items-center justify-center rounded-full 
+                       bg-primary/90 hover:bg-primary active:bg-primary 
+                       text-background-dark backdrop-blur-md 
+                       shadow-[0_0_15px_rgba(37,226,244,0.3)] md:shadow-[0_0_20px_rgba(37,226,244,0.4)] 
+                       hover:shadow-[0_0_25px_rgba(37,226,244,0.5)] md:hover:shadow-[0_0_30px_rgba(37,226,244,0.6)] 
+                       transition-all duration-300 
+                       hover:scale-105 md:hover:scale-110 
+                       active:scale-95
+                       group"
             aria-label="Scroll right"
           >
-            <span className="material-symbols-outlined text-2xl group-hover:translate-x-0.5 transition-transform duration-300">chevron_right</span>
+            <span className="material-symbols-outlined text-xl md:text-2xl group-hover:translate-x-0.5 transition-transform duration-300">chevron_right</span>
           </button>
         )}
 
