@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenContact: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
 
@@ -29,9 +33,12 @@ const Footer: React.FC = () => {
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">Ready to Engineer the <span className="text-primary">Future?</span></h2>
               <p className="text-gray-400 text-lg">Join the architects of intelligence. Let's build systems that scale beyond tomorrow.</p>
            </div>
-           <button className="relative overflow-hidden bg-white text-black font-bold text-lg px-8 py-4 rounded-xl hover:bg-primary transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)] group shrink-0">
+           <button 
+              onClick={onOpenContact}
+              className="relative overflow-hidden bg-white text-black font-bold text-lg px-8 py-4 rounded-xl hover:bg-primary transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)] group shrink-0"
+           >
               <span className="relative z-10 flex items-center gap-2">
-                 Start a Project 
+                 Get in Touch
                  <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
               </span>
            </button>
@@ -132,7 +139,12 @@ const Footer: React.FC = () => {
                    <a href="#cases" className="hover:text-purple-400 hover:pl-2 transition-all duration-300 block text-sm">Cases</a>
                 </li>
                 <li>
-                   <a href="#contact" className="hover:text-purple-400 hover:pl-2 transition-all duration-300 block text-sm">Contact Us</a>
+                   <button 
+                     onClick={onOpenContact}
+                     className="hover:text-purple-400 hover:pl-2 transition-all duration-300 block text-sm text-left"
+                   >
+                     Get in Touch
+                   </button>
                 </li>
              </ul>
           </div>

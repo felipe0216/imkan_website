@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onOpenContact: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -150,9 +154,12 @@ const Navbar: React.FC = () => {
             <span>Portal</span>
             <span className="material-symbols-outlined text-lg group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">arrow_outward</span>
           </button>
-          <button className="relative overflow-hidden bg-white text-black font-bold text-xs lg:text-sm px-4 lg:px-6 py-2.5 lg:py-3 rounded-xl hover:bg-primary transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(37,226,244,0.4)] group whitespace-nowrap">
+          <button 
+            onClick={onOpenContact}
+            className="relative overflow-hidden bg-white text-black font-bold text-xs lg:text-sm px-4 lg:px-6 py-2.5 lg:py-3 rounded-xl hover:bg-primary transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(37,226,244,0.4)] group whitespace-nowrap"
+          >
             <span className="relative z-10 flex items-center gap-2">
-              Start Project
+              Get in Touch
               <span className="material-symbols-outlined text-base lg:text-lg opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">chevron_right</span>
             </span>
           </button>
@@ -208,6 +215,7 @@ const Navbar: React.FC = () => {
           </nav>
 
           <button 
+            onClick={onOpenContact}
             className="mt-6 bg-primary text-black font-bold text-base sm:text-lg px-8 sm:px-10 py-3 sm:py-4 rounded-xl shadow-[0_0_30px_rgba(37,226,244,0.3)] hover:shadow-[0_0_50px_rgba(37,226,244,0.6)] transition-all relative z-10 whitespace-nowrap"
             style={{
               transitionDelay: isOpen ? '300ms' : '0ms',
@@ -215,7 +223,7 @@ const Navbar: React.FC = () => {
               transform: isOpen ? 'translateY(0)' : 'translateY(-10px)'
             }}
           >
-            Start Project
+            Get in Touch
           </button>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -7,20 +7,29 @@ import WhyUs from './components/WhyUs';
 import CaseStudies from './components/CaseStudies';
 import Team from './components/Team';
 import Footer from './components/Footer';
+import ContactFormModal from './components/ContactFormModal';
 
 const App: React.FC = () => {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  const openContactModal = () => setIsContactModalOpen(true);
+  const closeContactModal = () => setIsContactModalOpen(false);
+
   return (
     <div className="min-h-screen bg-background-dark text-white selection:bg-primary selection:text-background-dark">
-      <Navbar />
+      <Navbar onOpenContact={openContactModal} />
       <main>
-        <Hero />
+        <Hero onOpenContact={openContactModal} />
         <Services />
         <Methodology />
         <WhyUs />
         <CaseStudies />
         <Team />
       </main>
-      <Footer />
+      <Footer onOpenContact={openContactModal} />
+      
+      {/* Contact Form Modal */}
+      <ContactFormModal isOpen={isContactModalOpen} onClose={closeContactModal} />
     </div>
   );
 };
