@@ -1,7 +1,11 @@
 import React from 'react';
 import HeroBackground from './HeroBackground';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onOpenContact: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
   return (
     <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden">
       {/* Layer 3: Full-Screen Demo Background (Bottom) */}
@@ -56,8 +60,11 @@ const Hero: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-shimmer z-0"></div>
           </button>
           
-          <button className="flex items-center justify-center gap-2 h-14 px-8 rounded-lg bg-transparent border border-white/20 text-white text-base font-bold tracking-wide hover:bg-white/5 hover:border-white/40 transition-all duration-300">
-            <span>Contact Founders</span>
+          <button 
+            onClick={onOpenContact}
+            className="flex items-center justify-center gap-2 h-14 px-8 rounded-lg bg-transparent border border-white/20 text-white text-base font-bold tracking-wide hover:bg-white/5 hover:border-white/40 transition-all duration-300"
+          >
+            <span>Get in Touch</span>
           </button>
         </div>
       </div>

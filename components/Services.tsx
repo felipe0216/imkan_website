@@ -77,6 +77,17 @@ const servicesData: ServiceDetail[] = [
 const Services: React.FC = () => {
   const [selectedService, setSelectedService] = useState<ServiceDetail | null>(null);
 
+  // Map color classes to RGB values for spotlight effects
+  const getSpotlightRGB = (colorClass: string): string => {
+    const colorMap: Record<string, string> = {
+      'text-primary': '37, 226, 244',
+      'text-emerald-400': '52, 211, 153',
+      'text-purple-400': '192, 132, 252',
+      'text-blue-400': '96, 165, 250'
+    };
+    return colorMap[colorClass] || '37, 226, 244'; // Default to primary
+  };
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const cards = document.getElementsByClassName('spotlight-card');
     for (const card of cards) {
@@ -135,12 +146,7 @@ const Services: React.FC = () => {
                     <div 
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                       style={{
-                        background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${
-                          index === 0 ? 'rgba(37, 226, 244, 0.15)' :
-                          index === 1 ? 'rgba(52, 211, 153, 0.15)' :
-                          index === 2 ? 'rgba(192, 132, 252, 0.15)' :
-                          'rgba(96, 165, 250, 0.15)'
-                        }, transparent 40%)`
+                        background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(${getSpotlightRGB(service.colorClass)}, 0.15), transparent 40%)`
                       }}
                     ></div>
                   </div>
@@ -152,12 +158,12 @@ const Services: React.FC = () => {
 
                   {/* Gradient Overlay */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl overflow-hidden z-0">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${
-                      index === 0 ? 'from-primary/10 to-transparent' :
-                      index === 1 ? 'from-emerald-500/10 to-transparent' :
-                      index === 2 ? 'from-purple-500/10 to-transparent' :
-                      'from-blue-500/10 to-transparent'
-                    }`}></div>
+                    <div 
+                      className="absolute inset-0 bg-gradient-to-br to-transparent"
+                      style={{
+                        background: `linear-gradient(to bottom right, rgba(${getSpotlightRGB(service.colorClass)}, 0.1), transparent)`
+                      }}
+                    ></div>
                   </div>
 
                   <div className="relative z-10 flex-1 flex flex-col">

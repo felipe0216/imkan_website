@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 interface CaseStudy {
   id: number;
@@ -297,6 +297,9 @@ const getGradientStyle = (color: string) => {
 const CaseStudies: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
   const [selectedCase, setSelectedCase] = useState<CaseStudy | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const handleCaseClick = (caseStudy: CaseStudy) => {
     setSelectedCase(caseStudy);
@@ -305,6 +308,56 @@ const CaseStudies: React.FC = () => {
   const closeModal = () => {
     setSelectedCase(null);
   };
+
+  // Check scroll position to show/hide arrows
+  const checkScrollPosition = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setCanScrollLeft(scrollLeft > 10);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  // Smooth scroll function
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const cardWidth = window.innerWidth >= 768 ? 420 : 340; // md breakpoint
+      const gap = window.innerWidth >= 768 ? 32 : 16; // gap-8 (32px) on desktop, gap-4 (16px) on mobile
+      const scrollAmount = cardWidth + gap;
+      
+      const targetScroll = scrollContainerRef.current.scrollLeft + 
+        (direction === 'right' ? scrollAmount : -scrollAmount);
+      
+      scrollContainerRef.current.scrollTo({
+        left: targetScroll,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // Update scroll position on scroll
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      checkScrollPosition();
+      container.addEventListener('scroll', checkScrollPosition);
+      return () => container.removeEventListener('scroll', checkScrollPosition);
+    }
+  }, []);
+
+  // Recheck scroll position when showAll changes
+  useEffect(() => {
+    checkScrollPosition();
+  }, [showAll]);
+
+  // Recheck scroll position on window resize (mobile ↔ desktop transitions)
+  useEffect(() => {
+    const handleResize = () => {
+      checkScrollPosition();
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <section id="cases" className="w-full py-24 bg-background-dark relative overflow-hidden border-t border-white/5">
@@ -322,14 +375,19 @@ const CaseStudies: React.FC = () => {
         </div>
       </div>
 
-      {/* Horizontal Scroll Area */}
-      <div className="w-full overflow-x-auto pb-6 px-6 no-scrollbar relative z-10" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-        <div className="flex gap-8 w-max mx-auto md:mx-0 md:pl-[max(1.5rem,calc((100vw-80rem)/2))]">
-          {/* First 5 cards - always visible */}
-          {cases.slice(0, 5).map((item) => (
+      {/* Horizontal Scroll Area - Contained within max-w-7xl */}
+      <div className="max-w-7xl mx-auto px-6 md:px-6 relative z-10">
+        <div 
+          ref={scrollContainerRef}
+          className="w-full overflow-x-auto pb-6 no-scrollbar relative snap-x snap-mandatory" 
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          <div className="flex gap-4 md:gap-8 w-max px-4 md:px-0">
+            {/* First 5 cards - always visible */}
+            {cases.slice(0, 5).map((item) => (
              <div 
                key={item.id} 
-               className="group relative w-[340px] md:w-[420px] h-[500px] perspective-1000 cursor-pointer"
+               className="group relative w-[340px] md:w-[420px] h-[500px] perspective-1000 cursor-pointer snap-center flex-shrink-0"
                onClick={() => handleCaseClick(item)}
              >
                 {/* Connecting Line (Decorative) */}
@@ -397,114 +455,39 @@ const CaseStudies: React.FC = () => {
              </div>
           ))}
 
-          {/* 6th card wrapper - Button positioned OUTSIDE to avoid blur cascade */}
-          <div className="relative h-[500px] transition-all duration-700 ease-out" style={{ width: showAll ? '420px' : '210px', marginRight: showAll ? 0 : '-210px' }}>
-            {/* 6th card - Half visible with fade when collapsed, full when expanded */}
-            <div 
-              className="group relative h-full perspective-1000 overflow-hidden"
-              style={{
-                opacity: showAll ? 1 : 0.3,
-                filter: showAll ? 'none' : 'blur(2px)',
-                pointerEvents: showAll ? 'auto' : 'none',
-              }}
-              onClick={() => showAll && handleCaseClick(cases[5])}
-            >
-              {/* Connecting Line */}
-              <div className="absolute top-1/2 -left-8 w-8 h-[1px] bg-white/20 hidden md:block"></div>
-
-              <div className="w-[340px] md:w-[420px] h-full bg-surface-dark border border-white/10 rounded-xl overflow-hidden relative transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] group-hover:border-white/20">
-                 
-                 {/* Holographic Top Bar */}
-                 <div className="absolute top-0 left-0 right-0 h-1 z-20" style={getGradientStyle(cases[5].color)}></div>
-
-                 {/* Image Container */}
-                 <div className="h-3/5 w-full relative overflow-hidden">
-                    <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0" style={{ backgroundImage: `url(${cases[5].image})` }}></div>
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-dark/50 to-surface-dark"></div>
-                    
-                    {/* Floating Category Tag */}
-                    <div className="absolute top-6 left-6 backdrop-blur-md bg-black/30 border border-white/10 px-3 py-1 rounded text-xs font-mono text-white/80 uppercase tracking-widest">
-                       {cases[5].category}
-                    </div>
-
-                    {/* Stat Overlay (Hidden until hover) */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100">
-                       <div className={`text-5xl font-black text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] tracking-tighter`}>
-                          {cases[5].stat}
-                       </div>
-                       <div className={`text-xs font-bold uppercase tracking-widest mt-1 ${cases[5].colorClass}`}>
-                          {cases[5].statLabel}
-                       </div>
-                    </div>
-                 </div>
-
-                 {/* Content Body */}
-                 <div className="absolute bottom-0 left-0 right-0 p-6 h-2/5 flex flex-col justify-between bg-surface-dark/95 backdrop-blur-xl border-t border-white/5">
-                    <div>
-                       <h3 className={`text-xl font-bold mb-2 text-white transition-all duration-300 ${getHoverColorClass(cases[5].colorClass)}`}>
-                         {cases[5].title}
-                       </h3>
-                       <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
-                          {cases[5].description}
-                       </p>
-                    </div>
-                    
-                    {/* Technology Stack Badges */}
-                    <div className="flex flex-wrap gap-1.5 mt-2 mb-2">
-                       {cases[5].tech.map((tech, idx) => (
-                          <span key={idx} className="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-[9px] text-gray-400 font-mono uppercase tracking-wider">
-                             {tech}
-                          </span>
-                       ))}
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                       <div className="flex gap-2">
-                          {/* Removed status indicator */}
-                       </div>
-                       <button className={`text-white transition-all duration-300 flex items-center gap-2 text-sm font-bold ${getHoverColorClass(cases[5].colorClass)}`}>
-                          Read More <span className="material-symbols-outlined text-base transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
-                       </button>
-                    </div>
-                 </div>
-                 
-                 {/* Scanline Effect */}
-                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.3)_50%)] bg-[size:100%_4px] pointer-events-none opacity-20"></div>
-
-                 {/* Stronger fade overlay when collapsed - shrouded in mystery */}
-                 {!showAll && (
-                   <>
-                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background-dark/70 to-background-dark pointer-events-none z-10"></div>
-                     <div className="absolute inset-0 bg-background-dark/40 pointer-events-none z-10"></div>
-                   </>
-                 )}
-              </div>
-            </div>
-
-            {/* "See All Solutions" button - Positioned OUTSIDE the blur filter as a sibling */}
+            {/* "See All Solutions" CTA Card - Appears after card 5 when collapsed */}
             {!showAll && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-50">
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowAll(true);
-                  }}
-                  className="bg-primary text-background-dark font-bold text-sm px-6 py-3 rounded-xl hover:bg-white transition-colors duration-300 shadow-[0_0_15px_rgba(37,226,244,0.3)] hover:shadow-[0_0_20px_rgba(37,226,244,0.5)] group pointer-events-auto"
-                >
-                  <span className="flex items-center gap-2">
-                    See All Solutions
-                    <span className="material-symbols-outlined text-lg opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">chevron_right</span>
-                  </span>
-                </button>
+              <div className="relative w-[340px] md:w-[420px] h-[500px] flex items-center justify-center snap-center flex-shrink-0">
+                <div className="absolute inset-0 glass-card rounded-xl border border-white/20 flex items-center justify-center backdrop-blur-md">
+                  {/* Background gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-purple-500/10 to-transparent opacity-50 rounded-xl"></div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10 text-center px-8">
+                    <div className="size-16 mx-auto mb-6 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-4xl text-primary">auto_awesome</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3">5 More Solutions</h3>
+                    <p className="text-gray-400 text-sm mb-6">Explore our full portfolio of production AI systems</p>
+                    <button 
+                      onClick={() => setShowAll(true)}
+                      className="bg-primary text-background-dark font-bold text-sm px-8 py-3 rounded-xl hover:bg-white transition-all duration-300 shadow-[0_0_15px_rgba(37,226,244,0.3)] hover:shadow-[0_0_25px_rgba(37,226,244,0.5)] hover:scale-105 group"
+                    >
+                      <span className="flex items-center gap-2">
+                        See All Solutions
+                        <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform duration-300">arrow_forward</span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
-          </div>
 
-          {/* Remaining cards (7-11) - Only visible when expanded */}
-          {showAll && cases.slice(6).map((item) => (
-             <div 
-               key={item.id} 
-               className="group relative w-[340px] md:w-[420px] h-[500px] perspective-1000 animate-fadeIn cursor-pointer"
+            {/* Cards 6-11 - Only visible when expanded */}
+            {showAll && cases.slice(5).map((item) => (
+             <div
+               key={item.id}
+               className="group relative w-[340px] md:w-[420px] h-[500px] perspective-1000 animate-fadeIn cursor-pointer snap-center flex-shrink-0"
                style={{ animationDelay: `${(item.id - 6) * 50}ms` }}
                onClick={() => handleCaseClick(item)}
              >
@@ -572,21 +555,65 @@ const CaseStudies: React.FC = () => {
                 </div>
              </div>
           ))}
+          </div>
         </div>
-      </div>
 
-      {/* "Show Less" Button (when expanded) */}
-      {showAll && (
-        <div className="flex justify-center mt-8 animate-fadeIn">
-          <button 
-            onClick={() => setShowAll(false)}
-            className="flex items-center gap-2 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-bold rounded-xl transition-all duration-300"
+        {/* Navigation Arrows - Responsive for Mobile & Desktop */}
+        {/* Left Arrow */}
+        {canScrollLeft && (
+          <button
+            onClick={() => scroll('left')}
+            className="flex absolute left-1 md:left-0 top-1/2 -translate-y-1/2 z-20 
+                       size-10 md:size-12 
+                       items-center justify-center rounded-full 
+                       bg-primary/90 hover:bg-primary active:bg-primary 
+                       text-background-dark backdrop-blur-md 
+                       shadow-[0_0_15px_rgba(37,226,244,0.3)] md:shadow-[0_0_20px_rgba(37,226,244,0.4)] 
+                       hover:shadow-[0_0_25px_rgba(37,226,244,0.5)] md:hover:shadow-[0_0_30px_rgba(37,226,244,0.6)] 
+                       transition-all duration-300 
+                       hover:scale-105 md:hover:scale-110 
+                       active:scale-95
+                       group"
+            aria-label="Scroll left"
           >
-            <span className="material-symbols-outlined">expand_less</span>
-            Show Less
+            <span className="material-symbols-outlined text-xl md:text-2xl group-hover:-translate-x-0.5 transition-transform duration-300">chevron_left</span>
           </button>
-        </div>
-      )}
+        )}
+
+        {/* Right Arrow - Automatically hidden when reaching the end (including "See All Solutions" button) */}
+        {canScrollRight && (
+          <button
+            onClick={() => scroll('right')}
+            className="flex absolute right-1 md:right-0 top-1/2 -translate-y-1/2 z-20 
+                       size-10 md:size-12 
+                       items-center justify-center rounded-full 
+                       bg-primary/90 hover:bg-primary active:bg-primary 
+                       text-background-dark backdrop-blur-md 
+                       shadow-[0_0_15px_rgba(37,226,244,0.3)] md:shadow-[0_0_20px_rgba(37,226,244,0.4)] 
+                       hover:shadow-[0_0_25px_rgba(37,226,244,0.5)] md:hover:shadow-[0_0_30px_rgba(37,226,244,0.6)] 
+                       transition-all duration-300 
+                       hover:scale-105 md:hover:scale-110 
+                       active:scale-95
+                       group"
+            aria-label="Scroll right"
+          >
+            <span className="material-symbols-outlined text-xl md:text-2xl group-hover:translate-x-0.5 transition-transform duration-300">chevron_right</span>
+          </button>
+        )}
+
+        {/* "Show Less" Button (when expanded) - Inside max-w-7xl boundary */}
+        {showAll && (
+          <div className="flex justify-center mt-8 animate-fadeIn">
+            <button 
+              onClick={() => setShowAll(false)}
+              className="flex items-center gap-2 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-bold rounded-xl transition-all duration-300"
+            >
+              <span className="material-symbols-outlined">expand_less</span>
+              Show Less
+            </button>
+          </div>
+        )}
+      </div>
 
       {/* Case Study Detail Modal */}
       {selectedCase && (
