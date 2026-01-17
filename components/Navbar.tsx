@@ -7,6 +7,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   // Handle scroll effect for navbar background
   useEffect(() => {
@@ -15,6 +16,43 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Handle active section highlighting with Intersection Observer
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px', // Trigger when section is 20% from top
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all sections
+    const sections = ['home', 'services', 'methodology', 'why-us', 'cases', 'about'];
+    sections.forEach((sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      sections.forEach((sectionId) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          observer.unobserve(element);
+        }
+      });
+    };
   }, []);
 
   // Toggle mobile menu with scroll lock
@@ -133,18 +171,31 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
         {/* Desktop Nav - Centered Island Style */}
         <div className="hidden md:block absolute left-1/2 -translate-x-1/2">
           <nav className="flex items-center gap-0.5 p-1.5 rounded-full bg-white/5 border border-white/5 backdrop-blur-md shadow-lg transition-all duration-300 hover:border-white/10 hover:bg-white/10">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={`#${link.target}`}
-                onClick={(e) => handleScrollTo(e, link.target)}
-                className="px-4 py-2 rounded-full text-xs font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300 relative group overflow-hidden whitespace-nowrap"
-              >
-                <span className="relative z-10">{link.name}</span>
-                {/* Hover Glow */}
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-primary rounded-full group-hover:w-1/3 transition-all duration-300 opacity-0 group-hover:opacity-100"></div>
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.target;
+              return (
+                <a
+                  key={link.name}
+                  href={`#${link.target}`}
+                  onClick={(e) => handleScrollTo(e, link.target)}
+                  className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 relative group overflow-hidden whitespace-nowrap ${
+                    isActive
+                      ? 'text-white bg-primary/20 shadow-[0_0_15px_rgba(37,226,244,0.3)]'
+                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  <span className="relative z-10">{link.name}</span>
+                  {/* Active Indicator Glow */}
+                  {isActive && (
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-primary rounded-full"></div>
+                  )}
+                  {/* Hover Glow (only when not active) */}
+                  {!isActive && (
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-primary rounded-full group-hover:w-1/3 transition-all duration-300 opacity-0 group-hover:opacity-100"></div>
+                  )}
+                </a>
+              );
+            })}
           </nav>
         </div>
 

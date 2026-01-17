@@ -181,19 +181,19 @@ const WhyUs: React.FC = () => {
         </div>
 
         {/* Card Deck Carousel with Subtle Stack & Side Navigation */}
-        <div className="relative w-full px-4 md:px-16" style={{ minHeight: '480px' }}>
+        <div className="relative w-full px-2 sm:px-4 md:px-16" style={{ minHeight: '520px' }}>
           
           {/* Previous Button - Left Side */}
           <button
             onClick={handlePrev}
             disabled={currentIndex === 0}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-[25] group size-12 md:size-14 rounded-full transition-all duration-300 flex items-center justify-center ${
+            className={`absolute left-0 sm:left-2 top-1/2 -translate-y-1/2 z-[25] group size-10 sm:size-12 md:size-14 rounded-full transition-all duration-300 flex items-center justify-center ${
               currentIndex === 0
                 ? 'bg-white/5 border border-white/5 text-gray-600 cursor-not-allowed'
                 : 'bg-surface-dark/80 backdrop-blur-xl border border-white/20 text-white hover:bg-primary hover:border-primary hover:shadow-[0_0_20px_rgba(37,226,244,0.5)] hover:scale-110'
             }`}
           >
-            <span className="material-symbols-outlined text-xl group-hover:-translate-x-0.5 transition-transform">
+            <span className="material-symbols-outlined text-lg sm:text-xl group-hover:-translate-x-0.5 transition-transform">
               chevron_left
             </span>
           </button>
@@ -202,19 +202,19 @@ const WhyUs: React.FC = () => {
           <button
             onClick={handleNext}
             disabled={currentIndex === differentiators.length - 1}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-[25] group size-12 md:size-14 rounded-full transition-all duration-300 flex items-center justify-center ${
+            className={`absolute right-0 sm:right-2 top-1/2 -translate-y-1/2 z-[25] group size-10 sm:size-12 md:size-14 rounded-full transition-all duration-300 flex items-center justify-center ${
               currentIndex === differentiators.length - 1
                 ? 'bg-white/5 border border-white/5 text-gray-600 cursor-not-allowed'
                 : 'bg-surface-dark/80 backdrop-blur-xl border border-white/20 text-white hover:bg-primary hover:border-primary hover:shadow-[0_0_20px_rgba(37,226,244,0.5)] hover:scale-110'
             }`}
           >
-            <span className="material-symbols-outlined text-xl group-hover:translate-x-0.5 transition-transform">
+            <span className="material-symbols-outlined text-lg sm:text-xl group-hover:translate-x-0.5 transition-transform">
               chevron_right
             </span>
           </button>
 
           {/* All Cards - Subtle Stacked Effect */}
-          <div className="relative flex items-start justify-center" style={{ minHeight: '480px' }}>
+          <div className="relative flex items-start justify-center px-10 sm:px-12 md:px-0" style={{ minHeight: '520px' }}>
             {differentiators.map((card, index) => {
               const isActive = index === currentIndex;
               const isPast = index < currentIndex;
@@ -262,8 +262,8 @@ const WhyUs: React.FC = () => {
                     transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)', // Smooth, professional easing
                   }}
                 >
-                  <div className={`spotlight-card glass-card rounded-2xl md:rounded-3xl p-5 md:p-8 border ${isActive ? 'border-white/20 shadow-2xl' : 'border-white/10'} bg-surface-dark relative overflow-hidden group`}
-                    style={{ minHeight: '420px' }}
+                  <div className={`spotlight-card glass-card rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-8 border ${isActive ? 'border-white/20 shadow-2xl' : 'border-white/10'} bg-surface-dark relative overflow-hidden group`}
+                    style={{ minHeight: '440px' }}
                   >
                     {/* Spotlight Effect - Only on active card */}
                     {isActive && (
