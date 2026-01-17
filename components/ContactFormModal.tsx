@@ -98,10 +98,12 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
               <div className="mb-6 text-center">
                 <h2 className="text-3xl font-bold text-white mb-3">Get in Touch</h2>
                 
-                {/* Fun message */}
-                <div className="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
-                  <span>Do you like this website? It was made with AI in one week</span>
-                  <span className="material-symbols-outlined text-primary text-xl">robot</span>
+                {/* Fun message - More noticeable */}
+                <div className="flex items-center justify-center gap-2 mb-6 px-4 py-3 bg-primary/10 border border-primary/20 rounded-xl backdrop-blur-sm">
+                  <span className="material-symbols-outlined text-primary text-2xl animate-pulse">robot</span>
+                  <span className="text-primary font-semibold text-base">
+                    Do you like this website? It was made with AI in one week
+                  </span>
                 </div>
                 
                 <p className="text-gray-400 text-sm">
