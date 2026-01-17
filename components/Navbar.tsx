@@ -150,10 +150,6 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
 
         {/* CTA & Actions */}
         <div className="hidden md:flex items-center gap-3 lg:gap-6">
-          <button className="hidden lg:flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-bold group">
-            <span>Portal</span>
-            <span className="material-symbols-outlined text-lg group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">arrow_outward</span>
-          </button>
           <button 
             onClick={onOpenContact}
             className="relative overflow-hidden bg-white text-black font-bold text-xs lg:text-sm px-4 lg:px-6 py-2.5 lg:py-3 rounded-xl hover:bg-primary transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(37,226,244,0.4)] group whitespace-nowrap"

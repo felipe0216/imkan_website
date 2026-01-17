@@ -32,10 +32,6 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
       <div className="relative z-20 container max-w-7xl mx-auto px-6 flex flex-col items-center text-center">
         {/* Tag */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/20 text-primary text-xs font-bold tracking-wide uppercase mb-8 backdrop-blur-sm cursor-default hover:bg-primary/10 transition-colors">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-          </span>
           Vision 2030 Ready
         </div>
 
@@ -54,17 +50,30 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-          <button className="relative overflow-hidden flex items-center justify-center gap-2 h-14 px-8 rounded-lg bg-primary text-background-dark text-base font-bold tracking-wide hover:bg-white hover:shadow-[0_0_20px_rgba(37,226,244,0.5)] transition-all duration-300 group">
-            <span className="relative z-10">Explore Our Journey</span>
+          <button 
+            onClick={onOpenContact}
+            className="relative overflow-hidden flex items-center justify-center gap-2 h-14 px-8 rounded-lg bg-primary text-background-dark text-base font-bold tracking-wide hover:bg-white hover:shadow-[0_0_20px_rgba(37,226,244,0.5)] transition-all duration-300 group"
+          >
+            <span className="relative z-10">Get in Touch</span>
             <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform relative z-10">arrow_forward</span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-shimmer z-0"></div>
           </button>
           
           <button 
-            onClick={onOpenContact}
+            onClick={() => {
+              const element = document.getElementById('why-us');
+              if (element) {
+                const offset = 90;
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = element.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
             className="flex items-center justify-center gap-2 h-14 px-8 rounded-lg bg-transparent border border-white/20 text-white text-base font-bold tracking-wide hover:bg-white/5 hover:border-white/40 transition-all duration-300"
           >
-            <span>Get in Touch</span>
+            <span>Why Us?</span>
           </button>
         </div>
       </div>

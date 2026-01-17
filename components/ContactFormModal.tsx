@@ -26,10 +26,12 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate submission (you can replace this with actual API call)
+    // Simulate submission (replace with actual API call in production)
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    console.log('Form submitted:', formData);
+    // TODO: Replace with actual API submission to backend
+    // Example: await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) })
+    
     setIsSubmitting(false);
     setIsSubmitted(true);
     
