@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface TeamMember {
   id: string;
@@ -6,6 +6,8 @@ interface TeamMember {
   role: string;
   tags: string[];
   description: string;
+  fullBio: string;
+  achievements: string[];
   image: string;
 }
 
@@ -14,22 +16,41 @@ const founders: TeamMember[] = [
   {
     id: '2',
     name: 'Felipe Araya',
-    role: 'Co-founder & Lead AI Scientist',
+    role: 'Lead AI Scientist',
     tags: ['Agentic AI', 'MLOps', 'Production Deployments'],
     description: 'Leads AI innovation from research to production. Deep expertise in advanced machine learning, generative AI, autonomous agent systems, MLOps pipelines, model deployment, and intelligent monitoring systems that drive business value.',
+    fullBio: 'Felipe leads AI innovation at Imkan, bridging cutting-edge research with practical business applications. With extensive experience in advanced machine learning, generative AI, and autonomous agent systems, he architects intelligent solutions that deliver measurable business impact. His expertise spans the full AI lifecycle and Machine Learning lifecycle; from initial research and experimentation to production-grade deployment and continuous optimization. Felipe specializes in building Data Science solutions, agentic AI systems, implementing robust MLOps frameworks, and creating intelligent monitoring solutions that ensure AI systems operate reliably at scale.',
+    achievements: [
+      'Architected multi-agent AI systems for enterprise automation',
+      'Deployed production LLM solutions serving millions of users',
+      'Built end-to-end MLOps pipelines for multi-national companies',
+      'Expert in RAG systems and vector database optimization',
+      'Pioneered real-time model monitoring and observability frameworks',
+      'Led AI strategy workshops for Vision 2030 aligned organizations'
+    ],
     image: '/images/profile_pictures/real_felipe.png'
   },
   {
     id: '1',
     name: 'Dr. Syed Fawad Ali',
-    role: 'Co-founder & Lead Data Engineer',
+    role: 'Lead Data Engineer',
     tags: ['Data Architecture', 'ETL Pipelines', 'Governance'],
     description: 'Expert in building enterprise data foundations from the ground up. Specializes in data strategy, modern data warehousing, ETL/ELT pipelines, data quality frameworks, and scalable cloud infrastructure that enables AI at scale.',
+    fullBio: 'Dr. Syed is a leading expert in enterprise data engineering and architecture. He specializes in transforming complex, scattered data landscapes into unified, intelligent data platforms that power AI and analytics at scale. With deep expertise in data strategy, governance, and modern cloud architectures, Syed designs and implements robust data foundations that enable organizations to extract maximum value from their data assets. His work focuses on building automated ETL/ELT pipelines, implementing comprehensive data quality frameworks, and establishing scalable infrastructure that supports real-time analytics and machine learning workloads.',
+    achievements: [
+      'Architected cloud data platforms processing billions of records daily',
+      'Designed data governance frameworks for regulated industries',
+      'Built real-time streaming pipelines with sub-second latency',
+      'Implemented enterprise-wide data quality and observability systems',
+      'Led digital transformation initiatives for Saudi Vision 2030 projects',
+      'Expert in modern data stack (Snowflake, Databricks, Azure Synapse)'
+    ],
     image: '/images/profile_pictures/real_syed.png'
   }
 ];
 
 const Team: React.FC = () => {
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   // Emerald color scheme for founders
   const colors = {
     text: 'text-emerald-400',
@@ -69,6 +90,7 @@ const Team: React.FC = () => {
             {founders.map((member) => (
               <div 
                 key={member.id}
+                onClick={() => setSelectedMember(member)}
                 className={`group relative h-[450px] rounded-2xl overflow-hidden cursor-pointer shadow-lg ${colors.hoverShadow} transition-all duration-500 ${colors.hoverBorder} border border-transparent`}
               >
                 {/* Image with grayscale effect */}
@@ -114,6 +136,99 @@ const Team: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Team Member Detail Modal - Same pattern as Services */}
+      {selectedMember && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-background-dark/80 backdrop-blur-sm animate-in fade-in duration-300"
+            onClick={() => setSelectedMember(null)}
+          ></div>
+          <div className="relative w-full max-w-4xl bg-background-card border border-white/10 rounded-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col md:flex-row max-h-[90vh]">
+            {/* Modal Sidebar / Photo */}
+            <div className="w-full md:w-1/3 bg-surface-dark relative hidden md:block">
+              <img 
+                src={selectedMember.image} 
+                alt={selectedMember.name} 
+                className="w-full h-full object-cover"
+                style={{ 
+                  objectPosition: selectedMember.id === '2' ? 'center 25%' : 'center 30%'
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background-card"></div>
+              <div className="absolute bottom-8 left-8">
+                <div className={`size-16 rounded-xl bg-white/5 border border-emerald-400/30 flex items-center justify-center ${colors.text} mb-4 backdrop-blur-md`}>
+                  <span className="material-symbols-outlined text-4xl">person</span>
+                </div>
+                <h3 className="text-white text-xl font-bold leading-tight">{selectedMember.name}</h3>
+                <p className={`${colors.text} text-sm font-medium mt-1`}>{selectedMember.role}</p>
+              </div>
+            </div>
+
+            {/* Modal Content */}
+            <div className="flex-1 p-8 md:p-10 overflow-y-auto">
+              <button
+                onClick={() => setSelectedMember(null)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
+              >
+                <span className="material-symbols-outlined text-3xl">close</span>
+              </button>
+
+              {/* Mobile Header */}
+              <div className="md:hidden mb-6 flex items-center gap-4">
+                <div className={`size-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center ${colors.text}`}>
+                  <span className="material-symbols-outlined text-2xl">person</span>
+                </div>
+                <div>
+                  <h3 className="text-white text-xl font-bold">{selectedMember.name}</h3>
+                  <p className={`${colors.text} text-sm font-medium`}>{selectedMember.role}</p>
+                </div>
+              </div>
+
+              {/* Expertise Tags */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {selectedMember.tags.map(tag => (
+                  <span 
+                    key={tag} 
+                    className={`px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs text-white border ${colors.border}`}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Full Biography */}
+              <h4 className={`text-sm font-bold uppercase tracking-widest mb-4 ${colors.text}`}>
+                About
+              </h4>
+              <p className="text-gray-300 text-base leading-relaxed mb-8 border-b border-white/10 pb-8">
+                {selectedMember.fullBio}
+              </p>
+
+              {/* Key Achievements */}
+              <h5 className="text-white font-bold mb-4">Key Expertise & Achievements</h5>
+              <ul className="grid grid-cols-1 gap-3 mb-8">
+                {selectedMember.achievements.map((achievement, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <span className={`material-symbols-outlined text-lg mt-0.5 ${colors.text}`}>check_circle</span>
+                    <span className="text-gray-400 text-sm">{achievement}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Action Button */}
+              <div className="mt-10 pt-6 border-t border-white/10">
+                <button 
+                  onClick={() => setSelectedMember(null)}
+                  className="w-full bg-emerald-400 text-background-dark font-bold py-3 px-6 rounded-lg hover:bg-emerald-300 transition-colors"
+                >
+                  Close Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
