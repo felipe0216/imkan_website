@@ -294,7 +294,11 @@ const getGradientStyle = (color: string) => {
   return { backgroundImage: gradientMap[color] || gradientMap['primary'] };
 };
 
-const CaseStudies: React.FC = () => {
+interface CaseStudiesProps {
+  onOpenContact: () => void;
+}
+
+const CaseStudies: React.FC<CaseStudiesProps> = ({ onOpenContact }) => {
   const [showAll, setShowAll] = useState(false);
   const [selectedCase, setSelectedCase] = useState<CaseStudy | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -367,7 +371,10 @@ const CaseStudies: React.FC = () => {
 
        <div className="max-w-7xl mx-auto px-6 mb-16 relative z-10">
         <div className="flex flex-col items-start">
-          <h2 className="text-primary font-mono text-xs font-bold uppercase tracking-wider mb-2">Production Systems</h2>
+          <div className="flex items-center gap-2 mb-3">
+            <span className="h-px w-8 bg-primary"></span>
+            <h2 className="text-primary font-mono text-xs uppercase tracking-[0.2em]">Production Systems</h2>
+          </div>
           <h1 className="text-white text-4xl md:text-5xl font-bold leading-tight mb-3">
              Proven <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white">Impact</span>
           </h1>
@@ -734,7 +741,13 @@ const CaseStudies: React.FC = () => {
 
                 {/* CTA */}
                 <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-4">
-                  <button className={`flex-1 bg-primary hover:bg-white text-background-dark font-bold py-4 px-6 rounded-xl transition-colors shadow-[0_0_20px_rgba(37,226,244,0.2)]`}>
+                  <button 
+                    onClick={() => {
+                      closeModal();
+                      onOpenContact();
+                    }}
+                    className={`flex-1 bg-primary hover:bg-white text-background-dark font-bold py-4 px-6 rounded-xl transition-colors shadow-[0_0_20px_rgba(37,226,244,0.2)]`}
+                  >
                     Start Similar Project
                   </button>
                   <button 

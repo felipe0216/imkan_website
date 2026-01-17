@@ -20,10 +20,10 @@ const App: React.FC = () => {
       <Navbar onOpenContact={openContactModal} />
       <main>
         <Hero onOpenContact={openContactModal} />
-        <Services />
+        <Services onOpenContact={openContactModal} />
         <Methodology />
         <WhyUs />
-        <CaseStudies />
+        <CaseStudies onOpenContact={openContactModal} />
         <Team />
       </main>
       <Footer onOpenContact={openContactModal} />

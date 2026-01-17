@@ -74,7 +74,11 @@ const servicesData: ServiceDetail[] = [
   }
 ];
 
-const Services: React.FC = () => {
+interface ServicesProps {
+  onOpenContact: () => void;
+}
+
+const Services: React.FC<ServicesProps> = ({ onOpenContact }) => {
   const [selectedService, setSelectedService] = useState<ServiceDetail | null>(null);
 
   // Map color classes to RGB values for spotlight effects
@@ -108,13 +112,10 @@ const Services: React.FC = () => {
       <div className="container max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/20 text-primary text-xs font-bold tracking-wide uppercase mb-4">
-            <span className="material-symbols-outlined text-sm">route</span>
-            Our Approach
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+          <h2 className="text-primary font-bold tracking-widest text-sm uppercase mb-3">Our Approach</h2>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             Your Data & AI Journey
-          </h2>
+          </h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             From strategy to production. A proven pathway to transform your organization with AI and intelligent data systems.
           </p>
@@ -305,7 +306,13 @@ const Services: React.FC = () => {
               </ul>
 
               <div className="mt-10 pt-6 border-t border-white/10 flex gap-4">
-                <button className={`flex-1 bg-white text-background-dark font-bold py-3 px-6 rounded-lg hover:bg-gray-200 transition-colors`}>
+                <button 
+                  onClick={() => {
+                    setSelectedService(null);
+                    onOpenContact();
+                  }}
+                  className={`flex-1 bg-white text-background-dark font-bold py-3 px-6 rounded-lg hover:bg-gray-200 transition-colors`}
+                >
                   Book Consultation
                 </button>
               </div>
