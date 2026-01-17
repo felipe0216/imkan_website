@@ -26,21 +26,39 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate submission (replace with actual API call in production)
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // TODO: Replace with actual API submission to backend
-    // Example: await fetch('/api/contact', { method: 'POST', body: JSON.stringify(formData) })
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ firstName: '', lastName: '', phone: '', email: '' });
-      onClose();
-    }, 3000);
+    try {
+      // Call the Azure Function API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to submit form');
+      }
+
+      // Success!
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      
+      // Reset after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({ firstName: '', lastName: '', phone: '', email: '' });
+        onClose();
+      }, 3000);
+
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setIsSubmitting(false);
+      // Show error message to user
+      alert('Failed to submit form. Please try again or contact us directly at info@imkan.ai');
+    }
   };
 
   const handleClose = () => {
