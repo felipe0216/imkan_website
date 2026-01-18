@@ -201,6 +201,15 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
 
         {/* CTA & Actions */}
         <div className="hidden md:flex items-center gap-3 lg:gap-6">
+          <a 
+            href="https://imkandotai.sharepoint.com/sites/imkan/Shared%20Documents/Forms/AllItems.aspx?viewid=6a263fc2%2Dbe1d%2D4abb%2Dbbea%2D47dd4893d73e"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden lg:flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-bold group"
+          >
+            <span>Portal</span>
+            <span className="material-symbols-outlined text-lg group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">arrow_outward</span>
+          </a>
           <button 
             onClick={onOpenContact}
             className="relative overflow-hidden bg-white text-black font-bold text-xs lg:text-sm px-4 lg:px-6 py-2.5 lg:py-3 rounded-xl hover:bg-primary transition-colors duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(37,226,244,0.4)] group whitespace-nowrap"
@@ -272,6 +281,21 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
           >
             Get in Touch
           </button>
+
+          <a 
+            href="https://imkandotai.sharepoint.com/sites/imkan/Shared%20Documents/Forms/AllItems.aspx?viewid=6a263fc2%2Dbe1d%2D4abb%2Dbbea%2D47dd4893d73e"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-gray-400 hover:text-white transition-all duration-300 text-base sm:text-lg font-bold group relative z-10"
+            style={{
+              transitionDelay: isOpen ? '350ms' : '0ms',
+              opacity: isOpen ? 1 : 0,
+              transform: isOpen ? 'translateY(0)' : 'translateY(-10px)'
+            }}
+          >
+            <span>Portal</span>
+            <span className="material-symbols-outlined text-xl sm:text-2xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">arrow_outward</span>
+          </a>
         </div>
       </div>
     </header>
