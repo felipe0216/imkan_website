@@ -30,11 +30,6 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
 
       {/* Layer 1: Foreground Content (Top) - Always Dominant */}
       <div className="relative z-20 container max-w-7xl mx-auto px-6 flex flex-col items-center text-center">
-        {/* Tag */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/20 text-primary text-xs font-bold tracking-wide uppercase mb-8 backdrop-blur-sm cursor-default hover:bg-primary/10 transition-colors">
-          Vision 2030 Ready
-        </div>
-
         {/* Headlines */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.95]">
           Possibility? <br />
@@ -45,7 +40,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenContact }) => {
 
         <p className="text-lg md:text-xl text-gray-400 max-w-2xl mb-12 font-light leading-relaxed">
           Empowering the future with elite Data Engineering, <br className="hidden md:block" /> 
-          Agentic AI solutions, and autonomous intelligence.
+          Agentic AI solutions, and Autonomous Intelligence.
         </p>
 
         {/* Buttons */}
