@@ -168,7 +168,7 @@ const WhyUs: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 mb-3">
                <span className="h-px w-8 bg-primary"></span>
-               <h2 className="text-primary font-mono text-xs uppercase tracking-[0.2em]">The Imkan Advantage</h2>
+               <h2 className="text-primary font-mono text-xs uppercase tracking-[0.2em]">The <span className="normal-case">imkan.ai</span> Advantage</h2>
             </div>
             <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight max-w-2xl leading-[0.9]">
               Engineering <br />
