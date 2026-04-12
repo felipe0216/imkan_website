@@ -17,7 +17,7 @@ interface Differentiator {
 const differentiators: Differentiator[] = [
   {
     id: 1,
-    title: 'Founders at the Helm',
+    title: 'Founders at the Front',
     subtitle: 'Direct Technical Leadership on Every Project',
     tagline: 'Every project is directly led by Dr. Syed and Felipe from day one. No account managers, no teams of juniors. Just senior engineers with full strategic control.',
     description: '',
@@ -85,48 +85,48 @@ const differentiators: Differentiator[] = [
   {
     id: 4,
     title: 'Agentic AI Pioneers',
-    subtitle: 'Autonomous Intelligence at Scale',
-    tagline: 'Beyond dashboards and basic automation. We build autonomous AI agents that reason, retrieve, and execute complex workflows without human intervention.',
+    subtitle: 'AI That Works for You, Not the Other Way Around',
+    tagline: 'We go beyond dashboards and simple automations. We build intelligent AI systems that can think, search, and act on their own to get real work done.',
     description: '',
     icon: 'smart_toy',
     colorClass: 'text-purple-400',
     accentColor: '#c084fc',
     features: [
-      'Orchestration of multiple agents for complex enterprise workflows',
-      'RAG systems powered by enterprise knowledge bases',
-      'Voice AI agents supporting 24/7 multilingual operations',
-      'Full lifecycle MLOps for continuous model improvement at scale',
-      'Fully autonomous execution without human intervention',
-      'Robust reasoning, retrieval, and action pipelines in production'
+      'Document processing that extracts key information from invoices, contracts, and forms',
+      'Talk to your database in plain language and get instant answers without writing queries',
+      'Chat with your files and folders to find information across thousands of documents',
+      'Entity recognition that pulls names, dates, amounts, and clauses from any text',
+      'Voice assistants in Arabic and English handling customer inquiries 24/7',
+      'Smart classification and routing of emails, tickets, and incoming requests'
     ],
     stats: [
-      { label: 'Agent Types', value: 'Multi' },
       { label: 'Availability', value: '24/7' },
-      { label: 'Human Needed', value: '0%' },
+      { label: 'Languages', value: 'Multi' },
+      { label: 'Manual Steps', value: 'Zero' },
     ],
     visual: 'workflow',
   },
   {
     id: 5,
-    title: 'Saudi First by Design',
-    subtitle: 'Sovereign AI Aligned with Vision 2030',
-    tagline: 'Homegrown expertise deeply aligned with the Kingdom\'s digital transformation. True cultural and regulatory fit, not offshore guesswork.',
+    title: 'Built for the Kingdom',
+    subtitle: 'Engineered Around Vision 2030',
+    tagline: 'Fully Saudi ready from day one. Your data remains in the Kingdom, compliance is fully managed, and every solution advances your Vision 2030 objectives so you can focus on growth.',
     description: '',
     icon: 'flag',
     colorClass: 'text-orange-400',
     accentColor: '#fb923c',
     features: [
-      'Data residency within the Kingdom ensuring full sovereignty',
-      'Native integrations with Nafath, Etimad, Absher, and Qiwa',
-      'Arabic AI with Gulf dialect understanding and support',
-      'PDPL, NCA, and CITC compliance ready from project kickoff',
-      'Deep strategic alignment with Vision 2030 national objectives',
-      'Cultural and regulatory fit no offshore consultancy can match'
+      'Built to qualify for Vision 2030 funding programs and government RFPs from day one',
+      'Your data never crosses borders, eliminating cross jurisdiction legal exposure',
+      'One engagement covers cloud, compliance, audits, and integrations instead of juggling vendors',
+      'PDPL, NCA, and CITC requirements baked into every system from the start, not bolted on later',
+      'Skip months of audit preparation and the cost of full time compliance specialists',
+      'Native Arabic and Gulf dialect handling where international AI models consistently fall short'
     ],
     stats: [
-      { label: 'Data Residency', value: 'In-KSA' },
-      { label: 'Gov Platforms', value: '4+' },
-      { label: 'Compliance', value: 'PDPL' },
+      { label: 'Data Residency', value: '100% KSA' },
+      { label: 'Vision 2030', value: 'Native' },
+      { label: 'Compliance', value: 'Solved' },
     ],
   },
   {
@@ -139,12 +139,12 @@ const differentiators: Differentiator[] = [
     colorClass: 'text-primary',
     accentColor: '#25e2f4',
     features: [
-      'KPI frameworks aligned to strategic business outcomes from day one',
-      'Transparent ROI tracking and reporting throughout every engagement',
-      'Success metrics defined and agreed upon before code is written',
-      'Continuous optimization driven by actual performance data',
-      'Impact measured across revenue, cost, and operational efficiency',
-      'Invested in your business success, not just task completion'
+      'Walk into board reviews with concrete revenue, cost, and efficiency numbers, not status decks',
+      'See the dollar value of every sprint in real time, not buried in a final report',
+      'Success criteria locked in writing before kickoff, with no shifting goalposts mid project',
+      'Underperforming features cut fast based on real usage data, not opinions or sunk cost',
+      'Every dollar spent tied directly to revenue gained, costs reduced, or risk eliminated',
+      'We stay accountable after launch, not just until the final invoice clears'
     ],
     stats: [
       { label: 'KPI Alignment', value: 'Day 1' },
@@ -155,24 +155,24 @@ const differentiators: Differentiator[] = [
   {
     id: 7,
     title: 'Proven Accelerators',
-    subtitle: 'Start 60% Ahead',
+    subtitle: 'Start 50% Ahead',
     tagline: 'Proven components and architectural patterns refined across 15+ production deployments. No greenfield. Start with what already works at enterprise scale.',
     description: '',
     icon: 'inventory_2',
     colorClass: 'text-emerald-400',
     accentColor: '#34d399',
     features: [
-      '12+ tested data pipeline templates for common patterns',
-      '8+ AI agent frameworks and orchestration patterns ready to deploy',
-      '15+ dashboard and visualization accelerators for instant insights',
-      '20+ existing integrations for enterprise and government systems',
-      'Every accelerator proven across 15+ live deployments',
-      'Focus on your unique business logic, not foundational infrastructure'
+      'Skip 3 to 6 months of greenfield work reinventing pipelines, dashboards, and integrations',
+      'Inherit production lessons from 15+ live deployments instead of discovering them yourself',
+      'First working version live in weeks instead of waiting a full quarter for a prototype',
+      'Your budget goes to what makes you different, not the plumbing every project needs',
+      '10+ proven accelerators across data pipelines, AI agents, dashboards, and integrations',
+      'Avoid the cost overruns and surprises that sink most greenfield enterprise projects'
     ],
     stats: [
       { label: 'Deployments', value: '15+' },
-      { label: 'Templates', value: '55+' },
-      { label: 'Head Start', value: '60%' },
+      { label: 'Accelerators', value: '10+' },
+      { label: 'Head Start', value: '50%' },
     ],
   },
 ];
