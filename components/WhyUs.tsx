@@ -4,122 +4,175 @@ interface Differentiator {
   id: number;
   title: string;
   subtitle: string;
+  tagline: string;
   description: string;
   icon: string;
   colorClass: string;
   accentColor: string;
   features: string[];
-  stats?: { label: string; value: string; color: string }[];
-  visual?: 'team' | 'velocity' | 'workflow';
+  stats: { label: string; value: string }[];
+  visual?: 'team' | 'velocity' | 'workflow' | 'tiers';
 }
 
 const differentiators: Differentiator[] = [
   {
     id: 1,
-    title: 'Founder-Led, Hands-On',
+    title: 'Founders at the Front',
     subtitle: 'Direct Technical Leadership on Every Project',
-    description: 'Every project is directly led and overseen by Dr. Syed and Felipe from day one, ensuring full strategic control, technical excellence, and accountability at every stage. We don\'t delegate critical decisions to junior consultants or account managers who lack deep technical expertise. Instead, you work with a carefully curated team of mid and senior-level engineers under direct founder supervision, with active involvement in architecture design, code reviews, sprint planning, and technical governance. This hands-on approach ensures alignment between business objectives and technical execution, with clear ownership from strategy through production deployment.',
+    tagline: 'Every project is directly led by Dr. Syed and Felipe from day one. No account managers, no teams of juniors. Just senior engineers with full strategic control.',
+    description: '',
     icon: 'group',
     colorClass: 'text-primary',
     accentColor: '#25e2f4',
     features: [
-      'Founders actively leading architecture and delivery decisions',
-      'Curated mid-senior engineering team under direct oversight',
-      'Accountability from strategy through production deployment',
-      'Hands-on code reviews, sprint planning, and technical governance'
+      'Founders actively leading architecture and delivery decisions throughout',
+      'Curated team of mid and senior engineers under direct founder oversight',
+      'No delegation to junior consultants or account managers',
+      'Active code reviews, sprint planning, and technical governance',
+      'Full accountability from strategy through production deployment',
+      'Tight alignment between business objectives and technical execution'
+    ],
+    stats: [
+      { label: 'Founder Oversight', value: '100%' },
+      { label: 'Founder Access', value: 'Direct' },
+      { label: 'Avg. Team Seniority', value: 'Mid-Sr' },
     ],
     visual: 'team',
   },
   {
     id: 2,
-    title: 'Weeks, Not Quarters',
-    subtitle: 'Rapid Deployment Without Compromise',
-    description: 'Ship production-ready MVPs in weeks, not months or quarters. Our proven accelerators, battle-tested frameworks, and extensive library of reusable patterns eliminate the need to reinvent the wheel on every project. We leverage pre-built components for data pipelines, AI workflows, and analytics dashboards, alongside native integrations with Saudi platforms like Nafath, Etimad, and Absher. This approach combines speed with quality—delivering production-grade systems in 3-6 weeks compared to the industry standard of 12-16 weeks, without cutting corners on security, scalability, or best practices.',
-    icon: 'speed',
+    title: 'Prove Before You Pay',
+    subtitle: 'Zero Risk Proof of Value',
+    tagline: 'We put skin in the game. Before any commitment, we work on one of your real use cases for 6-8 weeks, completely free, to deliver tangible proof of value.',
+    description: '',
+    icon: 'workspace_premium',
     colorClass: 'text-accent-green',
     accentColor: '#a3e635',
     features: [
-      'MVPs deployed in 3-6 weeks vs industry standard 12-16 weeks',
-      'Reusable component library across data, AI, and analytics',
-      'Pre-built integrations for Saudi platforms (Nafath, Etimad)',
-      'Agile sprints with weekly deployments'
+      '6-8 weeks of dedicated senior engineering on a real business use case',
+      'A functional, working solution that operates well, not a slide deck',
+      'Zero financial commitment until you see measurable results',
+      'Work with the same team led by founders that you\'d engage ongoing',
+      'Complete IP ownership. Everything we build is yours to keep',
+      'Smooth transition to full engagement after proof of value'
     ],
-    visual: 'velocity',
+    stats: [
+      { label: 'Free Period', value: '6-8 wk' },
+      { label: 'Your Risk', value: 'Zero' },
+      { label: 'Deliverable', value: 'Working' },
+    ],
   },
   {
     id: 3,
-    title: 'Production-Grade DNA',
-    subtitle: 'Built for Scale from Day One',
-    description: 'Every system is architected for reliability, scalability, and security from the first line of code. We implement automated testing, continuous integration/deployment pipelines, comprehensive observability, and security controls as foundational elements, not afterthoughts. No MVPs that break in production. No prototypes that need rebuilding. Production-ready infrastructure from day one, designed to handle enterprise scale and evolving business requirements.',
-    icon: 'engineering',
+    title: 'Grow at Your Pace',
+    subtitle: 'Your Pace, Your Tools, Your Team',
+    tagline: 'Not every organization has a dedicated tech team or complex infrastructure. We work with the technologies and infrastructure that you are familiar with and build the smartest possible solutions on top of it.',
+    description: '',
+    icon: 'rocket_launch',
     colorClass: 'text-blue-400',
     accentColor: '#60a5fa',
     features: [
-      'Automated testing & CI/CD pipelines built-in from project inception',
-      'Observability, monitoring, and alerting systems deployed on day one',
-      'Security & compliance by design (PDPL, NCA frameworks integrated)',
-      'DataOps, MLOps, and DevOps best practices across all deliverables'
+      'We build on your familiar tools and technologies, not ours',
+      'No new platforms or technologies unless truly needed. Your team stays comfortable',
+      'A progressive Tier 0 to 3 journey at a pace that fits your organization',
+      '50% building, 50% training your team to own and extend the solutions',
+      'Upskilling so your people can maintain and create new solutions themselves',
+      'Seamless adoption with zero disruption to your daily operations'
     ],
+    stats: [],
+    visual: 'tiers',
   },
   {
     id: 4,
     title: 'Agentic AI Pioneers',
-    subtitle: 'Autonomous Intelligence at Scale',
-    description: 'Beyond dashboards and basic automation. We build autonomous AI agents that execute complex, multi-step workflows without human intervention. From reasoning to action execution.',
+    subtitle: 'AI That Works for You, Not the Other Way Around',
+    tagline: 'We go beyond dashboards and simple automations. We build intelligent AI systems that can think, search, and act on their own to get real work done.',
+    description: '',
     icon: 'smart_toy',
     colorClass: 'text-purple-400',
     accentColor: '#c084fc',
     features: [
-      'Multi-agent orchestration for complex workflows',
-      'RAG systems with enterprise knowledge bases',
-      'Voice AI agents supporting 24/7 multilingual operations',
-      'End-to-end MLOps for continuous model improvement'
+      'Document processing that extracts key information from invoices, contracts, and forms',
+      'Talk to your database in plain language and get instant answers without writing queries',
+      'Chat with your files and folders to find information across thousands of documents',
+      'Entity recognition that pulls names, dates, amounts, and clauses from any text',
+      'Voice assistants in Arabic and English handling customer inquiries 24/7',
+      'Smart classification and routing of emails, tickets, and incoming requests'
+    ],
+    stats: [
+      { label: 'Availability', value: '24/7' },
+      { label: 'Languages', value: 'Multi' },
+      { label: 'Manual Steps', value: 'Zero' },
     ],
     visual: 'workflow',
   },
   {
     id: 5,
-    title: 'Saudi-First by Design',
-    subtitle: 'Sovereign AI Aligned with Vision 2030',
-    description: 'Homegrown expertise deeply aligned with the Kingdom\'s digital transformation and Vision 2030 objectives. We understand data sovereignty requirements, local compliance frameworks (PDPL, NCA, CITC), and the unique nuances of the Saudi market far better than any offshore consultancy. Our solutions prioritize in-kingdom data residency, native integrations with government platforms (Nafath, Etimad, Absher, Qiwa), and Arabic-first AI capabilities with Gulf dialect support. This local-first approach ensures not just compliance, but true cultural and regulatory alignment that enables faster approvals, reduced risk, and seamless integration with national digital infrastructure.',
+    title: 'Built for the Kingdom',
+    subtitle: 'Engineered Around Vision 2030',
+    tagline: 'Fully Saudi ready from day one. Your data remains in the Kingdom, compliance is fully managed, and every solution advances your Vision 2030 objectives so you can focus on growth.',
+    description: '',
     icon: 'flag',
     colorClass: 'text-orange-400',
     accentColor: '#fb923c',
     features: [
-      'In-kingdom data residency and sovereignty',
-      'Native integrations: Nafath, Etimad, Absher, Qiwa',
-      'Arabic-first AI with Gulf dialect support',
-      'PDPL, NCA, and CITC compliance ready'
+      'Built to qualify for Vision 2030 funding programs and government RFPs from day one',
+      'Your data never crosses borders, eliminating cross jurisdiction legal exposure',
+      'One engagement covers cloud, compliance, audits, and integrations instead of juggling vendors',
+      'PDPL, NCA, and CITC requirements baked into every system from the start, not bolted on later',
+      'Skip months of audit preparation and the cost of full time compliance specialists',
+      'Native Arabic and Gulf dialect handling where international AI models consistently fall short'
+    ],
+    stats: [
+      { label: 'Data Residency', value: '100% KSA' },
+      { label: 'Vision 2030', value: 'Native' },
+      { label: 'Compliance', value: 'Solved' },
     ],
   },
   {
     id: 6,
     title: 'Outcomes, Not Outputs',
     subtitle: 'Measured by Business Impact',
-    description: 'Every engagement is measured by business results and tangible impact, not lines of code, story points, or hours billed. We establish clear KPI frameworks aligned to your strategic objectives from day one, whether that\'s revenue growth, cost reduction, operational efficiency, or risk mitigation. Throughout the engagement, we track ROI and performance metrics continuously, providing transparent reporting and data-driven insights. Success metrics are defined and agreed upon before any code is written, ensuring complete alignment between technical delivery and business outcomes. This results-oriented approach means we\'re invested in your success, not just task completion.',
+    tagline: 'Every engagement is measured by business results like revenue growth, cost reduction, and operational efficiency. Not lines of code or hours billed.',
+    description: '',
     icon: 'trending_up',
     colorClass: 'text-primary',
     accentColor: '#25e2f4',
     features: [
-      'KPI frameworks aligned to business outcomes from project inception',
-      'ROI tracking and transparent reporting throughout engagement',
-      'Success metrics defined and agreed before code is written',
-      'Continuous optimization based on real-world performance data'
+      'Walk into board reviews with concrete revenue, cost, and efficiency numbers, not status decks',
+      'See the dollar value of every sprint in real time, not buried in a final report',
+      'Success criteria locked in writing before kickoff, with no shifting goalposts mid project',
+      'Underperforming features cut fast based on real usage data, not opinions or sunk cost',
+      'Every dollar spent tied directly to revenue gained, costs reduced, or risk eliminated',
+      'We stay accountable after launch, not just until the final invoice clears'
+    ],
+    stats: [
+      { label: 'KPI Alignment', value: 'Day 1' },
+      { label: 'ROI Tracking', value: 'Live' },
+      { label: 'Focus', value: 'Impact' },
     ],
   },
   {
     id: 7,
-    title: 'Production-Ready Accelerators',
-    subtitle: 'Start 60% Ahead',
-    description: 'Proven components, frameworks, and architectural patterns refined across 15+ production deployments spanning multiple industries and use cases. No greenfield development, we use tested solutions that already work at enterprise scale. Our accelerator library includes data pipeline templates for common ingestion patterns, AI agent frameworks for autonomous workflows, pre-built dashboard and visualization components, and extensive integrations with enterprise systems and Saudi government platforms. Each accelerator is production-hardened, documented, and maintained, allowing us to focus on your unique business logic rather than rebuilding foundational infrastructure.',
+    title: 'Proven Accelerators',
+    subtitle: 'Start 50% Ahead',
+    tagline: 'Proven components and architectural patterns refined across 15+ production deployments. No greenfield. Start with what already works at enterprise scale.',
+    description: '',
     icon: 'inventory_2',
     colorClass: 'text-emerald-400',
     accentColor: '#34d399',
     features: [
-      '12+ production-ready data pipeline templates for common patterns',
-      '8+ AI agent frameworks and orchestration patterns',
-      '15+ dashboard and visualization accelerators',
-      '20+ pre-built integrations for enterprise and government systems'
+      'Skip 3 to 6 months of greenfield work reinventing pipelines, dashboards, and integrations',
+      'Inherit production lessons from 15+ live deployments instead of discovering them yourself',
+      'First working version live in weeks instead of waiting a full quarter for a prototype',
+      'Your budget goes to what makes you different, not the plumbing every project needs',
+      '10+ proven accelerators across data pipelines, AI agents, dashboards, and integrations',
+      'Avoid the cost overruns and surprises that sink most greenfield enterprise projects'
+    ],
+    stats: [
+      { label: 'Deployments', value: '15+' },
+      { label: 'Accelerators', value: '10+' },
+      { label: 'Head Start', value: '50%' },
     ],
   },
 ];
@@ -181,7 +234,7 @@ const WhyUs: React.FC = () => {
         </div>
 
         {/* Card Deck Carousel with Subtle Stack & Side Navigation */}
-        <div className="relative w-full px-2 sm:px-4 md:px-16" style={{ minHeight: '520px' }}>
+        <div className="relative w-full px-2 sm:px-4 md:px-16 min-h-[680px] sm:min-h-[600px] md:min-h-[520px]">
           
           {/* Previous Button - Left Side */}
           <button
@@ -214,7 +267,7 @@ const WhyUs: React.FC = () => {
           </button>
 
           {/* All Cards - Subtle Stacked Effect */}
-          <div className="relative flex items-start justify-center px-10 sm:px-12 md:px-0" style={{ minHeight: '520px' }}>
+          <div className="relative flex items-start justify-center px-10 sm:px-12 md:px-0 min-h-[680px] sm:min-h-[600px] md:min-h-[520px]">
             {differentiators.map((card, index) => {
               const isActive = index === currentIndex;
               const isPast = index < currentIndex;
@@ -318,16 +371,16 @@ const WhyUs: React.FC = () => {
                         {/* Only show full content for active card */}
                         {isActive && (
                           <>
-                            {/* Description */}
+                            {/* Tagline */}
                             <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-4 md:mb-5 max-w-3xl">
-                              {card.description}
+                              {card.tagline}
                             </p>
 
-                            {/* Features Grid */}
+                            {/* Features Grid - 6 bullet points, 3 per column */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-1.5 md:gap-2 mb-4 md:mb-5">
                               {card.features.map((feature, idx) => (
-                                <div 
-                                  key={idx} 
+                                <div
+                                  key={idx}
                                   className="flex items-start gap-1.5 md:gap-2 p-2 md:p-2.5 rounded-lg md:rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-all duration-300 group"
                                 >
                                   <span className={`material-symbols-outlined text-xs md:text-sm mt-0.5 ${card.colorClass} group-hover:scale-110 transition-transform flex-shrink-0`}>
@@ -340,40 +393,58 @@ const WhyUs: React.FC = () => {
                               ))}
                             </div>
 
-                            {/* Visual Elements */}
-                            {card.visual === 'velocity' && (
-                              <div className="flex gap-1 items-end h-12 md:h-14 w-full mt-3 opacity-50 hover:opacity-100 transition-opacity">
-                                {[40, 70, 50, 90, 60, 85, 45, 95, 65, 80, 55, 75].map((height, i) => (
-                                  <div key={i} className="flex-1 bg-accent-green/20 rounded-t-sm relative overflow-hidden">
-                                    <div 
-                                      className="absolute bottom-0 left-0 right-0 bg-accent-green transition-all duration-500" 
-                                      style={{ height: `${height}%`, transitionDelay: `${i * 50}ms` }}
-                                    ></div>
+                            {/* Tiers Visual */}
+                            {card.visual === 'tiers' && (
+                              <div className="flex items-center gap-0">
+                                {[
+                                  { tier: 'Tier 0', label: 'Current state' },
+                                  { tier: 'Tier 1', label: 'Automate & standardize' },
+                                  { tier: 'Tier 2', label: 'Integrate & scale' },
+                                  { tier: 'Tier 3', label: 'Full maturity' },
+                                ].map((step, idx) => (
+                                  <div key={idx} className="flex items-center flex-1 min-w-0">
+                                    <div className="flex flex-col items-center flex-1 min-w-0">
+                                      <div
+                                        className={`px-2 py-1 md:px-2.5 md:py-1.5 rounded-full border flex items-center justify-center text-[8px] md:text-[10px] font-bold mb-0.5 whitespace-nowrap ${
+                                          idx === 0
+                                            ? 'bg-white/10 border-white/20 text-white'
+                                            : 'border-blue-400/30 bg-blue-400/10 text-blue-400'
+                                        }`}
+                                      >
+                                        {step.tier}
+                                      </div>
+                                      <div className="text-gray-400 text-[8px] md:text-[9px] font-medium text-center">{step.label}</div>
+                                    </div>
+                                    {idx < 3 && (
+                                      <div className="w-3 sm:w-6 md:w-14 h-[2px] bg-gradient-to-r from-white/20 to-blue-400/40 flex-shrink-0 mb-3 rounded-full"></div>
+                                    )}
                                   </div>
                                 ))}
                               </div>
                             )}
 
-                            {card.visual === 'workflow' && (
-                              <div className="grid grid-cols-3 gap-2 mt-3">
-                                {[
-                                  { icon: 'psychology', label: 'Reasoning', desc: 'Context understanding' },
-                                  { icon: 'search', label: 'Retrieval', desc: 'Knowledge access' },
-                                  { icon: 'integration_instructions', label: 'Execution', desc: 'Action deployment' },
-                                ].map((step, idx) => (
-                                  <div 
-                                    key={idx}
-                                    className="p-2 md:p-2.5 rounded-lg md:rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-all group"
-                                  >
-                                    <span className={`material-symbols-outlined ${card.colorClass} text-base md:text-lg mb-0.5 block group-hover:scale-110 transition-transform`}>
-                                      {step.icon}
-                                    </span>
-                                    <div className={`${card.colorClass} text-[9px] md:text-[10px] font-bold mb-0.5`}>{step.label}</div>
-                                    <div className="text-gray-500 text-[8px] md:text-[9px]">{step.desc}</div>
+                            {/* Stats Row */}
+                            {card.stats.length > 0 && <div className="grid grid-cols-3 gap-2 md:gap-3">
+                              {card.stats.map((stat, idx) => (
+                                <div
+                                  key={idx}
+                                  className="relative p-2.5 md:p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center group hover:border-white/10 transition-all duration-300 overflow-hidden"
+                                >
+                                  <div
+                                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                                    style={{
+                                      background: `radial-gradient(circle at center, ${card.accentColor}10, transparent 70%)`
+                                    }}
+                                  ></div>
+                                  <div className={`text-lg md:text-2xl font-black relative z-10 ${card.colorClass}`}>
+                                    {stat.value}
                                   </div>
-                                ))}
-                              </div>
-                            )}
+                                  <div className="text-gray-500 text-[9px] md:text-[10px] font-medium uppercase tracking-wider mt-0.5 relative z-10">
+                                    {stat.label}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>}
                           </>
                         )}
                       </div>
