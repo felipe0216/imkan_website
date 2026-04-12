@@ -234,7 +234,7 @@ const WhyUs: React.FC = () => {
         </div>
 
         {/* Card Deck Carousel with Subtle Stack & Side Navigation */}
-        <div className="relative w-full px-2 sm:px-4 md:px-16" style={{ minHeight: '520px' }}>
+        <div className="relative w-full px-2 sm:px-4 md:px-16 min-h-[680px] sm:min-h-[600px] md:min-h-[520px]">
           
           {/* Previous Button - Left Side */}
           <button
@@ -267,7 +267,7 @@ const WhyUs: React.FC = () => {
           </button>
 
           {/* All Cards - Subtle Stacked Effect */}
-          <div className="relative flex items-start justify-center px-10 sm:px-12 md:px-0" style={{ minHeight: '520px' }}>
+          <div className="relative flex items-start justify-center px-10 sm:px-12 md:px-0 min-h-[680px] sm:min-h-[600px] md:min-h-[520px]">
             {differentiators.map((card, index) => {
               const isActive = index === currentIndex;
               const isPast = index < currentIndex;
@@ -416,7 +416,7 @@ const WhyUs: React.FC = () => {
                                       <div className="text-gray-400 text-[8px] md:text-[9px] font-medium text-center">{step.label}</div>
                                     </div>
                                     {idx < 3 && (
-                                      <div className="w-8 md:w-14 h-[2px] bg-gradient-to-r from-white/20 to-blue-400/40 flex-shrink-0 mb-3 rounded-full"></div>
+                                      <div className="w-3 sm:w-6 md:w-14 h-[2px] bg-gradient-to-r from-white/20 to-blue-400/40 flex-shrink-0 mb-3 rounded-full"></div>
                                     )}
                                   </div>
                                 ))}
