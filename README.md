@@ -1,20 +1,34 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# imkan.ai Website
 
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/drive/1U-_TTOJdzYelZAKiWvsmSDTp7jPPBhtG
+Single-page marketing site for **imkan.ai**, built with **React 19 + TypeScript** and **Vite**.
+Tailwind CSS is loaded via CDN and configured inline in `index.html`. The contact form is
+backed by a Python **Azure Function** in `api/`, and the site is deployed as an **Azure Static Web App**.
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm install
+   ```
+2. Start the dev server:
+   ```bash
+   npm run dev
+   ```
+   The app runs at http://localhost:3000.
+
+## Build
+
+```bash
+npm run build      # outputs the production bundle to dist/
+npm run preview    # preview the production build locally
+```
+
+## Project Structure
+
+- `App.tsx` / `index.tsx` — app entry and root composition.
+- `components/` — all UI sections (Navbar, Hero, Services, Methodology, WhyUs, CaseStudies, Team, Footer, ContactFormModal).
+- `api/` — Python Azure Function (`/api/contact`) that stores contact submissions in Azure Table Storage.
+- `public/images/` — static image assets.
+- `Documentation/` — setup and deployment guides.
