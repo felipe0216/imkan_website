@@ -12,7 +12,8 @@ The backend is a single Python Azure Function in `api/function_app.py` exposing 
 - Use the v2 programming model: `app = func.FunctionApp()` with `@app.route(...)` decorators; `auth_level=func.AuthLevel.ANONYMOUS` (the static web app routes `/api/*` as anonymous).
 - Always handle the **CORS preflight** (`OPTIONS`) and include `Access-Control-Allow-Origin` headers on every response (success and error).
 - Return JSON via `func.HttpResponse(json.dumps(...), mimetype='application/json', headers=...)`. Keep the `{ error, message }` / `{ success, message }` response shapes the frontend already expects.
-- Validate required fields (`firstName`, `lastName`, `phone`, `email`) and email format before storing. Return `400` on validation errors, `500` on server/config errors.
+- Validate required fields (`firstName`, `lastName`, `phone`, `email`) and email format before storing. `message` is optional. Return `400` on validation errors, `500` on server/config errors.
 - Persistence: Azure Table Storage via `AZURE_STORAGE_CONNECTION_STRING` env var (table `contactsubmissions`, `PartitionKey='contact'`). Never hardcode connection strings/secrets — read from `os.environ`. `local.settings.json` is for local dev only and must not be committed with real secrets.
+- **Email notifications**: after a submission is stored, `send_notification_email(...)` notifies the owners via **Azure Communication Services Email** (`azure-communication-email`). It is **best-effort** — wrapped in try/except, failures are logged and never block a successful submission. Env vars: `ACS_EMAIL_CONNECTION_STRING`, `ACS_SENDER_ADDRESS` (ACS managed-domain sender), and optional `CONTACT_NOTIFICATION_RECIPIENTS` (comma-separated; defaults to `felipe@imkan.ai,syed@imkan.ai`). `replyTo` is set to the submitter so owners can reply directly.
 - Add new dependencies to `api/requirements.txt`.
 - If you change the request/response contract, update `ContactFormModal.tsx` to match.

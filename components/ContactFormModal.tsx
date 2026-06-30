@@ -10,12 +10,13 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
     firstName: '',
     lastName: '',
     phone: '',
-    email: ''
+    email: '',
+    message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -49,7 +50,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
       // Reset after 3 seconds
       setTimeout(() => {
         setIsSubmitted(false);
-        setFormData({ firstName: '', lastName: '', phone: '', email: '' });
+        setFormData({ firstName: '', lastName: '', phone: '', email: '', message: '' });
         onClose();
       }, 3000);
 
@@ -63,7 +64,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
 
   const handleClose = () => {
     if (!isSubmitting) {
-      setFormData({ firstName: '', lastName: '', phone: '', email: '' });
+      setFormData({ firstName: '', lastName: '', phone: '', email: '', message: '' });
       setIsSubmitted(false);
       onClose();
     }
@@ -178,6 +179,22 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
                     required
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                     placeholder="your.email@company.com"
+                  />
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                    Message <span className="text-gray-500 font-normal">(optional)</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={4}
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-y"
+                    placeholder="Tell us a bit about what you're looking for..."
                   />
                 </div>
 
