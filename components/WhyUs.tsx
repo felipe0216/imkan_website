@@ -11,7 +11,7 @@ interface Differentiator {
   accentColor: string;
   features: string[];
   stats: { label: string; value: string }[];
-  visual?: 'team' | 'velocity' | 'workflow' | 'tiers';
+  visual?: 'tiers';
 }
 
 const differentiators: Differentiator[] = [
@@ -37,7 +37,6 @@ const differentiators: Differentiator[] = [
       { label: 'Founder Access', value: 'Direct' },
       { label: 'Avg. Team Seniority', value: 'Mid-Sr' },
     ],
-    visual: 'team',
   },
   {
     id: 2,
@@ -104,7 +103,6 @@ const differentiators: Differentiator[] = [
       { label: 'Languages', value: 'Multi' },
       { label: 'Manual Steps', value: 'Zero' },
     ],
-    visual: 'workflow',
   },
   {
     id: 5,
