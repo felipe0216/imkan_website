@@ -3,8 +3,12 @@ import React, { useState } from 'react';
 interface ServiceDetail {
   id: string;
   title: string;
+  pain: string;
   subtitle: string;
+  teaser: string;
   description: string;
+  goal: string;
+  cta: string;
   icon: string;
   colorClass: string;
   features: string[];
@@ -14,61 +18,77 @@ interface ServiceDetail {
 const servicesData: ServiceDetail[] = [
   {
     id: 'strategy',
-    title: 'Define Your Data Vision & Foundations',
-    subtitle: 'Strategy & Architecture',
-    description: 'We establish the strategic blueprint for your data and AI transformation. From maturity assessments and target-state architectures to governance frameworks and cloud infrastructure planning, we define clear technical foundations aligned to Vision 2030 priorities. Our work sets the stage for secure, compliant, and sovereign data platforms that scale with your ambitions.',
+    title: 'Build a strategy worth executing',
+    pain: 'We don\'t know where to start our data journey',
+    subtitle: 'Data Strategy & Architecture',
+    teaser: 'Everyone says to "become data-driven", but no one shows you the first move. Here is how a real data strategy actually begins, and where it should take you.',
+    description: 'A clear, plain-English plan for turning the data you already collect into faster, better business decisions. It starts with the decisions you want to improve, not with technology.',
+    goal: 'A prioritized roadmap where every data investment is tied to a real business outcome.',
+    cta: 'Find out how',
     icon: 'architecture',
     colorClass: 'text-primary',
     features: [
-      'Enterprise Data & AI Maturity Assessment',
-      'Cloud Migration Strategy (Azure, AWS, GCP)',
-      'Data Governance, Compliance & Sovereignty Frameworks',
-      'Value-Driven AI Use Case Discovery & Roadmapping Workshops'
+      'Start with the decisions that matter, not the data you happen to have',
+      'Map each decision to the questions and data that answer it',
+      'Assess your current data, tools, and gaps honestly',
+      'Prioritize a roadmap where every step has a clear business payoff'
     ],
     image: '/images/services/strategy.jpg'
   },
   {
     id: 'engineering',
-    title: 'Transform & Organize Your Data',
+    title: 'Make your data work for you',
+    pain: 'Our data is a mess: scattered, unreliable, siloed',
     subtitle: 'Engineering & Data Preparation',
-    description: 'We build robust data engineering pipelines that transform raw, scattered data into clean, structured, and analytics-ready assets. Through automated ETL/ELT processes, data quality frameworks, and intelligent orchestration, we ensure your data is reliable, accessible, and trustworthy—ready to power AI models and business insights at enterprise scale.',
+    teaser: 'Spreadsheets here, systems there, numbers that never match. Here is how scattered data becomes one source of truth your whole team can rely on.',
+    description: 'The work of pulling all your scattered data into one clean, reliable place, so everyone works from the same trustworthy numbers instead of arguing over whose spreadsheet is right.',
+    goal: 'A single source of truth that is accurate, always up to date, and ready for reporting or AI.',
+    cta: 'How to fix it',
     icon: 'tune',
     colorClass: 'text-emerald-400',
     features: [
-      'Modern Data Platform Design & Implementation',
-      'Automated Batch & Real-Time Data Pipelines',
-      'Cloud-Native Data Orchestration & Integration',
-      'Built-in Data Quality, Observability & Reliability Controls'
+      'Connect your scattered sources into one place',
+      'Clean and standardize until the numbers finally agree',
+      'Automate the flow so data stays fresh on its own',
+      'Add quality checks that catch errors before you do'
     ],
     image: '/images/services/data-platform.png'
   },
   {
     id: 'agentic',
-    title: 'Deploy Intelligent Solutions',
+    title: 'Deploy AI that saves you time',
+    pain: 'We\'re still doing manually what machines should handle',
     subtitle: 'AI & Automation',
-    description: 'We design and deploy enterprise AI solutions that combine machine learning, agentic AI, and intelligent automation to solve real business problems. Our production grade AI systems enable process automation, productivity gains, and data driven decision support while integrating seamlessly with existing enterprise platforms. Supported by robust MLOps and AI operations, our solutions operate reliably, securely, and at scale in live production environments.',
+    teaser: 'If your team spends hours copying, checking, and chasing information, that is work software can do. Here is how to spot it and hand it off.',
+    description: 'Letting software handle the repetitive, rules-based work your team does by hand today, like reading documents, sorting requests, or moving data between systems, so people focus on judgment instead of busywork.',
+    goal: 'Measurable time and cost saved, with your people in control of the decisions that matter.',
+    cta: 'See the possibilities',
     icon: 'smart_toy',
     colorClass: 'text-purple-400',
     features: [
-      'Production-Ready AI & LLM Solutions',
-      'Multi-Agent Systems Deployment',
-      'RAG (Retrieval Augmented Generation) Systems',
-      'End-to-End MLOps & AI Operations'
+      'Spot the repetitive, high-volume tasks that drain your team',
+      'Automate the predictable steps first for fast wins',
+      'Add AI where reading, sorting, or answering is needed',
+      'Keep people in control of the decisions that matter'
     ],
     image: '/images/services/agentic-ai.png'
   },
   {
     id: 'decision',
-    title: 'Monitor & Optimize',
+    title: 'Turn insights into decisions',
+    pain: 'We have dashboards, but still cannot make fast decisions',
     subtitle: 'Insights & Action',
-    description: 'We deliver decision intelligence and business intelligence solutions that convert data into actionable insights for leaders and operational teams. Our approach combines advanced analytics, KPI design, and data visualization to support faster, more informed decision making. Through automated insights, governed self service dashboards, and analytics embedded into business workflows, we enable organisations to act with clarity, speed, and confidence.',
+    teaser: 'More charts do not mean more clarity. Here is how to turn the data you already have into decisions your team can act on today.',
+    description: 'Turning the dashboards you already have into clear answers and next steps. Most companies do not have a data problem, they have a decision problem, and this closes that gap.',
+    goal: 'Faster, more confident decisions, made every single day.',
+    cta: 'Learn how',
     icon: 'monitoring',
     colorClass: 'text-blue-400',
     features: [
-      'Predictive Analytics Dashboards',
-      'Causal Inference Models',
-      'Scenario Planning & Simulation',
-      'KPI Engineering & Visualization'
+      'Start from the decisions your teams make every week',
+      'Design each view to answer one clear question',
+      'Add targets, trends, and alerts so the "so what" is obvious',
+      'Put answers in front of people the moment they decide'
     ],
     image: '/images/services/data-visu.png'
   }
@@ -112,12 +132,12 @@ const Services: React.FC<ServicesProps> = ({ onOpenContact }) => {
       <div className="container max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-primary font-bold tracking-widest text-sm uppercase mb-3">Our Approach</h2>
+          <h2 className="text-primary font-bold tracking-widest text-sm uppercase mb-3">Our Services</h2>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-            Your Data & AI Journey
+            We work with leaders ready to act on Data & AI
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            From strategy to production. A proven pathway to transform your organization with AI and intelligent data systems.
+            Not sure where to start? Stuck after strategy? We meet you where you are and move you forward.
           </p>
         </div>
 
@@ -178,19 +198,26 @@ const Services: React.FC<ServicesProps> = ({ onOpenContact }) => {
                       {service.subtitle}
                     </div>
 
-                    {/* Title */}
-                    <h3 className="text-lg font-bold text-white mb-3 group-hover:text-current transition-colors leading-tight min-h-[3.5rem] flex items-start">
+                    {/* Title - solution headline */}
+                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-current transition-colors leading-tight min-h-[3.5rem] flex items-start">
                       {service.title}
                     </h3>
 
+                    {/* Client pain point, in their own words, beneath the title */}
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-1">Sound familiar?</div>
+                    <div className="flex items-start gap-1.5 mb-3">
+                      <span className={`material-symbols-outlined text-base ${service.colorClass} flex-shrink-0`}>format_quote</span>
+                      <p className="text-gray-400 text-xs italic leading-snug">&ldquo;{service.pain}&rdquo;</p>
+                    </div>
+
                     {/* Description Preview */}
                     <p className="text-gray-400 text-xs leading-relaxed mb-4 flex-1 line-clamp-5">
-                      {service.description.substring(0, 180)}...
+                      {service.teaser}
                     </p>
 
                     {/* Learn More */}
-                    <div className="flex items-center gap-2 text-xs font-bold text-white/50 group-hover:text-current transition-colors mt-auto pt-2">
-                      <span>Learn more</span>
+                    <div className={`flex items-center gap-2 text-xs font-bold ${service.colorClass} mt-auto pt-2`}>
+                      <span>{service.cta}</span>
                       <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </div>
                   </div>
@@ -231,18 +258,22 @@ const Services: React.FC<ServicesProps> = ({ onOpenContact }) => {
                       <div className={`text-[10px] font-bold uppercase tracking-wider ${service.colorClass} mb-2 opacity-70`}>
                         {service.subtitle}
                       </div>
-                      <h3 className="text-lg font-bold text-white mb-2">
+                      <h3 className="text-lg font-bold text-white leading-tight mb-2">
                         {service.title}
                       </h3>
+                      <div className="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-1">Sound familiar?</div>
+                      <p className="text-gray-400 text-sm italic leading-snug">
+                        &ldquo;{service.pain}&rdquo;
+                      </p>
                     </div>
                   </div>
 
                   <p className="text-gray-400 text-sm leading-relaxed mb-4 line-clamp-3">
-                    {service.description.substring(0, 120)}...
+                      {service.teaser}
                   </p>
 
-                  <div className="flex items-center gap-2 text-sm font-bold text-white/50">
-                    <span>Learn more</span>
+                  <div className={`flex items-center gap-2 text-sm font-bold ${service.colorClass}`}>
+                    <span>{service.cta}</span>
                     <span className="material-symbols-outlined text-base">arrow_forward</span>
                   </div>
                 </div>
@@ -268,7 +299,7 @@ const Services: React.FC<ServicesProps> = ({ onOpenContact }) => {
                 <div className={`size-16 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center ${selectedService.colorClass} mb-4 backdrop-blur-md`}>
                   <span className="material-symbols-outlined text-4xl">{selectedService.icon}</span>
                 </div>
-                <h3 className="text-white text-xl font-bold leading-tight">{selectedService.title}</h3>
+                <h3 className="text-white text-xl font-bold leading-tight">{selectedService.subtitle}</h3>
               </div>
             </div>
 
@@ -285,25 +316,52 @@ const Services: React.FC<ServicesProps> = ({ onOpenContact }) => {
                 <div className={`size-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center ${selectedService.colorClass}`}>
                   <span className="material-symbols-outlined text-2xl">{selectedService.icon}</span>
                 </div>
-                <h3 className="text-white text-xl font-bold">{selectedService.title}</h3>
+                <h3 className="text-white text-xl font-bold">{selectedService.subtitle}</h3>
               </div>
 
-              <h4 className={`text-sm font-bold uppercase tracking-widest mb-4 ${selectedService.colorClass}`}>
-                {selectedService.subtitle}
-              </h4>
-              <p className="text-gray-300 text-lg leading-relaxed mb-8 border-b border-white/10 pb-8">
+              {/* Solution headline */}
+              <h3 className="text-white text-2xl md:text-3xl font-bold leading-tight mb-4">
+                {selectedService.title}
+              </h3>
+
+              {/* Client pain point, in their own words, beneath the title */}
+              <div className="flex items-start gap-3 mb-8 pb-8 border-b border-white/10">
+                <span className={`material-symbols-outlined text-xl ${selectedService.colorClass} flex-shrink-0`}>format_quote</span>
+                <div>
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">What we hear from leaders</div>
+                  <p className="text-gray-300 text-base md:text-lg italic leading-snug">
+                    &ldquo;{selectedService.pain}&rdquo;
+                  </p>
+                </div>
+              </div>
+
+              {/* What it is */}
+              <h4 className={`text-xs font-bold uppercase tracking-widest mb-2 ${selectedService.colorClass}`}>What it is</h4>
+              <p className="text-gray-300 text-base leading-relaxed mb-6">
                 {selectedService.description}
               </p>
 
-              <h5 className="text-white font-bold mb-4">Key Capabilities</h5>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* The goal */}
+              <div className="flex items-start gap-3 mb-8 p-4 rounded-xl bg-white/5 border border-white/10">
+                <span className={`material-symbols-outlined text-xl ${selectedService.colorClass} flex-shrink-0`}>flag</span>
+                <div>
+                  <div className={`text-xs font-bold uppercase tracking-widest mb-1 ${selectedService.colorClass}`}>The goal</div>
+                  <p className="text-gray-300 text-sm leading-relaxed">{selectedService.goal}</p>
+                </div>
+              </div>
+
+              {/* How to get there - numbered path */}
+              <h4 className="text-white font-bold mb-4">How to get there</h4>
+              <ol className="space-y-3">
                 {selectedService.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <span className={`material-symbols-outlined text-lg mt-0.5 ${selectedService.colorClass}`}>check_circle</span>
-                    <span className="text-gray-400 text-sm">{feature}</span>
+                    <span className={`flex-shrink-0 size-6 rounded-full border border-current flex items-center justify-center text-xs font-bold ${selectedService.colorClass}`}>
+                      {idx + 1}
+                    </span>
+                    <span className="text-gray-300 text-sm leading-relaxed pt-0.5">{feature}</span>
                   </li>
                 ))}
-              </ul>
+              </ol>
 
               <div className="mt-10 pt-6 border-t border-white/10 flex gap-4">
                 <button 
