@@ -1,0 +1,33 @@
+---
+description: Imkan.ai website — architecture, stack, file map, and core conventions
+alwaysApply: true
+---
+
+# Imkan.ai Website — Project Memory
+
+Single-page marketing site for **imkan.ai**, a Saudi (Vision 2030) AI & data engineering consultancy.
+
+## Stack
+- **React 19 + TypeScript**, bundled by **Vite** (`npm run dev` on port 3000, `npm run build`, `npm run preview`).
+- **Tailwind CSS via CDN**, configured inline in `index.html` (`tailwind.config` script). There is **no** `tailwind.config.js` or PostCSS build — edit theme/animations/custom CSS in `index.html`.
+- Icons: **Material Symbols Outlined** (`<span className="material-symbols-outlined">icon_name</span>`).
+- Font: **Space Grotesk** (`font-display` / `font-sans`).
+- Backend: **Python Azure Functions** in `api/` (contact form). Hosted as an **Azure Static Web App** (`staticwebapp.config.json`).
+
+## Render flow
+`index.tsx` → `App.tsx`. `App.tsx` owns the single piece of global state: `isContactModalOpen`, and passes `onOpenContact` down to sections. Section order in `<main>`: `Hero → Services → Methodology → WhyUs → CaseStudies → Team`, then `Footer`, then `ContactFormModal`.
+
+## Section IDs (used by Navbar scroll + IntersectionObserver)
+`home`, `services`, `methodology`, `why-us`, `cases`, `about`. Keep these stable; the Navbar (`navLinks`, observer list) and Footer anchor links depend on them.
+
+## File map
+- `components/` — all UI. `Navbar`, `Hero` (+ `HeroBackground`), `Services`, `Methodology`, `WhyUs`, `CaseStudies`, `Team`, `Footer`, `ContactFormModal`.
+- `Team_full.tsx` is **NOT imported** anywhere (dead file) — don't edit it expecting changes to show.
+- `api/function_app.py` — `/api/contact` Azure Function (Table Storage).
+- `public/images/` — `logos/`, `methodology/`, `profile_pictures/`, `services/`, `use_cases/`.
+- `Documentation/` — deployment & contact-form guides (markdown only).
+
+## Conventions
+- Each data-driven section defines a **typed data array/record at the top of the file**, then maps over it. To change copy/cards, edit that data — not the JSX.
+- Contact CTAs call the `onOpenContact` prop (threaded from `App.tsx`); don't create new modal state.
+- Only create files when necessary; prefer editing existing files. No new dependencies without need (deps are intentionally minimal).

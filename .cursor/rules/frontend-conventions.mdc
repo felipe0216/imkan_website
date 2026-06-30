@@ -1,0 +1,32 @@
+---
+description: Styling, theme, and component/modal patterns for React (.tsx) files
+globs: **/*.tsx
+alwaysApply: false
+---
+
+# Frontend Conventions (.tsx)
+
+## Theme tokens (defined in `index.html` tailwind.config)
+- `primary` = `#25e2f4` (cyan) · `accent-green` = `#a3e635`
+- Backgrounds: `background-dark` `#0A0F14` · `background-card` `#162024` · `surface-dark` `#132325`
+- Section accent colors follow Tailwind classes: `text-primary`, `text-emerald-400`, `text-purple-400`, `text-blue-400`, `text-orange-400`, etc. Reuse these; don't introduce ad-hoc hex unless matching an existing pattern.
+- Custom animations available: `animate-pulse-slow`, `animate-scan`, `animate-beam`, `animate-shimmer`, `animate-text-gradient`, `animate-fadeIn`. Add new keyframes in `index.html`, not in components.
+
+## Reusable CSS utilities (in `index.html <style>`)
+- `.glass-card` — frosted glass surface.
+- `.spotlight-card` — cursor-follow radial glow; pair with the `handleMouseMove` helper that sets `--mouse-x`/`--mouse-y` on `.spotlight-card` elements. This helper is duplicated in `Services`, `Methodology`, `WhyUs` — copy that exact pattern rather than inventing a new one.
+
+## Component patterns
+- Functional components with `React.FC<Props>`; props interface declared above the component.
+- **Data-first**: define a typed array/record of content at the top of the file and `.map()` over it. Edit data to change copy.
+- Tailwind color classes are often stored per-item as `colorClass` strings; when a dynamic RGB is needed for inline `radial-gradient`/`box-shadow`, use a small `colorMap`/`getSpotlightRGB`-style lookup (see `Services.tsx`).
+
+## Modal pattern (match exactly across Services / Team / CaseStudies / Methodology / Footer)
+- Conditionally render when state is truthy.
+- Structure: `fixed inset-0 z-[100] flex items-center justify-center p-4` wrapper → backdrop `absolute inset-0 bg-background-dark/80 backdrop-blur-sm` with `onClick` to close → `relative ... max-w-4xl ... bg-background-card border border-white/10 rounded-2xl` card → close button with `material-symbols-outlined` `close`.
+- Contact CTAs inside modals: close the local modal, then call `onOpenContact()`.
+
+## Responsiveness & a11y
+- Mobile-first; design for `sm`/`md`/`lg` breakpoints (existing components ship distinct desktop vs mobile layouts).
+- Respect `prefers-reduced-motion` for heavy animation (see `HeroBackground.tsx`).
+- Keep `aria-label`s on icon-only buttons.

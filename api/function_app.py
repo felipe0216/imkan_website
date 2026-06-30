@@ -3,12 +3,101 @@ import json
 import os
 import logging
 import re
+import html
 from datetime import datetime
 from azure.data.tables import TableServiceClient, TableEntity
 import random
 import string
 
 app = func.FunctionApp()
+
+# Default recipients for contact-form notifications (the Imkan owners).
+# Can be overridden with the CONTACT_NOTIFICATION_RECIPIENTS env var
+# (comma-separated list of email addresses).
+DEFAULT_NOTIFICATION_RECIPIENTS = ['felipe@imkan.ai', 'syed@imkan.ai']
+
+
+def send_notification_email(first_name, last_name, phone, email, message, submitted_at):
+    """
+    Send a contact-form notification to the Imkan owners via Azure
+    Communication Services Email.
+
+    This is best-effort: any failure is logged and swallowed so it never
+    blocks a successful submission (the data is already persisted in storage).
+    Returns True if the email was sent, False otherwise.
+    """
+    connection_string = os.environ.get('ACS_EMAIL_CONNECTION_STRING')
+    sender_address = os.environ.get('ACS_SENDER_ADDRESS')
+
+    if not connection_string or not sender_address:
+        logging.warning(
+            'ACS email not configured (ACS_EMAIL_CONNECTION_STRING / '
+            'ACS_SENDER_ADDRESS missing); skipping notification email.'
+        )
+        return False
+
+    recipients_raw = os.environ.get('CONTACT_NOTIFICATION_RECIPIENTS')
+    if recipients_raw:
+        recipients = [addr.strip() for addr in recipients_raw.split(',') if addr.strip()]
+    else:
+        recipients = DEFAULT_NOTIFICATION_RECIPIENTS
+
+    if not recipients:
+        logging.warning('No notification recipients configured; skipping email.')
+        return False
+
+    try:
+        from azure.communication.email import EmailClient
+
+        full_name = f'{first_name} {last_name}'.strip()
+        message_text = message if message else '(no message provided)'
+
+        plain_text = (
+            'New contact form submission from imkan.ai\n\n'
+            f'Name:    {full_name}\n'
+            f'Email:   {email}\n'
+            f'Phone:   {phone}\n'
+            f'Message: {message_text}\n\n'
+            f'Submitted: {submitted_at} (UTC)'
+        )
+
+        html_body = f"""
+        <div style="font-family: Arial, Helvetica, sans-serif; color: #1a1a1a; max-width: 560px;">
+          <h2 style="margin: 0 0 16px;">New contact form submission</h2>
+          <p style="margin: 0 0 16px; color: #555;">Someone reached out through the imkan.ai website.</p>
+          <table style="border-collapse: collapse; width: 100%;">
+            <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4; width: 120px;">Name</td><td style="padding: 8px 12px;">{html.escape(full_name)}</td></tr>
+            <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4;">Email</td><td style="padding: 8px 12px;"><a href="mailto:{html.escape(email)}">{html.escape(email)}</a></td></tr>
+            <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4;">Phone</td><td style="padding: 8px 12px;">{html.escape(phone)}</td></tr>
+            <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4; vertical-align: top;">Message</td><td style="padding: 8px 12px; white-space: pre-wrap;">{html.escape(message_text)}</td></tr>
+          </table>
+          <p style="margin: 16px 0 0; color: #888; font-size: 12px;">Submitted {html.escape(submitted_at)} (UTC)</p>
+        </div>
+        """
+
+        email_client = EmailClient.from_connection_string(connection_string)
+        email_message = {
+            'senderAddress': sender_address,
+            'recipients': {
+                'to': [{'address': addr} for addr in recipients],
+            },
+            'content': {
+                'subject': f'New website enquiry: {full_name}',
+                'plainText': plain_text,
+                'html': html_body,
+            },
+            # Let the owners reply directly to the person who submitted the form.
+            'replyTo': [{'address': email, 'displayName': full_name}],
+        }
+
+        poller = email_client.begin_send(email_message)
+        poller.result()
+        logging.info(f'Notification email sent to {", ".join(recipients)}')
+        return True
+
+    except Exception as e:
+        logging.error(f'Failed to send notification email: {str(e)}')
+        return False
 
 @app.route(route="contact", methods=["GET", "POST", "OPTIONS"], auth_level=func.AuthLevel.ANONYMOUS)
 def contact(req: func.HttpRequest) -> func.HttpResponse:
@@ -50,6 +139,7 @@ def contact(req: func.HttpRequest) -> func.HttpResponse:
         last_name = req_body.get('lastName')
         phone = req_body.get('phone')
         email = req_body.get('email')
+        message = (req_body.get('message') or '').strip()
 
         # Validate required fields
         if not all([first_name, last_name, phone, email]):
@@ -117,6 +207,7 @@ def contact(req: func.HttpRequest) -> func.HttpResponse:
         entity['lastName'] = last_name
         entity['phone'] = phone
         entity['email'] = email
+        entity['message'] = message
         entity['submittedAt'] = timestamp
         entity['ipAddress'] = req.headers.get('x-forwarded-for', 'unknown')
         entity['userAgent'] = req.headers.get('user-agent', 'unknown')
@@ -126,12 +217,18 @@ def contact(req: func.HttpRequest) -> func.HttpResponse:
 
         logging.info(f'Contact form saved: {email}')
 
+        # Notify the owners by email (best-effort; never blocks the submission)
+        emailed = send_notification_email(
+            first_name, last_name, phone, email, message, timestamp
+        )
+
         # Return success
         return func.HttpResponse(
             json.dumps({
                 'success': True,
                 'message': 'Contact form submitted successfully',
-                'submissionId': row_key
+                'submissionId': row_key,
+                'emailed': emailed
             }),
             status_code=200,
             mimetype='application/json',
