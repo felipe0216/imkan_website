@@ -5,6 +5,7 @@ interface MethodStep {
   title: string;
   subtitle: string;
   description: string;
+  tagline: string;
   longDescription: string;
   icon: string;
   colorClass: string;
@@ -16,40 +17,52 @@ const methodSteps: Record<number, MethodStep> = {
   1: {
     id: 'think',
     title: 'THINK',
-    subtitle: 'Context-First Discovery',
-    description: 'Before we build anything, we align business outcomes with data reality and AI feasibility.',
-    longDescription: 'We avoid the trap of solutionism. We clarify the decisions that matter, define measurable outcomes, and map your data landscape against technical feasibility, security, and AI risk. This stage produces a clear scope, target architecture, and delivery plan across data platforms, analytics, machine learning, and agentic AI. So what we build solves the right problem.',
+    subtitle: 'Start with the right problem',
+    description: 'The most expensive mistake in data and AI is building the wrong thing. Before we touch any technology, we get clear on the decision you actually want to improve.',
+    tagline: 'Clarity before code.',
+    longDescription: 'The biggest risk in any data or AI project is not the technology, it is spending months and budget building something nobody needed. So we start with your business, not our tools. We pin down the decisions that matter, agree on what success looks like in plain numbers, and check your data and what is realistic today. You walk away with a clear plan and honest expectations, confident you are solving the right problem before a single line of code is written.',
     icon: 'psychology',
     colorClass: 'text-primary',
-    phases: ['Stakeholder Interviews', 'Use-Case & Value Definition','Data & AI Readiness Assessment','Target Architecture Blueprint'],
+    phases: [
+      'Understand the decisions you want to improve',
+      'Define what success looks like, in plain numbers',
+      'Check your data and what is realistic today',
+      'Agree on a clear plan before any building starts'
+    ],
     image: '/images/methodology/think.png'
   },
   2: {
     id: 'build',
     title: 'BUILD',
-    subtitle: 'Engineering Excellence',
-    description: 'We engineer production-grade data, analytics, and AI systems—secure, testable, and built to scale.',
-    longDescription: 'We deliver production-grade engineering from day one. We build modern data platforms and pipelines, analytics layers, and AI capabilities (ML and agentic workflows) with strong quality gates, documentation, and repeatable delivery. Whether it’s a lakehouse, a decision intelligence layer, or AI automation, we implement resilient foundations designed to perform today and scale tomorrow.',
+    subtitle: 'Build on what you already own',
+    description: 'You should not have to rip out your systems and start over. We build on the tools and infrastructure you already pay for, so your team adopts it naturally.',
+    tagline: 'No rip-and-replace. High adoption, low pressure.',
+    longDescription: 'This is where most consultancies push you toward expensive new platforms. We do the opposite. Wherever possible, we build on the infrastructure and tools you already own, which keeps costs down, speeds up delivery, and makes adoption far easier because your team is not learning everything from scratch. You still get production-grade systems that are secure, reliable, and built to scale, delivered in small working steps with as little disruption to your day-to-day as possible.',
     icon: 'build',
     colorClass: 'text-emerald-400',
-    phases: ['Data Platform & Pipeline Engineering',
-    'Analytics & Semantic Layer Delivery',
-    'ML/AI & Agentic Workflow Implementation',
-    'Quality, Security & CI/CD Automation'],
+    phases: [
+      'Reuse the infrastructure and tools you already have',
+      'Deliver in small, working steps, not a big-bang launch',
+      'Build to production standards: secure and reliable',
+      'Make adoption easy so your team actually uses it'
+    ],
     image: '/images/methodology/build.png'
   },
   3: {
     id: 'evolve',
     title: 'EVOLVE',
-    subtitle: 'Continuous Improvement',
-    description: 'After go-live, we operationalize performance, adoption, and AI sustainability through measurable feedback loops.',
-    longDescription: 'Delivery is the start of long-term value. We implement observability, monitoring, and operating rhythms that keep data, analytics, and AI reliable as your needs evolve. We manage model performance and retraining, strengthen governance and Responsible AI controls, and enable your teams with documentation and knowledge transfer, while ensuring sustainable ownership and continuous improvement.',
+    subtitle: 'A partner, not a vendor',
+    description: 'We do not disappear once the project ships. We stay on to support and improve well after delivery, so your investment keeps paying off long after go-live.',
+    tagline: 'You don\'t get a vendor. You get a partner.',
+    longDescription: 'Most projects are handed over and forgotten. We see go-live as the beginning, not the end. We stay on well beyond delivery to monitor performance, fix issues early, train your team so they become self-sufficient, and keep improving the solution as your needs change. Data and AI are not "set and forget", and we make sure yours keep delivering value for the long run. With us, you do not get a vendor who vanishes after the invoice, you get a partner invested in your success.',
     icon: 'rocket_launch',
     colorClass: 'text-purple-400',
-    phases: ['Observability & Performance Monitoring',
-    'Adoption & Feedback Loop Management',
-    'Model Monitoring & Retraining Cadence',
-    'Enablement & Operational Ownership'],
+    phases: [
+      'Ongoing support well beyond project delivery',
+      'Monitor performance and catch issues early',
+      'Train your team so they become self-sufficient',
+      'Keep improving as your business evolves'
+    ],
     image: '/images/methodology/evolve.png'
   }
 };
@@ -147,13 +160,14 @@ const Methodology: React.FC = () => {
 
               <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
               <h3 className={`text-3xl font-bold mb-2 transition-colors relative z-10 ${activeStep === 1 ? 'text-white' : 'text-gray-500'}`}>THINK</h3>
-              <h4 className="text-primary font-medium mb-4 text-sm tracking-wide relative z-10">CONTEXT-FIRST</h4>
+              <h4 className="text-primary font-medium mb-4 text-sm tracking-wide relative z-10">START WITH THE RIGHT PROBLEM</h4>
               <p className="text-slate-400 leading-relaxed text-sm relative z-10">
-                Before a single line of code is written, we deconstruct the problem space. We map the terrain of your business needs against technical feasibility.
+                The most expensive mistake in data and AI is building the wrong thing. Before we touch any technology, we get clear on the decision you actually want to improve.
               </p>
+              <p className="text-primary font-semibold italic text-sm mt-4 relative z-10">"Clarity before code."</p>
               <div className="mt-6 flex md:justify-end gap-2">
                 <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Discovery</span>
-                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Architecture</span>
+                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Planning</span>
                 <span className="material-symbols-outlined text-sm text-primary animate-bounce ml-2 relative z-10">open_in_new</span>
               </div>
             </div>
@@ -196,13 +210,14 @@ const Methodology: React.FC = () => {
 
               <div className="absolute top-0 left-0 w-20 h-20 bg-emerald-500/10 rounded-br-full -ml-4 -mt-4 transition-transform group-hover:scale-150"></div>
               <h3 className={`text-3xl font-bold mb-2 transition-colors relative z-10 ${activeStep === 2 ? 'text-white' : 'text-gray-500'}`}>BUILD</h3>
-              <h4 className="text-emerald-400 font-medium mb-4 text-sm tracking-wide relative z-10">ENGINEERING EXCELLENCE</h4>
+              <h4 className="text-emerald-400 font-medium mb-4 text-sm tracking-wide relative z-10">BUILD ON WHAT YOU ALREADY OWN</h4>
               <p className="text-slate-400 leading-relaxed text-sm relative z-10">
-                Rapid prototyping meets robust architecture. We build systems designed to handle the scale of tomorrow while delivering value today.
+                You should not have to rip out your systems and start over. We build on the tools and infrastructure you already pay for, so your team adopts it naturally.
               </p>
+              <p className="text-emerald-400 font-semibold italic text-sm mt-4 relative z-10">"No rip-and-replace. High adoption, low pressure."</p>
               <div className="mt-6 flex gap-2">
-                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Development</span>
-                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Testing</span>
+                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Low disruption</span>
+                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">High adoption</span>
                 <span className="material-symbols-outlined text-sm text-emerald-400 animate-bounce ml-2 relative z-10">open_in_new</span>
               </div>
             </div>
@@ -227,13 +242,14 @@ const Methodology: React.FC = () => {
 
               <div className="absolute bottom-0 right-0 w-20 h-20 bg-purple-500/10 rounded-tl-full -mr-4 -mb-4 transition-transform group-hover:scale-150"></div>
               <h3 className={`text-3xl font-bold mb-2 transition-colors relative z-10 ${activeStep === 3 ? 'text-white' : 'text-gray-500'}`}>EVOLVE</h3>
-              <h4 className="text-purple-400 font-medium mb-4 text-sm tracking-wide relative z-10">CONTINUOUS IMPROVEMENT</h4>
+              <h4 className="text-purple-400 font-medium mb-4 text-sm tracking-wide relative z-10">A PARTNER, NOT A VENDOR</h4>
               <p className="text-slate-400 leading-relaxed text-sm relative z-10">
-                Delivery is just the start. We implement feedback loops that allow systems to learn and scale alongside your organizational growth.
+                We do not disappear once the project ships. We stay on to support and improve well after delivery, so your investment keeps paying off long after go-live.
               </p>
+              <p className="text-purple-400 font-semibold italic text-sm mt-4 relative z-10">"You don't get a vendor. You get a partner."</p>
               <div className="mt-6 flex md:justify-end gap-2">
-                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Scaling</span>
-                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Maintenance</span>
+                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Long-term support</span>
+                <span className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] text-slate-300 relative z-10">Partnership</span>
                 <span className="material-symbols-outlined text-sm text-purple-400 animate-bounce ml-2 relative z-10">open_in_new</span>
               </div>
             </div>
@@ -287,14 +303,17 @@ const Methodology: React.FC = () => {
                    <h3 className="text-white text-xl font-bold">{selectedStep.title}</h3>
                 </div>
 
-                <h4 className={`text-sm font-bold uppercase tracking-widest mb-4 ${selectedStep.colorClass}`}>
+                <h4 className={`text-sm font-bold uppercase tracking-widest mb-3 ${selectedStep.colorClass}`}>
                    {selectedStep.subtitle}
                 </h4>
+                <p className={`text-xl md:text-2xl font-bold italic leading-snug mb-6 ${selectedStep.colorClass}`}>
+                   &ldquo;{selectedStep.tagline}&rdquo;
+                </p>
                 <p className="text-gray-300 text-lg leading-relaxed mb-8 border-b border-white/10 pb-8">
                    {selectedStep.longDescription}
                 </p>
 
-                <h5 className="text-white font-bold mb-4">Key Phases</h5>
+                <h5 className="text-white font-bold mb-4">What this looks like in practice</h5>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                    {selectedStep.phases.map((phase, idx) => (
                       <li key={idx} className="flex items-start gap-3">
