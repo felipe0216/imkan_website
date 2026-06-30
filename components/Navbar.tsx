@@ -125,51 +125,25 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
       {/* Decorative Gradient Line on Scroll */}
       <div className={`absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/30 to-transparent transition-opacity duration-700 ${scrolled ? 'opacity-100' : 'opacity-0'}`}></div>
 
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
 
         {/* Logo */}
-        <a
-          href="#home"
-          onClick={(e) => handleScrollTo(e, 'home')}
-          className="flex items-center gap-3 group relative z-50"
-        >
-          
-        <div className="flex flex-col">
-  <span
-    className="
-      text-[24px] md:text-[26px] font-bold tracking-tight leading-none
-      text-transparent bg-clip-text
-      bg-gradient-to-r from-primary/70 via-white/80 to-accent-green/70
-      bg-[length:200%_auto] animate-text-gradient
-      drop-shadow-[0_0_10px_rgba(255,255,255,0.10)]
-    "
-  >
-    imkan
-
-    {/* POP DOT – slightly smaller */}
-    <span
-      className="
-        inline-block align-middle mx-[5px]
-        w-[8px] h-[8px] md:w-[9px] md:h-[9px]
-        rounded-full
-        bg-primary
-        shadow-[0_0_12px_rgba(37,226,244,0.45)]
-        ring-1 ring-white/20
-        translate-y-[-1px]
-      "
-      aria-hidden="true"
-    />
-
-    ai
-  </span>
-</div>
-
-
-
-        </a>
+        <div className="flex items-center md:flex-1 md:justify-center md:min-w-0">
+          <a
+            href="#home"
+            onClick={(e) => handleScrollTo(e, 'home')}
+            className="flex items-center group relative z-50"
+          >
+            <img
+              src="/images/logos/imkan-logo-horizontal.png"
+              alt="imkan.ai"
+              className="h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+          </a>
+        </div>
 
         {/* Desktop Nav - Centered Island Style */}
-        <div className="hidden md:block absolute left-1/2 -translate-x-1/2">
+        <div className="hidden md:block flex-shrink-0">
           <nav className="flex items-center gap-0.5 p-1.5 rounded-full bg-white/5 border border-white/5 backdrop-blur-md shadow-lg transition-all duration-300 hover:border-white/10 hover:bg-white/10">
             {navLinks.map((link) => {
               const isActive = activeSection === link.target;
@@ -200,7 +174,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
         </div>
 
         {/* CTA & Actions */}
-        <div className="hidden md:flex items-center gap-3 lg:gap-6">
+        <div className="hidden md:flex items-center gap-3 lg:gap-6 md:flex-1 md:justify-end md:min-w-0">
           <a 
             href="https://imkandotai.sharepoint.com/sites/imkan/Shared%20Documents/Forms/AllItems.aspx?viewid=6a263fc2%2Dbe1d%2D4abb%2Dbbea%2D47dd4893d73e"
             target="_blank"
