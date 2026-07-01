@@ -12,7 +12,7 @@ alwaysApply: false
 - Section accent colors follow Tailwind classes: `text-primary`, `text-emerald-400`, `text-purple-400`, `text-blue-400`, `text-orange-400`, etc. Reuse these; don't introduce ad-hoc hex unless matching an existing pattern.
 - Custom animations available: `animate-pulse-slow`, `animate-scan`, `animate-beam`, `animate-shimmer`, `animate-text-gradient`, `animate-fadeIn`. Add new keyframes in `index.html`, not in components.
 
-## Reusable CSS utilities (in `index.html <style>`)
+## Reusable CSS utilities (in `index.css`, imported by `index.tsx`)
 - `.glass-card` — frosted glass surface.
 - `.spotlight-card` — cursor-follow radial glow; pair with the `handleMouseMove` helper that sets `--mouse-x`/`--mouse-y` on `.spotlight-card` elements. This helper is duplicated in `Services`, `Methodology`, `WhyUs` — copy that exact pattern rather than inventing a new one.
 
@@ -25,6 +25,7 @@ alwaysApply: false
 - Conditionally render when state is truthy.
 - Structure: `fixed inset-0 z-[100] flex items-center justify-center p-4` wrapper → backdrop `absolute inset-0 bg-background-dark/80 backdrop-blur-sm` with `onClick` to close → `relative ... max-w-4xl ... bg-background-card border border-white/10 rounded-2xl` card → close button with `material-symbols-outlined` `close`.
 - Contact CTAs inside modals: close the local modal, then call `onOpenContact()`.
+- Tall/scrollable modals (forms, job details): container `max-h-[90vh] flex flex-col overflow-hidden` with the inner content `overflow-y-auto overscroll-contain`, and lock background scroll while open via a `useEffect` that sets `document.body.style.overflow='hidden'` (restore on cleanup). See `ContactFormModal`, `JobApplicationModal`, `Careers`.
 
 ## Responsiveness & a11y
 - Mobile-first; design for `sm`/`md`/`lg` breakpoints (existing components ship distinct desktop vs mobile layouts).

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 interface NavbarProps {
   onOpenContact: () => void;
+  onNavigate: (to: string) => void;
+  currentPath: string;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
+const Navbar: React.FC<NavbarProps> = ({ onOpenContact, onNavigate, currentPath }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -89,30 +91,45 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
     { name: 'About', target: 'about' },
   ];
 
+  const scrollToId = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 90; // Height of the fixed header plus some breathing room
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    
+
     // Close menu first (this will restore scroll)
     if (isOpen) {
       toggleMenu();
     }
-    
-    // Then scroll to target after a brief delay
-    setTimeout(() => {
-      const element = document.getElementById(id);
-      if (element) {
-        const offset = 90; // Height of the fixed header plus some breathing room
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elementRect = element.getBoundingClientRect().top;
-        const elementPosition = elementRect - bodyRect;
-        const offsetPosition = elementPosition - offset;
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }
-    }, 100);
+    // If we're on another page (e.g. Careers), go home first, then scroll.
+    if (currentPath !== '/') {
+      onNavigate('/');
+      setTimeout(() => scrollToId(id), 200);
+    } else {
+      setTimeout(() => scrollToId(id), 100);
+    }
+  };
+
+  const handleNavigateCareers = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (isOpen) {
+      toggleMenu();
+    }
+    onNavigate('/careers');
   };
 
   return (
@@ -146,7 +163,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
         <div className="hidden md:block flex-shrink-0">
           <nav className="flex items-center gap-0.5 p-1.5 rounded-full bg-white/5 border border-white/5 backdrop-blur-md shadow-lg transition-all duration-300 hover:border-white/10 hover:bg-white/10">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.target;
+              const isActive = currentPath === '/' && activeSection === link.target;
               return (
                 <a
                   key={link.name}
@@ -170,6 +187,24 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
                 </a>
               );
             })}
+            {/* Careers (separate page) */}
+            <a
+              href="/careers"
+              onClick={handleNavigateCareers}
+              className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 relative group overflow-hidden whitespace-nowrap ${
+                currentPath === '/careers'
+                  ? 'text-white bg-primary/20 shadow-[0_0_15px_rgba(37,226,244,0.3)]'
+                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <span className="relative z-10">Careers</span>
+              {currentPath === '/careers' && (
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-primary rounded-full"></div>
+              )}
+              {currentPath !== '/careers' && (
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-primary rounded-full group-hover:w-1/3 transition-all duration-300 opacity-0 group-hover:opacity-100"></div>
+              )}
+            </a>
           </nav>
         </div>
 
@@ -242,6 +277,23 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
                 {link.name}
               </a>
             ))}
+            {/* Careers (separate page) */}
+            <a
+              href="/careers"
+              onClick={handleNavigateCareers}
+              className={`text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text transition-all duration-500 transform hover:scale-105 hover:tracking-wide text-center ${
+                currentPath === '/careers'
+                  ? 'bg-gradient-to-r from-primary to-white'
+                  : 'bg-gradient-to-r from-gray-500 to-gray-300 hover:from-primary hover:to-white'
+              }`}
+              style={{
+                transitionDelay: isOpen ? `${navLinks.length * 50}ms` : '0ms',
+                opacity: isOpen ? 1 : 0,
+                transform: isOpen ? 'translateY(0)' : 'translateY(-10px)'
+              }}
+            >
+              Careers
+            </a>
           </nav>
 
           <button 

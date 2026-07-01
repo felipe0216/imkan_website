@@ -1,1 +1,3 @@
-* @felipearaya @fawadali
+# Solo maintainer — no second-party review required.
+# Used for routing only; branch protection should not require code-owner approval.
+* @felipe0216
