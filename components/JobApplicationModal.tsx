@@ -20,8 +20,37 @@ const emptyForm = {
   message: '',
 };
 
+const MAX_CV_BYTES = 5 * 1024 * 1024;
+const ALLOWED_CV_TYPES = [
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+];
+
+const readFileAsBase64 = (file: File): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result;
+      if (typeof result !== 'string') {
+        reject(new Error('Failed to read CV file'));
+        return;
+      }
+      const base64 = result.split(',')[1];
+      if (!base64) {
+        reject(new Error('Failed to encode CV file'));
+        return;
+      }
+      resolve(base64);
+    };
+    reader.onerror = () => reject(new Error('Failed to read CV file'));
+    reader.readAsDataURL(file);
+  });
+
 const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose }) => {
   const [formData, setFormData] = useState(emptyForm);
+  const [cvFile, setCvFile] = useState<File | null>(null);
+  const [cvError, setCvError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -39,6 +68,8 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
   useEffect(() => {
     if (job) {
       setFormData(emptyForm);
+      setCvFile(null);
+      setCvError('');
       setIsSubmitted(false);
       setIsSubmitting(false);
     }
@@ -46,6 +77,32 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleCvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setCvError('');
+
+    if (!file) {
+      setCvFile(null);
+      return;
+    }
+
+    if (!ALLOWED_CV_TYPES.includes(file.type)) {
+      setCvFile(null);
+      setCvError('Please upload a PDF or Word document (.pdf, .doc, .docx).');
+      e.target.value = '';
+      return;
+    }
+
+    if (file.size > MAX_CV_BYTES) {
+      setCvFile(null);
+      setCvError('CV must be 5 MB or smaller.');
+      e.target.value = '';
+      return;
+    }
+
+    setCvFile(file);
   };
 
   const handleClose = () => {
@@ -57,13 +114,28 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!job) return;
+
+    if (!cvFile) {
+      setCvError('Please upload your CV to apply.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
+      const cvBase64 = await readFileAsBase64(cvFile);
+
       const response = await fetch('/api/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, jobId: job.id, jobTitle: job.title }),
+        body: JSON.stringify({
+          ...formData,
+          jobId: job.id,
+          jobTitle: job.title,
+          cvBase64,
+          cvFileName: cvFile.name,
+          cvContentType: cvFile.type,
+        }),
       });
 
       const result = await response.json();
@@ -80,7 +152,11 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
     } catch (error) {
       console.error('Application submission error:', error);
       setIsSubmitting(false);
-      alert('Failed to submit your application. Please try again or email us at felipe@imkan.ai or syed@imkan.ai');
+      const message =
+        error instanceof Error && error.message
+          ? error.message
+          : 'Failed to submit your application. Please try again or email us at felipe@imkan.ai';
+      alert(message);
     }
   };
 
@@ -119,9 +195,32 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
               </div>
 
               <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="sm:col-span-2">
+                  <label htmlFor="apply-cv" className="block text-sm font-medium text-gray-300 mb-2">
+                    CV / Resume <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="file"
+                    id="apply-cv"
+                    name="cv"
+                    accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    onChange={handleCvChange}
+                    required
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-primary file:text-background-dark file:font-semibold file:cursor-pointer hover:file:bg-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                  />
+                  {cvFile && !cvError && (
+                    <p className="mt-2 text-xs text-gray-400 flex items-center gap-1.5">
+                      <span className="material-symbols-outlined text-sm text-primary">description</span>
+                      {cvFile.name} ({(cvFile.size / 1024).toFixed(0)} KB)
+                    </p>
+                  )}
+                  {cvError && <p className="mt-2 text-xs text-red-400">{cvError}</p>}
+                  <p className="mt-2 text-xs text-gray-500">PDF or Word, up to 5 MB.</p>
+                </div>
+
                 <div>
                   <label htmlFor="apply-firstName" className="block text-sm font-medium text-gray-300 mb-2">
-                    First Name <span className="text-red-400">*</span>
+                    First Name <span className="text-gray-500 font-normal">(optional)</span>
                   </label>
                   <input
                     type="text"
@@ -129,7 +228,6 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
-                    required
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                     placeholder="Enter your first name"
                   />
@@ -137,7 +235,7 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
 
                 <div>
                   <label htmlFor="apply-lastName" className="block text-sm font-medium text-gray-300 mb-2">
-                    Last Name <span className="text-red-400">*</span>
+                    Last Name <span className="text-gray-500 font-normal">(optional)</span>
                   </label>
                   <input
                     type="text"
@@ -145,7 +243,6 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
-                    required
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                     placeholder="Enter your last name"
                   />
@@ -153,7 +250,7 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
 
                 <div>
                   <label htmlFor="apply-email" className="block text-sm font-medium text-gray-300 mb-2">
-                    Email Address <span className="text-red-400">*</span>
+                    Email Address <span className="text-gray-500 font-normal">(optional)</span>
                   </label>
                   <input
                     type="email"
@@ -161,7 +258,6 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                     placeholder="your.email@example.com"
                   />
@@ -169,7 +265,7 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
 
                 <div>
                   <label htmlFor="apply-phone" className="block text-sm font-medium text-gray-300 mb-2">
-                    Mobile Phone <span className="text-red-400">*</span>
+                    Mobile Phone <span className="text-gray-500 font-normal">(optional)</span>
                   </label>
                   <input
                     type="tel"
@@ -177,7 +273,6 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    required
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
                     placeholder="+966 XX XXX XXXX"
                   />
@@ -185,7 +280,7 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
 
                 <div className="sm:col-span-2">
                   <label htmlFor="apply-linkedin" className="block text-sm font-medium text-gray-300 mb-2">
-                    LinkedIn or Portfolio / CV link <span className="text-gray-500 font-normal">(optional)</span>
+                    LinkedIn or Portfolio <span className="text-gray-500 font-normal">(optional)</span>
                   </label>
                   <input
                     type="url"
@@ -194,7 +289,7 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
                     value={formData.linkedin}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-                    placeholder="https://linkedin.com/in/you  or  link to your CV"
+                    placeholder="https://linkedin.com/in/you"
                   />
                 </div>
 
@@ -212,10 +307,6 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ job, onClose 
                     placeholder="Tell us a bit about yourself and why you're a great fit..."
                   />
                 </div>
-
-                <p className="sm:col-span-2 text-xs text-gray-500">
-                  Tip: paste a link to your CV above. We'll follow up by email if it's a match.
-                </p>
 
                 <button
                   type="submit"

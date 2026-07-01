@@ -4,6 +4,8 @@ import os
 import logging
 import re
 import html
+import base64
+import binascii
 from datetime import datetime
 from azure.data.tables import TableServiceClient, TableEntity
 import random
@@ -14,7 +16,46 @@ app = func.FunctionApp()
 # Default recipients for contact-form notifications (the Imkan owners).
 # Can be overridden with the CONTACT_NOTIFICATION_RECIPIENTS env var
 # (comma-separated list of email addresses).
-DEFAULT_NOTIFICATION_RECIPIENTS = ['felipe@imkan.ai', 'syed@imkan.ai']
+DEFAULT_NOTIFICATION_RECIPIENTS = ['felipe@imkan.ai']
+
+MAX_CV_BYTES = 5 * 1024 * 1024  # 5 MB
+ALLOWED_CV_CONTENT_TYPES = {
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+}
+
+
+def _optional_text(value):
+    text = (value or '').strip()
+    return text if text else '(not provided)'
+
+
+def _validate_cv_attachment(cv_base64, cv_file_name, cv_content_type):
+    """Return (bytes, safe_filename) or raise ValueError with a user-facing message."""
+    if not cv_base64 or not cv_file_name or not cv_content_type:
+        raise ValueError('CV file is required')
+
+    content_type = cv_content_type.strip().lower()
+    if content_type not in ALLOWED_CV_CONTENT_TYPES:
+        raise ValueError('CV must be a PDF or Word document (.pdf, .doc, .docx)')
+
+    try:
+        cv_bytes = base64.b64decode(cv_base64, validate=True)
+    except (binascii.Error, ValueError):
+        raise ValueError('Invalid CV file encoding')
+
+    if len(cv_bytes) == 0:
+        raise ValueError('CV file is empty')
+
+    if len(cv_bytes) > MAX_CV_BYTES:
+        raise ValueError('CV file must be 5 MB or smaller')
+
+    safe_name = os.path.basename(cv_file_name).replace('..', '').strip()
+    if not safe_name:
+        safe_name = 'cv.pdf'
+
+    return cv_bytes, safe_name
 
 
 def send_notification_email(first_name, last_name, phone, email, message, submitted_at):
@@ -100,7 +141,19 @@ def send_notification_email(first_name, last_name, phone, email, message, submit
         return False
 
 
-def send_application_email(first_name, last_name, phone, email, job_title, linkedin, message, submitted_at):
+def send_application_email(
+    first_name,
+    last_name,
+    phone,
+    email,
+    job_title,
+    linkedin,
+    message,
+    submitted_at,
+    cv_file_name,
+    cv_content_type,
+    cv_base64,
+):
     """
     Send a job-application notification to the Imkan owners via Azure
     Communication Services Email.
@@ -132,7 +185,9 @@ def send_application_email(first_name, last_name, phone, email, job_title, linke
     try:
         from azure.communication.email import EmailClient
 
-        full_name = f'{first_name} {last_name}'.strip()
+        full_name = f'{first_name} {last_name}'.strip() or '(not provided)'
+        applicant_email = _optional_text(email)
+        phone_text = _optional_text(phone)
         cover_letter = message if message else '(no message provided)'
         linkedin_text = linkedin if linkedin else '(not provided)'
 
@@ -140,9 +195,10 @@ def send_application_email(first_name, last_name, phone, email, job_title, linke
             'New job application from imkan.ai\n\n'
             f'Role:     {job_title}\n'
             f'Name:     {full_name}\n'
-            f'Email:    {email}\n'
-            f'Phone:    {phone}\n'
-            f'LinkedIn/Portfolio: {linkedin_text}\n\n'
+            f'Email:    {applicant_email}\n'
+            f'Phone:    {phone_text}\n'
+            f'LinkedIn/Portfolio: {linkedin_text}\n'
+            f'CV:       {cv_file_name} (attached)\n\n'
             f'Cover letter:\n{cover_letter}\n\n'
             f'Submitted: {submitted_at} (UTC)'
         )
@@ -154,9 +210,10 @@ def send_application_email(first_name, last_name, phone, email, job_title, linke
           <table style="border-collapse: collapse; width: 100%;">
             <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4; width: 150px;">Role</td><td style="padding: 8px 12px;">{html.escape(job_title)}</td></tr>
             <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4;">Name</td><td style="padding: 8px 12px;">{html.escape(full_name)}</td></tr>
-            <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4;">Email</td><td style="padding: 8px 12px;"><a href="mailto:{html.escape(email)}">{html.escape(email)}</a></td></tr>
-            <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4;">Phone</td><td style="padding: 8px 12px;">{html.escape(phone)}</td></tr>
+            <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4;">Email</td><td style="padding: 8px 12px;">{html.escape(applicant_email)}</td></tr>
+            <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4;">Phone</td><td style="padding: 8px 12px;">{html.escape(phone_text)}</td></tr>
             <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4;">LinkedIn/Portfolio</td><td style="padding: 8px 12px;">{html.escape(linkedin_text)}</td></tr>
+            <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4;">CV</td><td style="padding: 8px 12px;">{html.escape(cv_file_name)} (attached)</td></tr>
             <tr><td style="padding: 8px 12px; font-weight: bold; background: #f4f4f4; vertical-align: top;">Cover letter</td><td style="padding: 8px 12px; white-space: pre-wrap;">{html.escape(cover_letter)}</td></tr>
           </table>
           <p style="margin: 16px 0 0; color: #888; font-size: 12px;">Submitted {html.escape(submitted_at)} (UTC)</p>
@@ -174,9 +231,17 @@ def send_application_email(first_name, last_name, phone, email, job_title, linke
                 'plainText': plain_text,
                 'html': html_body,
             },
-            # Let the owners reply directly to the applicant.
-            'replyTo': [{'address': email, 'displayName': full_name}],
+            'attachments': [
+                {
+                    'name': cv_file_name,
+                    'contentType': cv_content_type,
+                    'contentInBase64': cv_base64,
+                }
+            ],
         }
+
+        if email and email.strip():
+            email_message['replyTo'] = [{'address': email.strip(), 'displayName': full_name}]
 
         poller = email_client.begin_send(email_message)
         poller.result()
@@ -394,36 +459,49 @@ def apply(req: func.HttpRequest) -> func.HttpResponse:
     try:
         req_body = req.get_json()
 
-        first_name = req_body.get('firstName')
-        last_name = req_body.get('lastName')
-        phone = req_body.get('phone')
-        email = req_body.get('email')
-        job_title = req_body.get('jobTitle')
+        first_name = (req_body.get('firstName') or '').strip()
+        last_name = (req_body.get('lastName') or '').strip()
+        phone = (req_body.get('phone') or '').strip()
+        email = (req_body.get('email') or '').strip()
+        job_title = (req_body.get('jobTitle') or '').strip()
         job_id = (req_body.get('jobId') or '').strip()
         linkedin = (req_body.get('linkedin') or '').strip()
         message = (req_body.get('message') or '').strip()
+        cv_base64 = (req_body.get('cvBase64') or '').strip()
+        cv_file_name = (req_body.get('cvFileName') or '').strip()
+        cv_content_type = (req_body.get('cvContentType') or '').strip()
 
-        # Validate required fields
-        if not all([first_name, last_name, phone, email, job_title]):
+        if not job_title:
             return func.HttpResponse(
                 json.dumps({
                     'error': 'Missing required fields',
-                    'required': ['firstName', 'lastName', 'phone', 'email', 'jobTitle']
+                    'required': ['jobTitle', 'cvFile']
                 }),
                 status_code=400,
                 mimetype='application/json',
                 headers=cors_headers
             )
 
-        # Validate email format
-        email_regex = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
-        if not re.match(email_regex, email):
+        try:
+            cv_bytes, safe_cv_name = _validate_cv_attachment(cv_base64, cv_file_name, cv_content_type)
+        except ValueError as cv_error:
             return func.HttpResponse(
-                json.dumps({'error': 'Invalid email format'}),
+                json.dumps({'error': str(cv_error)}),
                 status_code=400,
                 mimetype='application/json',
                 headers=cors_headers
             )
+
+        # Validate email format only when provided.
+        if email:
+            email_regex = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
+            if not re.match(email_regex, email):
+                return func.HttpResponse(
+                    json.dumps({'error': 'Invalid email format'}),
+                    status_code=400,
+                    mimetype='application/json',
+                    headers=cors_headers
+                )
 
         connection_string = os.environ.get('AZURE_STORAGE_CONNECTION_STRING')
 
@@ -460,6 +538,9 @@ def apply(req: func.HttpRequest) -> func.HttpResponse:
         entity['jobId'] = job_id
         entity['linkedin'] = linkedin
         entity['message'] = message
+        entity['cvFileName'] = safe_cv_name
+        entity['cvContentType'] = cv_content_type
+        entity['cvSizeBytes'] = len(cv_bytes)
         entity['submittedAt'] = timestamp
         entity['ipAddress'] = req.headers.get('x-forwarded-for', 'unknown')
         entity['userAgent'] = req.headers.get('user-agent', 'unknown')
@@ -470,7 +551,17 @@ def apply(req: func.HttpRequest) -> func.HttpResponse:
 
         # Notify the owners by email (best-effort; never blocks the submission)
         emailed = send_application_email(
-            first_name, last_name, phone, email, job_title, linkedin, message, timestamp
+            first_name,
+            last_name,
+            phone,
+            email,
+            job_title,
+            linkedin,
+            message,
+            timestamp,
+            safe_cv_name,
+            cv_content_type,
+            cv_base64,
         )
 
         return func.HttpResponse(
