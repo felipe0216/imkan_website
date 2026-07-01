@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface ContactFormModalProps {
   isOpen: boolean;
@@ -15,6 +15,16 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Lock background scroll while the modal is open so scrolling stays inside it.
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -81,7 +91,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
       ></div>
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-lg bg-background-card border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+      <div className="relative w-full max-w-2xl max-h-[90vh] flex flex-col bg-background-card border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
         {/* Close Button */}
         <button 
           onClick={handleClose}
@@ -92,7 +102,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
         </button>
 
         {/* Content */}
-        <div className="p-8 md:p-10">
+        <div className="p-6 md:p-8 overflow-y-auto overscroll-contain">
           {!isSubmitted ? (
             <>
               {/* Header */}
@@ -113,7 +123,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
               </div>
 
               {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* First Name */}
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
@@ -183,7 +193,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
                 </div>
 
                 {/* Message */}
-                <div>
+                <div className="sm:col-span-2">
                   <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
                     Message <span className="text-gray-500 font-normal">(optional)</span>
                   </label>
@@ -192,7 +202,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    rows={4}
+                    rows={3}
                     className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-y"
                     placeholder="Tell us a bit about what you're looking for..."
                   />
@@ -202,7 +212,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose }) 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full mt-6 bg-primary text-background-dark font-bold py-3 px-6 rounded-xl hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(37,226,244,0.3)] hover:shadow-[0_0_30px_rgba(37,226,244,0.5)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="sm:col-span-2 w-full mt-2 bg-primary text-background-dark font-bold py-3 px-6 rounded-xl hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(37,226,244,0.3)] hover:shadow-[0_0_30px_rgba(37,226,244,0.5)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
                     <>
