@@ -140,8 +140,22 @@ Screenshots (required for UI/UX/Content):
 - Mobile:
 ```
 
-### Review + changes
-- If reviewer asks changes, push more commits to the same branch → PR updates automatically.
+### Solo maintainer (no human review)
+PRs are still required (clean history, CI preview on Azure SWA), but **no second-person review**.
+
+1. Push your branch and open the PR as usual.
+2. The **Auto-merge maintainer PRs** workflow approves and enables **squash auto-merge** when CI passes.
+3. Once the Azure SWA check is green, GitHub merges automatically — no waiting on a reviewer.
+
+**One-time GitHub settings** (repo → Settings):
+- **General → Pull Requests**: enable **Allow auto-merge**.
+- **Branches → `main` → Edit protection**:
+  - Keep **Require a pull request before merging**.
+  - Set **Required approvals** to **0** (or disable **Require review from Code Owners**).
+  - Keep **Require status checks** with the Azure SWA build check.
+  - Optional: enable **Allow auto-merge** in the rule.
+
+If auto-merge does not trigger, merge manually with **Squash and merge** once CI is green.
 
 ---
 
@@ -170,10 +184,10 @@ git commit -m "chore: resolve merge conflict with main"
 
 ## 7) Merge policy
 
-- Merge via GitHub PR.
-- Preferred: **Squash & merge**.
+- Merge via GitHub PR (never push directly to `main`).
+- Preferred: **Squash & merge** (also used by the auto-merge workflow).
 
-**Why:** keeps `main` clean and easy to revert.
+**Why:** keeps `main` clean and easy to revert, while CI runs on every PR.
 
 ---
 

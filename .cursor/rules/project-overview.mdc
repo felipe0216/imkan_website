@@ -9,21 +9,21 @@ Single-page marketing site for **imkan.ai**, a Saudi (Vision 2030) AI & data eng
 
 ## Stack
 - **React 19 + TypeScript**, bundled by **Vite** (`npm run dev` on port 3000, `npm run build`, `npm run preview`).
-- **Tailwind CSS via CDN**, configured inline in `index.html` (`tailwind.config` script). There is **no** `tailwind.config.js` or PostCSS build — edit theme/animations/custom CSS in `index.html`.
+- **Tailwind CSS via CDN**, `tailwind.config` configured inline in `index.html` (theme/animations/keyframes). There is **no** `tailwind.config.js` or PostCSS build. Custom CSS utilities (`.glass-card`, `.spotlight-card`, `.hero-glow`, `.text-glow`, scrollbar) live in **`index.css`**, imported by `index.tsx`.
 - Icons: **Material Symbols Outlined** (`<span className="material-symbols-outlined">icon_name</span>`).
 - Font: **Space Grotesk** (`font-display` / `font-sans`).
-- Backend: **Python Azure Functions** in `api/` (contact form). Hosted as an **Azure Static Web App** (`staticwebapp.config.json`).
+- Backend: **Python Azure Functions** in `api/` (`/api/contact`, `/api/apply`). Hosted as an **Azure Static Web App** (`staticwebapp.config.json`).
 
-## Render flow
-`index.tsx` → `App.tsx`. `App.tsx` owns the single piece of global state: `isContactModalOpen`, and passes `onOpenContact` down to sections. Section order in `<main>`: `Hero → Services → Methodology → WhyUs → CaseStudies → Team`, then `Footer`, then `ContactFormModal`.
+## Render flow & routing
+`index.tsx` → `App.tsx`. `App.tsx` owns global state: `isContactModalOpen` (threaded via `onOpenContact`) and `path` — a lightweight **History-API router** (no router lib). `path === '/careers'` renders `<Careers>`, otherwise the home page: `Hero → Services → Methodology → WhyUs → CaseStudies → Team` inside `<main>`. `Navbar`/`Footer` (rendered on every route) receive `onNavigate` + `currentPath`; section links navigate home first when off the home page. `/careers` refreshes work via `navigationFallback` in `staticwebapp.config.json`.
 
 ## Section IDs (used by Navbar scroll + IntersectionObserver)
 `home`, `services`, `methodology`, `why-us`, `cases`, `about`. Keep these stable; the Navbar (`navLinks`, observer list) and Footer anchor links depend on them.
 
 ## File map
-- `components/` — all UI. `Navbar`, `Hero` (+ `HeroBackground`), `Services`, `Methodology`, `WhyUs`, `CaseStudies`, `Team`, `Footer`, `ContactFormModal`.
+- `components/` — all UI. `Navbar`, `Hero` (+ `HeroBackground`), `Services`, `Methodology`, `WhyUs`, `CaseStudies`, `Team`, `Footer`, `ContactFormModal`, `Careers` (the `/careers` page), `JobApplicationModal` (job application form → `/api/apply`).
 - `Team_full.tsx` is **NOT imported** anywhere (dead file) — don't edit it expecting changes to show.
-- `api/function_app.py` — `/api/contact` Azure Function (Table Storage).
+- `api/function_app.py` — `/api/contact` + `/api/apply` Azure Functions (Table Storage `contactsubmissions` / `jobapplications`).
 - `public/images/` — `logos/`, `methodology/`, `profile_pictures/`, `services/`, `use_cases/`.
 - `Documentation/` — deployment & contact-form guides (markdown only).
 

@@ -2,11 +2,38 @@ import React, { useState } from 'react';
 
 interface FooterProps {
   onOpenContact: () => void;
+  onNavigate: (to: string) => void;
+  currentPath: string;
 }
 
-const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
+const Footer: React.FC<FooterProps> = ({ onOpenContact, onNavigate, currentPath }) => {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
+
+  const scrollToId = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 90;
+      const elementPosition = element.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
+      window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
+    }
+  };
+
+  // Section links live on the home page; if we're elsewhere (e.g. Careers), go home first.
+  const handleSectionNav = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    if (currentPath !== '/') {
+      onNavigate('/');
+      setTimeout(() => scrollToId(id), 200);
+    } else {
+      scrollToId(id);
+    }
+  };
+
+  const handleNavigateCareers = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    onNavigate('/careers');
+  };
 
   return (
     <>
@@ -98,13 +125,16 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
              </h4>
              <ul className="space-y-3 text-gray-400">
                 <li>
-                   <a href="#services" className="hover:text-primary hover:pl-2 transition-all duration-300 block text-sm">Services</a>
+                   <a href="#services" onClick={(e) => handleSectionNav(e, 'services')} className="hover:text-primary hover:pl-2 transition-all duration-300 block text-sm">Services</a>
                 </li>
                 <li>
-                   <a href="#why-us" className="hover:text-primary hover:pl-2 transition-all duration-300 block text-sm">Why Us</a>
+                   <a href="#why-us" onClick={(e) => handleSectionNav(e, 'why-us')} className="hover:text-primary hover:pl-2 transition-all duration-300 block text-sm">Why Us</a>
                 </li>
                 <li>
-                   <a href="#about" className="hover:text-primary hover:pl-2 transition-all duration-300 block text-sm">About</a>
+                   <a href="#about" onClick={(e) => handleSectionNav(e, 'about')} className="hover:text-primary hover:pl-2 transition-all duration-300 block text-sm">About</a>
+                </li>
+                <li>
+                   <a href="/careers" onClick={handleNavigateCareers} className="hover:text-primary hover:pl-2 transition-all duration-300 block text-sm">Careers</a>
                 </li>
                 <li>
                    <button 
@@ -133,10 +163,10 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
              </h4>
              <ul className="space-y-3 text-gray-400">
                 <li>
-                   <a href="#methodology" className="hover:text-purple-400 hover:pl-2 transition-all duration-300 block text-sm">Methodology</a>
+                   <a href="#methodology" onClick={(e) => handleSectionNav(e, 'methodology')} className="hover:text-purple-400 hover:pl-2 transition-all duration-300 block text-sm">Methodology</a>
                 </li>
                 <li>
-                   <a href="#cases" className="hover:text-purple-400 hover:pl-2 transition-all duration-300 block text-sm">Cases</a>
+                   <a href="#cases" onClick={(e) => handleSectionNav(e, 'cases')} className="hover:text-purple-400 hover:pl-2 transition-all duration-300 block text-sm">Cases</a>
                 </li>
                 <li>
                    <button 
