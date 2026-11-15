@@ -26,3 +26,11 @@ dist-ssr
 # Local environment files & SWA CLI credentials
 .env
 .env.local
+
+# Redesign tooling output
+playwright-report/
+test-results/
+.playwright-cli/
+.taste-skill/
+shots/
+coverage/
