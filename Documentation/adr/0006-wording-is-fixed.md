@@ -1,6 +1,6 @@
 # 0006. The site's wording is fixed; the redesign is visual only
 
-- **Status:** Accepted
+- **Status:** Superseded by [0007](0007-design-first-wording-second.md) on 2026-11-16
 - **Date:** 2026-11-15
 - **Decided by:** Felipe
 

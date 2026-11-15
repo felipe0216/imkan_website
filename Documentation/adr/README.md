@@ -9,4 +9,6 @@ Numbered records of significant decisions for the Imkan.ai website: the context,
 | [0003](0003-language-scope-english-first.md) | Language scope: English at launch, Arabic later | Accepted | 2026-11-15 |
 | [0004](0004-dev-environment-branch-preview.md) | Dev environment: site/ folder on a long-lived branch with a PR preview | Accepted | 2026-11-15 |
 | [0005](0005-pages-in-scope.md) | Pages in scope for launch | Accepted | 2026-11-15 |
-| [0006](0006-wording-is-fixed.md) | The site's wording is fixed; the redesign is visual only | Accepted | 2026-11-15 |
+| [0006](0006-wording-is-fixed.md) | The site's wording is fixed; the redesign is visual only | Superseded by 0007 | 2026-11-15 |
+| [0007](0007-design-first-wording-second.md) | Design first, wording second | Accepted | 2026-11-16 |
+| [0008](0008-logo-redesign.md) | Logo redesign as part of the site redesign | Accepted | 2026-11-16 |

@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git reset --hard*)",
+      "PowerShell(git push --force*)",
+      "PowerShell(git push -f*)",
+      "PowerShell(git reset --hard*)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./site/.env)",
+      "Read(./site/.env.*)",
+      "Read(./api/local.settings.json)"
+    ],
+    "ask": [
+      "Bash(git push*)",
+      "Bash(gh pr create*)",
+      "Bash(gh pr merge*)",
+      "Bash(npm install*)",
+      "Bash(npm i *)",
+      "Bash(pip install*)",
+      "Bash(az *)",
+      "PowerShell(git push*)",
+      "PowerShell(gh pr create*)",
+      "PowerShell(gh pr merge*)",
+      "PowerShell(npm install*)",
+      "PowerShell(npm i *)",
+      "PowerShell(pip install*)",
+      "PowerShell(az *)"
+    ]
+  }
+}

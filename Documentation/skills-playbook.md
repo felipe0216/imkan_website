@@ -6,7 +6,8 @@ How to use the project skills in `.claude/skills/` for the Imkan.ai redesign: wh
 
 - **38 skills are installed**, chosen for this stack and the redesign. The other 101 (other stacks, healthcare, crypto, and skills that do not work without an ECC install) were removed on 2026-11-16. Their originals are still in the Ear Cleaning project if one is ever needed.
 - **No ECC hooks are installed.** Imkan has no `.claude/settings.json`, no `.claude/hooks/` and no ECC scripts. Skills that say they "block", "gate" or "observe" through hooks (`gateguard`, `safety-guard`, `delivery-gate`, `strategic-compact`, `continuous-learning-v2`, `plan-canvas`) do nothing here. Treat them as advice only, or not at all.
-- **The only skill that declares its own hook is `design-taste-frontend`.** It is a Stop hook that runs its finish gate (minutes of headless Chrome) every time Claude tries to end a turn, once a build is armed.
+- **The only skill that declares its own hook is `design-taste-frontend`.** It is a Stop hook that runs its finish gate (minutes of headless Chrome) every time Claude tries to end a turn, once a build is armed. The hook is registered only when the skill is invoked through the Skill tool. **Felipe chose manual mode (2026-11-16):** read the skill's files and run its scripts directly, and run `scripts/gate.mjs` by hand at the end of each page and before each PR.
+- **Project permissions** live in `.claude/settings.json`: force pushes, hard resets and reading `.env*` or `api/local.settings.json` are denied; `git push`, `gh pr create/merge`, `npm install`, `pip install` and `az` commands always ask first.
 - **Skills are committed to the repo** under `.claude/skills/`, so every branch, worktree and clone has them.
 - Several skills are written for Next.js, Vite 7 and 8, Supabase or FastAPI. Ignore those parts; our stack is React 19 + Vite 6 SPA, Tailwind via CDN, Python Azure Functions.
 
