@@ -17,7 +17,8 @@ Single-page marketing site for Imkan.ai, a Saudi (Vision 2030) AI and data engin
 - `components/Team_full.tsx` is not imported anywhere. Do not edit it expecting changes to show.
 - Section IDs `home`, `services`, `methodology`, `why-us`, `cases`, `about` are used by the Navbar scroll, its IntersectionObserver and the Footer links. Keep them stable.
 - `public/images/` holds `logos/`, `methodology/`, `profile_pictures/`, `services/`, `use_cases/`.
-- `Documentation/` holds deployment and contact form guides.
+- `Documentation/` holds deployment and contact form guides, plus the redesign docs: `adr/` (decisions), `skills-playbook.md`, `content-inventory.md` (original wording), `acceptance-criteria.md`, `security-plan.md`, `baseline/` (the old site measured) and `DESIGN-legacy.md`.
+- **New site (redesign):** `site/` on the `feature/redesign` branch. Static HTML pages built by Vite (`cd site`, `npm run dev` on port 5173, `npm run build`, `npm run test:e2e`, `npm run check`). Every `index.html` is a page; shared parts go in `site/partials/` and are included with `<!-- @include partials/<file>.html -->`. Add each new page to `site/tests/pages.ts`. CI: `.github/workflows/checks.yml`.
 - Detailed conventions live in `.cursor/rules/` (`project-overview.mdc`, `frontend-conventions.mdc`, `backend-conventions.mdc`). Read the relevant one before changing that area, and keep it in sync if a convention changes.
 
 ## Code conventions
