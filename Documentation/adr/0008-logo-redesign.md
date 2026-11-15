@@ -17,6 +17,7 @@ The repo only has the logo as PNG files (`public/images/logos/imkan-logo.png`, `
 ## Consequences
 
 - Deliverables: a primary wordmark SVG, a compact mark SVG (also the favicon), and a monochrome version for dark and light grounds. All are hand-written, clean SVG with no embedded raster images.
-- The logo is designed after the palette and fonts are chosen, so it matches them. The company name stays exactly "imkan.ai" (or "Imkan.ai"; to confirm with Felipe which casing the wordmark uses).
+- The logo is designed after the palette and fonts are chosen, so it matches them.
+- **Wordmark (confirmed by Felipe, 2026-11-16):** "IMKAN" in capitals, bilingual with the Arabic "إمكان", as in the current logo. The Arabic must be set in a real Arabic typeface and checked by a native reader; it is never drawn by imitation or with a Latin font. Body text and the domain stay "imkan.ai".
 - The skill's own "mark" choice in its deal step informs the logo's style.
 - The favicon and social share image (`share.jpg`) are regenerated from the new logo.

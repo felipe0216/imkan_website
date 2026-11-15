@@ -44,13 +44,13 @@ Status: draft for Felipe's review, 2026-11-16.
 | AC-203 | Every field has a visible label; errors appear under the field with `aria-invalid` and `aria-describedby`; the first invalid field gets focus. | Gate `field-label` and `forms` checks |
 | AC-204 | Both forms include the hidden `company_website` honeypot field. | Code review; `api/tests` |
 | AC-205 | Preview and localhost submissions land in the `*test` tables and never email the real inbox (`testMode: true` in the response). | Submit on the preview; check the response and tables |
-| AC-206 | The application form's error message names `info@imkan.ai`, not a personal address. To confirm with Felipe (the old site says `felipe@imkan.ai`). | Code review |
+| AC-206 | The application form's error message names `info@imkan.ai`, not a personal address (wording change 1). | Code review |
 
 ## Brand
 
 | ID | Criterion | Check |
 |---|---|---|
-| AC-301 | New logo as clean SVG: wordmark, compact mark (also the favicon) and a monochrome version (ADR 0008). Approved by Felipe. | Felipe's review |
+| AC-301 | New logo as clean SVG: "IMKAN" wordmark with the Arabic "إمكان" (Arabic set in a real Arabic typeface and checked by a native reader), a compact mark (also the favicon) and a monochrome version (ADR 0008). Approved by Felipe. | Felipe's review |
 | AC-302 | A `DESIGN.md` describes the new visual system (tokens, type, components) before page work starts. | File exists and matches the built CSS |
 
 ## Cut-over
@@ -63,11 +63,13 @@ Status: draft for Felipe's review, 2026-11-16.
 | AC-404 | Rollback ready: reverting the merge commit restores the old site. | Documented in the PR |
 | AC-405 | After merge: live site checked at all widths, one real contact submission end to end, forms land in production tables. | Post-deploy check |
 
-## Open questions for Felipe
+## Decisions from Felipe (2026-11-16)
 
-1. **Roles:** all six roles auto-closed (posted May to June 2026, 30-day window). Launch with them shown as closed, or update the dates?
-2. **Error email:** switch the application error message from `felipe@imkan.ai` to `info@imkan.ai`?
-3. **"Portal" link:** keep the nav link to the internal SharePoint library on the public site?
-4. **Stats that don't match their own ranges** (found by the inventory): case 6 shows 70% against "70-80%", case 7 shows 45% against "40-50%", case 8 shows 65% against "60-70%". Keep as written, or correct?
-5. **"5 More Solutions"** actually hides 6 case studies. Moot once every case has its own page, but confirm.
-6. **Wordmark casing:** "imkan.ai", "Imkan.ai" or "IMKAN"? And keep the Arabic "إمكان" alongside?
+1. **Roles:** show all six as closed; keep the open application. (AC-102)
+2. **Error email:** use `info@imkan.ai`. (AC-206, wording change 1)
+3. **"Portal" link:** removed from the public site. (wording change 6)
+4. **Case-study stats:** headline stats use the ranges from each case's own results: 70-80%, 40-50%, 60-70%. (wording changes 2 to 4)
+5. **"5 More Solutions":** dropped; the home page links to `/work/`. (wording change 5)
+6. **Wordmark:** "IMKAN" in capitals, bilingual with the Arabic "إمكان". (ADR 0008, AC-301)
+
+All six are logged in `Documentation/wording-changes.md`.
