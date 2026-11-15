@@ -59,6 +59,9 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
+    // public/assets is the design-taste-frontend kit, served as is; Vite's own output goes elsewhere.
+    assetsDir: '_build',
+    modulePreload: { polyfill: false },
     rollupOptions: { input: findPages(root) },
   },
 });
