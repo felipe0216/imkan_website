@@ -1,6 +1,6 @@
 # 0001. Design direction: light, photo-led service site
 
-- **Status:** Accepted
+- **Status:** Accepted; amended by [0009](0009-site-kind-ai-software.md) (site kind is now AI / software with tech effects; the light ground and palette stay)
 - **Date:** 2026-11-15
 - **Decided by:** Felipe
 

@@ -16,7 +16,7 @@ Status: draft for Felipe's review, 2026-11-16.
 | AC-006 | Exactly one `h1`, headings in order, `lang="en"`, a page title and meta description. | Smoke test; manual review |
 | AC-007 | No console errors and no failed requests on load. | Smoke test |
 | AC-008 | Respects `prefers-reduced-motion`: no entrance or looping motion when it is set. | Gate `reduced-motion` check |
-| AC-009 | Light, photo-led service look (ADR 0001): no dark hero, no glassmorphism or backdrop blur, no gradients, no glow effects, no fictional product UI. | Visual review; gate |
+| AC-009 | Light AI-engineering look (ADR 0001, amended by 0009): stone ground, oxblood ink; one dealt WebGL effect (`fluted-glass`) and two dealt moments only; no glassmorphism cards, backdrop blur, glows or decorative gradients; UI shown is drawn from the real cases, never an invented Imkan product. | Visual review; gate (`effect-kind`, `webgl`, `moment-none`) |
 | AC-010 | People shown are only Felipe Araya and Dr. Syed Fawad Ali, from their real portraits (ADR 0001). | Visual review |
 | AC-011 | Every wording change from the content inventory is logged in `Documentation/wording-changes.md`, and no fact (number, result, industry, role) differs from the inventory. | Diff against `Documentation/content-inventory.md` |
 | AC-012 | No em dashes in visible text. | Search the built HTML |

@@ -1,26 +1,27 @@
 ---
 version: alpha
 name: Imkan.ai (2026 redesign)
-description: A light, editorial service site. Stone-grey paper ground, one deep oxblood ink that does both the reading and the acting, one sturdy grotesque (Schibsted Grotesk) at regular weight, real photographs, flat grounds, and no glass, glow or gradient. Built on the design-taste-frontend kit (tasteskill 2.5.1), dealt on 2026-11-16.
+description: A light, editorial AI-engineering site. Stone-grey paper ground, one deep oxblood ink that does both the reading and the acting, one sturdy grotesque (Schibsted Grotesk) at regular weight, the systems Imkan builds shown as live UI, one quiet WebGL ground in the hero, and no glassmorphism, glow or gradient. Built on the design-taste-frontend kit (tasteskill 2.5.1), dealt on 2026-11-16 (ADR 0009).
 
 kind:
-  page-type: service
-  site-kind: other
-  kind: service
-  trade: agency (consulting)
+  page-type: software
+  site-kind: software
+  kind: software
+  trade: ai
 
 deal:
-  hero: photo
-  palette: oxblood-grey
+  hero: centred
+  palette: brand (oxblood on stone, the approved colours)
   type: schibsted
   radius: soft
+  effect: fluted-glass (band slot, quiet, behind the hero window)
   nav: nav-centre
   footer: footer-dark
   close: close-type
   rhythm: dark-band
   buttons: tonal
   mark: stack
-  moments: [pinned-chapters, word-highlight]
+  moments: [iris-opens, letters-assemble]
 
 colors:
   bg: "#e2e2e2"
@@ -77,9 +78,9 @@ rhythm:
 
 The new Imkan.ai reads like a confident consulting firm's printed report, not a tech demo. The ground is a cool stone grey (`#e2e2e2`), and a single deep oxblood (`#7d0c14`) carries everything: headlines, body text, links, the focus ring and the one filled button. There is no second accent. One sturdy neo-grotesque, Schibsted Grotesk, is set at regular weight (400) with tight tracking, so hierarchy comes from size and space rather than boldness.
 
-Depth comes from photographs and from one dark band, never from glass, glow, blur or gradients. Motion is limited to the kit's hover layer, the hero's one entrance, and two dealt moments.
+It is classified as **software (AI)** under the kit (ADR 0009), so it shows that Imkan is a tech company the way good software sites do: by showing the systems themselves as live UI, with one quiet WebGL ground in the hero (`fluted-glass`), pulsing diagram cards, one loop per card group and two dealt moments. Depth comes from the work and from one dark band, never from glassmorphism, glow, blur or gradients.
 
-This replaces the old dark, cyan, glassmorphism look (archived in `Documentation/DESIGN-legacy.md`). Decisions: `Documentation/adr/0001` to `0008`.
+This replaces the old dark, cyan, glassmorphism look (archived in `Documentation/DESIGN-legacy.md`). Decisions: `Documentation/adr/0001` to `0009`.
 
 **Why this palette fits a consultancy:** the stone ground reads as paper and print, the material of reports, proposals and boardroom documents. The single oxblood ink is the colour of a bound annual report or a seal, serious and established, which suits a firm selling senior engineering judgement rather than a gadget.
 
@@ -97,7 +98,7 @@ The new site is built with the `design-taste-frontend` kit, loaded **unmodified*
 | `icons/icon.css` | Real-icon sizing |
 | `moments/moments.js`, `lib.js`, `pinned-chapters/`, `word-highlight/` | The two dealt moments |
 
-The `:root` block from `start.mjs css` is kept exactly as printed, in a `<style>` after the kit's links. `<html lang="en" data-type="service" data-radius="soft" data-buttons="tonal">`, with `<meta name="page-type" content="service">` and `<meta name="site-kind" content="other">`.
+The `:root` block from `start.mjs brand --page software` is kept exactly as printed (it adds `--font-mono: "JetBrains Mono"` for UI mocks), in a `<style>` after the kit's links. `<html lang="en" data-type="software" data-radius="soft" data-buttons="tonal">`, with `<meta name="page-type" content="software">` and `<meta name="site-kind" content="software">`. Effects need `assets/effects/` (the `fluted-glass` ground and `fx.js`) and the two moments' folders copied in unmodified when the page is built.
 
 ## Colour
 
@@ -125,7 +126,7 @@ The `:root` block from `start.mjs css` is kept exactly as printed, in a `<style>
 | Part | Dealt | What it is |
 |---|---|---|
 | Nav | `nav-centre` | Fixed, opaque, 72px bar with a hairline; logo on the left line, the nav words centred, "Get in Touch" as the one button on the right line. No blur, no floating pill. |
-| Hero | `photo` | A full-bleed photograph under the header; the h1, lead and buttons in a solid box of the page's own ground on the photograph's calm side. No scrim. At 390 the photograph is a layer on top and the words sit under it. |
+| Hero | `centred` | A centred h1 (72px, at most 2 lines), a grey line, two buttons, then one app window rising out of a lit frame (the `fluted-glass` ground) that fills the rest of the first screen and fades at its foot. The window shows a system Imkan delivered, as live HTML. |
 | Buttons | `tonal` | 44px high, 8px radius, 16px label. Exactly one filled primary per view; one secondary style. |
 | Rhythm | `dark-band` | One inverse (oxblood) section mid-page or later. |
 | Close | `close-type` | The last row before the footer: an h2, a line, and the big button across the `.wrap`. |
@@ -150,36 +151,41 @@ Files in `site/public/images/logo/`; preview in `Documentation/logo/preview.jpg`
 - **"IMKAN":** Schibsted Grotesk SemiBold (600), letterspaced +0.14em, capitals as Felipe chose.
 - **"إمكان":** IBM Plex Sans Arabic Medium (500), centred under IMKAN.
 - **No drawn letters:** both words are real fonts (OFL licensed) shaped by HarfBuzz, the shaping engine browsers use, and converted to outlines, so the SVGs need no font. Rebuild with `Documentation/logo/build-logo.cjs` (needs `harfbuzzjs` and the two TTFs; see its header).
-- **Still to do:** a native Arabic reader confirms "إمكان" (AC-301); Felipe approves the logo.
+- **Approved by Felipe on 2026-11-16**, together with the palette and type. Still to do: a native Arabic reader confirms "إمكان" (AC-301).
 
-## Moments
+## Effect and moments (the page's beats, three at most)
 
-- **`pinned-chapters`:** a section that holds on screen for two screens of scroll while its three steps open one at a time, the picture beside them changing with each. **Fits the methodology exactly: THINK, BUILD, EVOLVE.**
-- **`word-highlight`:** one large statement rests at half ink and turns to full ink word by word as it crosses the middle of the screen. Proposed for the "Why us" statement.
+- **`fluted-glass`** (the effect): a quiet ribbed-glass WebGL field in the hero's frame, behind the app window. Never behind body copy, never page-long.
+- **`letters-assemble`** (moment): a statement of two to five words, set very large, whose letters fly into the line as it rises. Proposed for "Engineering Without Friction." from "Why us".
+- **`iris-opens`** (moment): the dark band opens from a disc with a hairline ring at its edge as you scroll into it. The case-study section sits on that band.
+- Beats never sit in neighbouring sections; a calm section between them; the back third of the page calm before the close. Everything rests under `prefers-reduced-motion`. At most four live WebGL contexts.
 
-Both rest completely under `prefers-reduced-motion`.
+## Case-study art
+
+Eleven vector illustrations, one per case, redrawn from the current images' subjects (a world map with routes, a lock, a house and so on) in the new style: oxblood line work on stone, crisp SVG, one idea each. One card group may carry a timed loop (for example pulses running along the routes), 2.5 to 4 s, paused under reduced motion. They live in `site/public/images/work/`.
 
 ## Home page plan (draft, in screens)
 
-Line 1: service. Line 2: hero photo, palette oxblood-grey (paper and report-binding colours for a consultancy), Schibsted Grotesk, nav-centre, footer-dark, close-type, dark-band, tonal buttons, mark stack, moments pinned-chapters and word-highlight.
+Line 1: software (AI). Line 2: hero centred, brand palette (oxblood on stone, the approved colours), Schibsted Grotesk, effect fluted-glass in the hero frame, nav-centre, footer-dark, close-type, dark-band, tonal buttons, mark stack, moments letters-assemble and iris-opens.
 
-| # | Section | One idea | Picture | Screens |
-|---|---|---|---|---|
-| 1 | `hero` | What Imkan does and for whom | Full-bleed photograph (to choose) | 1 |
-| 2 | `services` | The four services | Real icons of the tools used, or one still diagram card | 1 to 2 |
-| 3 | `methodology` | THINK, BUILD, EVOLVE | `pinned-chapters` moment, one picture per step | 2 |
-| 4 | `why-us` | Senior engineers, no friction | `word-highlight` statement, then the six advantages as rows | 1 + 1 |
-| 5 | `work` | Production systems delivered | Case-study tiles linking to `/work/<slug>/`, on the **dark band** | 1 to 2 |
-| 6 | `about` | The two founders | Their real portraits | 1 |
-| 7 | `contact` | Get in Touch | The contact form on the page, with the address | 1 |
-| 8 | `footer.closing` | Close and directory | `close-type`, then `footer-dark` | 1 |
+| # | Section | One idea | Picture | Beat | Screens |
+|---|---|---|---|---|---|
+| 1 | `hero` | What Imkan builds and for whom | App window: the AI negotiation agent (case 11) | effect | 1 |
+| 2 | `platform` (app-frame) | Production systems, not slideware | App frame: the fraud-detection alert queue beside one open alert (case 1) | | 1 to 2 |
+| 3 | `services` | The four services | Features 2×2 with UI fragments and one pulsing diagram card | | 1 to 2 |
+| 4 | `methodology` | THINK, BUILD, EVOLVE | Steps with a still diagram | | 1 |
+| 5 | `why-us` statement | Engineering Without Friction. | Type moment | letters-assemble | 1 |
+| 6 | `why-us` rows | The six advantages | Real tool icons, rows | | 1 |
+| 7 | `work` (dark band) | Proven impact in production | Case tiles with the new illustrations, one loop | iris-opens | 1 to 2 |
+| 8 | `about` | The two founders | Their real portraits | | 1 |
+| 9 | `contact` | Get in Touch | The contact form on the page, with the address | | 1 |
+| 10 | `footer.closing` | Close and directory | close-type, footer-dark | | 1 |
 
 Other pages: `/careers/`, `/work/`, `/work/<slug>/` (11), `/privacy/`, `/terms/` (ADR 0005). Each gets its own plan before it is built.
 
 ## Open design questions
 
-1. **Hero photograph.** The skill needs a strong photograph with a calm area for the words, showing the client's world. Only the founders may appear as people (ADR 0001). Options: a Riyadh architecture or skyline photograph (where Imkan works), a close detail of real work (a whiteboard session without faces), or a portrait of the two founders together if one exists or can be taken.
-2. **Case-study pictures.** The old use-case images are dark illustrations that read as generated. Each case needs a photograph of its world (a bank, a port, a warehouse) as a licensed stand-in, or a still diagram card of the system built.
+1. **UI shown in the hero window and the app-frame** is new illustrative text built from cases 11 and 1. Felipe approves it (TODO) and it must not claim anything the case studies do not say.
 
 ## Do's and Don'ts
 
@@ -190,7 +196,7 @@ Other pages: `/careers/`, `/work/`, `/work/<slug>/` (11), `/privacy/`, `/terms/`
 - Let photographs and the dark band carry the visual weight.
 
 ### Don't
-- Glassmorphism, backdrop blur, glows, gradients, scrims, coloured text highlights.
+- Glassmorphism cards, backdrop blur, glows, CSS gradients as decoration, scrims, coloured text highlights. (The one `fluted-glass` WebGL ground in the hero frame is the page's dealt effect, not a card style.)
 - Bold (700/800) headlines or tracked uppercase labels.
 - Fade-in on scroll, parallax text, tilt, carousels, timed tabs.
 - People other than the two founders; drawn look-alikes of real logos; invented figures.
