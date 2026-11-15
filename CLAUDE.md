@@ -33,8 +33,8 @@ Single-page marketing site for Imkan.ai, a Saudi (Vision 2030) AI and data engin
 
 ## Design
 
-- Before writing or changing any UI, read `DESIGN.md` (the visual system) and follow it.
-- Current look: dark mode only, cyan primary `#25e2f4`, glassmorphism cards, spotlight hover glow. Reuse the theme tokens in `index.html` instead of new hex values.
+- **Redesign in progress.** The decisions are in `Documentation/adr/`; read them before UI work on the new site. The new site's visual system will be written to a new `DESIGN.md` once its palette and fonts are chosen.
+- The old site's look (dark mode, cyan `#25e2f4`, glassmorphism, spotlight glow) is archived in `Documentation/DESIGN-legacy.md`. Follow it only for fixes to the old React site at the repository root.
 - Mobile first. Check `sm`, `md` and `lg` breakpoints. Respect `prefers-reduced-motion` (see `HeroBackground.tsx`). Keep `aria-label` on icon-only buttons.
 - Project skills live in `.claude/skills/`. Before choosing a skill, read `Documentation/skills-playbook.md`: it says which skills fit this stack, when to use each, and which ones do nothing here (no ECC hooks are installed). For UI work, prefer `design-taste-frontend`, `make-interfaces-feel-better`, `accessibility` / `frontend-a11y`, and the `motion-*` skills. The site currently uses CSS animations only; adopting `motion/react` is a new dependency and needs approval first.
 - Run skill scripts (for example the `design-taste-frontend` checker or `playwright-cli`) only against our own local pages and files, never against other websites.

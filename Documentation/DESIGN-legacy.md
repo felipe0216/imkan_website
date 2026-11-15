@@ -203,6 +203,8 @@ components:
     typography: "{typography.body-sm}"
 ---
 
+> **Legacy design (archived 2026-11-16).** This describes the current production site (dark, cyan, glassmorphism). The redesign replaces it (ADR 0001). Use this file only when maintaining the old React site at the repository root. The new site's visual system will live in a new `DESIGN.md`.
+
 ## Overview
 
 Imkan.ai looks like an engineering console after dark. Every page sits on a near-black blue-grey (`{colors.background}`, #0A0F14) with no light mode. Content floats on frosted glass panels, and one electric cyan (`{colors.primary}`, #25e2f4) does nearly all the signalling: buttons, active nav, eyebrows, focus rings, glows and the scrollbar hover. The mood is precise, technical and confident, matching a Saudi AI and data engineering consultancy that promises "engineering excellence" in weeks, not quarters.
