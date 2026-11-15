@@ -48,6 +48,9 @@ Single-page marketing site for Imkan.ai, a Saudi (Vision 2030) AI and data engin
 - Every API response, including errors and the `OPTIONS` preflight, carries the CORS headers.
 - Secrets (`AZURE_STORAGE_CONNECTION_STRING`, `ACS_EMAIL_CONNECTION_STRING`, `ACS_SENDER_ADDRESS`, deploy tokens) come from environment variables or GitHub secrets only. Never hardcode, print, read or commit them. `api/local.settings.json` and `.env*` must stay out of git.
 - Email notifications are best effort: a failed email must never fail a stored submission.
+- The API accepts JSON (old site) and form data (new site; the CV as an uploaded `cv` file). CVs are checked by extension and file signature, not the browser's content type.
+- **Form test mode:** requests from PR preview hosts or localhost go to the `contactsubmissionstest` / `jobapplicationstest` tables and only email `FORMS_TEST_RECIPIENTS` (nobody if unset). `FORMS_TEST_MODE=1|0` forces it. Responses include `testMode` so it can be checked. Rate limit: `FORMS_RATE_LIMIT` per IP per `FORMS_RATE_WINDOW_SECONDS` (default 5 per 600 s, per instance). The hidden `company_website` field is a honeypot.
+- API tests: `cd api`, then `.venv\Scripts\python.exe -m pytest` and `-m ruff check . --exclude .venv`. Dev requirements are in `api/requirements-dev.txt`.
 - Changes to `staticwebapp.config.json` (CSP, cache headers, routes) affect the live site. Explain the effect before changing it.
 - Ask first before: installing skills, plugins, MCP servers or hooks; editing `.claude/settings.json`; adding dependencies; deleting files; pushing; opening or merging PRs; changing the GitHub workflow; or touching Azure resources.
 
