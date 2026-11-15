@@ -1,13 +1,13 @@
 # Skills playbook
 
-How to use the project skills in `.claude/skills/` for the Imkan.ai redesign: what each useful skill does, when to reach for it, and what to watch out for. Written from a full read of the skills in November 2026. The 139 skills were copied from the Ear Cleaning project, which uses the ECC ("Everything Claude Code") bundle plus `design-taste-frontend`.
+How to use the project skills in `.claude/skills/` for the Imkan.ai redesign: what each useful skill does, when to reach for it, and what to watch out for. Written from a full read of the skills in November 2026. The skills came from the Ear Cleaning project, which uses the ECC ("Everything Claude Code") bundle plus `design-taste-frontend`. Of the 139 copied, 38 were kept and committed; see [Trimming](#trimming).
 
 ## Read this first
 
-- **Only about 30 of the 139 skills are useful here.** The rest target other stacks (Django, Kotlin, Rust, Laravel, Flutter and others), healthcare or crypto. They still cost context: the session's skill list is already over its budget, so the descriptions of important skills such as `make-interfaces-feel-better`, `react-patterns` and `security-review` are cut off. See [Trimming](#trimming).
+- **38 skills are installed**, chosen for this stack and the redesign. The other 101 (other stacks, healthcare, crypto, and skills that do not work without an ECC install) were removed on 2026-11-16. Their originals are still in the Ear Cleaning project if one is ever needed.
 - **No ECC hooks are installed.** Imkan has no `.claude/settings.json`, no `.claude/hooks/` and no ECC scripts. Skills that say they "block", "gate" or "observe" through hooks (`gateguard`, `safety-guard`, `delivery-gate`, `strategic-compact`, `continuous-learning-v2`, `plan-canvas`) do nothing here. Treat them as advice only, or not at all.
 - **The only skill that declares its own hook is `design-taste-frontend`.** It is a Stop hook that runs its finish gate (minutes of headless Chrome) every time Claude tries to end a turn, once a build is armed.
-- **Skills live in the main checkout only.** `.claude/skills/` is untracked in git, so a fresh worktree or a clone will not have them unless we commit them.
+- **Skills are committed to the repo** under `.claude/skills/`, so every branch, worktree and clone has them.
 - Several skills are written for Next.js, Vite 7 and 8, Supabase or FastAPI. Ignore those parts; our stack is React 19 + Vite 6 SPA, Tailwind via CDN, Python Azure Functions.
 
 ## The redesign lifecycle at a glance
@@ -97,7 +97,9 @@ Built on the `motion` npm package (`motion/react`), written for Next.js. `motion
 - **context-budget and agent-sort:** use once now to trim skills and plugins (see below).
 - **strategic-compact:** advice only: compact at phase boundaries and write plans to files first.
 
-## Not usable as installed
+## Removed because they do not work here
+
+These were removed in the trim. Listed so nobody re-adds them by mistake.
 
 | Skill | Why |
 |---|---|
@@ -111,13 +113,17 @@ Built on the `motion` npm package (`motion/react`), written for Next.js. `motion
 
 ## Trimming
 
-Suggested split (not applied yet; this is Felipe's call):
+Applied on 2026-11-16. The new site is static HTML with the taste kit (ADR 0002), so the React, Tailwind-adjacent and motion skills are not used for it. Felipe chose to keep them anyway, in case a later design change brings React back.
 
-- **Daily (about 14):** `design-taste-frontend`, `frontend-design-direction`, `design-system`, `make-interfaces-feel-better`, `accessibility`, `frontend-a11y`, `react-patterns`, `vite-patterns`, `error-handling`, `security-review`, `playwright-cli`, `verification-loop`, plus `motion-foundations` and `motion-patterns` only if `motion` is adopted.
-- **Library (keep, use on demand):** `react-performance`, `react-testing`, `e2e-testing`, `browser-qa`, `click-path-audit`, `production-audit`, `intent-driven-development`, `council`, `architecture-decision-records`, `product-lens`, `santa-method`, `living-docs-governance`, `i18n-sync`, `context-budget`, `agent-sort`, `strategic-compact`, `coding-standards`, `api-design`, `python-patterns`, `python-testing`, `motion-advanced`.
-- **Noise (remove or archive outside `.claude/skills`):** everything else, including the skills in the table above and all other-stack, healthcare and crypto skills.
+**Installed (38):**
 
-Separately, many plugin MCP servers and plugin skill packs (small-business, Gmail, Shopify, vidiq and others) load in every session and have nothing to do with the website. Disabling them for this project saves more context than trimming skills.
+- **New site, daily:** `design-taste-frontend`, `frontend-design-direction`, `design-system`, `make-interfaces-feel-better`, `accessibility`, `frontend-a11y`, `vite-patterns`, `error-handling`, `security-review`, `playwright-cli`, `verification-loop`.
+- **On demand:** `e2e-testing`, `browser-qa`, `click-path-audit`, `production-audit`, `ai-regression-testing`, `security-scan`, `intent-driven-development`, `council`, `architecture-decision-records`, `product-lens`, `santa-method`, `living-docs-governance`, `i18n-sync` (when Arabic starts), `context-budget`, `agent-sort`, `strategic-compact`, `coding-standards`, `api-design`, `python-patterns`, `python-testing`.
+- **Kept for a possible return to React:** `react-patterns`, `react-performance`, `react-testing`, `frontend-patterns`, `motion-foundations`, `motion-patterns`, `motion-advanced`. No skill is specifically about Tailwind; `design-taste-frontend` covers working inside a Tailwind project.
+
+**Removed (101):** other stacks (Django, Laravel, Rails, Spring Boot, Quarkus, Kotlin, Go, Rust, C++, .NET, Perl, Vue, Nuxt, Angular, Flutter, React Native, Bun, Next.js), healthcare, crypto, ECC-only tooling, and the skills in the table above.
+
+Separately, many plugin MCP servers and plugin skill packs (small-business, Gmail, Shopify, vidiq and others) load in every session and have nothing to do with the website. Disabling them for this project saves more context still.
 
 ## Gaps no skill covers
 
