@@ -23,12 +23,12 @@ Status values: **Accepted**, **Superseded by D-xxx**, **Open** (waiting on a dec
 | D-013 | 2026-11-16 | Way of working: plan first, one major item at a time, assumptions stated, solutions scrutinised, done/left lists, memory summaries | Accepted | CLAUDE.md, "Working style" |
 | D-014 | 2026-11-16 | Planning files: `PROJECT_SPEC.md` (master plan) + this tracker (addendum, indexes the ADRs); no separate Addendum.md | Accepted | this file |
 | D-015 | 2026-11-16 | No root `requirements.txt`: manifests stay where their tools read them (`api/requirements*.txt`, `site/package.json`) | Proposed (pushback on the requested file) | PROJECT_SPEC §8 item 8 |
+| D-016 | 2026-11-16 | Logo direction: the IK Monogram (I bar + K-notched block), lettering in Geist with IBM Plex Sans Arabic; to be refined | Accepted (closes O-001) | `Documentation/logo/exploration/` |
 
 ## Open decisions
 
 | ID | Question | Options | Needed by |
 |---|---|---|---|
-| O-001 | Which of three logo directions? | To be previewed | Phase 2.2 |
 | O-002 | Which of three light palettes? | To be dealt and previewed with the logo | Phase 2.3 |
 | O-003 | Hero scene acceptable, or kinetic-type fallback? | Dealt scene vs fallback | Phase 3.3 |
 | O-004 | Where the email-signature logo image is hosted | On imkan.ai after cut-over (recommended) vs embedded in each signature | Phase 2.4 |
