@@ -30,7 +30,7 @@ Status values: **Accepted**, **Superseded by D-xxx**, **Open** (waiting on a dec
 
 | ID | Question | Options | Needed by |
 |---|---|---|---|
-| O-002 | Which of three light palettes? | To be dealt and previewed with the logo | Phase 2.3 |
+| O-002 | Which cobalt variant? (Felipe picked palette 2, cool grey and cobalt, and asked for tinted variants, not straight black and white) | 2A current, 2B porcelain and midnight navy, 2C bone, graphite and ultramarine (`Documentation/brand/palette-cobalt-options.jpg`) | Phase 2.3 |
 | O-003 | Hero scene acceptable, or kinetic-type fallback? | Dealt scene vs fallback | Phase 3.3 |
 | O-004 | Where the email-signature logo image is hosted | On imkan.ai after cut-over (recommended) vs embedded in each signature | Phase 2.4 |
 | O-005 | Pending wording changes 7-20 and the illustrative UI text | Approve, edit or revert each | Phase 7.3 |
