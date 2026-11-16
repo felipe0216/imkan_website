@@ -24,6 +24,7 @@ Status values: **Accepted**, **Superseded by D-xxx**, **Open** (waiting on a dec
 | D-014 | 2026-11-16 | Planning files: `PROJECT_SPEC.md` (master plan) + this tracker (addendum, indexes the ADRs); no separate Addendum.md | Accepted | this file |
 | D-015 | 2026-11-16 | No root `requirements.txt`: manifests stay where their tools read them (`api/requirements*.txt`, `site/package.json`) | Proposed (pushback on the requested file) | PROJECT_SPEC §8 item 8 |
 | D-016 | 2026-11-16 | Logo direction: the IK Monogram (I bar + K-notched block), lettering in Geist with IBM Plex Sans Arabic; to be refined | Accepted (closes O-001) | `Documentation/logo/exploration/` |
+| D-017 | 2026-11-16 | Logo refinement: **B. Open K** (I bar + one chevron of K arms), lettering type 2: Geist 500, +0.14em tracking, "إمكان" in IBM Plex Sans Arabic 500, right-aligned under "IMKAN" | Accepted | `Documentation/logo/exploration/monogram-refinements.jpg` |
 
 ## Open decisions
 
