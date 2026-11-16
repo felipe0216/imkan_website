@@ -71,4 +71,11 @@ Single-page marketing site for Imkan.ai, a Saudi (Vision 2030) AI and data engin
 ## Working style
 
 - Felipe (co-founder, Lead AI Scientist) maintains the site. Be direct and technical.
+- **The plan lives in `PROJECT_SPEC.md`; every later decision goes in `DECISION_TRACKER.md`, which wins over the spec.** Read both before starting work. Detailed records stay in `Documentation/adr/`.
+- **Work one major item at a time,** split into small steps; finish and review a step before starting the next. Do not write code during planning or ideation.
+- **State every assumption** you make, in planning and in implementation.
+- **Scrutinise before presenting:** check a solution for gaps, risks, pros and cons and better alternatives, then give the best one. Aim for enterprise-grade, best-practice choices; research official docs and community practice when needed. Push back on a request of Felipe's only when there is a clearly better route, and say why.
+- **Implementation replies:** give exact steps (where to go, what to click, which values); explain before vs after for every change; end with a list of all items in the current phase, marked done or left.
+- **After major decisions or debates,** give Felipe a short summary he can append to his own memory document, and log the decision in `DECISION_TRACKER.md`.
+- **Validate every solution:** does it do what was asked; assumptions and gaps; anything hardcoded that should be dynamic; bad-input handling; security-sensitive parts.
 - Keep changes small. Say what changed and how to check it, and run `npm run build` before calling frontend work done.

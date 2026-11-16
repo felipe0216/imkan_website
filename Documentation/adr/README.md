@@ -13,3 +13,6 @@ Numbered records of significant decisions for the Imkan.ai website: the context,
 | [0007](0007-design-first-wording-second.md) | Design first, wording second | Accepted | 2026-11-16 |
 | [0008](0008-logo-redesign.md) | Logo redesign as part of the site redesign | Accepted | 2026-11-16 |
 | [0009](0009-site-kind-ai-software.md) | Site kind: AI / software, with tech effects (amends 0001) | Accepted | 2026-11-16 |
+| [0010](0010-visual-direction-v2.md) | Visual direction v2: light (not white), cinematic hero, new logo | Accepted | 2026-11-16 |
+
+The running log of all decisions, including smaller ones, is `DECISION_TRACKER.md` at the repository root.

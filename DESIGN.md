@@ -74,6 +74,8 @@ rhythm:
   grid: 12 columns, 24px gap (12px under 640)
 ---
 
+> **Superseded (2026-11-16, ADR 0010).** This describes home page v1 (oxblood on stone). Visual direction v2 (light, not white; a cinematic hero; a new logo) replaces the palette, logo and hero described here. This file is rewritten in Phase 2.6 of `PROJECT_SPEC.md`.
+
 ## Overview
 
 The new Imkan.ai reads like a confident consulting firm's printed report, not a tech demo. The ground is a cool stone grey (`#e2e2e2`), and a single deep oxblood (`#7d0c14`) carries everything: headlines, body text, links, the focus ring and the one filled button. There is no second accent. One sturdy neo-grotesque, Schibsted Grotesk, is set at regular weight (400) with tight tracking, so hierarchy comes from size and space rather than boldness.
