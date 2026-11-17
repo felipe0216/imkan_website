@@ -30,7 +30,7 @@ Status values: **Accepted**, **Superseded by D-xxx**, **Open** (waiting on a dec
 
 | ID | Question | Options | Needed by |
 |---|---|---|---|
-| O-002 | Which vibrant palette? Two families in review, both "fun and vibrant": porcelain (A violet and lime, B cobalt and tangerine, C teal and magenta) and bone with graphite, no ultramarine (A persimmon, B emerald and pink, C aubergine and saffron) | `Documentation/brand/palette-porcelain-options.jpg`, `palette-bone-options.jpg` | Phase 2.3 |
+| O-002 | Which bone palette? Felipe narrowed to two bone families: warm (persimmon tone not right) and aubergine with the saffron yellow | Warm: coral, apricot, terracotta. Purple and saffron: wine, violet, blackcurrant, plus the original aubergine (`Documentation/brand/palette-warm-variations.jpg`, `palette-plum-variations.jpg`) | Phase 2.3 |
 | O-003 | Hero scene acceptable, or kinetic-type fallback? | Dealt scene vs fallback | Phase 3.3 |
 | O-004 | Where the email-signature logo image is hosted | On imkan.ai after cut-over (recommended) vs embedded in each signature | Phase 2.4 |
 | O-005 | Pending wording changes 7-20 and the illustrative UI text | Approve, edit or revert each | Phase 7.3 |
