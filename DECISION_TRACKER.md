@@ -30,7 +30,7 @@ Status values: **Accepted**, **Superseded by D-xxx**, **Open** (waiting on a dec
 
 | ID | Question | Options | Needed by |
 |---|---|---|---|
-| O-002 | Which bone palette? Felipe narrowed to two bone families: warm (persimmon tone not right) and aubergine with the saffron yellow | Warm: coral, apricot, terracotta. Purple and saffron: wine, violet, blackcurrant, plus the original aubergine (`Documentation/brand/palette-warm-variations.jpg`, `palette-plum-variations.jpg`) | Phase 2.3 |
+| O-002 | Which blackcurrant blend? Felipe chose blackcurrant (bone, plum, saffron) and asked for a darker plum-black blend | 1 blackcurrant noir, 2 plum-to-black gradient, 3 midnight plum and gold (`Documentation/brand/palette-noir-variations.jpg`) | Phase 2.3 |
 | O-003 | Hero scene acceptable, or kinetic-type fallback? | Dealt scene vs fallback | Phase 3.3 |
 | O-004 | Where the email-signature logo image is hosted | On imkan.ai after cut-over (recommended) vs embedded in each signature | Phase 2.4 |
 | O-005 | Pending wording changes 7-20 and the illustrative UI text | Approve, edit or revert each | Phase 7.3 |
