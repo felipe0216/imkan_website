@@ -1,0 +1,255 @@
+[
+ {
+  "slug": "banking-fraud-detection-in-real-time",
+  "title": "Banking Fraud Detection in Real-Time",
+  "category": "Banking & Financial Services",
+  "stat": "<10s",
+  "statLabel": "Detection Time (was 1 day)",
+  "summary": "Automated AI pipeline for real-time log analysis",
+  "overview": "Built a production-grade real-time anomaly detection platform for a national financial institution, replacing manual log analysis processes with intelligent automation.",
+  "challenge": "The bank's security team was manually reviewing system logs, taking up to 1 day to identify anomalies. Rule-based monitoring systems missed unknown threats and generated excessive false positives.",
+  "solution": "Deployed a Kafka-powered streaming pipeline with custom ML models trained on historical patterns. The system processes logs in real-time, automatically identifies both known and unknown anomalies, and alerts the security team within seconds.",
+  "tech": [
+   "Kafka",
+   "AWS Kinesis",
+   "Databricks"
+  ],
+  "techDetailed": "Apache Kafka for event streaming, AWS Kinesis for data ingestion, Databricks (Spark) for distributed ML processing, Python (scikit-learn, TensorFlow) for anomaly detection models, AWS S3 for data lake storage, Amazon RDS (PostgreSQL) for metadata management, Grafana for monitoring dashboards, AWS Lambda for serverless alerting.",
+  "results": [
+   "Reduced detection time from ~1 day to under 10 seconds (8,640x improvement)",
+   "Identified unknown anomalies that rule-based systems completely missed",
+   "Eliminated manual log review, freeing up 40+ hours per week for security team",
+   "Decreased false positive rate by 75% through ML-based pattern recognition"
+  ]
+ },
+ {
+  "slug": "smart-lead-scoring-for-property-sales",
+  "title": "Smart Lead Scoring for Property Sales",
+  "category": "Real Estate & PropTech",
+  "stat": "5x",
+  "statLabel": "Lead Conversion Rate",
+  "summary": "Predictive models for high-intent buyer targeting",
+  "overview": "Developed a predictive market intelligence platform for a national real estate company, transforming their sales and marketing approach with AI-driven lead scoring and customer targeting.",
+  "challenge": "The real estate platform was experiencing a baseline conversion rate of 1 in 20 leads (5%), resulting in high customer acquisition costs and inefficient sales team allocation. They had massive amounts of customer data but no way to identify high-intent buyers.",
+  "solution": "Built predictive ML models analyzing historical transaction patterns, browsing behavior, property preferences, and market signals. The system scores leads in real-time and provides hyper-targeted property recommendations, enabling sales teams to focus on high-probability conversions.",
+  "tech": [
+   "Azure ML",
+   "Power BI",
+   "Snowflake"
+  ],
+  "techDetailed": "Azure Machine Learning for model training and deployment, Snowflake for cloud data warehouse, Azure Synapse Analytics for data integration, Python (XGBoost, LightGBM) for gradient boosting models, Power BI for business intelligence dashboards, Azure Data Factory for ETL orchestration, Azure Cosmos DB for real-time user activity tracking, REST APIs for CRM integration.",
+  "results": [
+   "Increased lead conversion rate to 1 in 4 (25%) - a 5x improvement",
+   "Reduced customer acquisition costs by over 50%",
+   "Enabled hyper-targeted sales and marketing campaigns",
+   "Accelerated average sales cycle by 30% through better qualification"
+  ]
+ },
+ {
+  "slug": "route-optimization-for-last-mile-delivery",
+  "title": "Route Optimization for Last-Mile Delivery",
+  "category": "Logistics & Delivery",
+  "stat": "-32%",
+  "statLabel": "Operational Costs",
+  "summary": "Simulation-based route and courier pay optimization",
+  "overview": "Engineered a comprehensive logistics optimization system for a regional delivery network, combining route optimization with dynamic courier compensation modeling to balance efficiency with satisfaction.",
+  "challenge": "The logistics company faced rising operational costs, inconsistent courier satisfaction, and inefficient route planning. Traditional optimization tools didn't account for real-world factors like traffic patterns, courier preferences, and dynamic pricing needs.",
+  "solution": "Developed a simulation-based optimization engine that models various courier pay strategies and route configurations before deployment. The system uses historical data, traffic patterns, and courier feedback to generate optimal routes while ensuring fair compensation that improves retention.",
+  "tech": [
+   "Google OR-Tools",
+   "GCP BigQuery",
+   "Vertex AI"
+  ],
+  "techDetailed": "Google OR-Tools for vehicle routing optimization, GCP BigQuery for data warehousing and analytics, Vertex AI for predictive demand forecasting, Python (SimPy, NumPy) for discrete event simulation, Google Maps API for real-time traffic data, Cloud Run for containerized microservices, Firestore for real-time courier tracking, Looker for operational dashboards.",
+  "results": [
+   "Reduced operational costs by 32% through intelligent route optimization",
+   "Increased courier satisfaction scores by 20%",
+   "Decreased average delivery time by 18%",
+   "Validated all changes through simulation before rollout, eliminating costly mistakes"
+  ]
+ },
+ {
+  "slug": "credit-risk-scoring-with-machine-learning",
+  "title": "Credit Risk Scoring with Machine Learning",
+  "category": "Banking & Financial Services",
+  "stat": "70%",
+  "statLabel": "Automated Decisions",
+  "summary": "Automated credit decisions and customer value prediction",
+  "overview": "Developed automated credit risk assessment and customer lifetime value (CLV) modeling systems for a digital lending platform, enabling data-driven underwriting and retention strategies.",
+  "challenge": "Manual credit assessment was slow, inconsistent, and couldn't scale with growing loan applications. No systematic approach to predicting customer lifetime value meant missed upsell opportunities and reactive retention efforts.",
+  "solution": "Built ML models analyzing credit history, transaction patterns, employment data, and behavioral signals to predict default risk and early repayment probability. Developed CLV models identifying high-value customers for targeted retention and product recommendations.",
+  "tech": [
+   "Snowflake",
+   "AWS SageMaker",
+   "Tableau"
+  ],
+  "techDetailed": "Snowflake for cloud data warehouse, AWS SageMaker for ML model training and deployment, Python (XGBoost, CatBoost) for gradient boosting classifiers, AWS Lambda for serverless scoring APIs, Amazon S3 for feature storage, Tableau for risk analytics dashboards, AWS Step Functions for workflow orchestration, Amazon RDS (PostgreSQL) for application database.",
+  "results": [
+   "Automated 70% of credit decisions with ML-based underwriting",
+   "Reduced loan approval time from days to minutes",
+   "Improved default prediction accuracy by 40%",
+   "Increased customer retention by 25% through targeted CLV-based interventions"
+  ]
+ },
+ {
+  "slug": "demand-forecasting-for-retail-inventory",
+  "title": "Demand Forecasting for Retail Inventory",
+  "category": "Retail & E-commerce",
+  "stat": "87%",
+  "statLabel": "Forecast Accuracy",
+  "summary": "AI-powered inventory optimization and purchasing",
+  "overview": "Built an intelligent demand forecasting and inventory optimization system for a multi-million dollar retail operation, transforming reactive inventory management into predictive, data-driven decision-making.",
+  "challenge": "The retail chain struggled with inventory waste from overstocking and lost revenue from stockouts. Manual forecasting methods couldn't handle seasonal patterns, promotional impacts, and complex product interdependencies.",
+  "solution": "Deployed time-series ML models analyzing historical sales, seasonal trends, promotional calendars, weather patterns, and external market signals. The system provides automated daily forecasts with confidence intervals, enabling optimized ordering decisions and dynamic inventory allocation across locations.",
+  "tech": [
+   "BigQuery",
+   "Prophet",
+   "Looker"
+  ],
+  "techDetailed": "Google BigQuery for cloud data warehouse, Prophet (Facebook) for time-series forecasting, Python (Pandas, Statsmodels) for statistical analysis, Looker for BI dashboards, GCP Cloud Functions for automated forecasting runs, Cloud Scheduler for daily batch jobs, BigQuery ML for in-warehouse model training, Pub/Sub for event-driven alerts.",
+  "results": [
+   "Achieved 87% forecast accuracy across all SKUs",
+   "Reduced inventory waste by 40% through precise demand prediction",
+   "Decreased stockout incidents by 65%",
+   "Accelerated sourcing decisions and improved supplier negotiations"
+  ]
+ },
+ {
+  "slug": "travel-booking-data-transformation",
+  "title": "Travel Booking Data Transformation",
+  "category": "Travel & Tourism",
+  "stat": "70%",
+  "statLabel": "Complexity Reduction",
+  "summary": "Simplifying legacy PNR data for AI models",
+  "overview": "Transformed complex Passenger Name Record (PNR) data into clean, analytics-ready formats for a major travel booking platform, enabling AI-driven personalization and customer insights.",
+  "challenge": "PNR data was stored in legacy formats with extreme complexity, making analysis time-consuming (weeks per insight). The data team couldn't quickly answer business questions or build customer profiling models due to data accessibility barriers.",
+  "solution": "Engineered automated ETL pipelines that parse, normalize, and structure PNR data into dimensional models optimized for analytics. Built data quality checks, lineage tracking, and self-service query interfaces that make the data accessible to business analysts.",
+  "tech": [
+   "Databricks",
+   "Delta Lake",
+   "dbt"
+  ],
+  "techDetailed": "Databricks for unified analytics platform, Delta Lake for ACID transactions on data lake, dbt (data build tool) for SQL-based transformation workflows, Apache Spark for distributed data processing, Python (PySpark) for ETL logic, AWS S3 for raw data storage, AWS Glue for metadata catalog, Tableau for self-service analytics, Great Expectations for data quality validation.",
+  "results": [
+   "Reduced PNR data complexity by 70-80% through intelligent modeling",
+   "Accelerated insight generation from weeks to days",
+   "Enabled AI-ready customer profiling for personalization",
+   "Unlocked hyper-personalized booking recommendations"
+  ]
+ },
+ {
+  "slug": "real-time-feature-store-for-banking-ai",
+  "title": "Real-Time Feature Store for Banking AI",
+  "category": "Banking & Financial Services",
+  "stat": "45%",
+  "statLabel": "Productivity Gain",
+  "summary": "Centralized ML features for instant model deployment",
+  "overview": "Architected a production-grade real-time feature store and streaming data platform for a national financial institution, enabling near real-time ML model serving and eliminating redundant feature engineering work.",
+  "challenge": "Data scientists were spending 60% of their time on repetitive feature engineering tasks. Models couldn't leverage real-time data, limiting their effectiveness. No centralized feature repository meant duplicate work and inconsistent definitions across teams.",
+  "solution": "Built a Kafka-based streaming platform with a centralized feature store enabling feature reuse, versioning, and real-time serving. The system ingests transaction streams, computes features on-the-fly, and serves them to ML models with sub-second latency.",
+  "tech": [
+   "Kafka",
+   "Redis",
+   "Feast"
+  ],
+  "techDetailed": "Apache Kafka for event streaming, Feast (feature store framework) for feature management, Redis for low-latency feature serving, Apache Flink for stream processing, Kubernetes for container orchestration, PostgreSQL for feature metadata, AWS S3 for offline feature storage, MLflow for model versioning, Python (PySpark, Pandas) for feature engineering.",
+  "results": [
+   "40-50% productivity gain for data science teams through feature reuse",
+   "Enabled near real-time ML predictions (from batch to streaming)",
+   "Scaled AI-driven digital banking products to millions of users",
+   "Reduced time-to-production for new models by 60%"
+  ]
+ },
+ {
+  "slug": "real-time-analytics-for-travel-bookings",
+  "title": "Real-Time Analytics for Travel Bookings",
+  "category": "Travel & Tourism",
+  "stat": "65%",
+  "statLabel": "Faster Insights",
+  "summary": "Modern cloud data warehouse with streaming",
+  "overview": "Built a modern data warehouse and streaming platform for a travel booking company, transforming their analytics capability from slow batch processing to near real-time insights with enterprise governance.",
+  "challenge": "Analytics queries took hours to run on legacy systems. Business teams couldn't access timely data for decision-making. No governance framework meant data quality issues and compliance risks.",
+  "solution": "Architected a modern cloud data warehouse with streaming ingestion pipelines. Implemented role-based access control, data lineage tracking, and automated quality checks. Built self-service BI layer enabling business users to explore data safely.",
+  "tech": [
+   "Snowflake",
+   "Fivetran",
+   "Sigma"
+  ],
+  "techDetailed": "Snowflake for cloud data warehouse, Fivetran for automated data integration, Sigma Computing for self-service BI, dbt for transformation logic, Apache Airflow for workflow orchestration, AWS Kinesis for real-time streaming ingestion, Monte Carlo for data observability, Atlan for data catalog and governance, Snowpipe for continuous data loading.",
+  "results": [
+   "Improved analytics availability by 60-70%",
+   "Enabled near real-time reporting (from 4-hour batch delays)",
+   "Implemented enterprise-grade governance and compliance",
+   "Reduced query response times from hours to seconds"
+  ]
+ },
+ {
+  "slug": "enterprise-data-foundation-for-retail",
+  "title": "Enterprise Data Foundation for Retail",
+  "category": "Retail & E-commerce",
+  "stat": ">1TB",
+  "statLabel": "Data Activated",
+  "summary": "AI-ready data warehouse from scattered sources",
+  "overview": "Established a complete enterprise data warehouse and analytics foundation for a retail chain, transforming over 1TB of siloed, underutilized data into a strategic business asset enabling AI and advanced analytics.",
+  "challenge": "Data was scattered across 20+ legacy systems with no integration. Business teams couldn't answer basic questions without IT support. No foundation existed for advanced analytics or AI initiatives.",
+  "solution": "Built a modern cloud data warehouse with automated ETL pipelines integrating all data sources. Implemented dimensional modeling, historical tracking, and data quality frameworks. Created self-service BI tools and established data governance processes.",
+  "tech": [
+   "Azure Synapse",
+   "ADF",
+   "Power BI"
+  ],
+  "techDetailed": "Azure Synapse Analytics for unified analytics platform, Azure Data Factory (ADF) for ETL orchestration, Power BI for business intelligence, Azure Data Lake Gen2 for data lake storage, Azure Databricks for advanced analytics, Python (PySpark) for data transformations, Azure DevOps for CI/CD pipelines, Microsoft Purview for data governance and cataloging.",
+  "results": [
+   "Enabled analytics on over 1TB of previously underutilized data",
+   "Reduced time-to-insight by 50-60% through self-service access",
+   "Established scalable AI-ready data foundations",
+   "Empowered 100+ business users with self-service analytics"
+  ]
+ },
+ {
+  "slug": "clinical-ai-safety-and-validation",
+  "title": "Clinical AI Safety & Validation",
+  "category": "Healthcare & Clinical AI",
+  "stat": "NHS-Scale",
+  "statLabel": "Governance Ready",
+  "summary": "Multi-layer LLM validation for patient safety",
+  "overview": "Engineered a comprehensive AI quality and validation framework for healthcare applications, ensuring clinical safety, transparency, and regulatory compliance for LLM-powered clinical decision support systems.",
+  "challenge": "Healthcare AI faces unique challenges: patient safety is paramount, regulatory requirements are strict, and AI model failures can have life-threatening consequences. Traditional ML validation approaches weren't sufficient for LLM-based clinical tools.",
+  "solution": "Built a multi-layered evaluation framework combining automated testing (accuracy, safety, bias), human expert review, and continuous monitoring. Implemented full audit trails, explainability features, and NHS-aligned governance processes ensuring transparency and accountability.",
+  "tech": [
+   "OpenAI API",
+   "LangChain",
+   "MLflow"
+  ],
+  "techDetailed": "OpenAI GPT-4 API for LLM capabilities, LangChain for LLM orchestration and chaining, MLflow for experiment tracking and model registry, PostgreSQL for audit logs and versioning, FastAPI for REST APIs, Docker for containerization, Kubernetes for orchestration, Prometheus + Grafana for monitoring, Python (NLTK, spaCy) for NLP evaluation, Weights & Biases for model performance tracking.",
+  "results": [
+   "Established NHS-scale governance framework for clinical AI",
+   "Improved transparency and auditability for regulatory compliance",
+   "Reduced AI safety incidents to near-zero through multi-layer validation",
+   "Enabled confident deployment of AI in clinical workflows"
+  ]
+ },
+ {
+  "slug": "ai-agents-for-customer-negotiations",
+  "title": "AI Agents for Customer Negotiations",
+  "category": "Customer Service & AI Agents",
+  "stat": "60%",
+  "statLabel": "Workload Reduction",
+  "summary": "Autonomous agents for pricing and workflows",
+  "overview": "Deployed GenAI-powered agentic systems handling complex customer negotiations, price quoting, and multi-step workflows autonomously, transforming customer service operations from reactive to intelligent automation.",
+  "challenge": "Sales and customer service teams spent hours on routine negotiations and price quotes. Manual workflows were inconsistent, slow, and couldn't scale. Customers expected instant responses 24/7.",
+  "solution": "Built agentic AI systems powered by large language models (LLMs) that understand context, negotiate pricing within approved parameters, handle objections, and complete multi-step workflows autonomously. The agents integrate with CRM, pricing engines, and inventory systems to provide accurate, real-time responses.",
+  "tech": [
+   "LangGraph",
+   "ChromaDB",
+   "Azure OpenAI"
+  ],
+  "techDetailed": "LangGraph for agentic workflow orchestration, Azure OpenAI Service (GPT-4) for conversational AI, ChromaDB for vector database and semantic search, LangChain for LLM chaining, Redis for session management, FastAPI for backend APIs, PostgreSQL for transaction logs, Twilio for omnichannel communication, Salesforce API for CRM integration, Stripe API for payment processing.",
+  "results": [
+   "Automated end-to-end customer negotiation workflows",
+   "Reduced sales workload by 60% through intelligent automation",
+   "Improved pricing consistency and margin protection",
+   "Enabled 24/7 customer service with instant response times"
+  ]
+ }
+]

@@ -2,6 +2,7 @@
 export const PAGES: string[] = [
   '/',
   '/careers/',
+  '/work/banking-fraud-detection-in-real-time/',
   // '/work/',
   // '/privacy/',
   // '/terms/',
