@@ -35,3 +35,4 @@
 @media (max-width: 639px) { .case__big .t-stat { font-size: clamp(88px, 28vw, 128px); } .case__results { row-gap: var(--s-3); } .case__results > li { font-size: var(--t-body); } }
 .case__big--long .t-stat { font-size: clamp(48px, 7vw, 104px); }
 @media (max-width: 639px) { .case__big--long .t-stat { font-size: clamp(48px, 15vw, 72px); } }
+@media (max-width: 639px) { #challenge > .wrap { min-height: 100%; align-content: center; } }
