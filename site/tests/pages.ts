@@ -13,7 +13,7 @@ export const PAGES: string[] = [
   '/work/enterprise-data-foundation-for-retail/',
   '/work/clinical-ai-safety-and-validation/',
   '/work/ai-agents-for-customer-negotiations/',
-  // '/work/',
+  '/work/',
   // '/privacy/',
   // '/terms/',
 ];

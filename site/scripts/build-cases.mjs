@@ -43,3 +43,23 @@ cases.forEach((c, i) => {
   written++;
 });
 console.log(`${written} case page(s) written to work/`);
+
+// the work index: every case as a tile on the dark band, in the data's order
+if (!only.length) {
+  const tile = (c) => `
+          <a class="tile tile--case span-4" href="/work/${c.slug}/">
+            <span class="tile__media"><img src="/images/work/${c.slug}-band.svg" alt="" width="480" height="320" loading="lazy"></span>
+            <span class="t-label muted">${esc(c.category)}</span>
+            <span class="t-card">${esc(c.title)}</span>
+            <span class="t-small">${esc(c.stat)} ${esc(c.statLabel)}</span>
+          </a>`;
+  const half = Math.ceil(cases.length / 2);
+  const idx = readFileSync('templates/work-index.html', 'utf8')
+    .replace('{{count}}', String(cases.length))
+    .replace('{{industries}}', String(new Set(cases.map((c) => c.category)).size))
+    .replace('{{tilesA}}', cases.slice(0, half).map(tile).join('') + '\n        ')
+    .replace('{{tilesB}}', cases.slice(half).map(tile).join('') + '\n        ');
+  if (/\{\{\w+\}\}/.test(idx)) throw new Error('work index: an unfilled {{slot}}');
+  writeFileSync('work/index.html', idx);
+  console.log('work/index.html written');
+}

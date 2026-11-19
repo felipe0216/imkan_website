@@ -36,3 +36,12 @@
 .case__big--long .t-stat { font-size: clamp(48px, 7vw, 104px); }
 @media (max-width: 639px) { .case__big--long .t-stat { font-size: clamp(48px, 15vw, 72px); } }
 @media (max-width: 639px) { #challenge > .wrap { min-height: 100%; align-content: center; } }
+
+/* Work index: eleven tiles over two screens at every width (the home page's tablet rule sets its own #cases to one) */
+@media (min-width: 640px) and (max-width: 1023px) { #cases.cases--all { --h: 2; } #cases.cases--all > .wrap { row-gap: calc(var(--padt) + var(--padb)); } }
+@media (max-width: 639px) {
+  #cases.cases--all { --hm: 2; }
+  #cases.cases--all .group > .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gutter); }
+  #cases.cases--all .grid > .tile--case.span-4 { grid-column: span 1; }
+  .cases--all .tile--case :is(.t-small, .t-label) { display: none; }
+}
