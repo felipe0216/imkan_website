@@ -31,6 +31,8 @@ Status values: **Accepted**, **Superseded by D-xxx**, **Open** (waiting on a dec
 | D-021 | 2026-11-19 | Scene: **letter-bar-floods-the-ground**, dealt at random from the three Imkan qualifies for (letter-physics, dot-becomes-the-full-stop, letter-bar). It is not the hero: the kit allows no statement scene as the hero, and the hero scenes need Imkan's own photographs. Placed before the cases band: "Proven Impact" zooms into its I, whose stem floods into the dark band carrying "15+ production-grade AI and data solutions." Hero stays the kit's centred hero with the product window, no WebGL ground. Plan A | Accepted; approved by Felipe after the preview (closes O-003) | `Documentation/brand/scene-*` |
 | D-022 | 2026-11-19 | Dark band = the ink `#1b111d` (was `#120914`) and its cards `#271d29`, as `start.mjs brand` prints them, so the scene's flooding stem and the band are one colour with no seam. Gold 11.4:1, bone 15.6:1, muted 10.2:1 on it | Accepted (amends D-018) | `DESIGN.md` |
 | D-023 | 2026-11-19 | Funnel Display reports ascent 1.0em and descent 0.25em; the scene measures the stem on a 1em box, so its stem sat 0.075em high. Fix: the scene's line uses the same font file under a second `@font-face` ("Funnel Display Fit") with `ascent-override: 80%; descent-override: 20%`. Kit untouched | Accepted | scene preview, Phase 4 build |
+| D-024 | 2026-11-19 | Moments (dealt, seed 4b9ea349): **marquee-row** in services (the seven case-study industries) and **counter-rolls** in the statement (four case results). The dealt hero moment cursor-spotlight is left out: two moments in all at most. Beats: services, statement, the scene, with calm sections between | Accepted (dealt; Felipe reviews in 4.4) | `site/index.html`, wording changes 22-23 |
+| D-025 | 2026-11-19 | Lit ground `sand` instead of v1's `sky` (a cool blue frame behind the hero window clashed with the warm bone) | Accepted | `site/index.html` |
 
 ## Open decisions
 
@@ -68,3 +70,8 @@ Kit approved (2026-11-19). Felipe asked for every colourway as files, not only p
 The kit's scene rules: a scene is the hero only if it fits the hero section and rests in one screen; none qualifies for Imkan (the three hero scenes need the client's own photographs and rest in two screens). Of the eleven scenes, Imkan qualifies for three statement scenes; the product scenes need Imkan's own product screen (our windows show clients' systems), fly-into-the-shape needs one real dark photograph, object-through-giant-type needs a quote. Felipe chose Plan A. Previewed with the v2 tokens and real words; found and fixed the stem offset (D-023); phone and reduced motion show the finished composition. The v1 moments letters-assemble and iris-opens cannot sit with this scene (`avoidWith`); Phase 4 re-deals moments.
 
 Felipe approved the scene after the preview (2026-11-19). O-003 closed; the letter-physics fallback is not needed.
+
+### 2026-11-19: Phase 4.0 to 4.2
+
+Checker crash (constraint 5): diagnosed. The full desktop walk crashed Chrome's software renderer (SwiftShader) on v1's WebGL hero ground (`fluted-glass`); a full 1440 walk of a page without WebGL completed. With the ground retired (ADR 0010) the full check runs again. The v2 tokens, logo, icons and recoloured case art (one gold detail per drawing on the dark band) are in; the old working logo files were deleted with Felipe's approval. The scene sits before the cases band; the tiles take the original eyebrow "Production Systems" as their heading.
+

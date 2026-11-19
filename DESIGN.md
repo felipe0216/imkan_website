@@ -22,7 +22,7 @@ deal:
   rhythm: dark-band
   buttons: tonal
   mark: the IMKAN logo kit (D-017), replaces the kit's mark
-  moments: re-dealt in Phase 4 around the scene (v1's iris-opens and letters-assemble cannot sit with it)
+  moments: marquee-row (services), counter-rolls (statement) (D-024)
 
 colors:
   bg: "#efece5"          # warm bone
@@ -109,7 +109,7 @@ The site is built with the `design-taste-frontend` kit, loaded **unmodified** fr
 | `icons/icon.css` | Real-icon sizing |
 | `moments/`, `effects/`, scene folders | Copied in unmodified when Phase 3 and 4 deal them |
 
-Head setup: `<html lang="en" data-type="software" data-radius="soft" data-buttons="tonal">`, with `<meta name="page-type" content="software">` and `<meta name="site-kind" content="software">`. The `data-ground` attribute (v1 used `sky`) is revisited in Phase 4 against the new palette.
+Head setup: `<html lang="en" data-type="software" data-radius="soft" data-buttons="tonal">`, with `<meta name="page-type" content="software">` and `<meta name="site-kind" content="software">`. `data-ground="sand"` (D-025; v1's `sky` clashed with bone).
 
 ## Colour
 
@@ -211,7 +211,7 @@ Files in `site/public/brand/`, guide in `Documentation/brand/README.md`, overvie
 
 - **Budget (software, ADR 0009):** one effect or scene, up to two moments, three beats at most per page, at most four live WebGL contexts.
 - **The scene** (D-021) is the page's effect and its biggest beat, before the cases band. The v1 `fluted-glass` ground is retired; the hero keeps only the kit's entrance.
-- **Moments** are re-dealt in Phase 4: never in the scene's section or beside it, and not `letters-assemble` or `iris-opens` (the scene's `avoidWith`).
+- **Moments** (D-024, dealt): `marquee-row` under the services heading (the seven case-study industries, pause button, still on phones and under reduced motion) and `counter-rolls` under the statement (four case results roll once into place). Never in the scene's section or beside it.
 - Beats never sit in neighbouring sections; a calm section between them; the back third of the page calm before the close.
 - Everything rests under `prefers-reduced-motion`. Hover and press stay quiet (the kit's motion layer).
 
@@ -225,12 +225,12 @@ Eleven vector illustrations (`site/public/images/work/`, built by `Documentation
 |---|---|---|---|---|---|
 | 1 | `hero` | What Imkan builds and for whom | The product window (case 11) | entrance only | 1 |
 | 2 | `platform` | Production systems, not slideware | App frame: the fraud-detection alert queue (case 1) | | 1 to 2 |
-| 3 | `services` | The four services | 2×2 with UI fragments | | 1 to 2 |
+| 3 | `services` | The four services | 2×2 with UI fragments | marquee-row | 1 to 2 |
 | 4 | `methodology` | THINK, BUILD, EVOLVE | Search, integrations, a terminal run | | 1 |
-| 5 | `statement` | Engineering Without Friction. | Type | | 1 |
+| 5 | `statement` | Engineering Without Friction. | Type and four results | counter-rolls | 1 |
 | 6 | `why-us` | The six advantages | Rows with real tool icons | | 1 |
 | 7 | `impact` (the scene) | Proven Impact | The I floods into the band | scene | 1 (2 live) |
-| 8 | `cases` (dark band) | 15+ production-grade solutions | Case tiles with the recoloured art | | 1 to 2 |
+| 8 | `cases` (dark band) | Production Systems | Case tiles with the recoloured art | | 1 to 2 |
 | 9 | `contact-form` | Get in Touch | The form on the page | | 1 |
 | 10 | `about` | The two founders | Their real portraits | | 1 |
 | 11 | footer | Close and directory | close-type, footer-dark | | 1 |
@@ -242,7 +242,7 @@ Other pages (ADR 0005): `/careers/`, `/work/`, `/work/<slug>/` (11), `/privacy/`
 1. ~~The scene~~: approved (D-021).
 2. **Arabic check** of the logo (O-006, Phase 2.5).
 3. **Illustrative UI text** in the hero and product windows needs Felipe's approval, and must not claim anything the case studies do not (O-005).
-4. **`data-ground`** (the kit's lit ground for tech pages): keep, change or drop against bone (Phase 4).
+4. ~~`data-ground`~~: `sand` (D-025).
 
 ## Do's and Don'ts
 

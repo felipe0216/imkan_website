@@ -239,8 +239,8 @@ Phases run in this order; inside a phase, one item at a time.
 - [x] 3.3 Felipe approves, or switch to the kinetic-type fallback
 
 ### Phase 4. Home page v2
-- [ ] 4.1 Apply the v2 tokens, logo and case art
-- [ ] 4.2 Re-deal moments around the scene (beat budget)
+- [x] 4.1 Apply the v2 tokens, logo and case art (and the scene)
+- [x] 4.2 Re-deal moments around the scene (beat budget)
 - [ ] 4.3 Tablet and phone screen counts
 - [ ] 4.4 Full checks, gate, smoke tests
 
@@ -273,6 +273,6 @@ Phases run in this order; inside a phase, one item at a time.
 | The dealt scene does not impress Felipe | Rework | Preview before building the rest; kinetic-type fallback ready |
 | Scene needs assets we lack (photograph, product screen) | Scene not eligible | Choose among eligible scenes; stand-in photographs are listed for replacement |
 | Re-theming breaks contrast | Accessibility FAILs | Contrast checked when the palette is dealt, before applying |
-| Checker crashes on desktop full mode | Gate can't run | Investigate early in Phase 4; quick mode as interim signal |
+| Checker crashes on desktop full mode | Gate can't run | Diagnosed in 4.0: the v1 WebGL hero ground under SwiftShader; gone with ADR 0010 |
 | Long-lived branch drifts from `main` | Merge conflicts | Merge `main` in regularly; no feature work on `main` |
 | Email signature logo breaks in clients | Brand looks broken | PNG with fixed width/height, hosted on the site after cut-over, tested in Outlook and Gmail |
