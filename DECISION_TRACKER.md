@@ -33,6 +33,7 @@ Status values: **Accepted**, **Superseded by D-xxx**, **Open** (waiting on a dec
 | D-023 | 2026-11-19 | Funnel Display reports ascent 1.0em and descent 0.25em; the scene measures the stem on a 1em box, so its stem sat 0.075em high. Fix: the scene's line uses the same font file under a second `@font-face` ("Funnel Display Fit") with `ascent-override: 80%; descent-override: 20%`. Kit untouched | Accepted | scene preview, Phase 4 build |
 | D-024 | 2026-11-19 | Moments (dealt, seed 4b9ea349): **marquee-row** in services (the seven case-study industries) and **counter-rolls** in the statement (four case results). The dealt hero moment cursor-spotlight is left out: two moments in all at most. Beats: services, statement, the scene, with calm sections between | Accepted (dealt; Felipe reviews in 4.4) | `site/index.html`, wording changes 22-23 |
 | D-025 | 2026-11-19 | Lit ground `sand` instead of v1's `sky` (a cool blue frame behind the hero window clashed with the warm bone) | Accepted | `site/index.html` |
+| D-026 | 2026-11-19 | Gate waivers (5, the cap): hero-lines (final h1, as gate.md allows), card-family (false positive on the About head column), copy-headings (original wording, ADR 0007), button-styles and same-action (gold on the dark band, D-020). Copy edits 24-25 ("Empowering", "World-class") instead of waivers | Accepted by Felipe ("Fix, edit copy, then rounds"); edits pending his wording review | `site/.taste-skill/waivers.json`, wording changes 24-25 |
 
 ## Open decisions
 
@@ -74,4 +75,8 @@ Felipe approved the scene after the preview (2026-11-19). O-003 closed; the lett
 ### 2026-11-19: Phase 4.0 to 4.2
 
 Checker crash (constraint 5): diagnosed. The full desktop walk crashed Chrome's software renderer (SwiftShader) on v1's WebGL hero ground (`fluted-glass`); a full 1440 walk of a page without WebGL completed. With the ground retired (ADR 0010) the full check runs again. The v2 tokens, logo, icons and recoloured case art (one gold detail per drawing on the dark band) are in; the old working logo files were deleted with Felipe's approval. The scene sits before the cases band; the tiles take the original eyebrow "Production Systems" as their heading.
+
+### 2026-11-19: Phase 4.3 and 4.4
+
+Screen counts fixed at 1440, 820, 768 and 390 (marquee overflow that made the page 3990px wide, tablet cases on one screen, phone form on one screen, statement figures). Gate: the quick look listed 21 FAILs; seven sit on the scene section and the kit's own scene demo fails the same checks (no-visual, heading-scale, empty-area, container-edges; `Documentation/baseline/kit-demo-letter-bar-check.txt`), and the marquee's clipped-carousel finding also appears on the kit's own marquee demo. Felipe chose to fix ours, edit two words and run the rounds; findings inherent to kit parts are reported, not waived (the cap is five).
 

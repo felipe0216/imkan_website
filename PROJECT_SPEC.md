@@ -241,7 +241,7 @@ Phases run in this order; inside a phase, one item at a time.
 ### Phase 4. Home page v2
 - [x] 4.1 Apply the v2 tokens, logo and case art (and the scene)
 - [x] 4.2 Re-deal moments around the scene (beat budget)
-- [ ] 4.3 Tablet and phone screen counts
+- [x] 4.3 Tablet and phone screen counts
 - [ ] 4.4 Full checks, gate, smoke tests
 
 ### Phase 5. Inner pages
