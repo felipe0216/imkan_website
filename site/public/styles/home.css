@@ -100,3 +100,5 @@
   /* the form needs more than one phone screen: centre it in its two, so the air splits above and below */
   #contact-form > .wrap { min-height: 100%; display: grid; align-content: center; }
 }
+/* 4.4: on a phone the hero pill runs on the container lines (it is wider than half the container) */
+@media (max-width: 639px) { .hero .pill { inline-size: 100%; justify-content: center; } }
