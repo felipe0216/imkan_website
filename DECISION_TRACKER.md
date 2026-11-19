@@ -106,3 +106,7 @@ Privacy, Terms and the 404 page approved. Privacy and Terms are generated from `
 
 Draft PR #25 (feature/redesign into main) opened; CI checks pass. The Azure preview deploy was refused: the Static Web App had reached its maximum number of staging environments. Cause: the workflow's Close Pull Request Job failed on every past PR (#13 to #24), so their previews were never removed. Felipe deleted the stale environments in the portal. Agreed (after 7.2): find the close job's error with a throwaway PR, fix the workflow (diff shown first), and add a check of Azure Environments after each merge to `Documentation/git_commandments.md`. Standard plan not needed.
 
+
+### 2026-11-19: preview cleanup fixed
+
+The Close Pull Request Job's error, captured on throwaway PR #26: `No matching static site found`. The deploy job signs in with the deployment token and a GitHub identity token (OIDC); the close job sent only the token. Fix: the close job gets the same OIDC sign-in (`id-token: write`, the Get Id Token step, `github_id_token`). Tested on PR #26: the close job passed and its preview was deleted (URL 404); PR #25's preview untouched. Rolled out: PR #27 into `main` (needs Felipe's merge; production content unchanged) and the same commit on `feature/redesign`. `Documentation/git_commandments.md` §8 now has the check of Actions and Azure Environments after each merge or close. Resetting the deployment token was not needed.

@@ -204,6 +204,10 @@ Delete local branch:
 git branch -d ui/hero-typography-mobile
 ```
 
+Check the PR preview was removed (after merging **or** closing a PR):
+- GitHub → **Actions**: the run for the closed PR shows **Close Pull Request Job** green.
+- Azure portal → Static Web App → **Environments**: only **Production** and open PRs should be listed. Delete any leftover (select it → **Delete**). The Free plan has few staging slots; when they are full, new PR previews fail to deploy.
+
 ---
 
 ## 9) Essential “extra” commands (use when needed)
