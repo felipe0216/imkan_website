@@ -34,7 +34,7 @@ Single-page marketing site for Imkan.ai, a Saudi (Vision 2030) AI and data engin
 
 ## Design
 
-- **Redesign in progress.** The decisions are in `Documentation/adr/`; read them before UI work on the new site. The new site's visual system will be written to a new `DESIGN.md` once its palette and fonts are chosen.
+- **Redesign in progress.** The decisions are in `Documentation/adr/`; read them before UI work on the new site. The new site's visual system (v2: midnight plum and gold, Funnel type, the IMKAN logo kit) is in `DESIGN.md`; read it before any UI work on `site/`.
 - The old site's look (dark mode, cyan `#25e2f4`, glassmorphism, spotlight glow) is archived in `Documentation/DESIGN-legacy.md`. Follow it only for fixes to the old React site at the repository root.
 - Mobile first. Check `sm`, `md` and `lg` breakpoints. Respect `prefers-reduced-motion` (see `HeroBackground.tsx`). Keep `aria-label` on icon-only buttons.
 - Project skills live in `.claude/skills/`. Before choosing a skill, read `Documentation/skills-playbook.md`: it says which skills fit this stack, when to use each, and which ones do nothing here (no ECC hooks are installed). For UI work, prefer `design-taste-frontend`, `make-interfaces-feel-better`, `accessibility` / `frontend-a11y`, and the `motion-*` skills. The site currently uses CSS animations only; adopting `motion/react` is a new dependency and needs approval first.

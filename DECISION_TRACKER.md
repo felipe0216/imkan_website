@@ -27,6 +27,7 @@ Status values: **Accepted**, **Superseded by D-xxx**, **Open** (waiting on a dec
 | D-017 | 2026-11-16 | Logo refinement: **B. Open K** (I bar + one chevron of K arms), lettering type 2: Geist 500, +0.14em tracking, "إمكان" in IBM Plex Sans Arabic 500, right-aligned under "IMKAN" | Accepted | `Documentation/logo/exploration/monogram-refinements.jpg` |
 | D-018 | 2026-11-18 | Palette: **Midnight plum and gold** on warm bone. Bone `#efece5` / surface `#e3ded3`, plum-black ink `#1b111d`, muted `#4c4150`, plum accent `#5e1654` (white text), dark bands `#120914` / `#211325` with gold `#ffc233` buttons. Saffron only on dark bands. Funnel type kept | Accepted (closes O-002) | `Documentation/brand/palette-noir-3-midnight-plum*` |
 | D-019 | 2026-11-19 | Email signature logo: **gold on midnight plum** tile (`imkan-email-logo-gold-dark@2x.png`, 163x60), over black, plum and gold on white | Accepted | `Documentation/brand/email-signature.html` |
+| D-020 | 2026-11-19 | Tokens: keep `start.mjs brand`'s `:root` block as printed, then override only the six inverse tokens (midnight plum `#120914`, `#211325`, `#cbbccf`, gold `#ffc233` and its label) in a second block, because `brand` derives the dark band from the ink | Accepted (implements D-018; the one deviation from the kit's "keep as printed") | `DESIGN.md`, Colour |
 
 ## Open decisions
 
@@ -55,3 +56,8 @@ Built in `site/public/brand/` (served at `/brand/` after cut-over), usage guide 
 
 
 Kit approved (2026-11-19). Felipe asked for every colourway as files, not only plum and gold, plus gold and black email logos. Added `imkan-lockup-gold-ink` (gold mark, plum-black text; the mark is pale on light grounds, 1.6:1) and `imkan-lockup-black` (pure black), PNGs for all six lockup colourways and four mark colourways, light app icons, and email tiles in black, gold on white and gold on midnight plum. Felipe picked gold on midnight plum as the email default (D-019).
+
+### 2026-11-19: DESIGN.md v2 (Phase 2.6)
+
+`DESIGN.md` rewritten for visual direction v2: midnight plum and gold tokens with contrast for every pair, Funnel type, the logo kit and its rules, the motion budget with the hero scene and moments left to Phases 3 and 4, and the home page plan carried over from v1. `start.mjs brand` was run for the chosen colours; it derives a plum-black band with bone buttons, so the gold band needs the override recorded as D-020. CLAUDE.md now points to DESIGN.md v2.
+
