@@ -32,7 +32,7 @@ Status values: **Accepted**, **Superseded by D-xxx**, **Open** (waiting on a dec
 | ID | Question | Options | Needed by |
 |---|---|---|---|
 | O-003 | Hero scene acceptable, or kinetic-type fallback? | Dealt scene vs fallback | Phase 3.3 |
-| O-004 | Where the email-signature logo image is hosted | On imkan.ai after cut-over (recommended) vs embedded in each signature | Phase 2.4 |
+| O-004 | Where the email-signature logo image is hosted | Built for the recommended option: `https://imkan.ai/brand/png/imkan-email-logo@2x.png`, live after cut-over; the alternative is uploading the PNG into each mail client. Felipe to confirm | Phase 8 (signature usable after cut-over) |
 | O-005 | Pending wording changes 7-20 and the illustrative UI text | Approve, edit or revert each | Phase 7.3 |
 | O-006 | Who checks the Arabic "إمكان" in the logo | A native reader Felipe names | Phase 2.5 |
 
@@ -47,4 +47,8 @@ Superseded by this: the oxblood palette (and the darker `#560a0f` ink added for 
 ### 2026-11-18: palette chosen (D-018)
 
 Seven palette rounds between 2026-11-16 and 2026-11-18. Rejected: the three dealt palettes (swap pastels, cool grey and cobalt, stone and blueprint), two rounds of cobalt variants (too close to straight black and white, then midnight navy disliked), vibrant porcelain (violet and lime, cobalt and tangerine, teal and magenta), and the warm bone family (persimmon, coral, apricot, terracotta). Felipe wants the site fun and vibrant but premium, not corporate: warm bone ground, a plum-black blend instead of black, and a saffron yellow that pops against the purple. Picked midnight plum and gold over blackcurrant noir and the plum-to-black gradient. Contrast: ink 15.6:1, muted 8.2:1, accent 10.4:1, white on accent 12.2:1, band text 16.6:1, gold button text 12.1:1, so the muted colour already meets 7:1 and needs no darkening. The palette is Felipe's choice, not dealt, so it goes in through `start.mjs brand`.
+
+### 2026-11-19: logo kit built (Phase 2.4)
+
+Built in `site/public/brand/` (served at `/brand/` after cut-over), usage guide in `Documentation/brand/README.md`, overview `Documentation/brand/logo-kit.jpg`. Four lockup colourways (plum and plum-black on light, ink, gold and bone on dark, bone), four symbol colourways, app icons (gold mark on midnight plum), favicon SVG/ICO/PNG, apple-touch and manifest icons, square avatars, PNG lockups at 1x/2x/3x, and an email-signature template (`Documentation/brand/email-signature.html`) with placeholders for name, title, email and phone. The email PNG has a white tile so it survives dark-mode mail apps. Not yet wired into the site pages: that is Phase 4. The old working logo in `site/public/images/logo/` stays until then.
 
