@@ -16,7 +16,7 @@ The files live in `site/public/brand/`, so after cut-over they are served at `ht
 | Slides, Word, anything that needs a PNG | `png/imkan-lockup[-variant]-large.png` (1042x312, transparent) for every lockup colourway |
 | Small PNGs (44 px tall at 1x/2x/3x) | `png/imkan-lockup[-variant]@{1,2,3}x.png` for every lockup colourway; variants: none (primary), `-on-dark`, `-ink`, `-bone`, `-gold-ink`, `-black` |
 | Mark only as PNG | `png/imkan-symbol[-ink,-gold,-bone]-{256,1024}.png` (transparent) |
-| Email signature | `png/imkan-email-logo[-black,-gold,-gold-dark]@{1,2,3}x.png` (163x60 tiles), template in `email-signature.html` |
+| Email signature | Default `png/imkan-email-logo-gold-dark@2x.png` (D-019); alternatives `png/imkan-email-logo[,-black,-gold]@{1,2,3}x.png` (163x60 tiles), template in `email-signature.html` |
 | Favicon | `favicon.svg`, `favicon.ico` (16/32/48), `png/favicon-{16,32,48}.png` |
 | Phone home screen | `png/apple-touch-icon.png` (180), `png/icon-{192,512}.png`, `png/icon-light-{192,512}.png`, `site.webmanifest` |
 | LinkedIn, X, WhatsApp, Teams avatar | `png/imkan-avatar-dark-1024.png` (gold on midnight plum), `png/imkan-avatar-light-1024.png`, `png/imkan-avatar-{dark,light}-400.png` |
