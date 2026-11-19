@@ -10,18 +10,19 @@ kind:
   trade: ai
 
 deal:
-  hero: cinematic scroll scene, dealt in Phase 3 (O-003); kinetic-type opener as fallback
+  hero: centred (the kit's hero with the product window; no WebGL ground)
+  scene: letter-bar-floods-the-ground before the cases band (D-021); fallback letter-physics (O-003)
   palette: brand (midnight plum and gold, Felipe's choice, D-018) via start.mjs brand
   type: funnel (dealt for software)
   radius: soft
-  effect: the hero scene is the page's one effect (fluted-glass retired, ADR 0010)
+  effect: the scene is the page's one effect (fluted-glass retired, ADR 0010)
   nav: nav-centre
   footer: footer-dark
   close: close-type
   rhythm: dark-band
   buttons: tonal
   mark: the IMKAN logo kit (D-017), replaces the kit's mark
-  moments: re-dealt in Phase 4 around the scene's beat budget (v1 had iris-opens and letters-assemble)
+  moments: re-dealt in Phase 4 around the scene (v1's iris-opens and letters-assemble cannot sit with it)
 
 colors:
   bg: "#efece5"          # warm bone
@@ -32,14 +33,14 @@ colors:
   accent-ink: "#efece5"  # bone label on plum
   action: "#5e1654"
   action-ink: "#efece5"
-  inv-bg: "#120914"      # midnight plum: dark bands and footer (override, see Colour)
-  inv-surface: "#211325" # raised cards on the dark band (override)
+  inv-bg: "#1b111d"      # the ink: dark band and footer, as printed (D-022)
+  inv-surface: "#271d29" # raised cards on the dark band, as printed
   inv-ink: "#efece5"
   inv-muted: "#cbbccf"   # (override)
   inv-accent: "#ffc233"  # saffron gold: the one highlight, dark grounds only (override)
-  inv-accent-ink: "#120914"
+  inv-accent-ink: "#1b111d"
   inv-action: "#ffc233"
-  inv-action-ink: "#120914"
+  inv-action-ink: "#1b111d"
 
 typography:
   display: Funnel Display (Google Fonts, wght 400..700)
@@ -88,7 +89,7 @@ The site should feel **premium and quietly playful, never corporate**. Felipe's 
 - **Warm bone paper** (`#efece5`) instead of white or grey. It reads as a good printed document and keeps the page light.
 - **Plum-black ink** (`#1b111d`) instead of black. It reads as black, but sits warmer and richer, and ties the text to the accent.
 - **One deep plum accent** (`#5e1654`) for everything you can act on: the primary button, links, the focus ring, and the logo's K.
-- **Midnight plum bands** (`#120914`) for the one dark section and the footer, where a **saffron gold** (`#ffc233`) highlight carries the buttons and small moments. The gold is what makes it fun; keeping it to the dark ground is what keeps it premium.
+- **Midnight plum bands** (the ink itself, `#1b111d`, D-022) for the one dark section and the footer, where a **saffron gold** (`#ffc233`) highlight carries the buttons and small moments. The gold is what makes it fun; keeping it to the dark ground is what keeps it premium.
 
 It stays classified as **software (AI)** (ADR 0009). It proves Imkan is a tech company the way good software sites do: by showing the systems themselves as live UI, with one cinematic scene in the hero. Depth comes from the work, the dark band and the gold, never from glassmorphism, glow, blur or gradients.
 
@@ -120,16 +121,18 @@ Felipe chose these colours, so they go in through the kit's route for a client's
 node .claude/skills/design-taste-frontend/scripts/start.mjs brand --page software --bg "#efece5" --surface "#e3ded3" --ink "#1b111d" --muted "#4c4150" --accent "#5e1654" --type funnel
 ```
 
-Its `:root` block is kept **as printed**, in a `<style>` after the kit's links. **One documented deviation:** `brand` derives the inverse (dark band) tokens from the ink, which would give a plum-black band with bone buttons. D-018 needs a deeper midnight plum and the gold highlight, so a second, small `:root` block straight after it overrides only these six tokens:
+Its `:root` block is kept **as printed**, in a `<style>` after the kit's links. The dark band is the printed one: the ink `#1b111d` with `#271d29` cards (D-022), so the scene's flooding stem and the band are one colour. **One documented deviation (D-020):** `brand` gives the band bone buttons and a grey muted, so a second, small `:root` block straight after it sets the gold highlight and a lighter muted:
 
 ```css
-/* D-018: dark bands in midnight plum with the saffron-gold highlight (overrides start.mjs brand's derived inverse) */
+/* D-018, D-020: the saffron-gold highlight and a lighter muted on the dark band */
 :root {
-  --p-inv-bg: #120914; --p-inv-surface: #211325; --p-inv-muted: #cbbccf;
-  --p-inv-accent: #ffc233; --p-inv-accent-ink: #120914;
-  --p-inv-action: #ffc233; --p-inv-action-ink: #120914;
+  --p-inv-muted: #cbbccf;
+  --p-inv-accent: #ffc233; --p-inv-accent-ink: #1b111d;
+  --p-inv-action: #ffc233; --p-inv-action-ink: #1b111d;
 }
 ```
+
+The brand assets (favicon, avatars, email tile) use a slightly deeper midnight plum, `#120914`; that is the logo's tile colour, not a page colour.
 
 Assumption: the kit's checker does not compare the `:root` block with `start.mjs` output (checked in `consistency.mjs` and `gate.mjs`: it does not); the contrast checks run in the browser and still apply to the result.
 
@@ -141,10 +144,10 @@ Assumption: the kit's checker does not compare the `:root` block with `start.mjs
 | Muted on bone / on surface | 8.2 / 7.2 |
 | Plum accent on bone / on surface | 10.4 / 9.1 |
 | Bone label on the plum button | 10.4 |
-| Bone text on midnight plum / on its cards | 16.6 / 15.0 |
-| Inverse muted on midnight plum / on its cards | 10.8 / 9.8 |
-| Gold on midnight plum / on its cards | 12.1 / 11.0 |
-| Midnight label on the gold button | 12.1 |
+| Bone text on the dark band / on its cards | 15.6 / 13.8 |
+| Inverse muted on the dark band / on its cards | 10.2 / 9.0 |
+| Gold on the dark band / on its cards | 11.4 / 10.1 |
+| Plum-black label on the gold button | 11.4 |
 | Gold on bone | **1.4: never** |
 
 ### Rules
@@ -178,7 +181,8 @@ Assumption: the kit's checker does not compare the `:root` block with `start.mjs
 | Part | Dealt | What it is |
 |---|---|---|
 | Nav | `nav-centre` | Fixed, opaque bone bar, 72px, with a hairline. Logo left (`imkan-lockup.svg`, about 40px tall), nav words centred, "Get in Touch" as the one plum button on the right. No blur, no floating pill. |
-| Hero | scene (Phase 3) | One cinematic scroll scene dealt from the kit's big scenes. The solid logo mark (`M0 0H24V100H0Z M36 50L72 0H100L62 50L100 100H72Z`) qualifies the site for scenes that need a mark path. Fallback: a kinetic-type opener (O-003). |
+| Hero | `centred` | The h1, a line, two buttons, and the product window rising into the rest of the first screen. No WebGL ground. The kit allows no statement scene as the hero (`scenes.md`), so the cinematic beat is the scene below. |
+| Scene | `letter-bar-floods-the-ground` | Before the cases band: "Proven Impact" on bone; the camera zooms into its I until the stem floods the screen and becomes the dark band, with "15+ production-grade AI and data solutions." arriving inside it. Phones and reduced motion show the finished composition. Its line uses "Funnel Display Fit" (D-023). Storyboard: `Documentation/brand/scene-imkan-storyboard.jpg`. |
 | Buttons | `tonal` | 44px high, 8px radius, 16px label. One filled primary per view: plum on bone, gold on the dark band. One secondary style. |
 | Rhythm | `dark-band` | One midnight-plum section mid-page or later. |
 | Close | `close-type` | The last row before the footer: an h2, a line, and the big button across the `.wrap`. |
@@ -206,8 +210,8 @@ Files in `site/public/brand/`, guide in `Documentation/brand/README.md`, overvie
 ## Motion: effect, scene and moments
 
 - **Budget (software, ADR 0009):** one effect or scene, up to two moments, three beats at most per page, at most four live WebGL contexts.
-- **Hero scene** (Phase 3) is the page's effect and first beat. The v1 `fluted-glass` ground is retired.
-- **Moments** are re-dealt in Phase 4 to fit around the scene. In v1, `letters-assemble` ("Engineering Without Friction.") and `iris-opens` (the dark band opening) were proposed; they stay candidates, not commitments.
+- **The scene** (D-021) is the page's effect and its biggest beat, before the cases band. The v1 `fluted-glass` ground is retired; the hero keeps only the kit's entrance.
+- **Moments** are re-dealt in Phase 4: never in the scene's section or beside it, and not `letters-assemble` or `iris-opens` (the scene's `avoidWith`).
 - Beats never sit in neighbouring sections; a calm section between them; the back third of the page calm before the close.
 - Everything rests under `prefers-reduced-motion`. Hover and press stay quiet (the kit's motion layer).
 
@@ -219,22 +223,23 @@ Eleven vector illustrations (`site/public/images/work/`, built by `Documentation
 
 | # | Section | One idea | Picture | Beat | Screens |
 |---|---|---|---|---|---|
-| 1 | `hero` | What Imkan builds and for whom | The cinematic scene (Phase 3) | scene | 1 |
+| 1 | `hero` | What Imkan builds and for whom | The product window (case 11) | entrance only | 1 |
 | 2 | `platform` | Production systems, not slideware | App frame: the fraud-detection alert queue (case 1) | | 1 to 2 |
 | 3 | `services` | The four services | 2×2 with UI fragments | | 1 to 2 |
 | 4 | `methodology` | THINK, BUILD, EVOLVE | Search, integrations, a terminal run | | 1 |
-| 5 | `statement` | Engineering Without Friction. | Type | moment candidate | 1 |
+| 5 | `statement` | Engineering Without Friction. | Type | | 1 |
 | 6 | `why-us` | The six advantages | Rows with real tool icons | | 1 |
-| 7 | `cases` (dark band) | Proven impact in production | Case tiles with the recoloured art | moment candidate | 1 to 2 |
-| 8 | `contact-form` | Get in Touch | The form on the page | | 1 |
-| 9 | `about` | The two founders | Their real portraits | | 1 |
-| 10 | footer | Close and directory | close-type, footer-dark | | 1 |
+| 7 | `impact` (the scene) | Proven Impact | The I floods into the band | scene | 1 (2 live) |
+| 8 | `cases` (dark band) | 15+ production-grade solutions | Case tiles with the recoloured art | | 1 to 2 |
+| 9 | `contact-form` | Get in Touch | The form on the page | | 1 |
+| 10 | `about` | The two founders | Their real portraits | | 1 |
+| 11 | footer | Close and directory | close-type, footer-dark | | 1 |
 
 Other pages (ADR 0005): `/careers/`, `/work/`, `/work/<slug>/` (11), `/privacy/`, `/terms/`, the 404. Each gets its own plan before it is built.
 
 ## Open design questions
 
-1. **Hero scene vs kinetic-type fallback** (O-003, Phase 3).
+1. **The scene** (D-021) approved, or the letter-physics fallback (O-003, Phase 3.3).
 2. **Arabic check** of the logo (O-006, Phase 2.5).
 3. **Illustrative UI text** in the hero and product windows needs Felipe's approval, and must not claim anything the case studies do not (O-005).
 4. **`data-ground`** (the kit's lit ground for tech pages): keep, change or drop against bone (Phase 4).

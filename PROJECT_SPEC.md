@@ -234,8 +234,8 @@ Phases run in this order; inside a phase, one item at a time.
 - [ ] 2.6 DESIGN.md v2
 
 ### Phase 3. Hero
-- [ ] 3.1 Deal the scene from those Imkan qualifies for; gather what it needs
-- [ ] 3.2 Build and preview the scene
+- [x] 3.1 Deal the scene from those Imkan qualifies for; gather what it needs
+- [x] 3.2 Build and preview the scene
 - [ ] 3.3 Felipe approves, or switch to the kinetic-type fallback
 
 ### Phase 4. Home page v2

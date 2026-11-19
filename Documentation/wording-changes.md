@@ -31,6 +31,7 @@ Columns: **Page** where it appears, **Original** text, **New** text, **Why**, an
 | 18 | Navigation | Words: Home, Services, Methodology, Why Us, Cases, About, Careers | Services, Methodology, Cases, About, Careers (the logo goes home; Why Us is reached from the hero button and the footer) | The nav holds four to six words that never wrap | pending |
 | 19 | Home (hero) | Pill: none | "Prove Before You Pay" / "6-8 weeks free" above the h1 | Existing words, moved up so the first screen carries one hard fact | pending |
 | 20 | Home (cases) | Section shows 5 cases plus "See All Solutions" | Shows 6 cases (2, 3, 4, 5, 10, 11) as tiles, plus "See All Solutions"; case 1 leads the page as the app frame | Two screens of three tiles each | pending |
+| 21 | Home (cases, the scene) | Heading "Proven Impact"; intro "15+ production-grade AI and data solutions delivering measurable results across banking, logistics, healthcare, and beyond." | "Proven Impact" becomes the scene's statement; the intro splits into a heading "15+ production-grade AI and data solutions." and a line "Delivering measurable results across banking, logistics, healthcare, and beyond." | The dealt scene (letter-bar-floods-the-ground, D-021) needs a 4-8 word opening statement and one line on the dark band. Same words, split in two | pending |
 
 ### New illustrative UI text (pending approval)
 
