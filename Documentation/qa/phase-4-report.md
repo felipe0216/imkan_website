@@ -45,6 +45,10 @@ Fixing these would mean changing the kit (not allowed: `kit-edited`) or giving u
 
 `home-v2-desktop.jpg` and `home-v2-phone.jpg` (one shot per section, 1440x900 and 390x844), single shots in `screens/`.
 
+## Approval
+
+Felipe approved Phase 4 on 2026-11-19.
+
 ## Pending Felipe
 
 - Wording changes 7 to 25 in `Documentation/wording-changes.md` (21 to 25 are from this phase).

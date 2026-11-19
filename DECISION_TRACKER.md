@@ -80,3 +80,5 @@ Checker crash (constraint 5): diagnosed. The full desktop walk crashed Chrome's 
 
 Screen counts fixed at 1440, 820, 768 and 390 (marquee overflow that made the page 3990px wide, tablet cases on one screen, phone form on one screen, statement figures). Gate: the quick look listed 21 FAILs; seven sit on the scene section and the kit's own scene demo fails the same checks (no-visual, heading-scale, empty-area, container-edges; `Documentation/baseline/kit-demo-letter-bar-check.txt`), and the marquee's clipped-carousel finding also appears on the kit's own marquee demo. Felipe chose to fix ours, edit two words and run the rounds; findings inherent to kit parts are reported, not waived (the cap is five).
 
+Felipe approved Phase 4 (2026-11-19) after the screenshots and the live preview. The gate stays OPEN with the 11 kit-inherent findings documented in `Documentation/qa/phase-4-report.md`; it is closed with `gate.mjs --done` only on Felipe's own words. Wording changes 21-25 stay pending his review (O-005, Phase 7.3).
+

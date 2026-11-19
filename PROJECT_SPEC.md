@@ -242,7 +242,7 @@ Phases run in this order; inside a phase, one item at a time.
 - [x] 4.1 Apply the v2 tokens, logo and case art (and the scene)
 - [x] 4.2 Re-deal moments around the scene (beat budget)
 - [x] 4.3 Tablet and phone screen counts
-- [x] 4.4 Full checks, gate, smoke tests (gate OPEN 11, kit-inherent; Felipe's review pending)
+- [x] 4.4 Full checks, gate, smoke tests (gate OPEN 11, kit-inherent; approved by Felipe 2026-11-19)
 
 ### Phase 5. Inner pages
 - [ ] 5.1 Careers + application form
