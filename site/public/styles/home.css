@@ -123,3 +123,8 @@
 .statement-figures { margin-block-start: calc(var(--s-10) + var(--s-8)); }
 .statement-figures .t-stat { font-size: clamp(44px, 7.2vw, 104px); }
 @media (max-width: 639px) { .statement-figures { margin-block-start: var(--s-7); } }
+/* contact form: one field per row; only the name pair sits side by side (the kit's .form is two columns) */
+#contact-form .form > * { grid-column: 1 / -1; }
+#contact-form .form__status:empty { display: none; }
+@media (min-width: 640px) { #contact-form textarea { block-size: 112px; } }
+#contact-form .form > .t-small.muted { display: none; }

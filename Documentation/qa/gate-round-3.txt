@@ -1,0 +1,43 @@
+gate: checking http://localhost:4173/ (software); this takes a few minutes on a CPU Chrome
+gate: rounds used up; 11 FAIL open
+  FAIL no-visual        section#impact "Proven Impact"  [1440, 390]
+       no picture, effect or mock in this section; a feature section needs a visual
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL section-gaps     section#why-us / section#impact  [1440, 390]
+       595px between these sections, +149% against the median 239px
+       fix: use one gap between sections (all within 25% of each other)
+  FAIL section-gaps     section#impact / section#cases  [1440, 390]
+       435px between these sections, +82% against the median 239px
+       fix: use one gap between sections (all within 25% of each other)
+  FAIL one-section      section#impact > div.sc__stage > div.lbf__ground "15+ production-grade AI and data solutio  [1440]
+       a band: a box 100% of the section wide on a ground of its own that holds the heading or the intro: the section's own ground is the band (SR-4)
+       fix: put every block of <main> in a <section>, and give a band its own section instead of a ground inside one
+  FAIL container-edges  section#impact "Proven Impact 15+ production-grade AI an"  [1440]
+       the content of section 7 runs 456px from the left and 456px from the right (read from its outermost blocks: no .wrap): the page's container starts at 80px; the margin is 64-120px at 1440px (one container, equal margins, 
+       fix: use one container on every section and the nav (.wrap): one margin left and right, 64-120px on a desktop, 16-24px on a phone
+  FAIL row-lines        section#services > div.wrap > div.group > div.services-marquee.mo-mq "Banking & Financial   [1440]
+       a clipped carousel: 1 item cut at rest (SR-7)
+       fix: show every item inside the container, or stack them: no sideways scroller, no half-cut carousel
+  FAIL row-lines        div.wrap > div.group > div.services-marquee.mo-mq > div.mo-mq__rail "Banking & Financial S  [1440]
+       a clipped carousel: 1 item cut at rest (SR-7)
+       fix: show every item inside the container, or stack them: no sideways scroller, no half-cut carousel
+  FAIL heading-scale    h2#impact-h "Proven Impact"  [390]
+       an h2 at 74.1px, as large as the h1 (39.2px) or larger
+       fix: size headings by level: the h1 largest, one size per level, each level below the one above
+  FAIL empty-area       section#impact "Proven Impact"  [390]
+       51% of the section is empty: 192px of empty rows between its content, 192px under its last (p), in its 748px of rows (WARN over 35%, FAIL over 50%)
+       fix: fill the section: a picture or a second column beside the words, or more of its own content; the section stays one or two screens tall (T-height)
+  FAIL bleed-one-side   #services ul.mo-mq__track "Banking & Financial ServicesLogi"  [1440]
+       runs from x 80 out to the right viewport edge; the left side stays at 80
+       fix: bleed the visual to both edges or keep it on the .wrap lines
+  FAIL bleed-one-side   #services ul.mo-mq__track.mo-mq__clone "Banking & Financial ServicesLogi"  [1440]
+       runs from x 2036.3 out to the right viewport edge; the left side stays at 80
+       fix: bleed the visual to both edges or keep it on the .wrap lines
+  WAIVED card-family section#about > div.wrap > div.grid.grid--top > div.section-head.span-6 "Archite: False positive: the About heading column shares the grid class span-6 with the service cards; it is a section head (h2), not a card.
+  WAIVED button-styles (the page): Deliberate D-020: one primary action drawn in its ground's action colour, plum on bone and saffron gold on the dark band; the kit's printed inverse would also be a third fill (bone).
+  WAIVED copy-headings h2#platform-h "Banking Fraud Detection in Real-Time": Headings are Felipe's original wording, kept by decision ADR 0007 (design first, wording second); changes need his approval.
+  WAIVED same-action header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--prima: Same decision as button-styles (D-020): 'Get in Touch' is plum on bone and gold on the dark close band, each its ground's action colour.
+  WAIVED hero-lines section.hero h1: The h1 is final (Felipe's original 'Possibility? Engineered!', ADR 0007) and fits two lines at 1440; the check fills it to 35 test characters, as gate.md says to waive when the h1 is final and fits.
+  47 WARN (not blocking), first: caption div.grid.grid--top > div.span-6.start-7 ; cut-text div.services-marquee.mo-mq > div.mo-mq__; cut-text div.services-marquee.mo-mq > div.mo-mq__; cut-text ul.ui-notify__list > li.ui-note:nth-of-t; cut-text p.t-stat.mo-cr > span.mo-cr__col > span.
+Stop fixing: put these open FAILs and the waivers in your report, then finish.
+GATE: OPEN 11 (rounds used up)
