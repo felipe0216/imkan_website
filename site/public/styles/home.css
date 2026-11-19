@@ -117,3 +117,9 @@
   .statement-figures { margin-block-start: var(--s-7); grid-template-columns: 1fr 1fr; }
   .statement-figures > .span-3 { grid-column: auto; }
 }
+/* 4.4 gate round 1: the portrait pair on the grid's own gutter, so each portrait ends and starts on a column line */
+.people-pair { column-gap: var(--gutter); }
+/* the statement fills its screen (sparse at 41%): more air above the results, results one step larger */
+.statement-figures { margin-block-start: calc(var(--s-10) + var(--s-8)); }
+.statement-figures .t-stat { font-size: clamp(44px, 7.2vw, 104px); }
+@media (max-width: 639px) { .statement-figures { margin-block-start: var(--s-7); } }
