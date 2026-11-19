@@ -128,3 +128,6 @@
 #contact-form .form__status:empty { display: none; }
 @media (min-width: 640px) { #contact-form textarea { block-size: 112px; } }
 #contact-form .form > .t-small.muted { display: none; }
+
+/* D-023: the scene's line in the metric-normalised face ("Funnel Display Fit", styles/fonts.css) */
+[data-big-scene="letter-bar-floods-the-ground"] .lbf__line { font-family: "Funnel Display Fit", "Funnel Display", system-ui, sans-serif; }
