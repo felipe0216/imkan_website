@@ -45,3 +45,4 @@
   #cases.cases--all .grid > .tile--case.span-4 { grid-column: span 1; }
   .cases--all .tile--case :is(.t-small, .t-label) { display: none; }
 }
+@media (min-width: 1024px) { #cases.cases--all .tile__media { aspect-ratio: 5 / 2; } #cases.cases--all .tile__media > img { aspect-ratio: 5 / 2; block-size: 100%; object-fit: contain; } }
