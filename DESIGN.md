@@ -171,7 +171,9 @@ Assumption: the kit's checker does not compare the `:root` block with `start.mjs
 
 ## Layout
 
-- **One section per screen:** every section is one or two screens tall at 1440×900; the hero is alone on the first screen. Also at tablet (768, 820) and phone (390) widths (Phase 4).
+- **Sections fit their content, on a fixed rhythm (D-031, replaces "one section per screen"):** a section's height comes from its content plus one vertical padding token, never from the screen height. The kit's rule (exactly one or two screens, `100svh`) only fitted a 900px-tall window: on a 1366×650 laptop content overran its section by up to 230px and overlapped the next one, on a 2560×1300 screen sections were half empty. Padding tokens: 128px at 1280 and up, 96px from 640 to 1279, 72px under 640; the two halves of a two-part section are 96 / 80 / 64px apart. The hero alone keeps a screen-based height, capped so it never clips (`min-height` only). Exact values are set and tested in Phase 7.5 Q3a.
+- **Media frames have a fixed shape (D-031):** a frame around a product mock-up or picture gets an `aspect-ratio`, not "the height left over". The mock-up inside sits the same way in every frame of a row (centred, fully visible), and is never cut by a fade through its text.
+- **Type hierarchy:** a card or row title is never smaller than the text under it (today some `h3` are 18px over 20px leads). Reading copy is already 16px or more; the 13px text is only inside UI mock-ups, which is accepted.
 - **Equal edges:** everything sits on the 1280px `.wrap` (80px gutters) or the 12-column grid. One split pair per page uses 6/6.
 - At 390: one column, full-width buttons, a full-screen menu sheet, pictures after their text.
 - Our CSS uses direction-aware properties (`margin-inline`, `padding-inline`, `inset-inline`, `text-align: start/end`) so the Arabic site can follow.
@@ -236,6 +238,15 @@ Eleven vector illustrations (`site/public/images/work/`, built by `Documentation
 | 11 | footer | Close and directory | close-type, footer-dark | | 1 |
 
 Other pages (ADR 0005): `/careers/`, `/work/`, `/work/<slug>/` (11), `/privacy/`, `/terms/`, the 404. Each gets its own plan before it is built.
+
+## Browser support and visual QA (D-032)
+
+- **Supported:** the last two versions of Chrome, Edge, Firefox and Safari (macOS and iOS), and Samsung Internet. Brave and Opera use Chrome's engine (Chromium), so they are covered by it. Three engines are tested: Chromium, Gecko (Firefox) and WebKit (Safari).
+- **CSS rule:** our own CSS uses only features that are "Baseline widely available" (supported in every browser above). Anything newer goes behind `@supports` with a working fallback. Checked by `stylelint` with the `use-baseline` plugin. The kit's files stay unmodified: where they use a newer feature (for example `text-box` trimming, which Firefox ignores), the fallback must still look right and the tests prove it.
+- **Test sizes:** widths 1920, 1440, 1280, 1024, 820, 768, 430, 390, 360; heights include short laptops (1366×650, 1536×730) and tall screens (1920×960, 2560×1300), because layout bugs hide at the one height that was tested.
+- **Layout assertions on every page, size and engine:** no horizontal scroll; no element outside its frame or overlapping the next section; no clipped text; reading text 16px or more and titles never smaller than their text; tap targets at least 24px; section edges on the `.wrap`; section padding from the rhythm tokens only.
+- **Screenshot baselines** per page, size and engine live in the repo and fail CI on any unapproved visual change.
+- **Real devices,** once per release: Felipe checks the preview on iPhone Safari, Mac Safari if available, and Edge, Firefox and Brave on Windows (checklist in `Documentation/qa/visual-qa.md`).
 
 ## Open design questions
 
