@@ -87,3 +87,7 @@ Felipe approved Phase 4 (2026-11-19) after the screenshots and the live preview.
 
 Felipe approved `/careers/`. Hero (centred, the open application's steps), perks as rows with lucide icons (downloaded with his OK) beside the first three past roles, six past roles on the dark band with details on demand (dealt moment line-carries-colour), the open application with the founders beside the form, posting to /api/apply with CV type and size checked in the browser. Gate after round 2: FAIL 2, with five waivers (gold button x2, original h1 and headings, a contrast reading taken mid-fade). Open: `sparse` on the past-roles band (measured while the moment still hides it) and uneven gaps at 390 (the form takes two phone screens with the founders). One round left. Evidence in `Documentation/qa/careers/`.
 
+### 2026-11-19: work pages approved (Phase 5.2)
+
+Felipe approved the case template, the eleven generated case pages and the work index. Cases: product hero with the case drawing, overview statement (dealt word-highlight), challenge, solution and stack on the band, impact with the next-case link; all generated from `site/content/cases.json` by `site/scripts/build-cases.mjs`, the index included. Index: statement hero with four facts, eleven tiles on the band (dealt iris-opens). Case template: checks clean apart from five waivers. Index gate round 1: FAIL 2 (card-layout on phones, inherent to an index of tiles). Evidence in `Documentation/qa/work/`.
+

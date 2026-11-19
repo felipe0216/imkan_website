@@ -246,9 +246,9 @@ Phases run in this order; inside a phase, one item at a time.
 
 ### Phase 5. Inner pages
 - [x] 5.1 Careers + application form (approved; gate FAIL 2 documented)
-- [ ] 5.2a Case template (Banking Fraud Detection), reviewed
-- [ ] 5.2b The other ten cases generated from `site/content/cases.json`
-- [ ] 5.2c Work index
+- [x] 5.2a Case template (Banking Fraud Detection), reviewed (approved)
+- [x] 5.2b The other ten cases generated from `site/content/cases.json` (approved)
+- [x] 5.2c Work index (approved)
 - [ ] 5.3 Privacy, Terms, 404 (D-027)
 
 ### Phase 6. Site-wide
