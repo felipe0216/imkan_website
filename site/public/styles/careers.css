@@ -1,0 +1,50 @@
+/* Careers page CSS (page CSS only; the kit stays unmodified). Direction-aware properties only (ADR 0003). */
+
+/* Hero: the open application's steps inside the lit frame, sized like the home page's chat */
+.hero__window .hero__apply { inline-size: min(440px, 100% - 48px); margin-inline: auto; margin-block-start: 32px; }
+.hero__window .hero__apply .ui-checks { inline-size: 100%; }
+.hero__apply .ui-check__text small { display: block; margin-block-start: 2px; color: var(--muted); font-size: 12px; }
+
+/* Perks: six text cards, one height per row */
+.perks .card { display: grid; align-content: start; gap: var(--s-3); }
+.perks .card h3 { font-size: var(--t-card); }
+
+/* Chips (department, Closed, tags) */
+.chip { display: inline-flex; align-items: center; block-size: 28px; padding-inline: 12px; border-radius: 999px; font-size: var(--t-label); font-weight: 500; background: var(--p-inv-surface); color: var(--p-inv-ink); }
+.chip--closed { background: transparent; color: var(--p-inv-accent); box-shadow: inset 0 0 0 1px currentColor; }
+
+/* Application form: the help line under the CV field */
+.field__help { color: var(--muted); font-weight: 400; }
+#apply .form > * { grid-column: 1 / -1; }
+#apply .form__status:empty { display: none; }
+
+/* Past roles on the dark band: one row per role, its details on demand */
+.roles { display: grid; }
+.role { border-block-end: 1px solid color-mix(in oklab, var(--p-inv-ink) 18%, transparent); }
+.role > summary { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 5fr) minmax(0, 2fr) auto; align-items: center; gap: var(--s-4); padding-block: var(--s-5); cursor: pointer; list-style: none; }
+.role > summary::-webkit-details-marker { display: none; }
+.role > summary:focus-visible { outline: 2px solid var(--p-inv-accent); outline-offset: 4px; border-radius: 4px; }
+.role__chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.role__title { font-size: var(--t-card); font-weight: 500; }
+.role__meta { color: var(--p-inv-muted); font-size: var(--t-small); }
+.role__more { font-size: var(--t-small); font-weight: 500; color: var(--p-inv-accent); }
+.role[open] .role__more { color: var(--p-inv-muted); }
+.role__body { display: grid; gap: var(--s-3); max-inline-size: 72ch; padding-block: 0 var(--s-7); }
+.role__body h3 { font-size: var(--t-body); font-weight: 500; margin-block-start: var(--s-3); }
+.role__body ul { margin: 0; padding-inline-start: 1.2em; display: grid; gap: var(--s-1); }
+.role__tags { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.role__closed { color: var(--p-inv-accent); font-weight: 500; }
+
+@media (max-width: 767px) {
+  .role > summary { grid-template-columns: minmax(0, 1fr) auto; row-gap: var(--s-2); }
+  .role__chips, .role__title { grid-column: 1 / -1; }
+}
+
+/* the CV field's button in the kit's secondary look, not the browser's */
+#apply input[type="file"] { padding: 6px; block-size: auto; cursor: pointer; }
+#apply input[type="file"]::file-selector-button { margin-inline-end: var(--s-3); padding: 8px 14px; border: 0; border-radius: var(--r-btn, 8px); background: var(--p-surface); color: var(--ink); font: 500 var(--t-small)/1 var(--font-text); cursor: pointer; }
+
+/* screen counts (layout-v4.md section 2): tablet keeps the perks three across in one screen; on a phone the
+   perks, the roles and the form each take two screens */
+@media (min-width: 640px) and (max-width: 1023px) { .perks > .card { grid-column: span 4; } }
+@media (max-width: 639px) { #perks, #past-roles, #apply { --hm: 2; } }

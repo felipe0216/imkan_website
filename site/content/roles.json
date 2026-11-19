@@ -1,0 +1,200 @@
+[
+ {
+  "id": "senior-data-engineer",
+  "title": "Senior Data Engineer",
+  "department": "Engineering",
+  "location": "Riyadh, KSA",
+  "type": "Full-time",
+  "level": "Senior",
+  "summary": "Design and build the production-grade data platforms that power AI for national-scale clients.",
+  "description": "You will own the design and delivery of modern data platforms, from ingestion to serving, that our AI and analytics products are built on. You will work directly with clients across the Kingdom to turn messy, siloed data into reliable, governed, high-performance foundations.",
+  "tags": [
+   "Spark",
+   "Python",
+   "SQL",
+   "Databricks",
+   "Airflow",
+   "Cloud"
+  ],
+  "do": [
+   "Architect and build batch and streaming pipelines (Spark, Kafka, dbt) on cloud data platforms.",
+   "Model data for analytics and ML use cases with strong governance and lineage.",
+   "Own reliability: monitoring, testing, and CI/CD for data workflows.",
+   "Mentor junior engineers and set engineering standards across the team."
+  ],
+  "want": [
+   "5+ years building production data platforms.",
+   "Expert SQL and Python; deep experience with Spark and a cloud warehouse (Databricks, Snowflake, BigQuery, or Fabric).",
+   "Strong grasp of data modeling, orchestration (Airflow/Dagster), and infrastructure-as-code.",
+   "Track record of shipping reliable systems in ambiguous environments."
+  ],
+  "nice": [
+   "Experience in consulting or client-facing delivery.",
+   "Arabic language proficiency."
+  ]
+ },
+ {
+  "id": "machine-learning-engineer",
+  "title": "Machine Learning Engineer",
+  "department": "AI & Machine Learning",
+  "location": "Riyadh, KSA",
+  "type": "Full-time",
+  "level": "Mid–Senior",
+  "summary": "Take models from notebook to production and keep them reliable, observable, and fast.",
+  "description": "You will bridge data science and engineering: productionizing models, building ML pipelines, and standing up the MLOps tooling that keeps them healthy in the real world.",
+  "tags": [
+   "Python",
+   "PyTorch",
+   "MLOps",
+   "Docker",
+   "Kubernetes"
+  ],
+  "do": [
+   "Build and deploy ML pipelines for training, evaluation, and inference.",
+   "Implement MLOps: experiment tracking, model registry, monitoring, and drift detection.",
+   "Optimize models and serving for latency, cost, and scale.",
+   "Collaborate with data scientists to harden prototypes into products."
+  ],
+  "want": [
+   "3+ years deploying ML systems in production.",
+   "Strong Python and experience with PyTorch or TensorFlow.",
+   "Familiarity with MLOps tooling (MLflow, Kubeflow, SageMaker, or Vertex).",
+   "Solid software engineering fundamentals (testing, APIs, containers)."
+  ],
+  "nice": [
+   "Experience serving LLMs or RAG systems.",
+   "Kubernetes experience."
+  ]
+ },
+ {
+  "id": "ai-solutions-architect",
+  "title": "AI Solutions Architect",
+  "department": "AI & Machine Learning",
+  "location": "Riyadh, KSA / Hybrid",
+  "type": "Full-time",
+  "level": "Senior",
+  "summary": "Translate client ambitions into pragmatic, high-impact AI architectures.",
+  "description": "You will sit at the intersection of business and technology: scoping opportunities, designing agentic AI and data solutions, and guiding delivery teams to build them the right way.",
+  "tags": [
+   "Architecture",
+   "LLMs",
+   "Agentic AI",
+   "Cloud",
+   "Strategy"
+  ],
+  "do": [
+   "Lead technical discovery and solution design with enterprise and government clients.",
+   "Design end-to-end architectures spanning data, ML, and application layers.",
+   "Own technical proposals, estimates, and delivery roadmaps.",
+   "Advise clients on responsible AI, governance, and Vision 2030 alignment."
+  ],
+  "want": [
+   "6+ years in data/AI, with 2+ in solution architecture or tech leadership.",
+   "Breadth across data engineering, ML, and cloud platforms.",
+   "Excellent communication and stakeholder management.",
+   "Ability to simplify complex ideas for non-technical audiences."
+  ],
+  "nice": [
+   "Experience with agentic AI / LLM orchestration.",
+   "Public-sector delivery experience in KSA."
+  ]
+ },
+ {
+  "id": "data-scientist",
+  "title": "Data Scientist",
+  "department": "Data Science",
+  "location": "Riyadh, KSA",
+  "type": "Full-time",
+  "level": "Mid",
+  "summary": "Turn data into decisions with rigorous modeling and clear storytelling.",
+  "description": "You will frame business problems as data problems, build models that hold up under scrutiny, and communicate insights that drive real decisions for our clients.",
+  "tags": [
+   "Python",
+   "Statistics",
+   "ML",
+   "SQL",
+   "Visualization"
+  ],
+  "do": [
+   "Explore data, engineer features, and build predictive and statistical models.",
+   "Design experiments and measure impact rigorously.",
+   "Communicate findings through clear visuals and narratives.",
+   "Partner with ML engineers to productionize high-value models."
+  ],
+  "want": [
+   "3+ years in applied data science.",
+   "Strong statistics, Python (pandas, scikit-learn), and SQL.",
+   "Experience communicating results to business stakeholders.",
+   "Curiosity and a bias toward measurable impact."
+  ],
+  "nice": [
+   "Experience with forecasting or optimization.",
+   "Domain experience in energy, finance, or public sector."
+  ]
+ },
+ {
+  "id": "fullstack-engineer",
+  "title": "Full-Stack Engineer",
+  "department": "Engineering",
+  "location": "Remote (KSA time zone)",
+  "type": "Full-time",
+  "level": "Mid–Senior",
+  "summary": "Build the applications and interfaces that make AI usable and delightful.",
+  "description": "You will craft the products around our data and AI, dashboards, internal tools, and client-facing apps, with a strong eye for UX and performance.",
+  "tags": [
+   "React",
+   "TypeScript",
+   "Node",
+   "APIs",
+   "UI/UX"
+  ],
+  "do": [
+   "Build responsive front-ends (React/TypeScript) and robust APIs.",
+   "Integrate ML and data services into polished product experiences.",
+   "Own features end-to-end, from design to deployment.",
+   "Contribute to a clean, well-tested, maintainable codebase."
+  ],
+  "want": [
+   "4+ years full-stack development.",
+   "Expert React + TypeScript; solid backend experience (Node, Python, or similar).",
+   "Strong product sense and attention to detail.",
+   "Comfortable with cloud deployment and CI/CD."
+  ],
+  "nice": [
+   "Experience with data-heavy or real-time UIs.",
+   "Design sensibility / Figma fluency."
+  ]
+ },
+ {
+  "id": "analytics-consultant",
+  "title": "Analytics & Strategy Consultant",
+  "department": "Consulting",
+  "location": "Riyadh, KSA / Hybrid",
+  "type": "Full-time",
+  "level": "Mid–Senior",
+  "summary": "Help clients build a data & AI strategy worth executing, then help them execute it.",
+  "description": "You will lead engagements that shape how organizations use data and AI: assessing maturity, defining roadmaps, and driving adoption alongside our technical teams.",
+  "tags": [
+   "Strategy",
+   "Consulting",
+   "Analytics",
+   "Stakeholders"
+  ],
+  "do": [
+   "Run discovery, maturity assessments, and opportunity mapping.",
+   "Build business cases and data/AI strategy roadmaps.",
+   "Drive stakeholder alignment and change management.",
+   "Partner with engineering to ensure strategy turns into delivery."
+  ],
+  "want": [
+   "4+ years in consulting, analytics, or strategy roles.",
+   "Strong analytical and structured-thinking skills.",
+   "Excellent written and verbal communication.",
+   "Comfort operating in fast-moving, ambiguous settings."
+  ],
+  "nice": [
+   "Experience with Vision 2030 initiatives.",
+   "Arabic language proficiency."
+  ]
+ }
+]

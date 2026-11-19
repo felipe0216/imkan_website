@@ -1,0 +1,46 @@
+<!-- Shared <head> for every page: icons, metas, fonts, the kit's CSS, the brand tokens (D-018, D-020, D-022) and the kit's loader lines. Page <title>, description, og tags and page CSS stay in each page. -->
+<link rel="icon" href="/brand/favicon.ico" sizes="32x32">
+<link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/brand/png/apple-touch-icon.png">
+<link rel="manifest" href="/brand/site.webmanifest">
+<meta name="theme-color" content="#efece5">
+<!-- <link rel="canonical" href="https://imkan.ai/"> : add at cut-over -->
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..700&family=Funnel+Sans:wght@400..600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/system.css">
+<link rel="stylesheet" href="/assets/ui/cards.css">
+<link rel="stylesheet" href="/assets/motion/motion.css">
+<link rel="stylesheet" href="/assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="/assets/layout/layout.css">
+<link rel="stylesheet" href="/assets/icons/icon.css">
+<!-- <html lang="en" data-radius="soft">; keep this <style> after the links: layout.css resets --ly-scale -->
+<!-- start.mjs brand --page software --bg "#efece5" --surface "#e3ded3" --ink "#1b111d" --muted "#4c4150" --accent "#5e1654" --type funnel (as printed; D-018, D-022) -->
+<style>
+:root {
+  --p-bg: #efece5; --p-surface: #e3ded3; --p-ink: #1b111d; --p-muted: #4c4150;
+  --p-accent: #5e1654; --p-accent-ink: #efece5; --p-action: #5e1654; --p-action-ink: #efece5;
+  --p-inv-bg: #1b111d; --p-inv-surface: #271d29; --p-inv-ink: #efece5; --p-inv-muted: #979092;
+  --p-inv-accent: #efece5; --p-inv-accent-ink: #1b111d; --p-inv-action: #efece5; --p-inv-action-ink: #1b111d;
+  --font-display: "Funnel Display", system-ui, sans-serif;
+  --font-text: "Funnel Sans", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.03em;
+  --display-tracking-xl: -0.04em;
+  --ly-scale: 0.98;
+}
+</style>
+<!-- D-020: the saffron-gold highlight and a lighter muted on the dark band (the one deviation from the printed block) -->
+<style>
+:root {
+  --p-inv-muted: #cbbccf;
+  --p-inv-accent: #ffc233; --p-inv-accent-ink: #1b111d;
+  --p-inv-action: #ffc233; --p-inv-action-ink: #1b111d;
+}
+</style>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script src="/assets/backgrounds/backgrounds.js"></script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
