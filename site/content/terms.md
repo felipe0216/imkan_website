@@ -101,7 +101,3 @@ We may update these Terms from time to time. Any changes will be posted on this 
 For questions regarding these Terms, please contact:
 - Email: <info@imkan.ai>
 - Location: Riyadh, Saudi Arabia
-
-Button: Close (plus a top-right icon-only close button, no aria-label)
-
----

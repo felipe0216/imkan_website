@@ -1,0 +1,43 @@
+/* D-031: sections fit their content, on a fixed rhythm (Phase 7.5 Q3a).
+   The kit makes every section exactly one or two screens tall (system.css, "one section per screen"). That only
+   fits a window close to 900px tall: shorter windows spill content into the next section, taller ones leave
+   voids. Here every section is as tall as its content plus one padding token above and below; only the hero
+   keeps a screen-based height, as a minimum. The kit's files stay unmodified (DESIGN.md); this file loads after
+   them and after tokens.css. `html` in each selector gives it one more element of weight than the kit's rule. */
+
+:root { --rhythm: 72px; --rhythm-split: 64px; }
+@media (min-width: 640px) { :root { --rhythm: 96px; --rhythm-split: 80px; } }
+@media (min-width: 1280px) { :root { --rhythm: 128px; --rhythm-split: 96px; } }
+
+/* Every section and the closing footer: content height, rhythm padding. */
+html main > :is(section, .section):not(.hero, .section--hero),
+html footer.closing {
+  height: auto; min-height: 0;
+  padding-block: var(--rhythm);
+}
+/* the bottom padding still clears the phone's action bar when the kit sets one */
+html main > :is(section, .section):not(.hero, .section--hero):last-child,
+html footer.closing { padding-block-end: calc(var(--rhythm) + var(--bar, 0px)); }
+html main > :is(section, .section) > :is(.wrap, .container),
+html footer.closing > .wrap { height: auto; }
+
+/* Two-part sections (.g2, .g2m): the two groups stack at their own heights, a fixed gap apart.
+   (The kit gave each group one screen, so the shorter one left a void.) */
+html main > :is(section, .section):is(.g2, .g2m) > :is(.wrap, .container),
+html footer.closing:is(.g2, .g2m) > .wrap {
+  display: grid; grid-template-rows: auto; grid-auto-rows: auto; row-gap: var(--rhythm-split);
+}
+html main > :is(section, .section):is(.g2, .g2m) > :is(.wrap, .container) > * { align-self: start; }
+html main > :is(section, .section).g2 > :is(.wrap, .container) > :last-child { margin-block: 0; }
+
+/* A .fill took "what the screen leaves"; without a screen height it gets a height of its own. */
+html main > :is(section, .section) > .wrap > .fill,
+html .group > .fill { flex: none; min-height: var(--fill-h, clamp(360px, 38vw, 560px)); }
+
+/* The hero: at least the first screen (capped on very tall screens), and it grows when a short window
+   cannot hold it, instead of running under the next section. The grid row makes its .wrap fill it. */
+html main > :is(.hero, .section--hero) {
+  height: auto; min-height: min(100vh, 1040px); min-height: min(100svh, 1040px);
+  display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr;
+}
+html main > :is(.hero, .section--hero) > :is(.wrap, .container) { height: auto; }

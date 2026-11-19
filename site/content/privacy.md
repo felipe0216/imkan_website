@@ -133,7 +133,3 @@ Responsible AI is not a one-time decision. We continuously review AI implementat
 For questions, concerns, or data requests, please contact:
 - Email: <info@imkan.ai>
 - Location: Riyadh, Saudi Arabia
-
-Button: Close (plus a top-right icon-only close button, no aria-label)
-
----

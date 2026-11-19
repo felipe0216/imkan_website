@@ -64,3 +64,33 @@ Batches: (a) section rhythm, (b) type, (c) media frames and mock-ups, (d) compon
 | V-19 | Privacy, Terms | every size | **Content bug:** a content-inventory note, "Button: Close (plus a top-right icon-only close button, no aria-label)", and a stray "---" are published at the end of both pages | Extraction carried the note | f (log in wording-changes) | `content/privacy.md:137`, `content/terms.md:105` |
 
 Felipe's own items: (to add)
+
+## Q3 batch (a): section rhythm (2026-11-20)
+
+What changed:
+- **New `site/public/styles/rhythm.css`**, loaded after the kit and `tokens.css`. Kit files are unmodified.
+  - Every section and the closing footer is as tall as its content, plus `--rhythm` padding above and below: 128px from 1280 up, 96px from 640 to 1279, 72px below 640.
+  - The two parts of a two-part section stack at their own height, `--rhythm-split` apart (96 / 80 / 64).
+  - A `.fill` frame gets a height of its own.
+  - The hero keeps a minimum of one screen (capped at 1040px) and grows on short windows.
+- **Page CSS:** removed the rules that squeezed, centred or hid content to fit one screen (statement, careers, case Impact and Challenge, work index). The copy is back at every size (wording-changes 39).
+- **V-19:** the stray inventory note is removed from Privacy and Terms (wording-changes 38). Legal pages regenerated.
+- **Test fixes:**
+  - The empty-space check now counts framed boxes and painted decorative text.
+  - Overlap is measured on what is actually painted, not on what a frame clips.
+  - The full-screen scene is exempt, like the hero.
+
+Result, Chromium, 17 pages × 13 sizes: **208 of 221 pass** (before: 78 of 221 per engine, about 1,900 findings).
+- What fails belongs to later batches: frames cutting mock-up text (c, home Services and Methodology) and the step labels (d).
+- Smoke, accessibility, CSP and keyboard: 182 pass.
+- CSS lint: pass.
+
+Fixed: V-01, V-02, V-03, V-04, V-05 (overlap; the fraud window's crop stays for c), V-06, V-07, V-08, V-19.
+
+Evidence (before on the left, after on the right):
+- `a-v01-before-after.jpg`: Services at 1366×650
+- `a-v02-before-after.jpg`: footer at 1366×650
+- `a-v03-before-after.jpg`: Privacy at 1440×900
+- `a-v08-before-after.jpg`: advantages on a phone
+
+Open for Felipe: at 1366 and 1440, two sections on the same ground now sit 256px apart (128 + 128), which reads airy. A fluid value (about 104px at 1366, 128px from 1700 up) would tighten laptops without changing large screens.

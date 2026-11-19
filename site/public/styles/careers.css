@@ -50,45 +50,15 @@
 #apply input[type="file"] { padding: 6px; block-size: auto; cursor: pointer; }
 #apply input[type="file"]::file-selector-button { margin-inline-end: var(--s-3); padding: 8px 14px; border: 0; border-radius: var(--r-btn, 8px); background: var(--p-surface); color: var(--ink); font: 500 var(--t-small)/1 var(--font-text); cursor: pointer; }
 
-/* screen counts (layout-v4.md section 2): tablet keeps the perks three across in one screen; on a phone the
-   perks, the roles and the form each take two screens */
-@media (min-width: 640px) and (max-width: 1023px) { #perks .panel { --p-h: 200px; } }
-
-/* phone: each section on one screen (perks show their names, as the home page's advantages do; rows and form tighter) */
-@media (max-width: 639px) {
-  #perks, #past-roles, #apply { --hm: 1; }
-  .perks > li > p { display: none; }
-  #perks .panel { --p-h: 220px; }
-  .role > summary { padding-block: var(--s-3); }
-  .role__chips .chip:not(.chip--closed) { display: none; }
+/* Tablet and phone (D-031: sections fit their content, so nothing is cut or squeezed to fit a screen) */
+@media (min-width: 640px) and (max-width: 1023px) {
+  #perks .panel { --p-h: 260px; }
   #apply .form__pair { grid-template-columns: 1fr 1fr; }
-  #apply textarea { block-size: 48px; min-block-size: 0; }
-  #apply .card { padding: var(--s-4); }
-  .apply__people { display: none; }
-}
-@media (min-width: 640px) and (max-width: 1023px) { .apply__people { display: none; } #apply .form__pair { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 639px) {
-  .role > summary > .role__meta { display: none; }
-  #apply .form { gap: var(--s-3); }
 }
 @media (max-width: 639px) {
-  .role > summary > .role__chips { display: none; }
-  .role > summary { grid-template-columns: minmax(0, 1fr) auto; }
-  .role__title { grid-column: auto; }
+  #perks .panel { --p-h: 240px; }
+  .role > summary { padding-block: var(--s-4); }
+  #apply .form__pair { grid-template-columns: 1fr 1fr; }
+  #apply .card { padding: var(--s-5); }
 }
-@media (max-width: 639px) {
-  #apply .section-head p { font-size: var(--t-small); }
-  #apply .card { padding: var(--s-3); }
-  #apply .grid { row-gap: var(--s-4); }
-}
-@media (max-width: 639px) { #apply .field { gap: var(--s-1); } }
 .perk__icon { inline-size: 28px; block-size: 28px; }
-@media (max-width: 639px) { #past-roles > .wrap { min-height: 100%; display: grid; align-content: center; } }
-
-@media (min-width: 640px) and (max-width: 1023px) { #apply textarea { block-size: 72px; min-block-size: 0; } #apply .form { gap: var(--s-3); } }
-/* phone: the founders stay beside the form (its visual), so the form takes two screens, content centred */
-@media (max-width: 639px) {
-  #apply { --hm: 2; }
-  #apply .apply__people { display: grid; }
-  #apply > .wrap { min-height: 100%; display: grid; align-content: center; }
-}

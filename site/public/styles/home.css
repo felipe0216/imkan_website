@@ -59,7 +59,6 @@
 
 /* ---- Tablet (640 to 1023) and phone: screen counts per layout-v4.md section 2 ---- */
 @media (min-width: 640px) and (max-width: 1023px) {
-  #methodology { --h: 2; }
   #services .panel, #methodology .panel { --p-h: 300px; }
   #why-us .panel { --p-h: 300px; }
   #contact-form .grid > * { grid-column: 1 / -1; }
@@ -67,40 +66,32 @@
 @media (max-width: 639px) {
   #services .panel { --p-h: 200px; }
   #why-us .panel { --p-h: 320px; }
-  /* phone copy cut (layout-v4.md: "cut the phone copy"): each advantage shows its name and its fact */
-  #why-us .rows p { display: none; }
+  /* D-031: the advantages keep their descriptions on a phone (they were cut to fit one screen) */
 }
 
 /* Phase 4.2 moments: spacing only (the kit styles the moments themselves) */
 .services-marquee { margin-block: var(--s-5) 0; min-inline-size: 0; max-inline-size: 100%; overflow: clip; }
 #services .group { min-inline-size: 0; }
 .statement-figures { margin-block-start: var(--s-7); }
-/* the statement holds one screen: its words and figures sit on its middle, not at its top */
-#statement > .wrap { min-height: 100%; display: grid; align-content: center; }
 #statement .t-lead { margin-block-start: var(--s-4); max-width: 62ch; }
 
 /* ---- Phase 4.3: screen counts at 768 and 390 (layout-v4.md section 2) ---- */
 /* tablet: the case tiles stay three across, so no lone tile runs full width */
 @media (min-width: 640px) and (max-width: 1023px) {
   #cases .grid > .tile--case { grid-column: span 4; }
-  /* six tiles three across fill one tablet screen; two screens left a hole under each row */
-  #cases { --h: 1; }
   #cases .tile--case { gap: var(--s-1); }
-  #cases .tile__media > img { aspect-ratio: 2 / 1; object-fit: contain; }
   #cases > .wrap { row-gap: var(--s-6); }
 }
 @media (max-width: 639px) {
   /* the moving row is a still wrapped list on a phone (the moment's own phone state); the industries stay on every case */
   .services-marquee { display: none; }
-  #methodology { --h: 2; }
   #methodology .panel { --p-h: 260px; }
   #services .panel { --p-h: 160px; }
   .closing .nav__logo img { block-size: 40px; }
   #cases .tile--case { gap: var(--s-1); }
-  /* the contact form fits one phone screen: names side by side, a shorter message box, the repeated note
-     ("We'll get back to you shortly.", already the intro's words) left out on a phone */
+  /* names side by side on a phone; the message box keeps its height (D-031: no squeezing to fit a screen) */
   #contact-form .form__pair { grid-template-columns: 1fr 1fr; }
-  #contact-form textarea { min-block-size: 0; block-size: 48px; }
+  #contact-form textarea { block-size: 112px; }
   #contact-form .stack-4 { gap: var(--s-2); }
   #contact-form .card { padding: var(--s-4); }
   #contact-form .form__status:empty { display: none; }
@@ -119,8 +110,7 @@
 }
 /* 4.4 gate round 1: the portrait pair on the grid's own gutter, so each portrait ends and starts on a column line */
 .people-pair { column-gap: var(--gutter); }
-/* the statement fills its screen (sparse at 41%): more air above the results, results one step larger */
-.statement-figures { margin-block-start: calc(var(--s-10) + var(--s-8)); }
+/* results one step larger (the extra air that filled the statement's screen is gone with D-031) */
 .statement-figures .t-stat { font-size: clamp(44px, 7.2vw, 104px); }
 @media (max-width: 639px) { .statement-figures { margin-block-start: var(--s-7); } }
 /* contact form: one field per row; only the name pair sits side by side (the kit's .form is two columns) */

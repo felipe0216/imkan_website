@@ -43,6 +43,16 @@ function audit(args: { rhythm: number; slack: number; mockup: string }) {
   const scrollY = window.scrollY;
   const bottom = (r: DOMRect) => r.bottom + scrollY;
 
+  // the part of a box actually painted: cut by every clipping ancestor (a frame hides what runs outside it)
+  const painted = (el: Element) => {
+    const r = el.getBoundingClientRect(); let l = r.left, t = r.top, rt = r.right, b = r.bottom;
+    for (let a = el.parentElement; a && a !== document.body; a = a.parentElement) {
+      const cs = getComputedStyle(a);
+      if (/(hidden|clip)/.test(cs.overflowX + cs.overflowY)) { const ar = a.getBoundingClientRect(); l = Math.max(l, ar.left); t = Math.max(t, ar.top); rt = Math.min(rt, ar.right); b = Math.min(b, ar.bottom); }
+    }
+    return { left: l, top: t, right: rt, bottom: b };
+  };
+
   // 1. No sideways scroll.
   const over = document.documentElement.scrollWidth - vw;
   if (over > 1) issues.push(`page scrolls sideways by ${over}px`);
@@ -53,16 +63,20 @@ function audit(args: { rhythm: number; slack: number; mockup: string }) {
   for (const sec of Array.from(document.querySelectorAll<HTMLElement>('main > section, footer.closing'))) {
     if (!visible(sec)) continue;
     const id = name(sec); const sr = sec.getBoundingClientRect();
-    const hero = sec.matches('.hero, .section--hero, :first-child');
+    // the hero and the full-screen scene (D-021, its own runway) keep a screen-based height by design
+    const hero = sec.matches('.hero, .section--hero, :first-child, .sc[data-big-scene]');
     // end: the lowest box of any kind (for overlap); last: the lowest real content, text or media (for voids,
     // because a .wrap or a card stretched to the section's height is not content)
     let end = 0; let last = 0;
     for (const el of Array.from(sec.querySelectorAll('*'))) {
-      if (!visible(el) || el.closest('[aria-hidden="true"]')) continue;
-      const pos = getComputedStyle(el).position; if (pos === 'fixed') continue;
-      const b = bottom(el.getBoundingClientRect());
+      // decorative copies (aria-hidden) are still painted, so they count here
+      if (!visible(el)) continue;
+      const cs = getComputedStyle(el); if (cs.position === 'fixed') continue;
+      const b = painted(el).bottom + scrollY; // what a frame clips is not painted, so it cannot overlap anything
       end = Math.max(end, b);
-      if (ownText(el) || el.matches('img, svg, video, canvas, picture, input, textarea, select, button')) last = Math.max(last, b);
+      const framed = cs.backgroundColor !== 'rgba(0, 0, 0, 0)' || cs.backgroundImage !== 'none' || parseFloat(cs.borderBottomWidth) > 0;
+      const fullBleed = el.matches('.layer') || el.getBoundingClientRect().height >= sr.height - 2; // a ground behind the section
+      if (!fullBleed && (ownText(el) || framed || el.matches('img, svg, video, canvas, picture, input, textarea, select, button'))) last = Math.max(last, b);
     }
     const s = getComputedStyle(sec);
     const padB = parseFloat(s.paddingBottom); const padT = parseFloat(s.paddingTop);
@@ -113,15 +127,6 @@ function audit(args: { rhythm: number; slack: number; mockup: string }) {
     const scope = Array.from(document.querySelectorAll<HTMLElement>('main *, footer *')).filter((el) => visible(el) && !el.closest('[aria-hidden="true"]'));
     const texts = scope.filter((el) => ownText(el) && getComputedStyle(el).display !== 'inline');
     const boxes = scope.filter((el) => solid(el) && !el.matches('main > section, footer, .wrap'));
-    // the part of a box actually painted: cut by every clipping ancestor (a frame hides what runs outside it)
-    const painted = (el: Element) => {
-      const r = el.getBoundingClientRect(); let l = r.left, t = r.top, rt = r.right, b = r.bottom;
-      for (let a = el.parentElement; a && a !== document.body; a = a.parentElement) {
-        const cs = getComputedStyle(a);
-        if (/(hidden|clip)/.test(cs.overflowX + cs.overflowY)) { const ar = a.getBoundingClientRect(); l = Math.max(l, ar.left); t = Math.max(t, ar.top); rt = Math.min(rt, ar.right); b = Math.min(b, ar.bottom); }
-      }
-      return { left: l, top: t, right: rt, bottom: b };
-    };
     const hits = new Set<string>();
     for (const t of texts) {
       const a = painted(t);
