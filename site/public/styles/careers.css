@@ -1,11 +1,12 @@
 /* Careers page CSS (page CSS only; the kit stays unmodified). Direction-aware properties only (ADR 0003). */
 
 /* Hero: the open application's steps inside the lit frame, sized like the home page's chat */
-.hero__window .hero__roles { inline-size: min(440px, 100% - 48px); margin-inline: auto; margin-block-start: 32px; }
-.hero__window .hero__roles .ui-notify { inline-size: 100%; }
-.apply__steps { margin-block-start: var(--s-7); max-inline-size: 400px; }
-.apply__steps .ui-checks { inline-size: 100%; }
-.apply__steps .ui-check__text small { display: block; margin-block-start: 2px; color: var(--muted); font-size: 12px; }
+.hero__window .hero__apply { inline-size: min(440px, 100% - 48px); margin-inline: auto; margin-block-start: 32px; }
+.hero__window .hero__apply .ui-checks { inline-size: 100%; }
+.apply__people { margin-block-start: var(--s-7); }
+.apply__people figure { margin: 0; display: grid; gap: var(--s-2); }
+.apply__people figcaption { display: grid; }
+.hero__apply .ui-check__text small { display: block; margin-block-start: 2px; color: var(--muted); font-size: 12px; }
 
 /* Perks: six text cards, one height per row */
 .perks .card { display: grid; align-content: start; gap: var(--s-3); }
@@ -60,9 +61,9 @@
   #apply .form__pair { grid-template-columns: 1fr 1fr; }
   #apply textarea { block-size: 48px; min-block-size: 0; }
   #apply .card { padding: var(--s-4); }
-  .apply__steps { display: none; }
+  .apply__people { display: none; }
 }
-@media (min-width: 640px) and (max-width: 1023px) { .apply__steps { display: none; } #apply .form__pair { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 640px) and (max-width: 1023px) { .apply__people { display: none; } #apply .form__pair { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 639px) {
   .role > summary > .role__meta { display: none; }
   #apply .form { gap: var(--s-3); }
@@ -79,4 +80,5 @@
 }
 @media (max-width: 639px) { #apply .field { gap: var(--s-1); } }
 .perk__icon { inline-size: 28px; block-size: 28px; color: var(--p-accent); }
-.hero__roles .ui-note__title time { color: var(--p-accent); font-weight: 500; }
+@media (max-width: 639px) { #past-roles > .wrap { min-height: 100%; display: grid; align-content: center; } }
+@media (max-width: 639px) { .perks .card { grid-template-columns: auto 1fr; align-items: center; column-gap: var(--s-3); } .perk__icon { inline-size: 24px; block-size: 24px; } }
