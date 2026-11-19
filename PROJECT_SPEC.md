@@ -249,11 +249,11 @@ Phases run in this order; inside a phase, one item at a time.
 - [x] 5.2a Case template (Banking Fraud Detection), reviewed (approved)
 - [x] 5.2b The other ten cases generated from `site/content/cases.json` (approved)
 - [x] 5.2c Work index (approved)
-- [ ] 5.3 Privacy, Terms, 404 (D-027)
+- [x] 5.3 Privacy, Terms, 404 (D-027, D-028; approved)
 
 ### Phase 6. Site-wide
 - [ ] 6.1 SEO and sharing (M9)
-- [ ] 6.2 Enforced CSP, security checklist
+- [ ] 6.2 Enforced CSP, security checklist; `/assets/*` cache (immutable without versioned names)
 - [ ] 6.3 Performance and accessibility audit
 
 ### Phase 7. Preview and review

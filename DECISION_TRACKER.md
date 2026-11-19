@@ -35,6 +35,7 @@ Status values: **Accepted**, **Superseded by D-xxx**, **Open** (waiting on a dec
 | D-025 | 2026-11-19 | Lit ground `sand` instead of v1's `sky` (a cool blue frame behind the hero window clashed with the warm bone) | Accepted | `site/index.html` |
 | D-026 | 2026-11-19 | Gate waivers (5, the cap): hero-lines (final h1, as gate.md allows), card-family (false positive on the About head column), copy-headings (original wording, ADR 0007), button-styles and same-action (gold on the dark band, D-020). Copy edits 24-25 ("Empowering", "World-class") instead of waivers | Accepted by Felipe ("Fix, edit copy, then rounds"); edits pending his wording review | `site/.taste-skill/waivers.json`, wording changes 24-25 |
 | D-027 | 2026-11-19 | Phase 5 plan: careers (hero, perks, open application form to /api/apply, six past roles closed with full details on demand, no search/filter while no role is open); case template first, then the other ten generated from `site/content/cases.json` (inventory text, word for word) by a no-dependency script; work index; Privacy, Terms, 404 as plain reading pages with no moment (moment-none accepted there); no scene on inner pages; full gate on careers, the case template and the work index, quick checks on the other cases | Accepted (Felipe: "Approve as recommended") | this file, PROJECT_SPEC Phase 5 |
+| D-028 | 2026-11-19 | `site/staticwebapp.config.json`: `responseOverrides` 404 rewrites to `/404/index.html` (status stays 404); `.webmanifest` served as `application/manifest+json`. New site only, live at cut-over | Accepted (Felipe: "Approve both") | `site/staticwebapp.config.json` |
 
 ## Open decisions
 
@@ -90,4 +91,8 @@ Felipe approved `/careers/`. Hero (centred, the open application's steps), perks
 ### 2026-11-19: work pages approved (Phase 5.2)
 
 Felipe approved the case template, the eleven generated case pages and the work index. Cases: product hero with the case drawing, overview statement (dealt word-highlight), challenge, solution and stack on the band, impact with the next-case link; all generated from `site/content/cases.json` by `site/scripts/build-cases.mjs`, the index included. Index: statement hero with four facts, eleven tiles on the band (dealt iris-opens). Case template: checks clean apart from five waivers. Index gate round 1: FAIL 2 (card-layout on phones, inherent to an index of tiles). Evidence in `Documentation/qa/work/`.
+
+### 2026-11-19: Phase 5 complete
+
+Privacy, Terms and the 404 page approved. Privacy and Terms are generated from `site/content/*.md` (the old text word for word, checked: 989 and 704 words) by `site/scripts/build-legal.mjs`; the 404 page's words are new (wording change 35). The 404 is served for missing paths by D-028. All 17 pages pass the smoke and accessibility tests on desktop and phone (102 tests). Found for Phase 6: `/assets/*` is cached for a year as immutable though the kit files there have no versioned names.
 

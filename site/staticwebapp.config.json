@@ -2,17 +2,28 @@
   "routes": [
     {
       "route": "/assets/*",
-      "headers": { "cache-control": "public, max-age=31536000, immutable" }
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      }
     },
     {
       "route": "/images/*",
-      "headers": { "cache-control": "public, max-age=604800" }
+      "headers": {
+        "cache-control": "public, max-age=604800"
+      }
     },
     {
       "route": "/api/*",
-      "allowedRoles": ["anonymous"]
+      "allowedRoles": [
+        "anonymous"
+      ]
     }
   ],
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/404/index.html"
+    }
+  },
   "globalHeaders": {
     "cache-control": "no-cache",
     "x-content-type-options": "nosniff",
@@ -26,6 +37,7 @@
     ".js": "application/javascript",
     ".css": "text/css",
     ".webp": "image/webp",
-    ".svg": "image/svg+xml"
+    ".svg": "image/svg+xml",
+    ".webmanifest": "application/manifest+json"
   }
 }
