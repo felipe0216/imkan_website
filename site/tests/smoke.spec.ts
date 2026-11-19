@@ -26,6 +26,8 @@ for (const path of PAGES) {
 
     test('has no serious or critical accessibility violations', async ({ page }) => {
       await page.goto(path);
+      // measure the settled page, not the 0.7 s entrance fade (boot.js sets m-enter-done)
+      await page.waitForFunction(() => document.documentElement.classList.contains('m-enter-done') || !document.documentElement.classList.contains('m-enter'));
       const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
       const serious = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
       expect(serious.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`)).toEqual([]);

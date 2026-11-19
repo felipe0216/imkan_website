@@ -4,9 +4,12 @@ import { PAGES } from './pages';
 // Keyboard and reduced-motion checks (Phase 6.3, D-029), on top of the axe scan in smoke.spec.ts.
 
 test.describe('keyboard', () => {
-  test('the skip link is the first stop and moves focus to the content', async ({ page }) => {
+  test('the skip link is the first stop and moves focus to the content', async ({ page, browserName }) => {
     await page.goto('/');
-    await page.keyboard.press('Tab');
+    // Safari's Tab skips links unless the user turns on "Press Tab to highlight each item" (Option+Tab otherwise),
+    // so in WebKit the link is focused directly; what matters there is that it shows and works.
+    if (browserName === 'webkit') await page.locator('.skip-link').focus();
+    else await page.keyboard.press('Tab');
     const first = page.locator(':focus');
     await expect(first).toHaveClass(/skip-link/);
     await expect(first).toBeVisible();
