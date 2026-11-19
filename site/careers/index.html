@@ -16,6 +16,7 @@
 <!-- @include partials/head.html -->
 <link rel="stylesheet" href="/assets/ui/base.css">
 <link rel="stylesheet" href="/assets/ui/checklist/fragment.css">
+<link rel="stylesheet" href="/assets/ui/notify/fragment.css">
 <link rel="stylesheet" href="/styles/home.css">
 <link rel="stylesheet" href="/styles/careers.css">
 </head>
@@ -34,23 +35,16 @@
     <div class="wrap"><div class="hero-text">
       <div class="hero__c">
         <!-- TODO(wording): pill from the roles' locations and the perks' words (wording change 28) -->
-        <a class="pill" href="#apply"><span>Riyadh, KSA</span><span class="muted">Hybrid and remote-friendly</span></a>
+        <a class="pill" href="#apply"><span>Riyadh, KSA</span><span class="muted">Vision 2030 clients</span></a>
         <h1 id="hero-h">Join the Team</h1>
         <p class="hero__lead">We're a small, elite team building sovereign AI and data platforms for Saudi Arabia's most ambitious organizations. If you want your work to matter, you'll fit right in.</p>
         <div class="btn-row"><a class="btn btn--primary" href="#apply">Send an open application<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="#past-roles">View past roles</a></div>
       </div>
-      <!-- The window shows the open application's three steps, in the page's own words (illustrative UI text,
-           pending Felipe's approval: Documentation/wording-changes.md). -->
-      <div class="hero__window" role="figure" aria-label="The open application in three steps: upload your CV, tell us how you'd like to make an impact, and we get back to you if there's a fit">
-        <div class="ly-piece hero__apply" aria-hidden="true">
-          <div class="ui ui-panel ui-checks" data-ui="checklist">
-            <div class="ui-checks__head"><div class="ui-title">Open application</div><span class="ui-spacer"></span><div class="ui-meta" data-checks-count>1 of 3</div></div>
-            <div class="ui-checks__bar"><i data-checks-bar style="--k:0.33"></i></div>
-            <ul class="ui-checks__list">
-              <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__text">Upload your CV<small>PDF or Word, up to 5 MB.</small></span></li>
-              <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__text">Tell us how you'd like to make an impact</span></li>
-              <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__text">We get back to you if there's a fit</span></li>
-            </ul>
+      <!-- The window lists the first three past roles from content/roles.json, as the page shows them below. -->
+      <div class="hero__window" role="figure" aria-label="Three of Imkan.ai's past roles: Senior Data Engineer, Machine Learning Engineer, AI Solutions Architect, all closed">
+        <div class="ly-piece hero__roles" aria-hidden="true">
+          <div class="ui ui-panel ui-notify" data-ui="notify">
+            <ul class="ui-notify__list" data-notify-list><li class="ui-note"><span class="ui-agent ui-note__av" aria-hidden="true"></span><span class="ui-note__text"><span class="ui-note__title">Senior Data Engineer<time>Closed</time></span><span class="ui-note__body">Engineering · Riyadh, KSA</span></span></li><li class="ui-note"><span class="ui-agent ui-note__av" aria-hidden="true"></span><span class="ui-note__text"><span class="ui-note__title">Machine Learning Engineer<time>Closed</time></span><span class="ui-note__body">AI & Machine Learning · Riyadh, KSA</span></span></li><li class="ui-note"><span class="ui-agent ui-note__av" aria-hidden="true"></span><span class="ui-note__text"><span class="ui-note__title">AI Solutions Architect<time>Closed</time></span><span class="ui-note__body">AI & Machine Learning · Riyadh, KSA / Hybrid</span></span></li></ul>
           </div>
         </div>
       </div>
@@ -194,6 +188,20 @@
         <div class="section-head span-5">
           <h2 id="apply-h">Don't see the right role?</h2>
           <p>We're always looking for exceptional data and AI talent. Send us your CV and tell us how you'd like to make an impact.</p>
+          <!-- The open application's three steps, in the page's own words (illustrative UI text, pending Felipe's approval). -->
+          <div class="apply__steps" role="figure" aria-label="The open application in three steps: upload your CV, tell us how you'd like to make an impact, and we get back to you if there's a fit">
+            <div aria-hidden="true">
+          <div class="ui ui-panel ui-checks" data-ui="checklist">
+            <div class="ui-checks__head"><div class="ui-title">Open application</div><span class="ui-spacer"></span><div class="ui-meta" data-checks-count>1 of 3</div></div>
+            <div class="ui-checks__bar"><i data-checks-bar style="--k:0.33"></i></div>
+            <ul class="ui-checks__list">
+              <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__text">Upload your CV<small>PDF or Word, up to 5 MB.</small></span></li>
+              <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__text">Tell us how you'd like to make an impact</span></li>
+              <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__text">We get back to you if there's a fit</span></li>
+            </ul>
+          </div>
+            </div>
+          </div>
         </div>
         <div class="card span-7 start-6"><form class="form" action="/api/apply" method="post" enctype="multipart/form-data" data-endpoint="/api/apply"
             data-sending="Submitting..."
