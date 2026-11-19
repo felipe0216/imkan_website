@@ -33,6 +33,7 @@ export default defineConfig({
     { name: 'webkit-phone', use: { ...devices['iPhone 15'], ...phone, isMobile: true } },
   ],
   webServer: local
-    ? { command: 'npm run dev', url: baseURL, reuseExistingServer: true, timeout: 60_000 }
+    // CI tests the built site (its build step runs first), which is faster and closer to production than the dev server
+    ? { command: process.env.CI ? 'npx vite preview --port 5173 --strictPort' : 'npm run dev', url: baseURL, reuseExistingServer: !process.env.CI, timeout: 60_000 }
     : undefined,
 });
