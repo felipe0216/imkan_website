@@ -13,7 +13,8 @@ export default defineConfig({
   reporter: process.env.CI ? [['html', { open: 'never' }], ['list']] : [['list']],
   use: {
     baseURL,
-    channel: local && !process.env.CI ? 'chrome' : undefined,
+    // the installed Chrome on a workstation (local dev server or a preview URL); CI installs its own Chromium
+    channel: process.env.CI ? undefined : 'chrome',
     trace: 'retain-on-failure',
   },
   projects: [
