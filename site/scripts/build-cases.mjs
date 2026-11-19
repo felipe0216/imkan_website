@@ -30,7 +30,7 @@ cases.forEach((c, i) => {
   };
   const raw = {
     techChips: c.tech.map((t) => `<span class="chip">${esc(t)}</span>`).join(''),
-    results: c.results.map((r) => `<li><p>${esc(r)}</p></li>`).join(''),
+    results: c.results.map((r) => `<li class="span-6">${esc(r)}</li>`).join(''),
   };
   const html = template.replace(/\{\{(\w+)\}\}/g, (m, k) => {
     if (k in raw) return raw[k];

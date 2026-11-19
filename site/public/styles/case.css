@@ -5,14 +5,12 @@
 @media (max-width: 1023px) { .hero--product .hero__stage { max-block-size: 34svh; } }
 
 /* Overview: the statement the dealt word-highlight runs on */
-#overview > .wrap { min-height: 100%; display: grid; align-content: center; gap: var(--s-5); }
+#overview > .wrap { display: grid; align-content: start; gap: var(--s-5); }
 #overview .mo-wh__text { font: var(--display-weight) var(--t-h2)/1.2 var(--font-display); letter-spacing: var(--display-tracking); max-inline-size: 30ch; }
 
-.case__text { margin-block-start: var(--s-5); max-inline-size: 58ch; }
-.case__stat { display: grid; align-content: center; justify-items: start; gap: var(--s-3); min-block-size: 320px; padding: var(--s-8); border-radius: var(--r-lg); background: var(--p-surface); }
-.case__stat .t-stat { font-size: clamp(56px, 8vw, 120px); line-height: 1; letter-spacing: var(--display-tracking-xl); }
+.case__text { margin-block-start: var(--s-3); max-inline-size: 58ch; }
 
-.case__sub { margin-block-start: var(--s-7); font-size: var(--t-body); font-weight: 500; }
+.case__sub { margin-block-start: var(--s-6); font-size: var(--t-body); font-weight: 500; }
 .case__chips { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-block-start: var(--s-3); }
 .case__tech { margin-block-start: var(--s-3); color: var(--p-inv-muted); max-inline-size: 58ch; }
 .case__art { border-radius: var(--r-lg); background: var(--p-inv-surface); overflow: hidden; }
@@ -20,10 +18,15 @@
 
 .chip { display: inline-flex; align-items: center; block-size: 28px; padding-inline: 12px; border-radius: 999px; font-size: var(--t-label); font-weight: 500; background: var(--p-inv-surface); color: var(--p-inv-ink); }
 
-.case__results > li > p { margin: 0; font-size: var(--t-lead); }
+/* Impact: the stat large and centred, the results two by two under it */
+.case__impact { min-height: 100%; display: grid; align-content: center; gap: var(--s-6); }
+.case__big { display: grid; gap: var(--s-2); margin: 0; }
+.case__big .t-stat { font-size: clamp(64px, 9vw, 136px); line-height: 1; letter-spacing: var(--display-tracking-xl); }
+.case__results { list-style: none; margin: 0; padding: 0; inline-size: 100%; text-align: start; row-gap: var(--s-4); }
+.case__results > li { padding-block-start: var(--s-4); border-block-start: 1px solid var(--line); font-size: var(--t-lead); }
+.case__nextline { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: baseline; margin: 0; }
 
-/* the next case sits on bone: its drawing in ink on the light surface */
-.case-next .tile__media { background: var(--p-surface); }
 
 /* under 1024 the solution's drawing (already in the hero) steps aside, so the band holds one screen */
-@media (max-width: 1023px) { .case__art { display: none; } }
+@media (min-width: 640px) and (max-width: 1023px) { .case__art { display: none; } }
+@media (max-width: 639px) { #challenge { --hm: 2; } .case__art { margin-block-start: var(--s-6); } }
