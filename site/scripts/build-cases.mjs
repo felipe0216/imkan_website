@@ -25,6 +25,7 @@ cases.forEach((c, i) => {
     slug: c.slug, title: c.title, category: c.category, stat: c.stat, statLabel: c.statLabel,
     summary: c.summary.replace(/\.$/, ''), overview: c.overview, challenge: c.challenge, solution: c.solution,
     techDetailed: c.techDetailed,
+    statSize: c.stat.length > 6 ? 'case__big--long' : '',
     alt: `A line drawing for ${c.title}`,
     nextSlug: next.slug, nextTitle: next.title, nextCategory: next.category, nextStat: next.stat, nextStatLabel: next.statLabel,
   };

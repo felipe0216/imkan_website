@@ -30,3 +30,8 @@
 /* under 1024 the solution's drawing (already in the hero) steps aside, so the band holds one screen */
 @media (min-width: 640px) and (max-width: 1023px) { .case__art { display: none; } }
 @media (max-width: 639px) { #challenge { --hm: 2; } .case__art { margin-block-start: var(--s-6); } }
+/* gate round 1: the overview statement a step smaller (its foot clears the next heading); the phone stat larger */
+#overview .mo-wh__text { font-size: calc(var(--t-h2) * 0.84); }
+@media (max-width: 639px) { .case__big .t-stat { font-size: clamp(80px, 24vw, 120px); } .case__results { row-gap: var(--s-3); } .case__results > li { font-size: var(--t-body); } }
+.case__big--long .t-stat { font-size: clamp(48px, 7vw, 104px); }
+@media (max-width: 639px) { .case__big--long .t-stat { font-size: clamp(48px, 15vw, 72px); } }
