@@ -11,7 +11,7 @@ kind:
 
 deal:
   hero: centred (the kit's hero with the product window; no WebGL ground)
-  scene: letter-bar-floods-the-ground before the cases band (D-021); fallback letter-physics (O-003)
+  scene: letter-bar-floods-the-ground before the cases band (D-021, approved)
   palette: brand (midnight plum and gold, Felipe's choice, D-018) via start.mjs brand
   type: funnel (dealt for software)
   radius: soft
@@ -239,7 +239,7 @@ Other pages (ADR 0005): `/careers/`, `/work/`, `/work/<slug>/` (11), `/privacy/`
 
 ## Open design questions
 
-1. **The scene** (D-021) approved, or the letter-physics fallback (O-003, Phase 3.3).
+1. ~~The scene~~: approved (D-021).
 2. **Arabic check** of the logo (O-006, Phase 2.5).
 3. **Illustrative UI text** in the hero and product windows needs Felipe's approval, and must not claim anything the case studies do not (O-005).
 4. **`data-ground`** (the kit's lit ground for tech pages): keep, change or drop against bone (Phase 4).
