@@ -102,3 +102,7 @@ Privacy, Terms and the 404 page approved. Privacy and Terms are generated from `
 
 6.1 share image, sitemap, robots, canonical links, Organization data, head audit (`site/scripts/build-seo.mjs`). 6.2 self-hosted fonts with their OFL licences, no inline code, enforced CSP and cache headers (D-030), CSP test on every page. 6.3 portrait WebP copies with srcset, lazy icons, keyboard and reduced-motion tests (both proven able to fail). 182 tests pass. Open and accepted: perf.mjs counts four font families on the home page; the fourth, "Funnel Display Fit", is the same file under normalised metrics for the scene (D-023), downloaded once. SVG "oversized/upscaled" warnings do not apply to vector drawings.
 
+### 2026-11-19: PR #25 opened; preview environments full
+
+Draft PR #25 (feature/redesign into main) opened; CI checks pass. The Azure preview deploy was refused: the Static Web App had reached its maximum number of staging environments. Cause: the workflow's Close Pull Request Job failed on every past PR (#13 to #24), so their previews were never removed. Felipe deleted the stale environments in the portal. Agreed (after 7.2): find the close job's error with a throwaway PR, fix the workflow (diff shown first), and add a check of Azure Environments after each merge to `Documentation/git_commandments.md`. Standard plan not needed.
+
