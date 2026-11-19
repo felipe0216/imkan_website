@@ -13,10 +13,16 @@
   the new site goes live (Phase 8). Until then the image will not load. Do not paste the signature before cut-over,
   or temporarily upload the PNG from site/public/brand/png/ into your mail client instead.
 
+  Logo options: swap the file name in the <img src> below for the one you want. All are 163x60 tiles.
+  - imkan-email-logo@2x.png            plum mark, plum-black text, white tile (default)
+  - imkan-email-logo-black@2x.png      all black, white tile
+  - imkan-email-logo-gold@2x.png       gold mark, plum-black text, white tile (the gold mark is pale on white: 1.6:1)
+  - imkan-email-logo-gold-dark@2x.png  gold mark, bone text, midnight plum tile (gold at its strongest)
+
   Design notes:
   - Table layout and inline styles, because Outlook and Gmail strip most CSS.
   - The logo is a 2x PNG shown at 163x60 (the logo is 147x44 inside 8px of white padding) so it stays sharp on retina screens.
-  - The PNG has a solid white background so it stays readable when a mail app switches to dark mode.
+  - Each PNG has a solid tile behind the logo so it stays readable when a mail app switches to dark mode.
   - Arial is used for the text because email clients cannot load the site's fonts; the logo itself is an image.
 -->
 </head>

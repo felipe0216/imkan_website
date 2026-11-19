@@ -10,13 +10,16 @@ The files live in `site/public/brand/`, so after cut-over they are served at `ht
 | One colour, light backgrounds (print, stamps, fax) | `svg/imkan-lockup-ink.svg` |
 | Dark backgrounds | `svg/imkan-lockup-on-dark.svg` (gold mark, bone text) |
 | One colour, dark backgrounds | `svg/imkan-lockup-bone.svg` |
+| Gold mark on light backgrounds (mark is pale: 1.6:1, so use large) | `svg/imkan-lockup-gold-ink.svg` |
+| Pure black (print, single-colour stamps) | `svg/imkan-lockup-black.svg` |
 | Mark only | `svg/imkan-symbol{,-ink,-gold,-bone}.svg` |
-| Slides, Word, anything that needs a PNG | `png/imkan-lockup-large.png`, `png/imkan-lockup-on-dark-large.png` (1042x312, transparent) |
-| Small PNGs (44 px tall at 1x/2x/3x) | `png/imkan-lockup@{1,2,3}x.png`, `png/imkan-lockup-on-dark@{1,2,3}x.png` |
-| Email signature | `png/imkan-email-logo@2x.png` (white tile), template in `email-signature.html` |
+| Slides, Word, anything that needs a PNG | `png/imkan-lockup[-variant]-large.png` (1042x312, transparent) for every lockup colourway |
+| Small PNGs (44 px tall at 1x/2x/3x) | `png/imkan-lockup[-variant]@{1,2,3}x.png` for every lockup colourway; variants: none (primary), `-on-dark`, `-ink`, `-bone`, `-gold-ink`, `-black` |
+| Mark only as PNG | `png/imkan-symbol[-ink,-gold,-bone]-{256,1024}.png` (transparent) |
+| Email signature | `png/imkan-email-logo[-black,-gold,-gold-dark]@{1,2,3}x.png` (163x60 tiles), template in `email-signature.html` |
 | Favicon | `favicon.svg`, `favicon.ico` (16/32/48), `png/favicon-{16,32,48}.png` |
-| Phone home screen | `png/apple-touch-icon.png` (180), `png/icon-{192,512}.png`, `site.webmanifest` |
-| LinkedIn, X, WhatsApp, Teams avatar | `png/imkan-avatar-dark-1024.png` (gold on midnight plum), `png/imkan-avatar-light-1024.png`, `png/imkan-avatar-dark-400.png` |
+| Phone home screen | `png/apple-touch-icon.png` (180), `png/icon-{192,512}.png`, `png/icon-light-{192,512}.png`, `site.webmanifest` |
+| LinkedIn, X, WhatsApp, Teams avatar | `png/imkan-avatar-dark-1024.png` (gold on midnight plum), `png/imkan-avatar-light-1024.png`, `png/imkan-avatar-{dark,light}-400.png` |
 
 Rules: keep clear space of at least the width of the I bar (24% of the mark's height) around the logo. Do not recolour, stretch, outline or add effects. Gold appears only on dark backgrounds. The lockup should not be shown under 24 px tall; use the mark alone below that.
 

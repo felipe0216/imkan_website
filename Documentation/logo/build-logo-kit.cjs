@@ -45,6 +45,8 @@ const C = { ink: '#1b111d', plum: '#5e1654', bone: '#efece5', gold: '#ffc233', n
     'svg/imkan-lockup-ink.svg': lockup(C.ink, C.ink),          // one colour, light grounds
     'svg/imkan-lockup-on-dark.svg': lockup(C.gold, C.bone),    // on dark grounds
     'svg/imkan-lockup-bone.svg': lockup(C.bone, C.bone),       // one colour, dark grounds
+    'svg/imkan-lockup-gold-ink.svg': lockup(C.gold, C.ink),    // gold mark on light grounds (mark is low contrast: 1.6:1)
+    'svg/imkan-lockup-black.svg': lockup('#000000', '#000000'), // pure black, for print and the black email logo
     'svg/imkan-symbol.svg': symbol(C.plum),
     'svg/imkan-symbol-ink.svg': symbol(C.ink),
     'svg/imkan-symbol-gold.svg': symbol(C.gold),
