@@ -34,3 +34,6 @@ test-results/
 .taste-skill/
 shots/
 coverage/
+
+# Windows device-name file created by tools writing to /dev/null; never commit it
+nul

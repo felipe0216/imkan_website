@@ -45,7 +45,7 @@ for (const page of PAGES) {
   const html = template
     .replace(/\{\{slug\}\}/g, page.slug)
     .replace(/\{\{title\}\}/g, esc(title))
-    .replace('{{description}}', esc(page.description))
+    .replace(/\{\{description\}\}/g, esc(page.description))
     .replace('{{updated}}', esc(updated))
     .replace('{{toc}}', toc.join(''))
     .replace('{{body}}', body.map((b) => '        ' + b).join('\n'));
