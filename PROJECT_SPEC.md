@@ -257,8 +257,8 @@ Phases run in this order; inside a phase, one item at a time.
 - [x] 6.3 Performance and accessibility audit
 
 ### Phase 7. Preview and review
-- [ ] 7.1 `gh auth login`, push, draft PR, CI green
-- [ ] 7.2 Azure settings verified; forms tested on the preview in test mode
+- [x] 7.1 `gh auth login`, push, draft PR, CI green (PR #25)
+- [x] 7.2 Azure settings verified; forms tested on the preview in test mode (`Documentation/qa/preview-7.2.md`)
 - [ ] 7.3 Felipe reviews the wording log, UI texts and the preview
 
 ### Phase 8. Cut-over

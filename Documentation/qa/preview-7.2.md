@@ -39,6 +39,6 @@ The first deploy was refused: the Static Web App had its maximum number of stagi
 
 `emailed: false`: no test recipients are set for the preview (`FORMS_TEST_RECIPIENTS` empty), so no email is sent. That is the safe default; production emails are not tested here.
 
-## To confirm in Azure (Felipe)
+## Confirmed in Azure (Felipe, 2026-11-19)
 
-- The two submissions above are rows in the `contactsubmissionstest` and `jobapplicationstest` tables, and **not** in `contactsubmissions` / `jobapplications`.
+- The two submissions are rows in `contactsubmissionstest` and `jobapplicationstest` only, not in `contactsubmissions` / `jobapplications`. Test mode works on the preview.
