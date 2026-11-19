@@ -32,7 +32,7 @@
 }
 
 /* One --p-h per card group */
-#services .panel { --p-h: 320px; }
+#services .panel { --p-h: 280px; }
 #methodology .panel { --p-h: 352px; }
 #why-us .panel { --p-h: 560px; }
 @media (max-width: 639px) {
@@ -83,6 +83,11 @@
 /* tablet: the case tiles stay three across, so no lone tile runs full width */
 @media (min-width: 640px) and (max-width: 1023px) {
   #cases .grid > .tile--case { grid-column: span 4; }
+  /* six tiles three across fill one tablet screen; two screens left a hole under each row */
+  #cases { --h: 1; }
+  #cases .tile--case { gap: var(--s-1); }
+  #cases .tile__media > img { aspect-ratio: 2 / 1; object-fit: contain; }
+  #cases > .wrap { row-gap: var(--s-6); }
 }
 @media (max-width: 639px) {
   /* the moving row is a still wrapped list on a phone (the moment's own phone state); the industries stay on every case */
@@ -91,4 +96,7 @@
   #methodology .panel { --p-h: 260px; }
   #services .panel { --p-h: 160px; }
   .closing .nav__logo img { block-size: 40px; }
+  #cases .tile--case { gap: var(--s-1); }
+  /* the form needs more than one phone screen: centre it in its two, so the air splits above and below */
+  #contact-form > .wrap { min-height: 100%; display: grid; align-content: center; }
 }
