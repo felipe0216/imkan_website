@@ -252,9 +252,9 @@ Phases run in this order; inside a phase, one item at a time.
 - [x] 5.3 Privacy, Terms, 404 (D-027, D-028; approved)
 
 ### Phase 6. Site-wide
-- [ ] 6.1 SEO and sharing (M9)
-- [ ] 6.2 Enforced CSP, security checklist; `/assets/*` cache (immutable without versioned names)
-- [ ] 6.3 Performance and accessibility audit
+- [x] 6.1 SEO and sharing (M9)
+- [x] 6.2 Enforced CSP, security checklist; `/assets/*` cache (immutable without versioned names)
+- [x] 6.3 Performance and accessibility audit
 
 ### Phase 7. Preview and review
 - [ ] 7.1 `gh auth login`, push, draft PR, CI green

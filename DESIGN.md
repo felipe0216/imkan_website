@@ -43,8 +43,8 @@ colors:
   inv-action-ink: "#1b111d"
 
 typography:
-  display: Funnel Display (Google Fonts, wght 400..700)
-  text: Funnel Sans (Google Fonts, wght 400..600)
+  display: Funnel Display (self-hosted in /fonts/, OFL, wght 400..700)
+  text: Funnel Sans (self-hosted in /fonts/, OFL, wght 400..600)
   mono: DM Mono (400, 500), for UI mocks and code only
   display-weight: 400
   display-tracking: -0.03em
@@ -162,7 +162,7 @@ Assumption: the kit's checker does not compare the `:root` block with `start.mjs
 
 ## Typography
 
-- **Funnel Display** for headlines, **Funnel Sans** for text, both from Google Fonts; **DM Mono** only inside UI mocks and code. All three are what the kit deals for software.
+- **Funnel Display** for headlines, **Funnel Sans** for text, self-hosted in `site/public/fonts/` with their OFL licences (D-029; no request to Google); **DM Mono** only inside UI mocks and code. All three are what the kit deals for software.
 - Headlines 400 with tight tracking (-0.03em, -0.04em at the largest sizes); text 400; buttons and labels 500. Hierarchy comes from size and space, not boldness.
 - Sentence case everywhere. **No tracked capitals or small caps** in the page; the old site's uppercase eyebrows become sentence-case labels at 13px/500 when kept. (The logo's tracked "IMKAN" is artwork, not text.)
 - Reading text 16px or more, line height 1.5 to 1.8, lines at most 62 characters. Nothing under 13px.

@@ -98,3 +98,7 @@ Felipe approved the case template, the eleven generated case pages and the work 
 
 Privacy, Terms and the 404 page approved. Privacy and Terms are generated from `site/content/*.md` (the old text word for word, checked: 989 and 704 words) by `site/scripts/build-legal.mjs`; the 404 page's words are new (wording change 35). The 404 is served for missing paths by D-028. All 17 pages pass the smoke and accessibility tests on desktop and phone (102 tests). Found for Phase 6: `/assets/*` is cached for a year as immutable though the kit files there have no versioned names.
 
+### 2026-11-19: Phase 6 complete
+
+6.1 share image, sitemap, robots, canonical links, Organization data, head audit (`site/scripts/build-seo.mjs`). 6.2 self-hosted fonts with their OFL licences, no inline code, enforced CSP and cache headers (D-030), CSP test on every page. 6.3 portrait WebP copies with srcset, lazy icons, keyboard and reduced-motion tests (both proven able to fail). 182 tests pass. Open and accepted: perf.mjs counts four font families on the home page; the fourth, "Funnel Display Fit", is the same file under normalised metrics for the scene (D-023), downloaded once. SVG "oversized/upscaled" warnings do not apply to vector drawings.
+
