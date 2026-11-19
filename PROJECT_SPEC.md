@@ -245,7 +245,7 @@ Phases run in this order; inside a phase, one item at a time.
 - [x] 4.4 Full checks, gate, smoke tests (gate OPEN 11, kit-inherent; approved by Felipe 2026-11-19)
 
 ### Phase 5. Inner pages
-- [ ] 5.1 Careers + application form
+- [x] 5.1 Careers + application form (approved; gate FAIL 2 documented)
 - [ ] 5.2a Case template (Banking Fraud Detection), reviewed
 - [ ] 5.2b The other ten cases generated from `site/content/cases.json`
 - [ ] 5.2c Work index

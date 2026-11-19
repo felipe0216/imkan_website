@@ -83,3 +83,7 @@ Screen counts fixed at 1440, 820, 768 and 390 (marquee overflow that made the pa
 
 Felipe approved Phase 4 (2026-11-19) after the screenshots and the live preview. The gate stays OPEN with the 11 kit-inherent findings documented in `Documentation/qa/phase-4-report.md`; it is closed with `gate.mjs --done` only on Felipe's own words. Wording changes 21-25 stay pending his review (O-005, Phase 7.3).
 
+### 2026-11-19: careers page approved (Phase 5.1)
+
+Felipe approved `/careers/`. Hero (centred, the open application's steps), perks as rows with lucide icons (downloaded with his OK) beside the first three past roles, six past roles on the dark band with details on demand (dealt moment line-carries-colour), the open application with the founders beside the form, posting to /api/apply with CV type and size checked in the browser. Gate after round 2: FAIL 2, with five waivers (gold button x2, original h1 and headings, a contrast reading taken mid-fade). Open: `sparse` on the past-roles band (measured while the moment still hides it) and uneven gaps at 390 (the form takes two phone screens with the founders). One round left. Evidence in `Documentation/qa/careers/`.
+
