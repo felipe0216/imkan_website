@@ -246,8 +246,10 @@ Phases run in this order; inside a phase, one item at a time.
 
 ### Phase 5. Inner pages
 - [ ] 5.1 Careers + application form
-- [ ] 5.2 Work index + case template + 11 cases
-- [ ] 5.3 Privacy, Terms, 404
+- [ ] 5.2a Case template (Banking Fraud Detection), reviewed
+- [ ] 5.2b The other ten cases generated from `site/content/cases.json`
+- [ ] 5.2c Work index
+- [ ] 5.3 Privacy, Terms, 404 (D-027)
 
 ### Phase 6. Site-wide
 - [ ] 6.1 SEO and sharing (M9)
