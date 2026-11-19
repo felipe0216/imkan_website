@@ -103,6 +103,39 @@ function audit(args: { rhythm: number; slack: number; mockup: string }) {
     if (cut.length) issues.push(`${name(frame)} (${frame.closest('section')?.id || 'page'}): cuts through ${cut.length} text line(s), e.g. ${cut.slice(0, 2).join(', ')}`);
   }
 
+  // 4b. Collisions: text over another text or over a solid box it is not part of (a card, a button, a picture).
+  {
+    const solid = (el: Element) => {
+      const s = getComputedStyle(el);
+      const bg = s.backgroundColor !== 'rgba(0, 0, 0, 0)' && s.backgroundColor !== 'transparent';
+      return bg || s.backgroundImage !== 'none' || el.matches('img, picture, video, canvas, button, input, textarea, select') || parseFloat(s.borderTopWidth) > 0;
+    };
+    const scope = Array.from(document.querySelectorAll<HTMLElement>('main *, footer *')).filter((el) => visible(el) && !el.closest('[aria-hidden="true"]'));
+    const texts = scope.filter((el) => ownText(el) && getComputedStyle(el).display !== 'inline');
+    const boxes = scope.filter((el) => solid(el) && !el.matches('main > section, footer, .wrap'));
+    // the part of a box actually painted: cut by every clipping ancestor (a frame hides what runs outside it)
+    const painted = (el: Element) => {
+      const r = el.getBoundingClientRect(); let l = r.left, t = r.top, rt = r.right, b = r.bottom;
+      for (let a = el.parentElement; a && a !== document.body; a = a.parentElement) {
+        const cs = getComputedStyle(a);
+        if (/(hidden|clip)/.test(cs.overflowX + cs.overflowY)) { const ar = a.getBoundingClientRect(); l = Math.max(l, ar.left); t = Math.max(t, ar.top); rt = Math.min(rt, ar.right); b = Math.min(b, ar.bottom); }
+      }
+      return { left: l, top: t, right: rt, bottom: b };
+    };
+    const hits = new Set<string>();
+    for (const t of texts) {
+      const a = painted(t);
+      for (const o of [...texts, ...boxes]) {
+        if (o === t || o.contains(t) || t.contains(o)) continue;
+        if (texts.includes(o) && boxes.includes(o) === false && o.compareDocumentPosition(t) & Node.DOCUMENT_POSITION_PRECEDING) continue; // each text pair once
+        const b = painted(o);
+        const x = Math.min(a.right, b.right) - Math.max(a.left, b.left); const y = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
+        if (x > 4 && y > 4) hits.add(`${name(t)} "${(t.textContent || '').trim().slice(0, 20)}" overlaps ${name(o)}${ownText(o) ? ' "' + (o.textContent || '').trim().slice(0, 20) + '"' : ''}`);
+      }
+    }
+    for (const h of Array.from(hits).slice(0, 15)) issues.push(`collision: ${h}`);
+  }
+
   // 5. Type: reading text 16px or more, nothing under 13px, a title never smaller than the text after it.
   for (const el of Array.from(document.querySelectorAll<HTMLElement>('main p, main li, main dd, footer p'))) {
     if (!visible(el) || el.closest(mockup) || !ownText(el)) continue;
