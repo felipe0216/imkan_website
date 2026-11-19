@@ -87,7 +87,10 @@
      palette: brand, midnight plum and gold (D-018, D-020, D-022); type funnel
      effect: none in the hero (fluted-glass retired, ADR 0010); the scene letter-bar-floods-the-ground is the page's effect (D-021)
      scene: letter-bar-floods-the-ground (#impact), before the dark band (#cases)
-     moments: re-dealt in Phase 4.2 -->
+     moments (dealt 4.2, seed 4b9ea349): marquee-row (#services), counter-rolls (#statement); hero cursor-spotlight
+       dealt too but left out: two moments in all at most
+     beats: services (marquee) / statement (counters) / impact (scene); methodology between the first two,
+       why-us between the counters and the scene; the back third (contact, about, close) calm -->
 
 <!-- @include partials/nav.html -->
 
@@ -225,6 +228,10 @@
         <div class="section-head">
           <h2 id="services-h">We work with leaders ready to act on Data &amp; AI</h2>
           <p>Not sure where to start? Stuck after strategy? We meet you where you are and move you forward.</p>
+        </div>
+        <!-- Moment (dealt, 4.2): marquee-row. The industries of the eleven case studies, as written there. -->
+        <div class="services-marquee" data-moment="marquee-row" data-moment-opts='{"speed": 32}'>
+          <ul class="mo-mq__track"><li>Banking &amp; Financial Services</li><li>Logistics &amp; Delivery</li><li>Real Estate &amp; PropTech</li><li>Retail &amp; E-commerce</li><li>Healthcare &amp; Clinical AI</li><li>Customer Service &amp; AI Agents</li><li>Travel &amp; Tourism</li></ul>
         </div>
         <div class="grid">
           <article class="card card--row card--open span-6">
@@ -380,6 +387,13 @@
     <div class="wrap">
       <h2 id="statement-h">Engineering Without Friction.</h2>
       <p class="t-lead">No account managers. No junior-only teams. No endless discovery phases. Just senior engineers building production-grade systems aligned with Vision 2030.</p>
+      <!-- Moment (dealt, 4.2): counter-rolls. Four results from the case studies, figures and captions as written there. -->
+      <div class="grid statement-figures" data-moment="counter-rolls">
+        <div class="span-3"><p class="t-stat">5x</p><p class="t-small muted">Lead conversion rate</p></div>
+        <div class="span-3"><p class="t-stat">-32%</p><p class="t-small muted">Operational costs</p></div>
+        <div class="span-3"><p class="t-stat">87%</p><p class="t-small muted">Forecast accuracy</p></div>
+        <div class="span-3"><p class="t-stat">60%</p><p class="t-small muted">Workload reduction</p></div>
+      </div>
     </div>
   </section>
 

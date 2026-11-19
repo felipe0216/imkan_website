@@ -69,3 +69,10 @@
   /* phone copy cut (layout-v4.md: "cut the phone copy"): each advantage shows its name and its fact */
   #why-us .rows p { display: none; }
 }
+
+/* Phase 4.2 moments: spacing only (the kit styles the moments themselves) */
+.services-marquee { margin-block: var(--s-6) var(--s-2); }
+.statement-figures { margin-block-start: var(--s-7); }
+/* the statement holds one screen: its words and figures sit on its middle, not at its top */
+#statement > .wrap { min-height: 100%; display: grid; align-content: center; }
+#statement .t-lead { margin-block-start: var(--s-4); max-width: 62ch; }
