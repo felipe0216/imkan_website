@@ -4,8 +4,7 @@
 .hero__window .hero__apply { inline-size: min(440px, 100% - 48px); margin-inline: auto; margin-block-start: 32px; }
 .hero__window .hero__apply .ui-checks { inline-size: 100%; }
 .apply__people { margin-block-start: var(--s-7); }
-.apply__people figure { margin: 0; display: grid; gap: var(--s-2); }
-.apply__people figcaption { display: grid; }
+.apply__people { column-gap: var(--gutter); }
 .hero__apply .ui-check__text small { display: block; margin-block-start: 2px; color: var(--muted); font-size: 12px; }
 
 /* Perks: six text cards, one height per row */
@@ -79,6 +78,7 @@
   #apply .grid { row-gap: var(--s-4); }
 }
 @media (max-width: 639px) { #apply .field { gap: var(--s-1); } }
-.perk__icon { inline-size: 28px; block-size: 28px; color: var(--p-accent); }
+.perk__icon { inline-size: 28px; block-size: 28px; }
 @media (max-width: 639px) { #past-roles > .wrap { min-height: 100%; display: grid; align-content: center; } }
 @media (max-width: 639px) { .perks .card { grid-template-columns: auto 1fr; align-items: center; column-gap: var(--s-3); } .perk__icon { inline-size: 24px; block-size: 24px; } }
+@media (min-width: 640px) and (max-width: 1023px) { #apply textarea { block-size: 72px; min-block-size: 0; } #apply .form { gap: var(--s-3); } }
