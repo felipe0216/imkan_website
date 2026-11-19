@@ -1,18 +1,18 @@
 /* Careers page CSS (page CSS only; the kit stays unmodified). Direction-aware properties only (ADR 0003). */
 
 /* Hero: the open application's steps inside the lit frame, sized like the home page's chat */
-#perks .ui-checks { inline-size: 100%; }
+.hero__window .hero__apply { inline-size: min(440px, 100% - 48px); margin-inline: auto; margin-block-start: 32px; }
+.hero__window .hero__apply .ui-checks { inline-size: 100%; }
+#perks .ui-notify { inline-size: 100%; }
 .apply__people { margin-block-start: var(--s-7); }
 .apply__people { column-gap: var(--gutter); }
-#perks .ui-check__text small { display: block; margin-block-start: 2px; color: var(--muted); font-size: 12px; }
+.hero__apply .ui-check__text small { display: block; margin-block-start: 2px; color: var(--muted); font-size: 12px; }
 
 /* Perks: rows with their icon, beside the steps panel */
 .perks > li { display: grid; grid-template-columns: 28px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
 .perks > li > p { grid-column: 2; }
 #perks .panel { --p-h: 520px; }
-.hero__window .hero__roles { inline-size: min(440px, 100% - 48px); margin-inline: auto; margin-block-start: 32px; }
-.hero__window .hero__roles .ui-notify { inline-size: 100%; }
-.hero__roles .ui-note__title time { color: var(--p-accent); font-weight: 500; }
+#perks .ui-note__title time { color: var(--p-accent); font-weight: 500; }
 .role-av { display: grid; place-items: center; inline-size: 28px; block-size: 28px; border-radius: 999px; background: var(--p-surface); }
 
 /* Chips (department, Closed, tags) */
@@ -86,5 +86,9 @@
 @media (max-width: 639px) { #past-roles > .wrap { min-height: 100%; display: grid; align-content: center; } }
 
 @media (min-width: 640px) and (max-width: 1023px) { #apply textarea { block-size: 72px; min-block-size: 0; } #apply .form { gap: var(--s-3); } }
-.hero--centred .hero__window > .ly-piece.hero__roles { width: min(520px, calc(100% - 2 * var(--s-5))); }
-@media (max-width: 639px) { .hero--centred .hero__window > .ly-piece.hero__roles { width: calc(100% - 2 * var(--s-4)); } }
+/* phone: the founders stay beside the form (its visual), so the form takes two screens, content centred */
+@media (max-width: 639px) {
+  #apply { --hm: 2; }
+  #apply .apply__people { display: grid; }
+  #apply > .wrap { min-height: 100%; display: grid; align-content: center; }
+}
