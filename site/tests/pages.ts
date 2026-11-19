@@ -14,6 +14,7 @@ export const PAGES: string[] = [
   '/work/clinical-ai-safety-and-validation/',
   '/work/ai-agents-for-customer-negotiations/',
   '/work/',
-  // '/privacy/',
-  // '/terms/',
+  '/privacy/',
+  '/terms/',
+  '/404/',
 ];
