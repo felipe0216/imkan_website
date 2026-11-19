@@ -32,7 +32,7 @@
 }
 
 /* One --p-h per card group */
-#services .panel { --p-h: 336px; }
+#services .panel { --p-h: 320px; }
 #methodology .panel { --p-h: 352px; }
 #why-us .panel { --p-h: 560px; }
 @media (max-width: 639px) {
@@ -43,7 +43,8 @@
 
 /* Case tiles on the dark band: the line illustration on the inverse surface */
 .tile--case { display: flex; flex-direction: column; gap: var(--s-2); color: inherit; text-decoration: none; }
-.tile--case img { inline-size: 100%; block-size: auto; aspect-ratio: 3 / 2; background: var(--p-inv-surface); border-radius: var(--r-lg); margin-block-end: var(--s-3); }
+.tile--case .tile__media { display: block; overflow: hidden; border-radius: var(--r-lg); background: var(--p-inv-surface); margin-block-end: var(--s-3); }
+.tile--case .tile__media > img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 3 / 2; transition: transform .4s cubic-bezier(.2,.7,.2,1); }
 .cases-more { margin-block-start: var(--s-6); }
 
 /* Founders: two portraits side by side on the split's right half */
@@ -71,8 +72,23 @@
 }
 
 /* Phase 4.2 moments: spacing only (the kit styles the moments themselves) */
-.services-marquee { margin-block: var(--s-6) var(--s-2); }
+.services-marquee { margin-block: var(--s-5) 0; min-inline-size: 0; max-inline-size: 100%; overflow: clip; }
+#services .group { min-inline-size: 0; }
 .statement-figures { margin-block-start: var(--s-7); }
 /* the statement holds one screen: its words and figures sit on its middle, not at its top */
 #statement > .wrap { min-height: 100%; display: grid; align-content: center; }
 #statement .t-lead { margin-block-start: var(--s-4); max-width: 62ch; }
+
+/* ---- Phase 4.3: screen counts at 768 and 390 (layout-v4.md section 2) ---- */
+/* tablet: the case tiles stay three across, so no lone tile runs full width */
+@media (min-width: 640px) and (max-width: 1023px) {
+  #cases .grid > .tile--case { grid-column: span 4; }
+}
+@media (max-width: 639px) {
+  /* the moving row is a still wrapped list on a phone (the moment's own phone state); the industries stay on every case */
+  .services-marquee { display: none; }
+  #methodology { --h: 2; }
+  #methodology .panel { --p-h: 260px; }
+  #services .panel { --p-h: 160px; }
+  .closing .nav__logo img { block-size: 40px; }
+}
