@@ -69,10 +69,15 @@
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script src="/assets/backgrounds/backgrounds.js"></script>
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
-<link rel="modulepreload" href="/assets/moments/moments.js">
-<link rel="modulepreload" href="/assets/moments/lib.js">
-<link rel="modulepreload" href="/assets/moments/letters-assemble/moment.js">
-<link rel="modulepreload" href="/assets/moments/iris-opens/moment.js">
+<script>document.documentElement.classList.add('sc-js');setTimeout(()=>document.documentElement.classList.add('sc-safe'),2500)</script>
+<link rel="stylesheet" href="/assets/scenes/scenes.css">
+<link rel="stylesheet" href="/assets/scenes/letter-bar-floods-the-ground/scene.css">
+<!-- D-023: Funnel Display reports ascent 1.0em + descent 0.25em; the scene measures its stem on a 1em box, so its line
+     uses the same font file with the metrics normalised to 80/20. Moves to a self-hosted file in Phase 6. -->
+<style>
+@font-face{font-family:"Funnel Display Fit";font-weight:400 700;font-display:swap;src:url(https://fonts.gstatic.com/s/funneldisplay/v3/B50WF7FGv37QNVWgE0ga--4Pbb6dDYs.woff2) format("woff2");ascent-override:80%;descent-override:20%;line-gap-override:0%;unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+[data-big-scene="letter-bar-floods-the-ground"] .lbf__line{font-family:"Funnel Display Fit","Funnel Display",system-ui,sans-serif}
+</style>
 <link rel="stylesheet" href="/styles/home.css">
 </head>
 <body>
@@ -81,6 +86,7 @@
      mark: the IMKAN logo kit (D-017), lit ground sand (sky clashed with the warm bone), grounds none
      palette: brand, midnight plum and gold (D-018, D-020, D-022); type funnel
      effect: none in the hero (fluted-glass retired, ADR 0010); the scene letter-bar-floods-the-ground is the page's effect (D-021)
+     scene: letter-bar-floods-the-ground (#impact), before the dark band (#cases)
      moments: re-dealt in Phase 4.2 -->
 
 <!-- @include partials/nav.html -->
@@ -370,10 +376,10 @@
     </div>
   </section>
 
-  <section class="section" id="statement" data-moment="letters-assemble" aria-labelledby="statement-h">
+  <section class="section" id="statement" aria-labelledby="statement-h">
     <div class="wrap">
-      <h2 id="statement-h" class="mo-la__type">Engineering Without Friction.</h2>
-      <p class="mo-la__sub">No account managers. No junior-only teams. No endless discovery phases. Just senior engineers building production-grade systems aligned with Vision 2030.</p>
+      <h2 id="statement-h">Engineering Without Friction.</h2>
+      <p class="t-lead">No account managers. No junior-only teams. No endless discovery phases. Just senior engineers building production-grade systems aligned with Vision 2030.</p>
     </div>
   </section>
 
@@ -429,12 +435,19 @@
     </div>
   </section>
 
-  <section class="section g2 ground-inverse" id="cases" data-moment="iris-opens" data-moment-opts='{"from": "base"}' aria-labelledby="cases-h">
+  <!-- The scene (D-021): "Proven Impact" zooms into its I, whose stem floods into the dark band below. -->
+  <section class="sc" id="impact" data-big-scene="letter-bar-floods-the-ground" style="--h: 1" aria-labelledby="impact-h">
+    <div class="sc__stage">
+      <h2 class="lbf__line" id="impact-h">Proven <span class="lbf__pivot">I</span>mpact</h2>
+      <div class="lbf__ground"><div class="lbf__next"><h2>15+ production-grade AI and data solutions.</h2><p>Delivering measurable results across banking, logistics, healthcare, and beyond.</p></div></div>
+    </div>
+  </section>
+
+  <section class="section g2 ground-inverse" id="cases" aria-labelledby="cases-h">
     <div class="wrap">
       <div class="group">
         <div class="section-head">
-          <h2 id="cases-h">Proven Impact</h2>
-          <p>15+ production-grade AI and data solutions delivering measurable results across banking, logistics, healthcare, and beyond.</p>
+          <h2 id="cases-h">Production Systems</h2>
         </div>
         <div class="grid">
         <a class="tile tile--case span-4" href="/work/smart-lead-scoring-for-property-sales/">
@@ -554,5 +567,6 @@
 <script type="module" src="/assets/motion/motion.js"></script>
 <script type="module" src="/assets/layout/layout.js"></script>
 <script type="module" src="/assets/diagrams/mount.js"></script>
+<script type="module" src="/assets/scenes/scenes.js"></script>
 </body>
 </html>
