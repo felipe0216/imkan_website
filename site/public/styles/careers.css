@@ -78,3 +78,5 @@
   #apply .grid { row-gap: var(--s-4); }
 }
 @media (max-width: 639px) { #apply .field { gap: var(--s-1); } }
+.perk__icon { inline-size: 28px; block-size: 28px; color: var(--p-accent); }
+.hero__roles .ui-note__title time { color: var(--p-accent); font-weight: 500; }
