@@ -93,3 +93,42 @@ html .app > .app__pane::after { display: none; }
 /* the joined-sources grid keeps inside a narrow frame (tablet): no 300px floor, tiles from 120px */
 html .panel .ui-files { min-width: 0; }
 html .panel .ui-files__grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+
+/* Components (Phase 7.5 Q3d) */
+/* V-10: the methodology steps carry a word (Think, Build, Evolve), not a number: a pill sized to the word,
+   not the kit's 32px circle the word ran out of */
+html .step-num { width: fit-content; align-self: flex-start; justify-self: start; margin-block-end: var(--s-2); height: 28px; padding-inline: var(--s-3); font-variant-numeric: normal; }
+
+/* V-11: the industries at rest (reduced motion, phones) are a row of tags, not a loose run of display text;
+   space between the row and the cards under it */
+html .services-marquee { margin-block: var(--s-6) var(--s-7); }
+html .mo-mq:not(.is-live) .mo-mq__track { gap: var(--s-2); row-gap: var(--s-2); }
+html .mo-mq:not(.is-live) .mo-mq__track > li {
+  display: inline-flex; align-items: center; min-block-size: 32px; padding-inline: var(--s-4); border-radius: 999px;
+  background: var(--p-surface); color: var(--ink); font: 500 var(--t-small)/1.2 var(--font-text); letter-spacing: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  html .mo-mq.is-live .mo-mq__track { gap: var(--s-2); }
+  html .mo-mq.is-live .mo-mq__track > li {
+    display: inline-flex; align-items: center; min-block-size: 32px; padding-inline: var(--s-4); border-radius: 999px;
+    background: var(--p-surface); color: var(--ink); font: 500 var(--t-small)/1.2 var(--font-text); letter-spacing: 0;
+  }
+}
+/* phones: the same tags, still (it was hidden there: D-031 shows it); the moving copy and its pause button go */
+@media (max-width: 639px) {
+  html .services-marquee { display: block; }
+  html .mo-mq .mo-mq__track { animation: none !important; flex-wrap: wrap; white-space: normal; gap: var(--s-2); }
+  html .mo-mq.is-live .mo-mq__rail { display: block; overflow: visible; padding-right: 0; -webkit-mask-image: none; mask-image: none; }
+  html .mo-mq .mo-mq__clone, html .mo-mq .mo-mq__pause { display: none; }
+  html .mo-mq .mo-mq__track > li {
+    display: inline-flex; align-items: center; min-block-size: 32px; padding-inline: var(--s-3); border-radius: 999px;
+    background: var(--p-surface); color: var(--ink); font: 500 var(--t-label)/1.2 var(--font-text); letter-spacing: 0;
+  }
+}
+
+/* V-17: footer links are at least 24px tall targets (WCAG 2.5.8); Privacy and Terms stay together on the
+   bottom line instead of breaking one per line on a phone */
+html .footer__col a { display: inline-flex; align-items: center; min-block-size: 24px; }
+html .footer__legal-links { display: inline-flex; gap: var(--s-4); margin-inline-start: var(--s-4); white-space: nowrap; }
+html .footer__legal a { display: inline-flex; align-items: center; min-block-size: 24px; }
+@media (max-width: 639px) { html .footer__legal-links { display: flex; margin-inline-start: 0; margin-block-start: var(--s-2); } }

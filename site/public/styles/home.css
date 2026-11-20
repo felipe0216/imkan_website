@@ -83,8 +83,6 @@
   #cases > .wrap { row-gap: var(--s-6); }
 }
 @media (max-width: 639px) {
-  /* the moving row is a still wrapped list on a phone (the moment's own phone state); the industries stay on every case */
-  .services-marquee { display: none; }
   #methodology .panel { --p-h: 260px; }
   #services .panel { --p-h: 160px; }
   .closing .nav__logo img { block-size: 40px; }

@@ -136,3 +136,29 @@ Evidence (before on the left):
 - `c-services-before-after.jpg`
 - `c-hero-before-after.jpg`
 - `c-fraud-window-before-after.jpg` (1366×650)
+
+## Q3 batch (d): components (2026-11-20)
+
+What changed (`rhythm.css`, "Components"; `partials/footer.html`):
+- **V-10, the methodology steps:** "Think", "Build" and "Evolve" are pills sized to the word (28px tall), not 32px number circles the word ran out of.
+- **V-11, the industries:**
+  - At rest (reduced motion) the list is a row of tags, not a loose run of display text.
+  - It sits 32px under the intro and 48px over the cards.
+  - Phones show it again (it was hidden) as still tags; the moving copy and its pause button are left out there.
+  - With motion on, desktop keeps the moving row.
+- **V-17, footer:**
+  - Footer links are at least 24px tall targets.
+  - Privacy and Terms are one group (markup in `partials/footer.html`) that never splits across lines; on a phone they sit together under the copyright line.
+- **Test:** tags count as labels (13 to 14px allowed), like chips.
+
+Result: **the layout test passes 221 of 221 in Chromium.** Chromium suite 182 pass, CSS lint pass.
+
+**V-18, contact section: not changed, three options for Felipe** (`d-contact-options.jpg`; no new copy in any of them):
+- **A (now):** heading and intro across the top; address and email alone in the left column beside the form. The left column is mostly empty.
+- **B (recommended):** heading, intro, address and email in the left column, the form beside them from the top. The usual contact layout, and the two columns end close to each other.
+- **C:** one centred column (heading, intro, details on one line, then the form at a reading width). Calm, but the only centred section on the page.
+
+Evidence (before on the left):
+- `d-steps-before-after.jpg`
+- `d-industries-before-after.jpg`
+- `d-footer-phone-before-after.jpg`

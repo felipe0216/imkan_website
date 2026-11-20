@@ -147,7 +147,7 @@ function audit(args: { rhythm: number; slack: number; mockup: string }) {
     if (!visible(el) || el.closest(mockup) || !ownText(el)) continue;
     const fs = parseFloat(getComputedStyle(el).fontSize);
     // labels, metadata, form help and status lines are small text by design (13 to 15px)
-    const small = el.matches('.t-small, .t-label, .muted, small, [class*="meta"], [class*="help"], [class*="error"], [class*="status"]') || el.closest('label, .label, .meta');
+    const small = el.matches('.t-small, .t-label, .muted, small, [class*="meta"], [class*="help"], [class*="error"], [class*="status"]') || el.closest('label, .label, .meta, .mo-mq, [class*="chip"], [class*="tag"]'); // tags are labels too
     if (fs < 13) issues.push(`${name(el)}: ${fs}px text, the floor is 13px`);
     else if (!small && fs < 16 - 0.5) issues.push(`${name(el)}: reading text ${fs}px, should be 16px or more "${(el.textContent || '').trim().slice(0, 24)}"`);
   }
