@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="soft" data-ground="sand" data-buttons="tonal" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<!-- TODO(wording): the 404 page's words are new and need Felipe's approval (wording change 35) -->
+<title>Page not found | Imkan.ai</title>
+<meta name="description" content="This page does not exist on imkan.ai. The home page and the case studies are a click away.">
+<!-- @include partials/head.html -->
+<link rel="stylesheet" href="/styles/legal.css">
+</head>
+<body>
+<!-- type: software (AI; ADR 0009). The 404 page (D-027): served by Azure Static Web Apps for any missing path
+     (staticwebapp.config.json responseOverrides). Plain, no moment, no scene. Links are absolute so they work
+     from any missing path. -->
+
+<!-- @include partials/nav.html -->
+
+<main id="top">
+  <section class="hero hero--statement bg-halo" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text hero__in">
+      <div>
+        <p class="t-label muted">404</p>
+        <h1 id="hero-h">This page doesn't exist</h1>
+        <p class="hero__lead">The link may be old, or the address mistyped. The home page and the case studies are a click away.</p>
+        <div class="btn-row"><a class="btn btn--primary" href="/">Go to the home page</a><a class="btn btn--secondary" href="/work/">See All Solutions</a></div>
+      </div>
+    </div></div>
+  </section>
+</main>
+
+<!-- @include partials/footer.html -->
+
+<script type="module" src="/assets/system.js"></script>
+<script type="module" src="/assets/motion/motion.js"></script>
+<script type="module" src="/assets/layout/layout.js"></script>
+</body>
+</html>

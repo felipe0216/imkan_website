@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>IMKAN email signature</title>
+<!--
+  IMKAN email signature (Phase 2.4, logo D-017, palette D-018).
+  How to use: open this file in a browser, select the signature block below (from the logo to the last line),
+  copy, and paste it into Gmail (Settings > See all settings > Signature) or Outlook (Settings > Mail > Compose and reply).
+  Replace every [PLACEHOLDER] first. Do not change the inline styles: email clients ignore <style> blocks.
+
+  TODO (O-004): the logo loads from https://imkan.ai/brand/png/imkan-email-logo-gold-dark@2x.png, which only exists after
+  the new site goes live (Phase 8). Until then the image will not load. Do not paste the signature before cut-over,
+  or temporarily upload the PNG from site/public/brand/png/ into your mail client instead.
+
+  Logo options: swap the file name in the <img src> below for the one you want. All are 163x60 tiles.
+  - imkan-email-logo@2x.png            plum mark, plum-black text, white tile
+  - imkan-email-logo-black@2x.png      all black, white tile
+  - imkan-email-logo-gold@2x.png       gold mark, plum-black text, white tile (the gold mark is pale on white: 1.6:1)
+  - imkan-email-logo-gold-dark@2x.png  gold mark, bone text, midnight plum tile (default, D-019)
+
+  Design notes:
+  - Table layout and inline styles, because Outlook and Gmail strip most CSS.
+  - The logo is a 2x PNG shown at 163x60 (the logo is 147x44 inside 8px of white padding) so it stays sharp on retina screens.
+  - Each PNG has a solid tile behind the logo so it stays readable when a mail app switches to dark mode.
+  - Arial is used for the text because email clients cannot load the site's fonts; the logo itself is an image.
+-->
+</head>
+<body style="margin:0;padding:24px;background:#ffffff">
+
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif">
+  <tr>
+    <td style="padding:0 10px 0 0;vertical-align:middle;border-right:1px solid #e3ded3">
+      <a href="https://imkan.ai" style="text-decoration:none"><img src="https://imkan.ai/brand/png/imkan-email-logo-gold-dark@2x.png" width="163" height="60" alt="IMKAN" style="display:block;border:0;width:163px;height:60px"></a>
+    </td>
+    <td style="padding:0 0 0 18px;vertical-align:middle">
+      <div style="font-size:15px;line-height:20px;font-weight:bold;color:#1b111d">[FULL NAME]</div>
+      <div style="font-size:13px;line-height:18px;color:#4c4150">[JOB TITLE], Imkan.ai</div>
+      <div style="font-size:13px;line-height:18px;color:#4c4150;padding-top:4px">
+        <a href="https://imkan.ai" style="color:#5e1654;text-decoration:none;font-weight:bold">imkan.ai</a>
+        <span style="color:#a39aa6">&nbsp;|&nbsp;</span>
+        <a href="mailto:[EMAIL]" style="color:#5e1654;text-decoration:none">[EMAIL]</a>
+        <span style="color:#a39aa6">&nbsp;|&nbsp;</span>
+        <span>[PHONE, OPTIONAL]</span>
+      </div>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+consistency  http://localhost:4173/work/banking-fraud-detection-in-real-time/
+--quick: not checked: scroll-linked (stepping), scroll-reveal (the reveal walk; IntersectionObserver reveals are read), hover-spill, hidden-visual, loop-pause, forms, reduced-motion, the dead-IntersectionObserver walk (hidden content is read with scripts off and under reduced motion), hover-move, hero-screen (rhythm: no width of this run is one it runs at), section-height (rhythm: no width of this run is one it runs at), section-air (rhythm: no width of this run is one it runs at), one-section (rhythm: no width of this run is one it runs at), one-heading (rhythm: no width of this run is one it runs at), container-edges (rhythm: no width of this run is one it runs at), row-lines (rhythm: no width of this run is one it runs at), split-pair (rhythm: no width of this run is one it runs at), motion-layer (motion-hooks: no width of this run is one it runs at), count-text (motion-hooks: no width of this run is one it runs at), loop-cycle (motion-hooks: no width of this run is one it runs at). Still told: IntersectionObserver reveals (scroll-reveal), held sections (pinned) and CSS scroll timelines (scroll-linked); faults inside held or [data-big-scene] sections are WARNs
+
+390x844  9 screens  4 FAIL  15 WARN
+  FAIL button-styles   (the page)
+       3 button styles on the page: soft, fill #5e1654 x2 ("Get in Touch"); soft, fill #dcd8d3 x1 ("See All Solutions"); soft, fill #ffc233 x1 ("Get in Touch")  [390-01-button-styles.jpg]
+       fix: one primary and one secondary button: one shape, one height per size, one label size
+  FAIL same-action     header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary  "Get in Touch"
+       "Get in Touch" appears 2 times in different looks: soft, fill #5e1654 and soft, fill #ffc233  [390-02-same-action.jpg]
+       fix: draw one action the same way everywhere (only the nav copy may be one size smaller)
+  FAIL copy-headline   h1#hero-h  "Banking Fraud Detection in Real-Time"
+       "Banking Fraud Detection in Real-Time" does not name what is sold (ai and data engineering case study, data, engineering, case, from flags)  [390-03-copy-headline.jpg]
+       fix: put the category noun in the h1 (and who it is for, or where), in 2 to 8 words
+  FAIL copy-headings   h2#challenge-h  "The Challenge"
+       "The Challenge" names no product, part, place or section (3 headings like it; at most one brand line per page) (and 2 more like it: "Technology Stack", "Impact & Results")  [390-08-copy-headings.jpg]
+       fix: name the thing in every heading: the product, a part, the place or a section noun
+  WARN nav             header.nav.nav--centre > div.wrap.nav__bar > button.nav__toggle
+       the nav is lopsided: its last item ends 13px inside the content's edge (366px), while its first starts on the other edge  [390-04-nav.jpg]
+       fix: start the nav's first item and end its last on the content's two edges
+  WARN no-visual       section#challenge  "The Challenge"
+       pictures, effects and mocks cover 21% of this section; a feature section needs a visual (about 25% or more)  [390-09-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  WARN no-visual       section#impact  "Impact & Results"
+       pictures, effects and mocks cover 18% of this section; a feature section needs a visual (about 25% or more)  [390-13-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  WARN same-action     section#impact > div.wrap.case__impact > p.case__nextline > a.link:nth-of-type(2)  "See All Solutions"
+       "See All Solutions" is a button in one place and a text link in another: one action in two looks  [390-14-same-action.jpg]
+       fix: show one action one way: the same button wherever it repeats, or a text link everywhere
+  WARN cta             section#challenge  "The Challenge"
+       a section over 1.5 screens long with no link or button in it  [390-10-cta.jpg]
+       fix: add the action: a button in the hero, one on every priced item, one in the closing section
+  WARN copy-actions    header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary  "Get in Touch"
+       2 labels for one target /#contact-form: "Get in Touch", "Start Similar Project"  [390-05-copy-actions.jpg]
+       fix: few actions, one wording: at most 2 in the hero, the main action word for word in nav, hero and close
+  WARN copy-actions    (the page)
+       the main action "Start Similar Project" does not read word for word the same in the closing section
+       fix: few actions, one wording: at most 2 in the hero, the main action word for word in nav, hero and close
+  WARN section-gaps    section#challenge / section#impact
+       436px between these sections, +48% against the median 296px of gaps at a change of ground  [390-11-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN section-gaps    section#impact / footer#contact
+       155px between these sections, -48% against the median 296px of gaps at a change of ground  [390-15-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN section-gaps    section#challenge / section#impact
+       uneven space at the edge of a band: 93px outside its edge, 343px inside it (the space on either side of a change of ground reads as one gap only when the two match)  [390-12-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN links           div.hero-text.hero__in > div.hero__head > div.btn-row > a.btn.btn--secondary  "See All Solutions"
+       "See All Solutions" goes to /work/, which does not exist here  [390-06-links.jpg]
+       fix: point every link at a real section, page or file
+  WARN links           div.closing__links > div.footer__legal > span > a:nth-of-type(1)  "Privacy"
+       "Privacy" goes to /privacy/, which does not exist here  [390-17-links.jpg]
+       fix: point every link at a real section, page or file
+  WARN links           div.closing__links > div.footer__legal > span > a:nth-of-type(2)  "Terms"
+       "Terms" goes to /terms/, which does not exist here  [390-18-links.jpg]
+       fix: point every link at a real section, page or file
+  WARN button-contrast div.hero-text.hero__in > div.hero__head > div.btn-row > a.btn.btn--secondary  "See All Solutions"
+       the button "See All Solutions" (#dcd8d3) stands only 1.20:1 off the ground around it: it reads as part of the ground, or as switched off  [390-07-button-contrast.jpg]
+       fix: give the button a fill that stands at least 1.5:1 off what is around it, or an outline in the ink
+  WARN empty-area      footer#contact  "Ready to Engineer the Future?"
+       37% of the section is empty: 544px of empty rows between its content, 2% beside content that covers under half the container, in its 1544px of rows (WARN over 35%, FAIL over 50%)  [390-16-empty-area.jpg]
+       fix: fill the section: a picture or a second column beside the words, or more of its own content; the section stays one or two screens tall (T-height)
+
+first screen at 1280, 1152, 1024, 896, 768  0 FAIL  0 WARN
+
+the page at 320x640, walked for what runs past the screen's edge  0 FAIL
+
+checks
+  PASS assets                 PASS shader-lint            PASS gl-fallback            
+  PASS empty-visual           PASS hero-fill              PASS flush                  
+  PASS placeholder            PASS sample-label           PASS caption                
+  PASS credit-wall            WARN nav                    PASS nav-covers             
+  PASS spill                  PASS off-viewport           PASS fold-card              
+  SKIP hover-spill            PASS overlap-text           PASS collide                
+  PASS tap-size               PASS row-gap                PASS cut-text               
+  PASS fold-cut               PASS marquee                SKIP scroll-linked          
+  SKIP scroll-reveal          PASS pinned                 SKIP loop-pause             
+  SKIP reduced-motion         PASS hidden-content         PASS webgl                  
+  WARN no-visual              PASS text-only              PASS card-visual            
+  SKIP hidden-visual          PASS card-family            PASS card-layout            
+  PASS nesting                PASS effect-repeat          PASS ui-fit                 
+  PASS ui-centre              PASS dark-ground            FAIL button-styles          
+  PASS button-shape           FAIL same-action            PASS button-picture         
+  WARN cta                    PASS pricing-tiers          FAIL copy-headline          
+  PASS copy-fact              FAIL copy-headings          PASS copy-buttons           
+  WARN copy-actions           PASS heading-scale          PASS stagger                
+  PASS top-stagger            PASS off-grid               PASS col-edge               
+  PASS right-edge             PASS centre-axis            PASS tilt                   
+  PASS contrast               PASS text-contrast          PASS body-size              
+  PASS busy-ground            WARN section-gaps           PASS proximity              
+  PASS hole                   WARN links                  SKIP forms                  
+  PASS photo-upscale          PASS photo-set              PASS photo-credit           
+  PASS nav-family             PASS nav-labels             PASS link-styles            
+  PASS heading-align          PASS label-centre           PASS fake-button            
+  PASS stranded-action        PASS orphan                 PASS unit-break             
+  PASS tab-wrap               PASS effects-fit            PASS fade-cut               
+  PASS photo-weight           PASS copy-length            PASS nav-current            
+  PASS progress-bar           PASS photo-repeat           WARN button-contrast        
+  PASS photo-print            PASS grounds                PASS split-align            
+  PASS fact-agree             PASS fold-action            PASS action-count           
+  PASS one-screen             SKIP hover                  SKIP hover-move             
+  PASS product-shown          PASS same-object            PASS font-load              
+  PASS visual-caption         PASS visual-empty           PASS effect-kind            
+  PASS hero-enter             PASS moment-none            PASS street-number          
+  PASS postcode               PASS coordinates            PASS company-number         
+  PASS phone-number           SKIP hero-screen            SKIP section-height         
+  SKIP section-air            SKIP one-section            SKIP one-heading            
+  SKIP container-edges        SKIP row-lines              SKIP split-pair             
+  SKIP motion-layer           SKIP count-text             SKIP loop-cycle             
+  PASS section-tile           WARN empty-area             PASS a11y-name              
+  PASS img-alt                PASS field-label            PASS heading-order          
+  PASS tabindex               PASS focus-ring             PASS focus-visible          
+  PASS focus-hidden           PASS skip-link              PASS menu-toggle            
+  PASS lang                   PASS page-meta              PASS share-meta             
+  PASS action-repeat          PASS map-link               PASS open-now               
+  PASS assumed                PASS run-on                 PASS form-fields            
+  PASS form-send              
+
+total  4 FAIL  15 WARN  (crops and report.json in C:\Users\carre\OneDrive\Escritorio\Imkan\Website\Website\imkan_website\.claude\worktrees\skills-review-bc3974\site\work\.taste-skill\q-after2)

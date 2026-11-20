@@ -1,0 +1,213 @@
+consistency  C:\Users\carre\OneDrive\Escritorio\Imkan\Website\Website\imkan_website\.claude\worktrees\skills-review-bc3974\.claude\skills\design-taste-frontend\assets\scenes\letter-bar-floods-the-ground\demo.html
+--quick: not checked: scroll-linked (stepping), scroll-reveal (the reveal walk; IntersectionObserver reveals are read), hover-spill, hidden-visual, loop-pause, forms, reduced-motion, the dead-IntersectionObserver walk (hidden content is read with scripts off and under reduced motion), hover-move. Still told: IntersectionObserver reveals (scroll-reveal), held sections (pinned) and CSS scroll timelines (scroll-linked); faults inside held or [data-big-scene] sections are WARNs
+
+1440x900  5 screens, 1 held section  24 FAIL  14 WARN
+  FAIL no-visual       main > section.sc  "Built to last"
+       no picture, effect or mock in this section; a feature section needs a visual  [1440-17-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL no-visual       main > section.section.ground-inverse  "What is kept"
+       no picture, effect or mock in this section; a feature section needs a visual  [1440-20-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL cta             main > section.section.ground-inverse  "What is kept"
+       the last section before the footer ends with no button  [1440-22-cta.jpg]
+       fix: add the action: a button in the hero, one on every priced item, one in the closing section
+  FAIL heading-scale   h2#lbf-h  "Built to ast"
+       an h2 at 170px, as large as the h1 (72px) or larger  [1440-13-heading-scale.jpg]
+       fix: size headings by level: the h1 largest, one size per level, each level below the one above
+  FAIL heading-scale   h2#lbf-h  "Built to ast"
+       h2 headings in 2 sizes, 48px ("What is kept") to 170px (x3.54)  [1440-14-heading-scale.jpg]
+       fix: size headings by level: the h1 largest, one size per level, each level below the one above
+  FAIL links           header.demo-nav > div.container > a.demo-nav__logo  "Ferrite"
+       "Ferrite" goes to "#", nowhere  [1440-01-links.jpg]
+       fix: point every link at a real section, page or file
+  FAIL links           header.demo-nav > div.container > nav.demo-nav__links > a:nth-of-type(1)  "Database"
+       "Database" goes to "#", nowhere  [1440-02-links.jpg]
+       fix: point every link at a real section, page or file
+  FAIL links           header.demo-nav > div.container > nav.demo-nav__links > a:nth-of-type(2)  "Pricing"
+       "Pricing" goes to "#", nowhere  [1440-03-links.jpg]
+       fix: point every link at a real section, page or file
+  FAIL links           header.demo-nav > div.container > nav.demo-nav__links > a:nth-of-type(3)  "Docs"
+       "Docs" goes to "#", nowhere  [1440-04-links.jpg]
+       fix: point every link at a real section, page or file
+  FAIL links           header.demo-nav > div.container > nav.demo-nav__links > a:nth-of-type(4)  "Company"
+       "Company" goes to "#", nowhere  [1440-05-links.jpg]
+       fix: point every link at a real section, page or file
+  FAIL links           header.demo-nav > div.container > div.demo-nav__actions > a.btn.btn--secondary  "Log in"
+       "Log in" goes to "#", nowhere  [1440-06-links.jpg]
+       fix: point every link at a real section, page or file
+  FAIL links           header.demo-nav > div.container > div.demo-nav__actions > a.btn.btn--primary  "Start free"
+       "Start free" goes to "#", nowhere  [1440-07-links.jpg]
+       fix: point every link at a real section, page or file
+  FAIL links           div.grid.grid--middle > div.span-6.stack-5 > div.btn-row > a.btn.btn--primary  "Start free"
+       "Start free" goes to "#", nowhere  [1440-08-links.jpg]
+       fix: point every link at a real section, page or file
+  FAIL links           div.grid.grid--middle > div.span-6.stack-5 > div.btn-row > a.btn.btn--secondary  "Read the docs"
+       "Read the docs" goes to "#", nowhere  [1440-09-links.jpg]
+       fix: point every link at a real section, page or file
+  FAIL empty-area      main > section.sc  "Built to ast"
+       86% of the section is empty: 320px above its first content, 1232px under its last (h2#lbf-h), in its 1800px of rows (WARN over 35%, FAIL over 50%)  [1440-18-empty-area.jpg]
+       fix: fill the section: a picture or a second column beside the words, or more of its own content; the section stays one or two screens tall (T-height)
+  FAIL empty-area      main > section.section.ground-inverse  "What is kept"
+       76% of the section is empty: 528px under its last (li:nth-of-type(3)), 2% beside content that covers under half the container, in its 720px of rows (WARN over 35%, FAIL over 50%)  [1440-23-empty-area.jpg]
+       fix: fill the section: a picture or a second column beside the words, or more of its own content; the section stays one or two screens tall (T-height)
+  WARN pinned          main > section.sc > div.sc__stage  "Built to ast"
+       held on screen for 1 screen of scroll (position: sticky) while the page moves on (a big scene on a software page: allowed, one scene at most, house rule; its still is judged under reduced motion)  [1440-25-pinned.jpg]
+       fix: let the section scroll with the page
+  WARN cta             main > section.sc  "Built to ast"
+       a section over 1.5 screens long with no link or button in it  [1440-19-cta.jpg]
+       fix: add the action: a button in the hero, one on every priced item, one in the closing section
+  WARN copy-headline   div.container > div.grid.grid--middle > div.span-6.stack-5 > h1  "A database that keeps every version of e"
+       "A database that keeps every version of every row": no category known to check it against (pass --category, or write the <title> as "Name: what it is for whom")  [1440-10-copy-headline.jpg]
+       fix: put the category noun in the h1 (and who it is for, or where), in 2 to 8 words
+  WARN copy-headline   div.container > div.grid.grid--middle > div.span-6.stack-5 > h1  "A database that keeps every version of e"
+       the h1 has 9 words (2 to 8 read at a glance)  [1440-11-copy-headline.jpg]
+       fix: put the category noun in the h1 (and who it is for, or where), in 2 to 8 words
+  WARN copy-headings   h2#lbf-h  "Built to ast"
+       "Built to ast" names no product, part, place or section (2 headings like it; at most one brand line per page) (and 1 more like it: "What is kept")  [1440-15-copy-headings.jpg]
+       fix: name the thing in every heading: the product, a part, the place or a section noun
+  WARN copy-actions    (the page)
+       the main action "Start free" does not read word for word the same in the closing section
+       fix: few actions, one wording: at most 2 in the hero, the main action word for word in nav, hero and close
+  WARN off-grid        h2#lbf-h  "Built to ast"
+       the section's heading starts at 303px, 223px off the page margin (80px), and no other section starts there (inside a held section or scroll scene, whose motion --quick does not check)  [1440-16-off-grid.jpg]
+       fix: move it onto the page margin, or the column edge its section uses
+  WARN section-gaps    main > section.sc / main > section.section.ground-inverse
+       457px between these sections, -30% against the median 652px  [1440-21-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN section-gaps    main > section.section.ground-inverse / footer.container.demo-footer
+       uneven space at the edge of a band: 50px outside its edge, 642px inside it (the space on either side of a change of ground reads as one gap only when the two match)  [1440-24-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN copy-length     div.container > div.grid.grid--middle > div.span-6.stack-5 > h1  "A database that keeps every version of e"
+       a headline of 9 words on 4 lines at 72px: a paragraph set in display type  [1440-12-copy-length.jpg]
+       fix: cut the heading to one short line (2 to 12 words) and move the rest into the text under it
+  WARN moment-none     (the page)
+       a software page (--type) deals no moment: every kind carries one, two on a long page (moments.md)
+       fix: deal one (moments.mjs pick --page software) and mount it in its own section
+  WARN skip-link       header.demo-nav > div.container > a.demo-nav__logo  "Ferrite"
+       the first Tab stop is "Ferrite", not a skip link: a keyboard user tabs through the whole nav on every visit
+       fix: add the starter's skip link as the header's first child: <a class="skip-link" href="#top">Skip to content</a>
+  WARN share-meta      head
+       the head lacks og:title, og:description, og:image, twitter:card, an icon, theme-color: a shared link shows no picture or title of its own
+       fix: copy the head block of starter.html: og tags, twitter:card, the icon and theme-color (references/system.md, Head)
+  WARN action-repeat   header.demo-nav > div.container > div.demo-nav__actions > a.btn.btn--primary:nth-of-type(2)  "start free"
+       "start free" shows 2 times on the first screen at 1440px (nav, hero): the nav's button and the hero's; nothing else on the screen may repeat it  [1440-26-action-repeat.jpg]
+       fix: show the action once a screen besides the nav's button: the hero's, the close's or the phone bar's, never all at once
+  FAIL section-height  footer.container.demo-footer  "Ferrite · demo page for the big scene “L"
+       the section is 119px tall (0.1 screens), 781px short of one screen (900px): every section after the hero is one screen or two, 2px either way (SR-2)  [1440-rhythm-01-section-height.jpg]
+       fix: set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit
+  FAIL section-height  footer.container.demo-footer  "Ferrite · demo page for the big scene “L"
+       the section's content does not fit it: its lowest content ends 68px below its top, past 47px (the section less 72px of bottom padding) (SR-2)
+       fix: fit the content above the section's bottom padding (--padb), or make it two screens (.g2) in two groups
+  FAIL section-air     main > section.section.ground-inverse  "What is keptThe rows, the schema and eve"
+       the content fills 15.7% of the section's height (142 of 900px): 55% or more (40% WARN) (SR-3)  [1440-rhythm-02-section-air.jpg]
+       fix: fill the section to 55%: more content, a picture or a background layer, or merge it into the section above as its last block
+  FAIL one-section     footer.container.demo-footer  "Ferrite · demo page for the big scene “L"
+       the screen at scroll 2819px (the top of section 4) shows 119px of section 4 beside section 3: a screen shows one section (another may peek 8px, 24px WARN) (SR-4)  [1440-rhythm-03-one-section.jpg]
+       fix: make each section exactly one screen or two, so a screen shows one section and no neighbour peeks
+  FAIL container-edges main > section.sc  "Built to last Every version, keptNothing"
+       the content of section 2 runs 303px from the left and 303px from the right (read from its outermost blocks: no .wrap): the page's container starts at 80px; the margin is 64-120px at 1440px (one container, equal margins, 2px either way) (SR-6)  [1440-rhythm-04-container-edges.jpg]
+       fix: use one container on every section and the nav (.wrap): one margin left and right, 64-120px on a desktop, 16-24px on a phone
+  FAIL container-edges header.demo-nav  "Ferrite DatabasePricingDocsCompany Log i"
+       a <header> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)
+       fix: build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing
+  FAIL container-edges footer.container.demo-footer  "Ferrite · demo page for the big scene “L"
+       a <footer> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)
+       fix: build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing
+  FAIL container-edges main > section.section.section--hero  "A database that keeps every version of e"
+       the section needs exactly one in-flow child .wrap (it has 1 in-flow child, 0 .wrap) (and 3 more like it: "Built to last Every vers", "What is keptThe rows, th", "Ferrite · demo page for ") (SR-6)
+       fix: build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing
+
+390x844  4 screens  7 FAIL  4 WARN
+  FAIL no-visual       main > section.sc  "Built to last"
+       no picture, effect or mock in this section; a feature section needs a visual  [390-02-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL no-visual       main > section.section.ground-inverse  "What is kept"
+       no picture, effect or mock in this section; a feature section needs a visual  [390-07-no-visual.jpg]
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL cta             main > section.section.ground-inverse  "What is kept"
+       the last section before the footer ends with no button  [390-08-cta.jpg]
+       fix: add the action: a button in the hero, one on every priced item, one in the closing section
+  FAIL heading-scale   h2#lbf-h  "Built to last"
+       an h2 at 74.1px, as large as the h1 (38px) or larger  [390-03-heading-scale.jpg]
+       fix: size headings by level: the h1 largest, one size per level, each level below the one above
+  FAIL heading-scale   h2#lbf-h  "Built to last"
+       h2 headings in 2 sizes, 30px ("Every version, kept") to 74.1px (x2.47)  [390-04-heading-scale.jpg]
+       fix: size headings by level: the h1 largest, one size per level, each level below the one above
+  FAIL section-gaps    main > section.section.section--hero / main > section.sc
+       111px between these sections, -64% against the median 307px  [390-05-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  FAIL empty-area      main > section.sc  "Built to last"
+       51% of the section is empty: 192px of empty rows between its content, 192px under its last (p), in its 748px of rows (WARN over 35%, FAIL over 50%)  [390-06-empty-area.jpg]
+       fix: fill the section: a picture or a second column beside the words, or more of its own content; the section stays one or two screens tall (T-height)
+  WARN tap-size        header.demo-nav > div.container > a.demo-nav__logo  "Ferrite"
+       a 85x22px tap target: under the 44px a phone needs  [390-01-tap-size.jpg]
+       fix: make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box
+  WARN section-gaps    main > section.section.ground-inverse / footer.container.demo-footer
+       419px between these sections, +36% against the median 307px of gaps at a change of ground  [390-09-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN section-gaps    main > section.section.ground-inverse / footer.container.demo-footer
+       uneven space at the edge of a band: 50px outside its edge, 369px inside it (the space on either side of a change of ground reads as one gap only when the two match)  [390-10-section-gaps.jpg]
+       fix: use one gap between sections (all within 25% of each other)
+  WARN empty-area      main > section.section.ground-inverse  "What is kept"
+       39% of the section is empty: 272px under its last (li:nth-of-type(3)), in its 700px of rows (WARN over 35%, FAIL over 50%)  [390-11-empty-area.jpg]
+       fix: fill the section: a picture or a second column beside the words, or more of its own content; the section stays one or two screens tall (T-height)
+
+first screen at 1280, 1152, 1024, 896, 768  0 FAIL  0 WARN
+
+the page at 320x640, walked for what runs past the screen's edge  0 FAIL
+  WARN tap-size        [320] header.demo-nav > div.container > a.demo-nav__logo  "Ferrite"
+       a 85x22px tap target: under the 44px a phone needs  [narrow-320-01-tap-size.jpg]
+       fix: make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box
+
+checks
+  PASS assets                 PASS shader-lint            PASS gl-fallback            
+  PASS empty-visual           PASS hero-fill              PASS flush                  
+  PASS placeholder            PASS sample-label           PASS caption                
+  PASS credit-wall            PASS nav                    PASS nav-covers             
+  PASS spill                  PASS off-viewport           PASS fold-card              
+  SKIP hover-spill            PASS overlap-text           PASS collide                
+  WARN tap-size               PASS row-gap                PASS cut-text               
+  PASS fold-cut               PASS marquee                SKIP scroll-linked          
+  SKIP scroll-reveal          WARN pinned                 SKIP loop-pause             
+  SKIP reduced-motion         PASS hidden-content         PASS webgl                  
+  FAIL no-visual              PASS text-only              PASS card-visual            
+  SKIP hidden-visual          PASS card-family            PASS card-layout            
+  PASS nesting                PASS effect-repeat          PASS ui-fit                 
+  PASS ui-centre              PASS dark-ground            PASS button-styles          
+  PASS button-shape           PASS same-action            PASS button-picture         
+  FAIL cta                    PASS pricing-tiers          WARN copy-headline          
+  PASS copy-fact              WARN copy-headings          PASS copy-buttons           
+  WARN copy-actions           FAIL heading-scale          PASS stagger                
+  PASS top-stagger            WARN off-grid               PASS col-edge               
+  PASS right-edge             PASS centre-axis            PASS tilt                   
+  PASS contrast               PASS text-contrast          PASS body-size              
+  PASS busy-ground            FAIL section-gaps           PASS proximity              
+  PASS hole                   FAIL links                  SKIP forms                  
+  PASS photo-upscale          PASS photo-set              PASS photo-credit           
+  PASS nav-family             PASS nav-labels             PASS link-styles            
+  PASS heading-align          PASS label-centre           PASS fake-button            
+  PASS stranded-action        PASS orphan                 PASS unit-break             
+  PASS tab-wrap               PASS effects-fit            PASS fade-cut               
+  PASS photo-weight           WARN copy-length            PASS nav-current            
+  PASS progress-bar           PASS photo-repeat           PASS button-contrast        
+  PASS photo-print            PASS grounds                PASS split-align            
+  PASS fact-agree             PASS fold-action            PASS action-count           
+  PASS one-screen             SKIP hover                  SKIP hover-move             
+  PASS product-shown          PASS same-object            PASS font-load              
+  PASS visual-caption         PASS visual-empty           PASS effect-kind            
+  PASS hero-enter             WARN moment-none            PASS street-number          
+  PASS postcode               PASS coordinates            PASS company-number         
+  PASS phone-number           PASS hero-screen            FAIL section-height         
+  FAIL section-air            FAIL one-section            PASS one-heading            
+  FAIL container-edges        PASS row-lines              PASS split-pair             
+  PASS motion-layer           PASS count-text             PASS loop-cycle             
+  PASS section-tile           FAIL empty-area             PASS a11y-name              
+  PASS img-alt                PASS field-label            PASS heading-order          
+  PASS tabindex               PASS focus-ring             PASS focus-visible          
+  PASS focus-hidden           WARN skip-link              PASS menu-toggle            
+  PASS lang                   PASS page-meta              WARN share-meta             
+  WARN action-repeat          PASS map-link               PASS open-now               
+  PASS assumed                PASS run-on                 PASS form-fields            
+  PASS form-send              
+
+total  31 FAIL  19 WARN  (crops and report.json in C:\Users\carre\OneDrive\Escritorio\Imkan\Website\Website\imkan_website\.claude\worktrees\skills-review-bc3974\site\.taste-skill\demo-lbf)

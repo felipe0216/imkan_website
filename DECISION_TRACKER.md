@@ -1,0 +1,118 @@
+# Decision tracker
+
+The running log of decisions, amendments and debates for the redesign, and the addendum to `PROJECT_SPEC.md`. **Where this file and the spec differ, this file wins.** Newest entries at the bottom. Detailed records live in `Documentation/adr/` and are linked from here.
+
+Status values: **Accepted**, **Superseded by D-xxx**, **Open** (waiting on a decision), **Proposed**.
+
+## Index
+
+| ID | Date | Decision | Status | Record |
+|---|---|---|---|---|
+| D-001 | 2026-11-15 | Design direction: light, photo-led service site | Amended by D-009, D-012 | [ADR 0001](Documentation/adr/0001-design-direction-service-light-photo-led.md) |
+| D-002 | 2026-11-15 | Tech: static HTML pages with Vite and the design-taste-frontend kit; no React, no Tailwind | Accepted | [ADR 0002](Documentation/adr/0002-tech-approach-static-html-vite.md) |
+| D-003 | 2026-11-15 | Language: English at launch, Arabic later under `/ar/` | Accepted | [ADR 0003](Documentation/adr/0003-language-scope-english-first.md) |
+| D-004 | 2026-11-15 | Dev environment: `site/` on `feature/redesign`, draft-PR preview, merge is cut-over | Accepted | [ADR 0004](Documentation/adr/0004-dev-environment-branch-preview.md) |
+| D-005 | 2026-11-15 | Pages: home, careers, work index + 11 cases, privacy, terms | Accepted | [ADR 0005](Documentation/adr/0005-pages-in-scope.md) |
+| D-006 | 2026-11-15 | Wording fixed word for word | Superseded by D-007 | [ADR 0006](Documentation/adr/0006-wording-is-fixed.md) |
+| D-007 | 2026-11-16 | Design first, wording second; edits logged; facts never change | Accepted | [ADR 0007](Documentation/adr/0007-design-first-wording-second.md) |
+| D-008 | 2026-11-16 | Logo redesign in scope | Accepted (direction by D-012) | [ADR 0008](Documentation/adr/0008-logo-redesign.md) |
+| D-009 | 2026-11-16 | Site kind AI/software: effects, scenes and dark bands allowed | Accepted | [ADR 0009](Documentation/adr/0009-site-kind-ai-software.md) |
+| D-010 | 2026-11-16 | Answers: roles shown closed; error email info@imkan.ai; Portal link removed; stats use ranges; "5 More Solutions" dropped; wordmark "IMKAN" + Arabic | Accepted | `Documentation/wording-changes.md` 1-6 |
+| D-011 | 2026-11-16 | `design-taste-frontend` runs in manual mode (no Stop hook) | Accepted | CLAUDE.md, skills playbook |
+| D-012 | 2026-11-16 | Visual direction v2: light not white, cinematic hero scene (kinetic-type fallback), new logo from three directions | Accepted | [ADR 0010](Documentation/adr/0010-visual-direction-v2.md) |
+| D-013 | 2026-11-16 | Way of working: plan first, one major item at a time, assumptions stated, solutions scrutinised, done/left lists, memory summaries | Accepted | CLAUDE.md, "Working style" |
+| D-014 | 2026-11-16 | Planning files: `PROJECT_SPEC.md` (master plan) + this tracker (addendum, indexes the ADRs); no separate Addendum.md | Accepted | this file |
+| D-015 | 2026-11-16 | No root `requirements.txt`: manifests stay where their tools read them (`api/requirements*.txt`, `site/package.json`) | Proposed (pushback on the requested file) | PROJECT_SPEC §8 item 8 |
+| D-016 | 2026-11-16 | Logo direction: the IK Monogram (I bar + K-notched block), lettering in Geist with IBM Plex Sans Arabic; to be refined | Accepted (closes O-001) | `Documentation/logo/exploration/` |
+| D-017 | 2026-11-16 | Logo refinement: **B. Open K** (I bar + one chevron of K arms), lettering type 2: Geist 500, +0.14em tracking, "إمكان" in IBM Plex Sans Arabic 500, right-aligned under "IMKAN" | Accepted | `Documentation/logo/exploration/monogram-refinements.jpg` |
+| D-018 | 2026-11-18 | Palette: **Midnight plum and gold** on warm bone. Bone `#efece5` / surface `#e3ded3`, plum-black ink `#1b111d`, muted `#4c4150`, plum accent `#5e1654` (white text), dark bands `#120914` / `#211325` with gold `#ffc233` buttons. Saffron only on dark bands. Funnel type kept | Accepted (closes O-002) | `Documentation/brand/palette-noir-3-midnight-plum*` |
+| D-019 | 2026-11-19 | Email signature logo: **gold on midnight plum** tile (`imkan-email-logo-gold-dark@2x.png`, 163x60), over black, plum and gold on white | Accepted | `Documentation/brand/email-signature.html` |
+| D-020 | 2026-11-19 | Tokens: keep `start.mjs brand`'s `:root` block as printed, then override only the gold and the inverse muted (`#ffc233` and its label, `#cbbccf`) in a second block; the band itself stays the printed ink (amended by D-022) | Accepted (implements D-018; the one deviation from the kit's "keep as printed") | `DESIGN.md`, Colour |
+| D-021 | 2026-11-19 | Scene: **letter-bar-floods-the-ground**, dealt at random from the three Imkan qualifies for (letter-physics, dot-becomes-the-full-stop, letter-bar). It is not the hero: the kit allows no statement scene as the hero, and the hero scenes need Imkan's own photographs. Placed before the cases band: "Proven Impact" zooms into its I, whose stem floods into the dark band carrying "15+ production-grade AI and data solutions." Hero stays the kit's centred hero with the product window, no WebGL ground. Plan A | Accepted; approved by Felipe after the preview (closes O-003) | `Documentation/brand/scene-*` |
+| D-022 | 2026-11-19 | Dark band = the ink `#1b111d` (was `#120914`) and its cards `#271d29`, as `start.mjs brand` prints them, so the scene's flooding stem and the band are one colour with no seam. Gold 11.4:1, bone 15.6:1, muted 10.2:1 on it | Accepted (amends D-018) | `DESIGN.md` |
+| D-023 | 2026-11-19 | Funnel Display reports ascent 1.0em and descent 0.25em; the scene measures the stem on a 1em box, so its stem sat 0.075em high. Fix: the scene's line uses the same font file under a second `@font-face` ("Funnel Display Fit") with `ascent-override: 80%; descent-override: 20%`. Kit untouched | Accepted | scene preview, Phase 4 build |
+| D-024 | 2026-11-19 | Moments (dealt, seed 4b9ea349): **marquee-row** in services (the seven case-study industries) and **counter-rolls** in the statement (four case results). The dealt hero moment cursor-spotlight is left out: two moments in all at most. Beats: services, statement, the scene, with calm sections between | Accepted (dealt; Felipe reviews in 4.4) | `site/index.html`, wording changes 22-23 |
+| D-025 | 2026-11-19 | Lit ground `sand` instead of v1's `sky` (a cool blue frame behind the hero window clashed with the warm bone) | Accepted | `site/index.html` |
+| D-026 | 2026-11-19 | Gate waivers (5, the cap): hero-lines (final h1, as gate.md allows), card-family (false positive on the About head column), copy-headings (original wording, ADR 0007), button-styles and same-action (gold on the dark band, D-020). Copy edits 24-25 ("Empowering", "World-class") instead of waivers | Accepted by Felipe ("Fix, edit copy, then rounds"); edits pending his wording review | `site/.taste-skill/waivers.json`, wording changes 24-25 |
+| D-027 | 2026-11-19 | Phase 5 plan: careers (hero, perks, open application form to /api/apply, six past roles closed with full details on demand, no search/filter while no role is open); case template first, then the other ten generated from `site/content/cases.json` (inventory text, word for word) by a no-dependency script; work index; Privacy, Terms, 404 as plain reading pages with no moment (moment-none accepted there); no scene on inner pages; full gate on careers, the case template and the work index, quick checks on the other cases | Accepted (Felipe: "Approve as recommended") | this file, PROJECT_SPEC Phase 5 |
+| D-028 | 2026-11-19 | `site/staticwebapp.config.json`: `responseOverrides` 404 rewrites to `/404/index.html` (status stays 404); `.webmanifest` served as `application/manifest+json`. New site only, live at cut-over | Accepted (Felipe: "Approve both") | `site/staticwebapp.config.json` |
+| D-029 | 2026-11-19 | Phase 6 plan: 6.1 share image from the logo kit, sitemap and robots generated from the page list, canonical links on https://imkan.ai, one Organization JSON-LD with published facts only; 6.2 self-host Funnel Display, Funnel Sans and DM Mono (download approved, OFL), move inline scripts and styles to files, enforce the CSP (style attributes allowed), a CSP test on every page, /assets cache one day, /_build one year; 6.3 portrait srcset, perf checks, keyboard and reduced-motion passes | Accepted (Felipe: "Approve both", including the font download) | PROJECT_SPEC Phase 6 |
+| D-030 | 2026-11-19 | Enforced CSP in `site/staticwebapp.config.json`: default/script/style/font/connect/manifest 'self', `style-src-attr 'unsafe-inline'` (the kit's layout attributes), img 'self' data:, form-action 'self', frame-ancestors 'none', base-uri 'self', object-src 'none', upgrade-insecure-requests. Cache: `/_build/*` 1 year immutable, `/assets/*` 1 day, `/fonts/*` 30 days, `/images/*` 1 week. `site/tests/csp.spec.ts` runs every page under the policy | Accepted (Felipe: "Approve and commit"); live at cut-over | `site/staticwebapp.config.json` |
+| D-031 | 2026-11-19 | Layout rhythm: sections fit their content with fixed padding tokens (128 / 96 / 72px by width), not one or two screens of `100svh`; only the hero keeps a capped screen height. Media frames get a fixed `aspect-ratio`, mock-ups sit fully visible and the same way in a row. Titles never smaller than their text. Overrides the kit's section rule in our CSS (kit files unmodified); the gate's screen-count findings for this are recorded as this decision, not waived one by one. Evidence: at 1366×650 content overran sections by up to 230px; at 2560×1300 sections were half empty | Accepted (Felipe: "Approve as recommended") | `DESIGN.md` Layout |
+| D-032 | 2026-11-19 | Browser support and visual QA: last two versions of Chrome, Edge, Firefox, Safari (macOS, iOS) and Samsung Internet (Brave, Opera via Chromium). Our CSS uses Baseline widely-available features, newer ones behind `@supports`. Tooling: Playwright Chromium + Firefox + WebKit, locally (engines downloaded to Playwright's cache) and in CI (`checks.yml`, diff shown first); `stylelint` + `stylelint-plugin-use-baseline` as dev-only dependencies; screenshot baselines in the repo; Felipe's real-device check per release | Accepted (Felipe: "Approve as recommended") | `DESIGN.md` Browser support |
+
+## Open decisions
+
+| ID | Question | Options | Needed by |
+|---|---|---|---|
+| O-004 | Where the email-signature logo image is hosted | Built for the recommended option: `https://imkan.ai/brand/png/imkan-email-logo@2x.png`, live after cut-over; the alternative is uploading the PNG into each mail client. Felipe to confirm | Phase 8 (signature usable after cut-over) |
+| O-005 | Pending wording changes 7-20 and the illustrative UI text | Approve, edit or revert each | Phase 7.3 |
+| O-006 | Who checks the Arabic "إمكان" in the logo | A native reader Felipe names | Phase 2.5 |
+
+## Log
+
+### 2026-11-16: visual direction v2 (D-012, D-013, D-014, D-015)
+
+Felipe reviewed home page v1: layout, minimalism and new elements kept; palette, hero animation and logo rejected as not elite or impressive enough. Agreed: a light (not white) palette dealt for an AI firm, a cinematic scroll scene in the hero with a kinetic-type opener as fallback, and three logo directions before choosing. The logo also serves the email signature, so PNG exports are required. Adopted a stepwise working method and the planning files above. Pushed back on a root `requirements.txt` (drift, and Azure's build reads `api/requirements.txt`); proposed documenting all manifests in the README instead.
+
+Superseded by this: the oxblood palette (and the darker `#560a0f` ink added for contrast), the working logo, and the `fluted-glass` hero effect.
+
+### 2026-11-18: palette chosen (D-018)
+
+Seven palette rounds between 2026-11-16 and 2026-11-18. Rejected: the three dealt palettes (swap pastels, cool grey and cobalt, stone and blueprint), two rounds of cobalt variants (too close to straight black and white, then midnight navy disliked), vibrant porcelain (violet and lime, cobalt and tangerine, teal and magenta), and the warm bone family (persimmon, coral, apricot, terracotta). Felipe wants the site fun and vibrant but premium, not corporate: warm bone ground, a plum-black blend instead of black, and a saffron yellow that pops against the purple. Picked midnight plum and gold over blackcurrant noir and the plum-to-black gradient. Contrast: ink 15.6:1, muted 8.2:1, accent 10.4:1, white on accent 12.2:1, band text 16.6:1, gold button text 12.1:1, so the muted colour already meets 7:1 and needs no darkening. The palette is Felipe's choice, not dealt, so it goes in through `start.mjs brand`.
+
+### 2026-11-19: logo kit built (Phase 2.4)
+
+Built in `site/public/brand/` (served at `/brand/` after cut-over), usage guide in `Documentation/brand/README.md`, overview `Documentation/brand/logo-kit.jpg`. Four lockup colourways (plum and plum-black on light, ink, gold and bone on dark, bone), four symbol colourways, app icons (gold mark on midnight plum), favicon SVG/ICO/PNG, apple-touch and manifest icons, square avatars, PNG lockups at 1x/2x/3x, and an email-signature template (`Documentation/brand/email-signature.html`) with placeholders for name, title, email and phone. The email PNG has a white tile so it survives dark-mode mail apps. Not yet wired into the site pages: that is Phase 4. The old working logo in `site/public/images/logo/` stays until then.
+
+
+Kit approved (2026-11-19). Felipe asked for every colourway as files, not only plum and gold, plus gold and black email logos. Added `imkan-lockup-gold-ink` (gold mark, plum-black text; the mark is pale on light grounds, 1.6:1) and `imkan-lockup-black` (pure black), PNGs for all six lockup colourways and four mark colourways, light app icons, and email tiles in black, gold on white and gold on midnight plum. Felipe picked gold on midnight plum as the email default (D-019).
+
+### 2026-11-19: DESIGN.md v2 (Phase 2.6)
+
+`DESIGN.md` rewritten for visual direction v2: midnight plum and gold tokens with contrast for every pair, Funnel type, the logo kit and its rules, the motion budget with the hero scene and moments left to Phases 3 and 4, and the home page plan carried over from v1. `start.mjs brand` was run for the chosen colours; it derives a plum-black band with bone buttons, so the gold band needs the override recorded as D-020. CLAUDE.md now points to DESIGN.md v2.
+
+### 2026-11-19: hero scene dealt and previewed (Phase 3.1, 3.2)
+
+The kit's scene rules: a scene is the hero only if it fits the hero section and rests in one screen; none qualifies for Imkan (the three hero scenes need the client's own photographs and rest in two screens). Of the eleven scenes, Imkan qualifies for three statement scenes; the product scenes need Imkan's own product screen (our windows show clients' systems), fly-into-the-shape needs one real dark photograph, object-through-giant-type needs a quote. Felipe chose Plan A. Previewed with the v2 tokens and real words; found and fixed the stem offset (D-023); phone and reduced motion show the finished composition. The v1 moments letters-assemble and iris-opens cannot sit with this scene (`avoidWith`); Phase 4 re-deals moments.
+
+Felipe approved the scene after the preview (2026-11-19). O-003 closed; the letter-physics fallback is not needed.
+
+### 2026-11-19: Phase 4.0 to 4.2
+
+Checker crash (constraint 5): diagnosed. The full desktop walk crashed Chrome's software renderer (SwiftShader) on v1's WebGL hero ground (`fluted-glass`); a full 1440 walk of a page without WebGL completed. With the ground retired (ADR 0010) the full check runs again. The v2 tokens, logo, icons and recoloured case art (one gold detail per drawing on the dark band) are in; the old working logo files were deleted with Felipe's approval. The scene sits before the cases band; the tiles take the original eyebrow "Production Systems" as their heading.
+
+### 2026-11-19: Phase 4.3 and 4.4
+
+Screen counts fixed at 1440, 820, 768 and 390 (marquee overflow that made the page 3990px wide, tablet cases on one screen, phone form on one screen, statement figures). Gate: the quick look listed 21 FAILs; seven sit on the scene section and the kit's own scene demo fails the same checks (no-visual, heading-scale, empty-area, container-edges; `Documentation/baseline/kit-demo-letter-bar-check.txt`), and the marquee's clipped-carousel finding also appears on the kit's own marquee demo. Felipe chose to fix ours, edit two words and run the rounds; findings inherent to kit parts are reported, not waived (the cap is five).
+
+Felipe approved Phase 4 (2026-11-19) after the screenshots and the live preview. The gate stays OPEN with the 11 kit-inherent findings documented in `Documentation/qa/phase-4-report.md`; it is closed with `gate.mjs --done` only on Felipe's own words. Wording changes 21-25 stay pending his review (O-005, Phase 7.3).
+
+### 2026-11-19: careers page approved (Phase 5.1)
+
+Felipe approved `/careers/`. Hero (centred, the open application's steps), perks as rows with lucide icons (downloaded with his OK) beside the first three past roles, six past roles on the dark band with details on demand (dealt moment line-carries-colour), the open application with the founders beside the form, posting to /api/apply with CV type and size checked in the browser. Gate after round 2: FAIL 2, with five waivers (gold button x2, original h1 and headings, a contrast reading taken mid-fade). Open: `sparse` on the past-roles band (measured while the moment still hides it) and uneven gaps at 390 (the form takes two phone screens with the founders). One round left. Evidence in `Documentation/qa/careers/`.
+
+### 2026-11-19: work pages approved (Phase 5.2)
+
+Felipe approved the case template, the eleven generated case pages and the work index. Cases: product hero with the case drawing, overview statement (dealt word-highlight), challenge, solution and stack on the band, impact with the next-case link; all generated from `site/content/cases.json` by `site/scripts/build-cases.mjs`, the index included. Index: statement hero with four facts, eleven tiles on the band (dealt iris-opens). Case template: checks clean apart from five waivers. Index gate round 1: FAIL 2 (card-layout on phones, inherent to an index of tiles). Evidence in `Documentation/qa/work/`.
+
+### 2026-11-19: Phase 5 complete
+
+Privacy, Terms and the 404 page approved. Privacy and Terms are generated from `site/content/*.md` (the old text word for word, checked: 989 and 704 words) by `site/scripts/build-legal.mjs`; the 404 page's words are new (wording change 35). The 404 is served for missing paths by D-028. All 17 pages pass the smoke and accessibility tests on desktop and phone (102 tests). Found for Phase 6: `/assets/*` is cached for a year as immutable though the kit files there have no versioned names.
+
+### 2026-11-19: Phase 6 complete
+
+6.1 share image, sitemap, robots, canonical links, Organization data, head audit (`site/scripts/build-seo.mjs`). 6.2 self-hosted fonts with their OFL licences, no inline code, enforced CSP and cache headers (D-030), CSP test on every page. 6.3 portrait WebP copies with srcset, lazy icons, keyboard and reduced-motion tests (both proven able to fail). 182 tests pass. Open and accepted: perf.mjs counts four font families on the home page; the fourth, "Funnel Display Fit", is the same file under normalised metrics for the scene (D-023), downloaded once. SVG "oversized/upscaled" warnings do not apply to vector drawings.
+
+### 2026-11-19: PR #25 opened; preview environments full
+
+Draft PR #25 (feature/redesign into main) opened; CI checks pass. The Azure preview deploy was refused: the Static Web App had reached its maximum number of staging environments. Cause: the workflow's Close Pull Request Job failed on every past PR (#13 to #24), so their previews were never removed. Felipe deleted the stale environments in the portal. Agreed (after 7.2): find the close job's error with a throwaway PR, fix the workflow (diff shown first), and add a check of Azure Environments after each merge to `Documentation/git_commandments.md`. Standard plan not needed.
+
+
+### 2026-11-19: preview cleanup fixed
+
+The Close Pull Request Job's error, captured on throwaway PR #26: `No matching static site found`. The deploy job signs in with the deployment token and a GitHub identity token (OIDC); the close job sent only the token. Fix: the close job gets the same OIDC sign-in (`id-token: write`, the Get Id Token step, `github_id_token`). Tested on PR #26: the close job passed and its preview was deleted (URL 404); PR #25's preview untouched. Rolled out: PR #27 into `main` (needs Felipe's merge; production content unchanged) and the same commit on `feature/redesign`. `Documentation/git_commandments.md` §8 now has the check of Actions and Azure Environments after each merge or close. Resetting the deployment token was not needed.
+
+### 2026-11-19: Phase 7.5 visual QA started
+
+Felipe found the preview messy (things off frame, wrong sizes, uneven spacing). Measured on the preview: section heights are tied to the screen height, so content overlaps the next section on short laptops and leaves voids on tall screens, which a 900px-tall test window never showed; mock-ups are cropped by "leftover height" frames; the Think / Build / Evolve labels overflow their circles. Reading copy is already 16px (the 13px text is inside the mock-ups only), so the type issue is hierarchy, not size. Plan approved with all four recommendations: D-031 (rhythm, frames), D-032 (browsers, tooling). Q0 standards written in `DESIGN.md`; Q1 to Q6 in `PROJECT_SPEC.md` 7.5.

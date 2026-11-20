@@ -1,0 +1,18 @@
+gate: checking http://localhost:4173/careers/ (software); this takes a few minutes on a CPU Chrome
+gate: 3 FAIL open
+  FAIL text-contrast    div.wrap > div.section-head > p > span.chip.chip--closed "Applications closed"  [1440]
+       a caption, label or muted line in #8e6b28 on #1b111d reads 3.73:1 (needs 4.5:1)
+       fix: body text in the ink at 7:1 or more; grey (4.5:1 or more) only for captions and labels
+  FAIL section-gaps     main#top > section.hero.hero--centred / section#perks  [390]
+       117px between these sections, -67% against the median 356px
+       fix: use one gap between sections (all within 25% of each other)
+  FAIL sparse           #past-roles section.section.ground-inverse "Past roles Applications closed E"  [1440]
+       its content fills 2% of its screen; merge it or give it its visual (0.55 is the aim)
+       fix: fill the section or make it a screen shorter
+  WAIVED button-styles (the page): Deliberate D-020: one primary action drawn in its ground's action colour, plum on bone and saffron gold on the dark close band.
+  WAIVED copy-headline h1#hero-h "Join the Team": The h1 'Join the Team' is Felipe's original wording (ADR 0007); the pill and lead carry the place and the trade.
+  WAIVED copy-headings h2#past-h "Past roles": Headings are Felipe's original wording ('Past roles', 'Don't see the right role?'), kept by ADR 0007.
+  WAIVED same-action header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--prima: Same decision as button-styles (D-020): 'Get in Touch' is plum on bone and gold on the dark close band.
+  20 WARN (not blocking), first: flush section#past-roles > div.mo-lc__stage > ; caption div.section-head.span-6 > div.people-pai; no-visual main#top > section.hero.hero--centred "J; no-visual section#apply "Don't see the right role?; copy-buttons div.card.span-6 > form.form > div.btn-ro
+A FAIL you judge false: add {"check": "<id>", "target": "<its where, enough to name that one finding>", "reason": "<why, 12+ characters>"} to .taste-skill/waivers.json (one finding each, 5 at most, never for kit-edited or checker-gaming); it goes in your report. Never edit the kit's files or hide the page from the checker.
+GATE: FAIL 3 (round 1 of 3)

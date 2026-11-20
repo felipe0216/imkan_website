@@ -1,0 +1,25 @@
+<!-- Shared <head> for every page: icons, metas, the self-hosted fonts, the kit's CSS, the brand tokens and the kit's head
+     lines (D-018, D-020, D-022, D-029). No inline <style> or <script>: the CSP allows 'self' only. Page <title>, description,
+     og tags, canonical and page CSS stay in each page. -->
+<link rel="icon" href="/brand/favicon.ico" sizes="32x32">
+<link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/brand/png/apple-touch-icon.png">
+<link rel="manifest" href="/brand/site.webmanifest">
+<meta name="theme-color" content="#efece5">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preload" href="/fonts/funnel-display-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/funnel-sans-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/styles/fonts.css">
+<link rel="stylesheet" href="/assets/system.css">
+<link rel="stylesheet" href="/assets/ui/cards.css">
+<link rel="stylesheet" href="/assets/motion/motion.css">
+<link rel="stylesheet" href="/assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="/assets/layout/layout.css">
+<link rel="stylesheet" href="/assets/icons/icon.css">
+<!-- the brand tokens after the kit's links: layout.css resets --ly-scale -->
+<link rel="stylesheet" href="/styles/tokens.css">
+<!-- D-031: sections fit their content (overrides the kit's screen-height sections) -->
+<link rel="stylesheet" href="/styles/rhythm.css">
+<script src="/scripts/boot.js"></script>
+<script src="/assets/backgrounds/backgrounds.js"></script>

@@ -1,0 +1,67 @@
+gate: checking http://localhost:4173/ (software); this takes a few minutes on a CPU Chrome
+gate (quick look at 1440 and 390): 21 FAIL
+  FAIL no-visual        section#impact "Proven Impact"  [1440, 390]
+       no picture, effect or mock in this section; a feature section needs a visual
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL card-family      section#about > div.wrap > div.grid.grid--top > div.section-head.span-6 "Architects of Int  [1440, 390]
+       9 cards of one kind (.span-6) set their titles in 2 faces: funnel display (1, like "Architects of Intelligen"), funnel sans (4, like "Build a strategy worth e")
+       fix: draw one card part one way: one fill and one title face for every card of a kind (one featured card may differ)
+  FAIL button-styles    (the page)  [1440, 390]
+       3 button styles on the page: soft, fill #5e1654 x3 ("Get in Touch"); soft, fill #dcd8d3 x1 ("Why Us?"); soft, fill #ffc233 x1 ("Get in Touch")
+       fix: one primary and one secondary button: one shape, one height per size, one label size
+  FAIL copy-headings    h2#platform-h "Banking Fraud Detection in Real-Time"  [1440]
+       "Banking Fraud Detection in Real-Time" names no product, part, place or section (8 headings like it; at most one brand line per page) (and 7 more like it: "Build a strategy worth e", "Deploy AI that saves you", "Turn ins
+       fix: name the thing in every heading: the product, a part, the place or a section noun
+  FAIL section-gaps     section#why-us / section#impact  [1440]
+       595px between these sections, +149% against the median 239px
+       fix: use one gap between sections (all within 25% of each other)
+  FAIL section-gaps     section#impact / section#cases  [1440]
+       435px between these sections, +82% against the median 239px
+       fix: use one gap between sections (all within 25% of each other)
+  FAIL one-section      section#impact > div.sc__stage > div.lbf__ground "15+ production-grade AI and data solutio  [1440]
+       a band: a box 100% of the section wide on a ground of its own that holds the heading or the intro: the section's own ground is the band (SR-4)
+       fix: put every block of <main> in a <section>, and give a band its own section instead of a ground inside one
+  FAIL container-edges  section#impact "Proven Impact 15+ production-grade AI an"  [1440]
+       the content of section 7 runs 456px from the left and 456px from the right (read from its outermost blocks: no .wrap): the page's container starts at 80px; the margin is 64-120px at 1440px (one container, equal margins, 
+       fix: use one container on every section and the nav (.wrap): one margin left and right, 64-120px on a desktop, 16-24px on a phone
+  FAIL row-lines        section#services > div.wrap > div.group > div.services-marquee.mo-mq "Banking & Financial   [1440]
+       a clipped carousel: 1 item cut at rest (SR-7)
+       fix: show every item inside the container, or stack them: no sideways scroller, no half-cut carousel
+  FAIL row-lines        div.wrap > div.group > div.services-marquee.mo-mq > div.mo-mq__rail "Banking & Financial S  [1440]
+       a clipped carousel: 1 item cut at rest (SR-7)
+       fix: show every item inside the container, or stack them: no sideways scroller, no half-cut carousel
+  FAIL same-action      header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary "Get in  [390]
+       "Get in Touch" appears 3 times in different looks: soft, fill #5e1654 and soft, fill #ffc233
+       fix: draw one action the same way everywhere (only the nav copy may be one size smaller)
+  FAIL heading-scale    h2#impact-h "Proven Impact"  [390]
+       an h2 at 74.1px, as large as the h1 (39.2px) or larger
+       fix: size headings by level: the h1 largest, one size per level, each level below the one above
+  FAIL section-gaps     section#cases / section#contact-form  [390]
+       519px between these sections, +109% against the median 248px of gaps at a change of ground
+       fix: use one gap between sections (all within 25% of each other)
+  FAIL section-gaps     section#contact-form / section#about  [390]
+       433px between these sections, +91% against the median 227px
+       fix: use one gap between sections (all within 25% of each other)
+  FAIL empty-area       section#impact "Proven Impact"  [390]
+       51% of the section is empty: 192px of empty rows between its content, 192px under its last (p), in its 748px of rows (WARN over 35%, FAIL over 50%)
+       fix: fill the section: a picture or a second column beside the words, or more of its own content; the section stays one or two screens tall (T-height)
+  FAIL bleed-one-side   #services ul.mo-mq__track "Banking & Financial ServicesLogi"  [1440]
+       runs from x 80 out to the right viewport edge; the left side stays at 80
+       fix: bleed the visual to both edges or keep it on the .wrap lines
+  FAIL bleed-one-side   #services ul.mo-mq__track.mo-mq__clone "Banking & Financial ServicesLogi"  [1440]
+       runs from x 2036.3 out to the right viewport edge; the left side stays at 80
+       fix: bleed the visual to both edges or keep it on the .wrap lines
+  FAIL sparse           #statement section.section "Engineering Without Friction. No"  [1440]
+       its content fills 30% of its screen; merge it or give it its visual (0.55 is the aim)
+       fix: fill the section or make it a screen shorter
+  FAIL hero-lines       section.hero h1  [1440]
+       the check fills the h1 to 35 characters (this hero's maxChars in heroes.json), not the page's own: it takes 3 lines at 1440, 2 at most
+       fix: the check fills the h1 to this hero's maxChars, not your own: take the next type pairing the deal printed (start.mjs); when the h1 is final and fits, waive it (target: section.hero h1)
+  FAIL copy-slop-word   copy "empowering" in "Empowering the future with elite Data Engineering, Ag..."
+       old slop words (empowering, world-class)
+       fix: replace each word with the fact it stands in for: the step count, the figure, the material, the place (a word in the client's own name is not counted when the logo, the title before its ":" or og:site_name writes the nam
+  FAIL copy-slop-word   copy "world-class" in "World-class talent bridging the gap between academic..."
+       old slop words (empowering, world-class)
+       fix: replace each word with the fact it stands in for: the step count, the figure, the material, the place (a word in the client's own name is not counted when the logo, the title before its ":" or og:site_name writes the nam
+  51 WARN (not blocking), first: caption div.grid.grid--top > div.span-6.start-7 ; cut-text div.services-marquee.mo-mq > div.mo-mq__; cut-text div.services-marquee.mo-mq > div.mo-mq__; cut-text ul.ui-notify__list > li.ui-note:nth-of-t; cut-text p.t-stat.mo-cr > span.mo-cr__col > span.
+GATE: QUICK 21 (not a round; run without --quick to finish)

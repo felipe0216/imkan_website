@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="soft" data-buttons="tonal" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Scene preview: letter bar floods the ground</title>
+<meta name="site-kind" content="software"><meta name="page-type" content="software">
+<link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..700&family=Funnel+Sans:wght@400..600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/system.css">
+<link rel="stylesheet" href="/assets/ui/cards.css">
+<link rel="stylesheet" href="/assets/motion/motion.css">
+<link rel="stylesheet" href="/assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="/assets/layout/layout.css">
+<link rel="stylesheet" href="/assets/icons/icon.css">
+<!-- start.mjs brand --page software --bg "#efece5" --surface "#e3ded3" --ink "#1b111d" --muted "#4c4150" --accent "#5e1654" --type funnel (as printed) -->
+<style>
+:root {
+  --p-bg: #efece5; --p-surface: #e3ded3; --p-ink: #1b111d; --p-muted: #4c4150;
+  --p-accent: #5e1654; --p-accent-ink: #efece5; --p-action: #5e1654; --p-action-ink: #efece5;
+  --p-inv-bg: #1b111d; --p-inv-surface: #271d29; --p-inv-ink: #efece5; --p-inv-muted: #979092;
+  --p-inv-accent: #efece5; --p-inv-accent-ink: #1b111d; --p-inv-action: #efece5; --p-inv-action-ink: #1b111d;
+  --font-display: "Funnel Display", system-ui, sans-serif;
+  --font-text: "Funnel Sans", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.03em;
+  --display-tracking-xl: -0.04em;
+  --ly-scale: 0.98;
+}
+</style>
+<!-- D-018 / D-020: the gold highlight and a lighter muted on the dark band; the band itself stays the printed ink -->
+<style>
+:root { --p-inv-muted: #cbbccf; --p-inv-accent: #ffc233; --p-inv-accent-ink: #1b111d; --p-inv-action: #ffc233; --p-inv-action-ink: #1b111d; }
+</style>
+<script>document.documentElement.classList.add('sc-js');setTimeout(()=>document.documentElement.classList.add('sc-safe'),2500)</script>
+<link rel="stylesheet" href="/assets/scenes/scenes.css">
+<link rel="stylesheet" href="/assets/scenes/letter-bar-floods-the-ground/scene.css">
+<!-- Funnel Display reports ascent 1.0em + descent 0.25em; the scene measures its stem on a 1em box, so this face is
+     the same font file with its metrics normalised to 80/20 (the line only). -->
+<style>
+@font-face{font-family:"Funnel Display Fit";font-weight:400 700;font-display:swap;src:url(https://fonts.gstatic.com/s/funneldisplay/v3/B50WF7FGv37QNVWgE0ga--4Pbb6dDYs.woff2) format("woff2");ascent-override:80%;descent-override:20%;line-gap-override:0%;unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+[data-big-scene="letter-bar-floods-the-ground"] .lbf__line{font-family:"Funnel Display Fit","Funnel Display",system-ui,sans-serif}
+</style>
+<link rel="stylesheet" href="/styles/home.css">
+</head>
+<body>
+<header class="nav nav--centre">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="nav__logo" href="/#top" aria-label="IMKAN, home"><img src="/brand/svg/imkan-lockup.svg" alt="IMKAN" width="134" height="40"></a>
+    <nav class="nav__links" aria-label="Main">
+      <div class="nav__item">
+        <a class="nav__link" href="/#services">Services <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <div class="menu-col span-3">
+              <p class="t-label">Data Strategy &amp; Architecture</p>
+              <a href="/#services">Build a strategy worth executing</a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">Engineering &amp; Data Preparation</p>
+              <a href="/#services">Make your data work for you</a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">AI &amp; Automation</p>
+              <a href="/#services">Deploy AI that saves you time</a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">Insights &amp; Action</p>
+              <a href="/#services">Turn insights into decisions</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="/#methodology">Methodology</a></div>
+      <div class="nav__item"><a class="nav__link" href="/#cases">Cases</a></div>
+      <div class="nav__item"><a class="nav__link" href="/#about">About</a></div>
+      <div class="nav__item"><a class="nav__link" href="/careers/">Careers</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary" href="/#contact-form">Get in Touch</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+<main id="top">
+  <section class="section" id="statement" aria-labelledby="statement-h">
+    <div class="wrap">
+      <h2 id="statement-h">Engineering Without Friction.</h2>
+      <p class="t-lead" style="margin-top:16px;max-width:52ch">No account managers. No junior-only teams. No endless discovery phases. Just senior engineers building production-grade systems aligned with Vision 2030.</p>
+    </div>
+  </section>
+
+  <section class="sc" data-big-scene="letter-bar-floods-the-ground" style="--h: 1" aria-labelledby="impact-h">
+    <div class="sc__stage">
+      <h2 class="lbf__line" id="impact-h">Proven <span class="lbf__pivot">I</span>mpact</h2>
+      <div class="lbf__ground"><div class="lbf__next"><h2>15+ production-grade AI and data solutions.</h2><p>Delivering measurable results across banking, logistics, healthcare, and beyond.</p></div></div>
+    </div>
+  </section>
+
+  <section class="section g2 ground-inverse" id="cases" aria-labelledby="cases-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="grid">
+        <a class="tile tile--case span-4" href="/work/smart-lead-scoring-for-property-sales/">
+          <img src="/images/work/smart-lead-scoring-for-property-sales-stone.svg" alt="" width="480" height="320" loading="lazy">
+          <span class="t-label muted">Real Estate &amp; PropTech</span>
+          <span class="t-card">Smart Lead Scoring for Property Sales</span>
+          <span class="t-small">5x Lead Conversion Rate</span>
+        </a>
+        <a class="tile tile--case span-4" href="/work/route-optimization-for-last-mile-delivery/">
+          <img src="/images/work/route-optimization-for-last-mile-delivery-stone.svg" alt="" width="480" height="320" loading="lazy">
+          <span class="t-label muted">Logistics &amp; Delivery</span>
+          <span class="t-card">Route Optimization for Last-Mile Delivery</span>
+          <span class="t-small">-32% Operational Costs</span>
+        </a>
+        <a class="tile tile--case span-4" href="/work/credit-risk-scoring-with-machine-learning/">
+          <img src="/images/work/credit-risk-scoring-with-machine-learning-stone.svg" alt="" width="480" height="320" loading="lazy">
+          <span class="t-label muted">Banking &amp; Financial Services</span>
+          <span class="t-card">Credit Risk Scoring with Machine Learning</span>
+          <span class="t-small">70% Automated Decisions</span>
+        </a>
+        </div>
+      </div>
+      <div class="group">
+        <div class="grid">
+        <a class="tile tile--case span-4" href="/work/demand-forecasting-for-retail-inventory/">
+          <img src="/images/work/demand-forecasting-for-retail-inventory-stone.svg" alt="" width="480" height="320" loading="lazy">
+          <span class="t-label muted">Retail &amp; E-commerce</span>
+          <span class="t-card">Demand Forecasting for Retail Inventory</span>
+          <span class="t-small">87% Forecast Accuracy</span>
+        </a>
+        <a class="tile tile--case span-4" href="/work/clinical-ai-safety-and-validation/">
+          <img src="/images/work/clinical-ai-safety-and-validation-stone.svg" alt="" width="480" height="320" loading="lazy">
+          <span class="t-label muted">Healthcare &amp; Clinical AI</span>
+          <span class="t-card">Clinical AI Safety &amp; Validation</span>
+          <span class="t-small">NHS-Scale Governance Ready</span>
+        </a>
+        <a class="tile tile--case span-4" href="/work/ai-agents-for-customer-negotiations/">
+          <img src="/images/work/ai-agents-for-customer-negotiations-stone.svg" alt="" width="480" height="320" loading="lazy">
+          <span class="t-label muted">Customer Service &amp; AI Agents</span>
+          <span class="t-card">AI Agents for Customer Negotiations</span>
+          <span class="t-small">60% Workload Reduction</span>
+        </a>
+        </div>
+        <p class="cases-more"><a class="link" href="/work/">See All Solutions</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+<script type="module" src="/assets/scenes/scenes.js"></script>
+</body>
+</html>

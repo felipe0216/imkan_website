@@ -1,0 +1,6 @@
+:root {
+  --p-bg: #e8ecf4; --p-surface: #dae0ec; --p-ink: #1c1433; --p-muted: #463e60;
+  --p-accent: #5a2df0; --p-accent-ink: #ffffff; --p-action: #5a2df0; --p-action-ink: #ffffff;
+  --p-inv-bg: #4a1fd8; --p-inv-surface: #5b35e4; --p-inv-ink: #ffffff; --p-inv-muted: #ddd5ff;
+  --p-inv-accent: #d4ff3a; --p-inv-accent-ink: #1c1433; --p-inv-action: #d4ff3a; --p-inv-action-ink: #1c1433;
+}
