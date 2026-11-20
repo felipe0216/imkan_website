@@ -120,3 +120,6 @@ Felipe found the preview messy (things off frame, wrong sizes, uneven spacing). 
 
 ### 2026-11-20: interactive demos started (D-033)
 Felipe approved the redesign and asked for a dev experiment: make the moving mock-ups playable, all of them. Branch `feature/interactive-demos` from `feature/redesign`. 14 mock-ups listed (12 home, 2 careers). Pilot built: the anomaly queue and detection run (#platform). Open: the "Illustrative demo" label (recommended), and new text (extra chat answers, more notification texts, hints) as TODOs.
+
+### 2026-11-20: interactive demos rolled out (D-033)
+Felipe approved the cue pattern ("Approve, roll out"). All 13 moving mock-ups are now demos, on home and careers, with the same "Try it" / "Reset demo" pill: in a frame's top-right corner for card panels and hero windows, above the frame for #platform. The terminal and voice demos replay the kit's own animation through its controller; the careers roles open the real role details. New text (wording changes 44 to 58) is pending Felipe. QA under the revised protocol: contact sheets per demo in Edge, Firefox and WebKit at desktop and phone size, section heights against PR #25, the first screen at 1440x900 and 1366x650.

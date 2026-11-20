@@ -233,3 +233,32 @@ Pilot result under this protocol (2026-11-20): it renders identically in all thr
   - Section heights against PR #25: only #platform changed (+32 px desktop, +345 px phone).
   - `play.spec.ts`: 34 passed and 6 skipped by design, plus the two WebKit load timeouts passing on rerun (24 of 24 over 2 repeats).
 - **Chrome missing:** Chrome was no longer installed on this machine during this round. The Chromium runs used Edge (`PW_CHANNEL=msedge`, same engine).
+
+### Rollout to all 13 demos (2026-11-20)
+
+| Demo | Where | What the visitor does |
+|---|---|---|
+| Hero chat | Home hero | Picks one of 3 questions (2 proposed, TODO); the agent types the answer and shows only the sources it used |
+| Anomalies | Home #platform | (pilot) picks an alert, Hold, Open alert, filters |
+| Roadmap, proof plan, application | Home Services, Why us; Careers hero | Ticks and unticks steps; bar and "n of 4" follow |
+| Sources | Home Services | Drops a source (it dims, count falls) and joins it back ("Joining n of 6 sources") |
+| Sales review | Home Services | Flips the switches; "n of 4 on" follows |
+| Notes | Home Services | Clears notes; once all are cleared, the agent brings them back |
+| Search | Home Methodology | Types in a real text box; rows filter, matches bold, arrows move |
+| Stack | Home Methodology | Connect (spinner, Connected) and disconnect; count follows |
+| Checks | Home Methodology | Presses the command; the kit's own run plays again |
+| Voice | Home Why us | Taps the orb or caption; the kit's own line plays again |
+| Past roles | Careers | Opens a role from the mock-up in the Past roles list |
+
+**Found by eye and fixed:**
+1. Dropped sources were too subtle (now dimmed).
+2. A tinted row painted over a card's rounded corners (cards now clip).
+3. The chat's question chips took two rows inside the 400px card and pushed the chat past the first screen at 1440x900 (bottom 917px against 804px before). They now sit in one row under the card, and the chat is back at 804px.
+4. Chips outside the card lost their colours (the kit's variables stop at the card). They now use the page tokens.
+5. The pill's extra top room was only needed on phones; desktop frames already clear it.
+
+**Found by tests and fixed:**
+1. The kit rewrites some mock-ups as it stops, so the first click landed on a replaced note. The control is now found again after the takeover, and the controls are prepared again.
+2. The stack's hidden "Connected" chip blocked the Connect button, and the kit had left that button aria-hidden.
+
+**Not a regression, noted for Felipe:** the Careers hero card shares the frame's beige (same on the PR #25 build).

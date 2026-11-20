@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="/assets/ui/notify/fragment.css">
 <link rel="stylesheet" href="/styles/home.css">
 <link rel="stylesheet" href="/styles/careers.css">
+<link rel="stylesheet" href="/styles/play.css">
 </head>
 <body>
 <!-- type: software (AI; ADR 0009). Page 2 of the site (D-027).
@@ -44,7 +45,7 @@
       </div>
       <!-- The window shows the open application's three steps, in the page's own words (illustrative UI text,
            pending Felipe's approval: Documentation/wording-changes.md). -->
-      <div class="hero__window" role="figure" aria-label="The open application in three steps: upload your CV, tell us how you'd like to make an impact, and we get back to you if there's a fit">
+      <div class="hero__window" role="figure" aria-label="The open application in three steps: upload your CV, tell us how you'd like to make an impact, and we get back to you if there's a fit" data-play="checklist">
         <div class="ly-piece hero__apply" aria-hidden="true">
           <div class="ui ui-panel ui-checks" data-ui="checklist">
             <div class="ui-checks__head"><div class="ui-title">Open application</div><span class="ui-spacer"></span><div class="ui-meta" data-checks-count>1 of 3</div></div>
@@ -69,7 +70,7 @@
       <div class="grid grid--top">
         <ul class="rows perks span-6"><li><img class="perk__icon" src="/assets/icons/ui-rocket.svg" alt="" width="24" height="24" loading="lazy"><span class="rows__name">High-impact work</span><p>Ship AI and data systems for national-scale, Vision 2030 clients.</p></li><li><img class="perk__icon" src="/assets/icons/ui-key-round.svg" alt="" width="24" height="24" loading="lazy"><span class="rows__name">Real ownership</span><p>Own meaningful problems end-to-end and see your work ship fast.</p></li><li><img class="perk__icon" src="/assets/icons/ui-users.svg" alt="" width="24" height="24" loading="lazy"><span class="rows__name">Elite, small team</span><p>Work shoulder-to-shoulder with a hand-picked group of specialists.</p></li><li><img class="perk__icon" src="/assets/icons/ui-laptop.svg" alt="" width="24" height="24" loading="lazy"><span class="rows__name">Flexible &amp; hybrid</span><p>Outcomes over hours, with hybrid and remote-friendly options.</p></li><li><img class="perk__icon" src="/assets/icons/ui-wallet.svg" alt="" width="24" height="24" loading="lazy"><span class="rows__name">Competitive package</span><p>Compensation that reflects your impact, plus performance upside.</p></li><li><img class="perk__icon" src="/assets/icons/ui-landmark.svg" alt="" width="24" height="24" loading="lazy"><span class="rows__name">Build the Kingdom</span><p>Be part of building sovereign AI capability in Saudi Arabia.</p></li></ul>
         <!-- The first three past roles from content/roles.json, as the page lists them below. -->
-        <div class="panel span-6 start-7" role="figure" aria-label="Three of Imkan.ai's past roles: Senior Data Engineer, Machine Learning Engineer, AI Solutions Architect, all closed">
+        <div class="panel span-6 start-7" role="figure" aria-label="Three of Imkan.ai's past roles: Senior Data Engineer, Machine Learning Engineer, AI Solutions Architect, all closed" data-play="roles">
           <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:420px;--ax:max(24px, 50% - 210px);--ay:48px;--ay-sm:24px" aria-hidden="true">
           <div class="ui ui-panel ui-notify" data-ui="notify">
             <ul class="ui-notify__list" data-notify-list><li class="ui-note"><span class="ui-note__av role-av"><svg aria-hidden="true" focusable="false" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g></svg></span><span class="ui-note__text"><span class="ui-note__title">Senior Data Engineer<time>Closed</time></span><span class="ui-note__body">Engineering · Riyadh, KSA</span></span></li><li class="ui-note"><span class="ui-note__av role-av"><svg aria-hidden="true" focusable="false" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g></svg></span><span class="ui-note__text"><span class="ui-note__title">Machine Learning Engineer<time>Closed</time></span><span class="ui-note__body">AI &amp; Machine Learning · Riyadh, KSA</span></span></li><li class="ui-note"><span class="ui-note__av role-av"><svg aria-hidden="true" focusable="false" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g></svg></span><span class="ui-note__text"><span class="ui-note__title">AI Solutions Architect<time>Closed</time></span><span class="ui-note__body">AI &amp; Machine Learning · Riyadh, KSA / Hybrid</span></span></li></ul>
@@ -250,5 +251,6 @@
 <script type="module" src="/assets/motion/motion.js"></script>
 <script type="module" src="/assets/layout/layout.js"></script>
 <script type="module" src="/scripts/cv-field.js"></script>
+<script type="module" src="/scripts/play.js"></script>
 </body>
 </html>

@@ -67,6 +67,62 @@ html .play-more { display: none; }
   html .play-more:focus-visible { outline: 2px solid var(--p-action); outline-offset: -2px; }
 }
 
+/* demos in a frame (a card's panel, a hero window): the cue sits in the frame's top-right corner, and the frame
+   keeps room above the mock-up for it, so it never covers what the mock-up shows */
+html .has-play-cue { position: relative; }
+html .play-cue--corner { position: absolute; inset-block-start: var(--s-3); inset-inline-end: var(--s-3); z-index: 3; margin: 0; }
+html .play-cue--corner .play-cue__btn { min-block-size: 32px; padding: 0 var(--s-3); font-size: 13px; }
+/* the frames' own 48px top padding clears the 44px pill on wider screens; a phone's smaller padding does not */
+@media (max-width: 639px) {
+  html .panel.has-play-cue > .stage { padding-block-start: calc(var(--s-3) + 32px + var(--s-4)); }
+  html .hero__window.has-play-cue { padding-block-start: calc(var(--s-3) + 32px + var(--s-4)); }
+}
+
+/* what can be pressed in a framed demo: a tint under the pointer, a ring for the keyboard, and the step
+   "Try it" points at, marked until the visitor acts */
+@media (hover: hover) {
+  html .has-play-cue .play-hit:hover { background-color: color-mix(in oklab, var(--u-ink, #1b111d) 5%, transparent); }
+}
+html .has-play-cue :is([tabindex="0"], button):focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
+/* a tinted row (hovered or pointed at) must not paint over the card's rounded corners */
+html .has-play-cue .ui-panel[data-ui] { overflow: clip; }
+html .has-play-cue li.is-pointed { background-color: color-mix(in oklab, var(--p-action) 9%, transparent); box-shadow: inset 3px 0 0 var(--p-action); }
+/* a dropped source steps back, so the change reads at a glance (only its small dot went before) */
+html .has-play-cue .ui-file[aria-selected="false"]:not(.is-reading) { opacity: 0.5; }
+html .has-play-cue .ui-file.is-pointed { box-shadow: 0 0 0 2px var(--p-action); background-color: transparent; }
+
+/* the "Think" search: the query as a real text box, in the kit's own type and place */
+html .play-search__q { flex: 1 1 auto; min-inline-size: 0; }
+html .play-search__q .ui-search__caret { display: none; }
+html .play-search__input {
+  inline-size: 100%; min-inline-size: 0; margin: 0; padding: 0; border: 0; background: transparent;
+  color: inherit; font: inherit; letter-spacing: inherit; outline: none;
+}
+html .has-play-cue .play-search__input:focus-visible { outline: none; }
+html .has-play-cue .ui-search__field:focus-within { box-shadow: inset 0 -2px 0 var(--p-action); }
+
+/* the hero chat: suggested questions in one row under the chat card, in the kit's chip shape */
+html .hero__window[data-play="chat"] { flex-direction: column; gap: var(--s-4); }
+html .play-chat__ask { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-2); inline-size: 100%; max-inline-size: 760px; }
+html .play-chat__q {
+  min-block-size: 32px; padding: 6px var(--s-3); border: 1px solid color-mix(in oklab, var(--p-ink) 18%, transparent); border-radius: 999px;
+  background: var(--p-bg); color: var(--p-ink); font: 500 13px/18px var(--font-text); text-align: start; cursor: pointer;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+@media (hover: hover) { html .play-chat__q:hover { background: #fff; border-color: color-mix(in oklab, var(--p-ink) 32%, transparent); } }
+html .play-chat__q[aria-pressed="true"] { border-color: var(--p-action); box-shadow: inset 0 0 0 1px var(--p-action); }
+html .play-chat__q.is-pointed { background: color-mix(in oklab, var(--p-action) 12%, var(--p-bg)); border-color: var(--p-action); }
+html .play-chat__q:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
+html .ui-chat__w.is-off-full { opacity: 0; }
+html .ui-chat__src[hidden] { display: none; }
+
+/* the voice agent: the orb and the caption can be pressed */
+html .has-play-cue .ui-voice__orb.play-hit { border-radius: 50%; }
+
+/* the stack: the state chip that is not showing never takes the pointer from the button that is */
+html .has-play-cue .ui-app:not(.is-on) .ui-app__on { pointer-events: none; }
+
 /* the run's Hold button, held */
 html .ui-pipe__btn.play-hit[aria-pressed="true"] { background: var(--u-fill-3); box-shadow: inset 0 0 0 1px var(--u-line-2); }
 

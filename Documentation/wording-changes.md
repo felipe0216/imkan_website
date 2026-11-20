@@ -54,6 +54,21 @@ Columns: **Page** where it appears, **Original** text, **New** text, **Why**, an
 | 41 | Home, anomalies demo (dev branch only) | (none: new) | Reset demo | The same pill after the first play: puts the demo back as it was | pending |
 | 42 | Home, anomalies demo, phones (dev branch only) | (none: new) | Show all 9 alerts | Phones show four alerts, the button shows the rest (the count follows the list) | pending |
 | 43 | Home, anomalies demo, phones (dev branch only) | (none: new) | Show fewer | The same button once the list is open | pending |
+| 44 | Home, Services: data strategy roadmap; Why us: proof-of-value plan; Careers: open application (dev branch `feature/interactive-demos` only) | (none: new) | Try it: tick a step | Cue on the three checklist demos | pending |
+| 45 | Home, Services: joined sources (dev branch `feature/interactive-demos` only) | (none: new) | Try it: drop a source | Cue on the sources demo | pending |
+| 46 | Home, Services: weekly sales review (dev branch `feature/interactive-demos` only) | (none: new) | Try it: flip a switch | Cue on the switches demo | pending |
+| 47 | Home, Methodology: your existing stack (dev branch `feature/interactive-demos` only) | (none: new) | Try it: connect a tool | Cue on the stack demo | pending |
+| 48 | Home, Services: the agent's notes (dev branch `feature/interactive-demos` only) | (none: new) | Try it: clear a note | Cue on the notes demo | pending |
+| 49 | Home, Methodology: search (dev branch `feature/interactive-demos` only) | (none: new) | Try it: type a search | Cue on the search demo | pending |
+| 50 | Home, Methodology: after-go-live checks (dev branch `feature/interactive-demos` only) | (none: new) | Try it: run the checks | Cue on the checks demo | pending |
+| 51 | Home, Why us: voice agent (dev branch `feature/interactive-demos` only) | (none: new) | Try it: hear the agent | Cue on the voice demo | pending |
+| 52 | Home, hero chat (dev branch `feature/interactive-demos` only) | (none: new) | Try it: ask the agent | Cue on the chat demo | pending |
+| 53 | Home, hero chat (screen readers only) (dev branch `feature/interactive-demos` only) | (none: new) | Ask the pricing agent | Name of the group of suggested questions | pending |
+| 54 | Home, hero chat (dev branch `feature/interactive-demos` only) | (none: new) | Can you go to 10% off? | Second suggested question. Illustrative, like the chat's existing exchange (case 11, quoting within approved pricing) | pending |
+| 55 | Home, hero chat (dev branch `feature/interactive-demos` only) | (none: new) | 10% is outside your approved pricing. I can offer 6% off today, or pass your request to your account manager. | Answer to it: shows the agent keeping to approved pricing, as the page already says it does | pending |
+| 56 | Home, hero chat (dev branch `feature/interactive-demos` only) | (none: new) | Can you deliver 1,000 units by the 10th? | Third suggested question. Illustrative | pending |
+| 57 | Home, hero chat (dev branch `feature/interactive-demos` only) | (none: new) | I can confirm 600 units for the 10th and the other 400 on the 14th. Shall I hold both? | Answer to it: illustrative stock and delivery figures, no claim about any client | pending |
+| 58 | Careers: past roles mock-up (dev branch `feature/interactive-demos` only) | (none: new) | Try it: open a role | Cue on the roles demo (each role opens its details in Past roles) | pending |
 
 ### New illustrative UI text (pending approval)
 

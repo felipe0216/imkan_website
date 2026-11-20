@@ -32,8 +32,37 @@ const DEMOS = [
       ['after "Reset demo"', async (p) => { await p.locator('#platform .play-cue__btn').click(); await p.waitForTimeout(600); }],
     ],
   },
+  // demos in a frame: at rest, "Try it", played, reset (the shared pattern in scripts/play/lib.js, demo())
+  ...[
+    ['roadmap', '/', '#services [data-play="checklist"]', ['.ui-check:nth-child(3)', '.ui-check:nth-child(4)']],
+    ['sources', '/', '#services [data-play="files"]', ['.ui-file:nth-child(2)', '.ui-file:nth-child(5)']],
+    ['sales-review', '/', '#services [data-play="toggles"]', ['.ui-tg:nth-child(4)', '.ui-tg:nth-child(1)']],
+    ['stack', '/', '#methodology [data-play="integrations"]', ['.ui-app:nth-child(1) .ui-app__on']],
+    ['proof-plan', '/', '#why-us [data-play="checklist"]', ['.ui-check:nth-child(3)']],
+    ['application', '/careers/', '.hero__window[data-play="checklist"]', ['.ui-check:nth-child(2)', '.ui-check:nth-child(3)']],
+    ['notes', '/', '#services [data-play="notify"]', ['.ui-note:nth-child(1)', '.ui-note:nth-child(1)']],
+    ['search', '/', '#methodology [data-play="search"]', async (p, f) => { await p.locator(`${f} .play-search__input`).fill('stock'); }],
+    ['checks', '/', '#methodology [data-play="terminal"]', ['.ui-term__cmd[role="button"]'], 700],
+    ['roles', '/careers/', '[data-play="roles"]', ['.ui-note:nth-child(2)']],
+    ['chat', '/', '.hero__window[data-play="chat"]', ['.play-chat__q:nth-child(2)'], 2600],
+    ['voice', '/', '#why-us [data-play="voice"]', ['.ui-voice__orb'], 450],
+  ].map(([name, path, frame, presses, after = 900]) => ({
+    name, path, frame, top: '.card',
+    steps: [
+      ['at rest (cue)', async () => {}],
+      ['"Try it" pressed', async (p) => { await p.locator(`${frame} .play-cue__btn`).click(); await p.waitForTimeout(500); }],
+      ['played', async (p) => {
+        if (typeof presses === 'function') await presses(p, frame);
+        else for (const sel of presses) { await p.locator(`${frame} ${sel}`).first().click(); await p.waitForTimeout(300); }
+        await p.waitForTimeout(after);
+      }],
+      ['after "Reset demo"', async (p) => { await p.locator(`${frame} .play-cue__btn`).click(); await p.waitForTimeout(500); }],
+    ],
+  })),
 ];
 
+const ONLY = process.env.QA_ONLY ? process.env.QA_ONLY.split(',') : null;
+if (ONLY) DEMOS.splice(0, DEMOS.length, ...DEMOS.filter((d) => ONLY.includes(d.name)));
 const shots = [];
 for (const [ename, engine, launch] of ENGINES) {
   const browser = await engine.launch(launch);
@@ -50,11 +79,13 @@ for (const [ename, engine, launch] of ENGINES) {
         await act(p);
         // the demo's section from its top, just under the sticky navigation, so the heading, the cue above the
         // frame and the frame are all in the picture (the first version scrolled the cue under the navigation)
-        await p.evaluate((sel) => {
-          const sec = document.querySelector(sel).closest('section');
+        // a framed demo: from its card's top (or the frame's own, outside a card), 24px under the navigation
+        await p.evaluate(([sel, top]) => {
+          const f = document.querySelector(sel);
+          const el = (top && f.closest(top)) || (top ? f : f.closest('section'));
           const nav = document.querySelector('.nav')?.getBoundingClientRect().height || 72;
-          scrollTo(0, sec.getBoundingClientRect().top + scrollY - nav);
-        }, demo.frame);
+          scrollTo(0, el.getBoundingClientRect().top + scrollY - nav - (top ? 24 : 0));
+        }, [demo.frame, demo.top || null]);
         await p.waitForTimeout(200);
         const file = `${OUT}/demo-${demo.name}-${ename}-${sname}-${shots.filter((s) => s.key === `${demo.name}-${ename}-${sname}`).length}.png`;
         await p.screenshot({ path: file });
