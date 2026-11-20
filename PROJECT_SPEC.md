@@ -261,9 +261,9 @@ Phases run in this order; inside a phase, one item at a time.
 - [x] 7.2 Azure settings verified; forms tested on the preview in test mode (`Documentation/qa/preview-7.2.md`)
 - [ ] 7.5 Visual QA and cross-browser (D-031, D-032), before 7.3:
   - [x] Q0 standards: support matrix, test sizes, layout rhythm, frames, type hierarchy (`DESIGN.md`)
-  - [ ] Q1 test harness: layout assertions, Chromium + Firefox + WebKit (local and CI), stylelint `use-baseline`, screenshot baselines
-  - [ ] Q2 defect list per page, size and engine, plus Felipe's own (`Documentation/qa/visual-qa.md`)
-  - [ ] Q3 fixes by root cause: (a) section rhythm, (b) type hierarchy, (c) media frames and mock-ups, (d) component bugs, (e) phone details
+  - [x] Q1 test harness: layout assertions, Chromium + Firefox + WebKit (local and CI), stylelint `use-baseline`, screenshot baselines
+  - [x] Q2 defect list per page, size and engine, plus Felipe's own (`Documentation/qa/visual-qa.md`)
+  - [x] Q3 fixes by root cause: (a) section rhythm, (b) type hierarchy, (c) media frames and mock-ups, (d) component bugs, (e) phone details
   - [ ] Q4 all engines green; differences fixed with `@supports` fallbacks in our CSS
   - [ ] Q5 Felipe's real-device check on the preview
   - [ ] Q6 gate re-run, baselines committed, checks required
