@@ -174,3 +174,33 @@ Evidence (before on the left):
 Result: layout test **221 of 221** in Chromium; Chromium suite 182 pass; CSS lint pass.
 
 **Q3 complete.** All 19 defects (V-01 to V-19) are fixed. Two notes wait on Felipe: the "below" wording, and wording-changes 38 and 39.
+
+## Q4: all three engines (2026-11-20)
+
+On the built site (`vite preview`), Playwright's Firefox 159 and WebKit 27.2 (Safari's engine), plus Chrome:
+
+| Check | Chromium | Firefox | WebKit |
+|---|---|---|---|
+| Layout test, 17 pages × 13 sizes | 221 / 221 | 221 / 221 | 221 / 221 |
+| Smoke, accessibility, CSP, keyboard, reduced motion (desktop and phone) | 182 / 182 | all pass | all pass |
+| Page height, 5 pages × 2 widths | reference | within 2px | within 2px, except Privacy on phone, 53px taller (long text breaks into a few more lines) |
+
+**What differs between engines, and why it's acceptable:**
+- **Line breaks.** WebKit sets Funnel Sans a hair wider and handles `text-wrap: pretty` and `balance` its own way, so a line can end one word earlier ("up to 1 / day"). Firefox balances some titles differently. Section heights follow content (D-031), so nothing overlaps or clips when a paragraph gains a line.
+- **Font smoothing.** On Windows, WebKit draws light text on the dark band thinner. Real Safari on a Mac and iPhone uses Apple's own text rendering; that's covered by Felipe's device check (Q5).
+
+`v16-engines-line-breaks.jpg` (Q2) and the Q4 screenshots show the same pattern; no engine-specific CSS was needed.
+
+**Newer kit CSS and its fallbacks** (the lint's 31 kit findings):
+
+| Feature | Without it |
+|---|---|
+| `text-wrap: balance / pretty` | normal line breaking |
+| `text-box` trim (split heroes) | a few px more space above the heading (Firefox today) |
+| `@starting-style` (menu opening) | the menu opens without its short fade |
+| `content-visibility`, `::details-content` | normal rendering; no opening animation on FAQ details (not used on our pages) |
+| `round()`, relative colours `oklch(from ...)` (backgrounds, mock-up surfaces) | **Mock-ups would lose their white surface.** Added a fallback in `rhythm.css` (`@supports not (color: oklch(from red l c h))`): white surfaces. Every supported browser (Chrome 119+, Safari 18+, Firefox 128+) has the feature; the fallback only matters for older ones. |
+
+**Test fix:** one Firefox-phone accessibility run (1 of 364) flagged contrast once; it didn't reproduce in 29 repeats. The scan now also waits for every finite animation to end, not just the 0.7s entrance timer.
+
+**Q4 complete.**

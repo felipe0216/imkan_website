@@ -26,8 +26,10 @@ for (const path of PAGES) {
 
     test('has no serious or critical accessibility violations', async ({ page }) => {
       await page.goto(path);
-      // measure the settled page, not the 0.7 s entrance fade (boot.js sets m-enter-done)
+      // measure the settled page, not the entrance fade: boot.js sets m-enter-done after 0.7 s, and under load
+      // a fade can still be running then, so also wait for every finite animation to finish
       await page.waitForFunction(() => document.documentElement.classList.contains('m-enter-done') || !document.documentElement.classList.contains('m-enter'));
+      await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== 'running' || (a.effect as KeyframeEffect | null)?.getTiming().iterations === Infinity));
       const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
       const serious = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
       expect(serious.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`)).toEqual([]);

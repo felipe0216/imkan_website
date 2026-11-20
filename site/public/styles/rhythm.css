@@ -149,3 +149,10 @@ html .footer__legal a { display: inline-flex; align-items: center; min-block-siz
   html main #cases .tile--case > :not(.tile__media) { grid-column: 2; }
   html main #cases .tile--case :is(.t-small, .t-label) { display: block; }
 }
+
+/* Fallbacks (Phase 7.5 Q4, D-032). The kit gives each mock-up its surface with relative colour syntax
+   (oklch(from ...)): Chrome 119, Safari 18 and Firefox 128 and up. In an older browser that value is dropped and
+   the mock-ups would lose their white cards, so give them plain white there (all our frames are on light ground). */
+@supports not (color: oklch(from red l c h)) {
+  html .stage, html .hero__window { --frag: #ffffff; --fx-bg: #ffffff; }
+}

@@ -264,7 +264,7 @@ Phases run in this order; inside a phase, one item at a time.
   - [x] Q1 test harness: layout assertions, Chromium + Firefox + WebKit (local and CI), stylelint `use-baseline`, screenshot baselines
   - [x] Q2 defect list per page, size and engine, plus Felipe's own (`Documentation/qa/visual-qa.md`)
   - [x] Q3 fixes by root cause: (a) section rhythm, (b) type hierarchy, (c) media frames and mock-ups, (d) component bugs, (e) phone details
-  - [ ] Q4 all engines green; differences fixed with `@supports` fallbacks in our CSS
+  - [x] Q4 all engines green; differences fixed with `@supports` fallbacks in our CSS
   - [ ] Q5 Felipe's real-device check on the preview
   - [ ] Q6 gate re-run, baselines committed, checks required
 - [ ] 7.3 Felipe reviews the wording log, UI texts and the preview
