@@ -7,7 +7,8 @@
 
 :root { --rhythm: 72px; --rhythm-split: 64px; }
 @media (min-width: 640px) { :root { --rhythm: 96px; --rhythm-split: 80px; } }
-@media (min-width: 1280px) { :root { --rhythm: 128px; --rhythm-split: 96px; } }
+/* laptops to large screens: fluid, about 104px at 1366 and 128px from about 1700 up (Felipe: "Tighten") */
+@media (min-width: 1280px) { :root { --rhythm: clamp(96px, 7.19vw + 5.8px, 128px); --rhythm-split: calc(var(--rhythm) * 0.75); } }
 
 /* Every section and the closing footer: content height, rhythm padding. */
 html main > :is(section, .section):not(.hero, .section--hero),
@@ -41,3 +42,16 @@ html main > :is(.hero, .section--hero) {
   display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr;
 }
 html main > :is(.hero, .section--hero) > :is(.wrap, .container) { height: auto; }
+
+/* Type hierarchy (Phase 7.5 Q3b): one style per role, everywhere.
+   Item titles (card titles, row names, role titles, founders' names) share the kit's --t-card: 20px on desktop,
+   18px on a phone, Funnel Sans 500. cards.css loads after system.css and set its own 18px/560, so card titles were
+   a step smaller than the case tiles and founders' names beside them. */
+html .card > h3, html .card__title { font-size: var(--t-card); line-height: 1.3; font-weight: 500; letter-spacing: -0.01em; }
+/* a row's name was body size, the same as its description under it: one step up */
+html .rows__name { font-size: var(--t-lead); line-height: 1.3; }
+@media (max-width: 639px) { html .rows__name { font-size: var(--t-card); } }
+/* small subheads inside a section ("Our Solution", "Technology Stack", a role's "Responsibilities", a legal 2.1):
+   text face at 500, a step above body. At 16px the display face (the h3 default) looked thinner than the text. */
+html :is(.case__sub, .role__body h3, .legal__body h3) { font-family: var(--font-text); font-size: var(--t-lead); line-height: 1.3; font-weight: 500; letter-spacing: -0.01em; }
+@media (max-width: 639px) { html :is(.case__sub, .role__body h3, .legal__body h3) { font-size: var(--t-card); } }

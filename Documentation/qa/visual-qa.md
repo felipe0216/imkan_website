@@ -94,3 +94,21 @@ Evidence (before on the left, after on the right):
 - `a-v08-before-after.jpg`: advantages on a phone
 
 Open for Felipe: at 1366 and 1440, two sections on the same ground now sit 256px apart (128 + 128), which reads airy. A fluid value (about 104px at 1366, 128px from 1700 up) would tighten laptops without changing large screens.
+
+### Batch (a) follow-up: laptop padding tightened (Felipe: "Tighten")
+
+From 1280 up, `--rhythm` is fluid: `clamp(96px, 7.19vw + 5.8px, 128px)`. That's about 104px at 1366, 109px at 1440 and 128px from about 1700 up. Two sections on one ground now sit about 208px apart on a laptop, not 256px. The layout test computes the same value.
+
+## Q3 batch (b): type hierarchy (2026-11-20)
+
+The type inventory (`scratchpad` script over 6 pages at 1440 and 390) found no text too small. Reading copy is 16px or more, and labels are 13 to 14px. **The problem was that the same role appeared in several styles:**
+
+| Role | Before | After |
+|---|---|---|
+| Card titles (Services, Methodology, Why us) | 18px / 560 (from `cards.css`) | 20px / 500 Funnel Sans (`--t-card`), the same as the case tiles and the founders' names beside them |
+| Row names (Why us advantages, careers perks) | 16px / 500, the same size as the description under them | `--t-lead` (20px desktop, 18px phone) |
+| Small subheads ("Our Solution", "Technology Stack", a role's headings, legal 2.1 etc.) | 16px / 500 in the **display** face, which looks thinner than the body text | 20px / 500 Funnel Sans (18px phone) |
+
+Rules are in `rhythm.css` ("Type hierarchy"). The kit is unmodified. Fixed: V-15 (careers 14px text, gone with batch a's removal of the phone squeeze) and the hierarchy item in D-031.
+
+Checks: layout 208 of 221 (unchanged; what's left is batches c and d), Chromium suite pass, CSS lint pass.

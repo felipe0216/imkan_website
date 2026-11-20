@@ -12,7 +12,8 @@ const SIZES: [number, number][] = [
 ];
 
 // D-031 rhythm: a section's top and bottom padding by width. Tuned in Q3a; the test reads it from here.
-const RHYTHM = (w: number) => (w >= 1280 ? 128 : w >= 640 ? 96 : 72);
+// From 1280 up it is fluid, as in rhythm.css: clamp(96px, 7.19vw + 5.8px, 128px).
+const RHYTHM = (w: number) => (w >= 1280 ? Math.min(128, Math.max(96, w * 0.0719 + 5.8)) : w >= 640 ? 96 : 72);
 const SLACK = 2; // px: rounding between engines
 
 // Mock-ups (illustrative product UI) and decorative art keep their own small type and are exempt from the type rules.
