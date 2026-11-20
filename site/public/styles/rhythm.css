@@ -132,3 +132,20 @@ html .footer__col a { display: inline-flex; align-items: center; min-block-size:
 html .footer__legal-links { display: inline-flex; gap: var(--s-4); margin-inline-start: var(--s-4); white-space: nowrap; }
 html .footer__legal a { display: inline-flex; align-items: center; min-block-size: 24px; }
 @media (max-width: 639px) { html .footer__legal-links { display: flex; margin-inline-start: 0; margin-block-start: var(--s-2); } }
+
+/* Phone details (Phase 7.5 Q3e) */
+@media (max-width: 639px) {
+  /* V-09: a row (an advantage, a perk) stacks on a phone: its name, its fact as a small line under it, then
+     its description at the full width (the fact had a narrow column of its own and wrapped to three lines) */
+  html .rows:not(.perks) > li { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-2); }
+  html .rows:not(.perks) .rows__value { order: 1; grid-column: 1; grid-row: auto; text-align: start; max-width: none; white-space: normal; color: var(--muted); font-size: var(--t-small); }
+  html .rows:not(.perks) > li > p { order: 2; grid-column: 1; max-width: none; }
+  /* V-14: on a phone the case tiles are a list, one per row: the drawing on the left, industry, title and result
+     on the right. Two across left a lone tile in each group of three (and on the work index's eleven). */
+  html main #cases .grid { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-5); }
+  html main #cases .grid > .tile--case { grid-column: 1 / -1; display: grid; grid-template-columns: 120px minmax(0, 1fr); column-gap: var(--s-4); row-gap: var(--s-1); align-content: start; }
+  html main #cases .tile--case > .tile__media { grid-column: 1; grid-row: 1 / span 3; align-self: start; margin: 0; aspect-ratio: 3 / 2; }
+  html main #cases .tile--case > .tile__media > img { aspect-ratio: 3 / 2; block-size: 100%; object-fit: contain; }
+  html main #cases .tile--case > :not(.tile__media) { grid-column: 2; }
+  html main #cases .tile--case :is(.t-small, .t-label) { display: block; }
+}

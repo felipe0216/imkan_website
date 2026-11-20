@@ -34,9 +34,5 @@
 .case__big--long .t-stat { font-size: clamp(48px, 7vw, 104px); }
 @media (max-width: 639px) { .case__big--long .t-stat { font-size: clamp(48px, 15vw, 72px); } }
 
-/* Work index (D-031: the tiles keep their industry and result lines on a phone) */
-@media (max-width: 639px) {
-  #cases.cases--all .group > .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gutter); }
-  #cases.cases--all .grid > .tile--case.span-4 { grid-column: span 1; }
-}
+/* Work index: on a phone the tiles are the list set in rhythm.css (Phase 7.5 Q3e) */
 @media (min-width: 1024px) { #cases.cases--all .tile__media { aspect-ratio: 5 / 2; } #cases.cases--all .tile__media > img { aspect-ratio: 5 / 2; block-size: 100%; object-fit: contain; } }

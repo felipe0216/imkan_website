@@ -162,3 +162,15 @@ Evidence (before on the left):
 - `d-steps-before-after.jpg`
 - `d-industries-before-after.jpg`
 - `d-footer-phone-before-after.jpg`
+
+## Q3 batch (e): phone details, and contact layout B (2026-11-20)
+
+- **V-18, contact (Felipe: option B):** on desktop, the heading, intro, address and email form the left column, with the form beside them from the top (`home.css`). Tablet and phone keep the stacked order. Evidence: `e-contact-b-live.jpg`.
+  - Wording note for Felipe: the intro says "Fill out the form **below**"; on desktop the form is now beside it. Not changed (that would be a wording change); "Fill out the form and we'll get back to you shortly." would fit every layout.
+- **V-09, advantage rows on a phone:** each row stacks its name, its fact as a small muted line, and its description at full width. The fact no longer wraps over three lines in a narrow column. Careers perks keep their icon layout. Evidence: `e-advantages-phone-before-after.jpg`.
+- **V-14, case tiles on a phone (home and work index):** a list, one case per row, with the drawing (120px) on the left and industry, title and result on the right. The two-column grid left a lone tile in each group of three and on the eleven-case index. Evidence: `e-cases-phone-before-after.jpg`.
+- **Phone pass:** home, careers, work index, a case, privacy and 404 at 390×844 and 360×640, all checked. Nothing else found.
+
+Result: layout test **221 of 221** in Chromium; Chromium suite 182 pass; CSS lint pass.
+
+**Q3 complete.** All 19 defects (V-01 to V-19) are fixed. Two notes wait on Felipe: the "below" wording, and wording-changes 38 and 39.
