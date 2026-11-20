@@ -7,7 +7,8 @@ const local = !process.env.BASE_URL;
 
 // Three engines (D-032): Chromium covers Chrome, Edge, Brave and Opera; Firefox is Gecko; WebKit is Safari's engine.
 // On a workstation Chromium is the installed Chrome; CI installs Playwright's own builds of all three.
-const chrome = process.env.CI ? {} : { channel: 'chrome' as const };
+// PW_CHANNEL=msedge runs the Chromium projects in Edge (the same engine) when Chrome is not installed.
+const chrome = process.env.CI ? {} : { channel: (process.env.PW_CHANNEL || 'chrome') as 'chrome' | 'msedge' };
 const desktop = { viewport: { width: 1440, height: 900 } };
 const phone = { viewport: { width: 390, height: 844 }, hasTouch: true };
 

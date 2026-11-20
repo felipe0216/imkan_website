@@ -204,3 +204,32 @@ On the built site (`vite preview`), Playwright's Firefox 159 and WebKit 27.2 (Sa
 **Test fix:** one Firefox-phone accessibility run (1 of 364) flagged contrast once; it didn't reproduce in 29 repeats. The scan now also waits for every finite animation to end, not just the 0.7s entrance timer.
 
 **Q4 complete.**
+
+## Demo QA protocol (D-033, revised 2026-11-20)
+
+Why it changed: the anomalies pilot passed 27 scripted tests, yet Felipe saw static, broken-looking mock-ups. He was looking at the in-app Browser pane, which I had loaded at phone width for a test and then widened without a reload. The kit decides "phone, hold every mock-up still" once, at load, so all 12 mock-ups stayed still. And I had never checked whole pages by eye, nor whether a visitor can tell the demo is interactive. From now on a demo is not done until all of these hold:
+
+1. **Fresh loads only.** Every screenshot comes from a page loaded at its final size. Never resize after load, and never verify in the hidden in-app pane (it throttles animation and scales the view).
+2. **Contact sheet, reviewed by eye.** `node scripts/qa-shots.mjs` captures each demo in Chrome, Firefox and WebKit, at desktop (1440) and phone (390), at rest, mid-run and finished, and tiles them into `Documentation/qa/visual/demo-<name>-sheet.png`. I review the sheet, then send it to Felipe before calling the demo done.
+3. **Before vs after, whole page.** Section heights on the branch are compared with the PR #25 build at desktop and phone. Any change outside the demo's own section is a defect until explained. Full-page screenshots of both go with the report.
+4. **Discoverability.** From the "at rest" picture alone, a first-time visitor must be able to tell they can click it. If they can't, the demo is not done.
+5. **Scripted checks still run:** `tests/play.spec.ts` (mouse, keyboard, axe) in all six projects, plus smoke, accessibility and CSP. Test output goes outside OneDrive, with at most 3 workers. A failure is rerun on a quiet machine before it is called flaky.
+6. **Links Felipe can open.** Every hand-off gives a URL for his own browser, the exact steps to try, and what he should see.
+
+Pilot result under this protocol (2026-11-20): it renders identically in all three engines at both sizes (`demo-anomalies-sheet.png`), and nothing outside #platform changed (section heights equal to PR #25 at 1440; at 390 only #platform grew, 723 to 1272 px, by showing the queue). **It fails item 4:** at rest nothing signals that the queue can be clicked. Phones: the 9-row queue makes the section 549 px taller.
+
+### Cues added (2026-11-20, same day)
+
+- **Cue:** a plum "Try it: pick a new alert" pill sits above the frame's right edge. Pressing it marks the first new alert (plum bar and tint) and moves focus to it. After the first play it becomes an outlined "Reset demo", which restores the demo exactly (counts, statuses, run header). The first new alert glows three times each time the frame comes into view, until the visitor plays.
+- **Phones:** four alerts, then "Show all 9 alerts" / "Show fewer". The window's 312 px minimum height is lifted so no blank band is left. The run is slower (about 4.5 s) so there is time to press Hold.
+- **Labels:** all four are proposals, logged as wording changes 40 to 43 (pending).
+- **Found by eye, missed by the tests:**
+  1. The first sheet scrolled the pill under the sticky navigation. The QA script now frames each shot from the section's top.
+  2. "Try it" gave no visible response to a mouse click, because a focus ring only shows for keyboard focus. Hence the marked state.
+  3. Reset showed a computed event ID instead of the page's.
+  4. A blank band appeared under the folded phone queue.
+- **Result:** passes items 1 to 6.
+  - Contact sheet: `demo-anomalies-sheet.png`. Full size: `demo-anomalies-desktop-rest.png`, `demo-anomalies-desktop-tryit.png`, `demo-anomalies-phone-tryit.png`.
+  - Section heights against PR #25: only #platform changed (+32 px desktop, +345 px phone).
+  - `play.spec.ts`: 34 passed and 6 skipped by design, plus the two WebKit load timeouts passing on rerun (24 of 24 over 2 repeats).
+- **Chrome missing:** Chrome was no longer installed on this machine during this round. The Chromium runs used Edge (`PW_CHANNEL=msedge`, same engine).

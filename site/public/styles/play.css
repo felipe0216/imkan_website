@@ -1,0 +1,76 @@
+/* Interactive mock-ups (feature/interactive-demos). Only states the scripts in /scripts/play/ add; the kit's
+   fragment styles stay as they are. Loads after the page's own stylesheet. */
+
+/* anything a visitor can press */
+html .play-hit { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+html .play-hit:focus { outline: none; }
+html .play-hit:focus-visible { outline: 2px solid var(--fx-accent, currentColor); outline-offset: -2px; border-radius: 6px; }
+
+/* the anomaly queue: a row answers the pointer, a filtered-out row steps back */
+html .ui-win__row.play-hit { transition: background-color 160ms ease, opacity 200ms ease; }
+@media (hover: hover) {
+  html .ui-win__row.play-hit:hover { background: color-mix(in oklab, var(--u-ink) 6%, var(--u-bg)); }
+  html .ui-win__nav.play-hit:not(.is-on):hover { background: var(--u-fill); color: var(--u-ink); }
+}
+html .ui-win__row.is-dim { opacity: 0.35; }
+/* "Try it" pressed: the alert it points at stays marked until the visitor acts (a mouse click shows no focus ring) */
+html .ui-win__row.is-pointed { background: color-mix(in oklab, var(--p-action) 9%, var(--u-bg)); box-shadow: inset 3px 0 0 var(--p-action); }
+html .ui-win__nav.play-hit { transition: background-color 140ms ease, color 140ms ease; }
+
+/* the hint: the first new alert glows three times whenever the frame comes into view, until the visitor plays */
+html .ui-win__row.is-hint { animation: play-hint 1.6s ease-in-out 0.4s 3; }
+@keyframes play-hint {
+  0%, 100% { box-shadow: inset 0 0 0 0 transparent; }
+  50% { box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--fx-accent, #6b4ce6) 55%, transparent); }
+}
+
+/* phones: the queue is the demo, so it shows above the run (home.css hid it there); the side menu stays
+   hidden under 1024px as it is, so the filters are a desktop extra */
+@media (max-width: 639px) {
+  html .app[data-play].ui { grid-template-rows: auto minmax(0, 1fr); }
+  html .app[data-play] > .app__pane--list { display: block; }
+  html .app[data-play] > .app__pane + .app__pane { border-block-start: 1px solid var(--u-line); }
+}
+
+/* the cue: a pill just above the frame's right edge, in the site's action colour; after the first play it
+   turns into a quiet "Reset demo" (outlined) so it no longer competes with the demo */
+html .play-cue { display: flex; justify-content: flex-end; margin-block: var(--s-6) var(--s-3); }
+/* the frame's own top margin moves above the pill, so the pill reads as the frame's label */
+html .play-cue + .app.ui { margin-block-start: 0; }
+html .play-cue__btn {
+  display: inline-flex; align-items: center; gap: var(--s-2); min-block-size: 36px; padding: 0 var(--s-4);
+  border: 1px solid var(--p-action); border-radius: 999px; background: var(--p-action); color: var(--p-action-ink);
+  font: 500 var(--t-small, 15px)/1.2 var(--font-text); cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, transform 90ms ease;
+}
+html .play-cue__btn svg { inline-size: 14px; block-size: 14px; flex: none; fill: currentColor; }
+html .play-cue__btn.is-reset { background: transparent; color: var(--p-ink); border-color: color-mix(in oklab, var(--p-ink) 28%, transparent); }
+html .play-cue__btn.is-reset svg { fill: none; }
+@media (hover: hover) {
+  html .play-cue__btn:hover { background: color-mix(in oklab, var(--p-action) 88%, #000); }
+  html .play-cue__btn.is-reset:hover { background: var(--p-surface); }
+}
+html .play-cue__btn:active { transform: scale(0.97); }
+html .play-cue__btn:focus-visible { outline: 2px solid var(--p-action); outline-offset: 3px; }
+
+/* phones: four alerts, then a full-width "Show all" row; from 640px the whole queue shows and the button goes */
+html .play-more { display: none; }
+@media (max-width: 639px) {
+  html .ui-win__rows.is-folded > [data-row]:nth-child(n + 5) { display: none; }
+  /* the window's 312px floor (window/fragment.css) would leave a blank band under the folded queue */
+  html .app[data-play] .ui-win__body { min-height: 0; }
+  html .play-more {
+    display: flex; align-items: center; justify-content: center; inline-size: 100%; min-block-size: 44px;
+    border: 0; border-block-start: 1px solid var(--u-line); background: transparent; color: var(--u-ink);
+    font: 500 13px/16px var(--ui-font, var(--font-text)); cursor: pointer;
+  }
+  html .play-more:focus-visible { outline: 2px solid var(--p-action); outline-offset: -2px; }
+}
+
+/* the run's Hold button, held */
+html .ui-pipe__btn.play-hit[aria-pressed="true"] { background: var(--u-fill-3); box-shadow: inset 0 0 0 1px var(--u-line-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  html .ui-win__row.is-hint { animation: none; }
+  html .play-hit { transition: none !important; }
+}
