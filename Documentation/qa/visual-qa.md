@@ -112,3 +112,27 @@ The type inventory (`scratchpad` script over 6 pages at 1440 and 390) found no t
 Rules are in `rhythm.css` ("Type hierarchy"). The kit is unmodified. Fixed: V-15 (careers 14px text, gone with batch a's removal of the phone squeeze) and the hierarchy item in D-031.
 
 Checks: layout 208 of 221 (unchanged; what's left is batches c and d), Chromium suite pass, CSS lint pass.
+
+## Q3 batch (c): frames and mock-ups (2026-11-20)
+
+The kit puts each mock-up at fixed offsets inside a frame of fixed height, "rising out of the bottom edge", and fades out whatever the edge cuts. With real UI text inside, that read as cut-off screens.
+
+What changed (`rhythm.css`, "Frames"):
+- **Card frames:**
+  - The mock-up is in the flow and centred.
+  - The frame grows around it with 48px of ground on each side (32px on phone), with no fade.
+  - Cards in a row keep equal frames, so mock-ups in a row share one middle line.
+- **Hero:**
+  - The chat window is centred, whole and unfaded.
+  - The frame takes what the first screen leaves and grows on short windows.
+- **Fraud-detection window:** as tall as its content, no fade over the last rows. On a tablet the alert list shows whole (it was capped at 252px).
+- **Joined-sources grid:** fits a narrow frame (tablet), with tiles from 120px.
+
+Result: no frame cuts through text at any size (was 42). Layout test **208 of 221**: all 13 failures are the step labels (batch d). Chromium suite 182 pass.
+
+Fixed: V-05 (crop), V-12, V-13.
+
+Evidence (before on the left):
+- `c-services-before-after.jpg`
+- `c-hero-before-after.jpg`
+- `c-fraud-window-before-after.jpg` (1366×650)
