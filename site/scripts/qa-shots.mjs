@@ -27,8 +27,9 @@ const DEMOS = [
     steps: [
       ['at rest (cue)', async () => {}],
       ['"Try it" pressed', async (p) => { await p.locator('#platform .play-cue__btn').click(); await p.waitForTimeout(900); }],
-      ['picked: running', async (p) => { await p.locator('#platform [data-row]').nth(2).click(); await p.waitForTimeout(1200); }],
-      ['run finished', async (p) => { await p.locator('#platform [data-row]').nth(2).locator('[data-st]').filter({ hasText: 'Needs you' }).waitFor({ timeout: 10000 }); await p.waitForTimeout(300); }],
+      ['investigating', async (p) => { await p.locator('#platform [data-row]').first().click(); await p.waitForTimeout(1300); }],
+      ['verdict', async (p) => { await p.locator('#platform .play-verdict').waitFor({ state: 'visible', timeout: 10000 }); await p.waitForTimeout(300); }],
+      ['decided: next starts', async (p) => { await p.locator('#platform .play-act--escalate').click(); await p.waitForTimeout(1200); }],
       ['after "Reset demo"', async (p) => { await p.locator('#platform .play-cue__btn').click(); await p.waitForTimeout(600); }],
     ],
   },

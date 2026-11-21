@@ -10,12 +10,9 @@ html .play-hit:focus-visible { outline: 2px solid var(--fx-accent, currentColor)
 html .ui-win__row.play-hit { transition: background-color 160ms ease, opacity 200ms ease; }
 @media (hover: hover) {
   html .ui-win__row.play-hit:hover { background: color-mix(in oklab, var(--u-ink) 6%, var(--u-bg)); }
-  html .ui-win__nav.play-hit:not(.is-on):hover { background: var(--u-fill); color: var(--u-ink); }
 }
-html .ui-win__row.is-dim { opacity: 0.35; }
 /* "Try it" pressed: the alert it points at stays marked until the visitor acts (a mouse click shows no focus ring) */
 html .ui-win__row.is-pointed { background: color-mix(in oklab, var(--p-action) 9%, var(--u-bg)); box-shadow: inset 3px 0 0 var(--p-action); }
-html .ui-win__nav.play-hit { transition: background-color 140ms ease, color 140ms ease; }
 
 /* the hint: the first new alert glows three times whenever the frame comes into view, until the visitor plays */
 html .ui-win__row.is-hint { animation: play-hint 1.6s ease-in-out 0.4s 3; }
@@ -31,6 +28,39 @@ html .ui-win__row.is-hint { animation: play-hint 1.6s ease-in-out 0.4s 3; }
   html .app[data-play] > .app__pane--list { display: block; }
   html .app[data-play] > .app__pane + .app__pane { border-block-start: 1px solid var(--u-line); }
 }
+
+/* the fraud frame as a triage demo (Felipe, 2026-11-21: less busy, a clear intention). Only the four open alerts,
+   no side menu, no search box (the tally takes its place), no Hold button; the run's log always shows, as the
+   narrative; the verdict card and the summary are the demo's own. */
+html .play-triage .ui-win__side, html .play-triage .ui-win__search, html .play-triage .ui-win__row.play-history,
+html .play-triage [data-pipe-btn] { display: none; }
+html .play-triage .ui-win__body { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+html .play-tally { margin-inline-start: auto; font-size: 13px; font-weight: 500; color: var(--u-ink); white-space: nowrap; }
+html .play-triage .ui-win__row.is-leaving { opacity: 0; transform: translateX(16px); transition: opacity 280ms ease, transform 280ms ease; }
+html .play-triage .ui-win__row.is-gone { display: none; }
+html .play-summary { margin: var(--s-5) var(--s-4); padding: var(--s-4); border-radius: 10px; background: var(--u-fill); color: var(--u-ink); font-size: 14px; line-height: 20px; font-weight: 500; text-align: center; }
+/* the narrative: the current step's lines in ink, the step before them quieter */
+html .play-triage .ui-pipe__log {
+  display: block; min-height: 0; margin: 0 16px 16px; padding: 11px 14px; border-radius: var(--u-r2, 10px);
+  background: var(--u-fill); box-shadow: inset 0 0 0 1px var(--u-line); font: 12px/20px var(--ui-mono, ui-monospace, monospace); color: var(--u-text-2);
+}
+html .play-triage .ui-pipe__line.is-prev { display: block; color: var(--u-muted); }
+/* the verdict: a risk level with its meter, then the two decisions */
+html .play-verdict { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3); margin: 0 16px 16px; padding: var(--s-4); border-radius: 12px; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), inset 0 0 0 1px var(--u-line-2); }
+html .play-verdict[hidden], html .play-pick[hidden], html .play-summary[hidden] { display: none; }
+html .play-verdict__risk { display: grid; gap: 6px; min-inline-size: 160px; }
+html .play-verdict__label { font-size: 14px; line-height: 18px; font-weight: 600; color: var(--u-ink); }
+html .play-meter { display: block; inline-size: 160px; block-size: 6px; border-radius: 3px; background: var(--u-fill-2); overflow: hidden; }
+html .play-meter > i { display: block; block-size: 100%; inline-size: calc(var(--r, 0.5) * 100%); border-radius: inherit; background: var(--p-ink); }
+html .play-verdict[data-level="high"] .play-meter > i { background: var(--p-action); }
+html .play-verdict[data-level="high"] .play-verdict__label { color: var(--p-action); }
+html .play-verdict__acts { display: flex; gap: var(--s-2); }
+html .play-act { min-block-size: 36px; padding: 0 var(--s-4); border-radius: 999px; border: 1px solid color-mix(in oklab, var(--p-ink) 22%, transparent); background: #fff; color: var(--p-ink); font: 500 14px/1 var(--font-text); cursor: pointer; }
+html .play-act--escalate { background: var(--p-action); border-color: var(--p-action); color: var(--p-action-ink); }
+@media (hover: hover) { html .play-act:hover { filter: brightness(0.96); } }
+html .play-act:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
+html .play-pick { margin: 0 16px 16px; color: var(--u-muted); font-size: 14px; line-height: 20px; }
+@media (prefers-reduced-motion: reduce) { html .play-triage .ui-win__row.is-leaving { transition: none; } }
 
 /* the cue: a pill just above the frame's right edge, in the site's action colour; after the first play it
    turns into a quiet "Reset demo" (outlined) so it no longer competes with the demo */
@@ -52,20 +82,6 @@ html .play-cue__btn.is-reset svg { fill: none; }
 }
 html .play-cue__btn:active { transform: scale(0.97); }
 html .play-cue__btn:focus-visible { outline: 2px solid var(--p-action); outline-offset: 3px; }
-
-/* phones: four alerts, then a full-width "Show all" row; from 640px the whole queue shows and the button goes */
-html .play-more { display: none; }
-@media (max-width: 639px) {
-  html .ui-win__rows.is-folded > [data-row]:nth-child(n + 5) { display: none; }
-  /* the window's 312px floor (window/fragment.css) would leave a blank band under the folded queue */
-  html .app[data-play] .ui-win__body { min-height: 0; }
-  html .play-more {
-    display: flex; align-items: center; justify-content: center; inline-size: 100%; min-block-size: 44px;
-    border: 0; border-block-start: 1px solid var(--u-line); background: transparent; color: var(--u-ink);
-    font: 500 13px/16px var(--ui-font, var(--font-text)); cursor: pointer;
-  }
-  html .play-more:focus-visible { outline: 2px solid var(--p-action); outline-offset: -2px; }
-}
 
 /* demos in a frame (a card's panel, a hero window): the cue sits in the frame's top-right corner, and the frame
    keeps room above the mock-up for it, so it never covers what the mock-up shows */
@@ -163,8 +179,6 @@ html .has-play-cue .ui-voice__orb.play-hit { border-radius: 50%; }
 /* the stack: the state chip that is not showing never takes the pointer from the button that is */
 html .has-play-cue .ui-app:not(.is-on) .ui-app__on { pointer-events: none; }
 
-/* the run's Hold button, held */
-html .ui-pipe__btn.play-hit[aria-pressed="true"] { background: var(--u-fill-3); box-shadow: inset 0 0 0 1px var(--u-line-2); }
 
 @media (prefers-reduced-motion: reduce) {
   html .ui-win__row.is-hint { animation: none; }

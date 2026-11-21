@@ -263,10 +263,12 @@ Pilot result under this protocol (2026-11-20): it renders identically in all thr
 
 **Not a regression, noted for Felipe:** the Careers hero card shares the frame's beige (same on the PR #25 build).
 
-### Known issue: Firefox page crash during the chat's axe scan in Playwright Test (2026-11-21, open)
+### Firefox page crash during axe scans in Playwright Test (2026-11-21, found and worked around)
 
 - **Symptom:** in `play-all.spec.ts`, after the chat demo has played, `AxeBuilder.analyze()` fails with "Page crashed", in Firefox only (desktop and phone, 5 of 6 runs).
 - **Not reproduced outside the runner:** the same steps in a standalone script never crash, and axe finds 0 violations. That covered the same Firefox build, the `Desktop Firefox` device settings, the same WCAG tags, scanning right after the answer appears, and polling the prompt bar while it is typed in.
 - **Ruled out:** tracing (off, still crashes), the smooth scroll (instant scroll, still crashes) and the conversation's region role (removed, still crashes).
 - **For now:** that one scan runs in Chromium and WebKit; the Firefox behaviour tests still run.
 - **To do:** retry after the next Playwright update, and check on a real Firefox by hand.
+- **Cause found by bisecting:** an `expect(...)` assertion immediately before `AxeBuilder.analyze()` crashes the Firefox page (Playwright 1.65.1). A `locator.waitFor()` for the same wait never crashes. It is reproducible in a 3-variant test, and the site's code is not involved (removing the live regions, the region role and the smooth scroll changed nothing).
+- **Workaround:** the axe helpers wait on the frame with `locator.waitFor()` first. The Firefox chat scan is back on.

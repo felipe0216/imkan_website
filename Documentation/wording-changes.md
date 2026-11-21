@@ -75,6 +75,14 @@ Columns: **Page** where it appears, **Original** text, **New** text, **Why**, an
 | 62 | Home, hero chat (screen readers only) (dev branch `feature/interactive-demos` only) | (none: new) | Send | Name of the prompt bar's send button | pending |
 | 63 | Home, hero chat (dev branch `feature/interactive-demos` only) | (none: new) | I can quote within your approved pricing: for example, 6% off on 500 units next month. Tell me the quantity and the date. | Answer to a typed pricing question that is not one of the suggestions. Illustrative | pending |
 | 64 | Home, hero chat (dev branch `feature/interactive-demos` only) | (none: new) | I can help with pricing, stock and delivery for your orders. Try one of the suggestions above. | Answer to any other typed question: the demo is scripted, not a live AI | pending |
+| 65 | Home, fraud demo (dev branch `feature/interactive-demos` only) | (none: new) | Try it: triage the alerts | Cue, replaces wording change 40 ("Try it: pick a new alert") | pending |
+| 66 | Home, fraud demo (dev branch `feature/interactive-demos` only) | (none: new) | 4 left to review (the number follows) | Tally of open alerts, where the search box was | pending |
+| 67 | Home, fraud demo (dev branch `feature/interactive-demos` only) | (none: new) | Escalate / Clear | The analyst's two decisions on an alert | pending |
+| 68 | Home, fraud demo (dev branch `feature/interactive-demos` only) | (none: new) | Escalated | An escalated alert's status (Cleared is the page's own word) | pending |
+| 69 | Home, fraud demo (dev branch `feature/interactive-demos` only) | (none: new) | High risk / Medium risk / Low risk | The verdict on each alert. Illustrative, like the rest of the mock-up | pending |
+| 70 | Home, fraud demo (dev branch `feature/interactive-demos` only) | (none: new) | Pick an alert to investigate | Shown in the run before any alert is picked | pending |
+| 71 | Home, fraud demo (dev branch `feature/interactive-demos` only) | (none: new) | All alerts reviewed: 2 escalated, 2 cleared (the numbers follow) | Summary once the queue is empty | pending |
+| 72 | Home, fraud demo (screen readers only) (dev branch `feature/interactive-demos` only) | (none: new) | Open alerts | Name of the alert queue | pending |
 
 ### New illustrative UI text (pending approval)
 

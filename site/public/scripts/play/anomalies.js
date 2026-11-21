@@ -1,114 +1,114 @@
-// The fraud-detection app frame (#platform), as a demo the visitor can play.
-//   - The alert queue is a listbox: pick an alert (click, or arrows then Enter/Space) and the detection run
-//     beside it takes it from Ingest to Board; the alert goes New -> Reviewing -> Needs you.
-//   - "Hold" pauses and resumes a run; once the run has passed, "Open alert" clears the alert (Cleared).
-//   - The side menu filters the queue (New shows all; Mine, Cleared and the two sources dim the rest).
-// Every word shown is already in the markup (data-open/-work/-done, the "Needs you" row, the chip's and the
-// button's data-done). Only illustrative figures follow (counts, step times, the event id), and the source
-// name in the two "card-switch" log lines. All of it is mock-up UI: nothing here is a real system or result.
-import { own, asButton, frames, reduced, slug, hexOf, cue } from './lib.js';
+// The fraud-detection app frame (#platform) as a triage demo (Felipe, 2026-11-21: make the intention clear, less busy).
+// The visitor is the security analyst with four open alerts:
+//   - pick an alert (click, or arrows then Enter): the detection run takes it from Ingest to Board while the log under
+//     the steps says, in plain words, what each step found (the log lines are the page's own);
+//   - the run ends on a verdict: a risk level and two decisions, Escalate or Clear;
+//   - the decision takes the alert out of the queue, "n left to review" counts down, the next alert starts by itself;
+//   - with the queue empty, a summary says how many were escalated and cleared; "Reset demo" starts over.
+// The cleared history, the side menu and the Hold button are hidden in the demo (they made it busy). The risk levels
+// are illustrative, like the rest of the mock-up; every new word is a TODO(wording) proposal pending Felipe.
+import { own, frames, reduced, slug, hexOf, cue } from './lib.js';
+
+// TODO(wording): proposed, pending Felipe
+const T = {
+  invite: 'Try it: triage the alerts',
+  left: (n) => (n === 1 ? '1 left to review' : `${n} left to review`),
+  escalate: 'Escalate',
+  clear: 'Clear',
+  escalated: 'Escalated',
+  risk: { high: 'High risk', medium: 'Medium risk', low: 'Low risk' },
+  pick: 'Pick an alert to investigate',
+  done: (e, c) => `All alerts reviewed: ${e} escalated, ${c} cleared`,
+};
+// illustrative risk per open alert, by its anomaly as the page writes it
+const RISK = {
+  'Login burst from a new device': ['high', 0.82],
+  'Unusual transfer pattern': ['high', 0.91],
+  'Session from two countries': ['medium', 0.64],
+  'Repeated failed PIN entries': ['low', 0.31],
+};
+const OPEN = 4;   // the first four rows are the open alerts in the markup (New, New, New, Needs you)
 
 export default function init(app) {
   const win = app.querySelector('[data-ui="window"]');
   const pipe = app.querySelector('[data-ui="pipeline-board"]');
   if (!win || !pipe) return;
+  app.classList.add('play-triage');
 
   /* ---------------------------------------------------------------- the queue */
   const list = win.querySelector('.ui-win__rows');
-  const rows = [...list.querySelectorAll('[data-row]')];
+  const rows = [...list.querySelectorAll('[data-row]')].slice(0, OPEN);
   const stOf = (r) => r.querySelector('[data-st]');
-  const youEl = rows.map(stOf).find((s) => s.classList.contains('is-you'));
-  const W = {
-    open: win.dataset.open || 'New',
-    work: win.dataset.work || 'Reviewing',
-    done: win.dataset.done || 'Cleared',
-    you: youEl ? youEl.textContent.trim() : 'Needs you',
-  };
-  const CLS = { [W.open]: '', [W.work]: 'is-work', [W.done]: 'is-done', [W.you]: 'is-you' };
-  const status = (r) => stOf(r).textContent.trim();
-  const setStatus = (r, word) => { const s = stOf(r); s.textContent = word; s.className = `ui-win__st ${CLS[word] || ''}`.trim(); };
+  const W = { open: win.dataset.open || 'New', work: win.dataset.work || 'Reviewing', done: win.dataset.done || 'Cleared' };
+  const setStatus = (r, word, cls = '') => { const s = stOf(r); s.textContent = word; s.className = `ui-win__st ${cls}`.trim(); };
+  const sub = (r) => r.querySelector('.ui-win__sub')?.textContent.trim() || '';
+  const who = (r) => r.querySelector('.ui-win__who')?.textContent.trim() || '';
 
   list.setAttribute('role', 'listbox');
-  list.setAttribute('aria-label', 'Anomalies');
+  list.setAttribute('aria-label', 'Open alerts');           // TODO(wording): proposed
+  [...list.querySelectorAll('[data-row]')].slice(OPEN).forEach((r) => r.classList.add('play-history'));
   rows.forEach((r, i) => {
     r.setAttribute('role', 'option');
     r.setAttribute('aria-selected', 'false');
     r.tabIndex = i === 0 ? 0 : -1;
     r.classList.add('play-hit');
     r.querySelector('.ui-avatar')?.setAttribute('aria-hidden', 'true');
-    r.addEventListener('click', () => { r.focus(); pick(r); });
+    r.addEventListener('click', () => pick(r));
     r.addEventListener('keydown', (e) => {
-      const k = e.key;
-      if (k === 'Enter' || k === ' ') { e.preventDefault(); pick(r); return; }
-      const shown = rows.filter((x) => x.offsetParent !== null);
-      const at = shown.indexOf(r);
-      const to = k === 'ArrowDown' ? at + 1 : k === 'ArrowUp' ? at - 1 : k === 'Home' ? 0 : k === 'End' ? shown.length - 1 : null;
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(r); return; }
+      const live = rows.filter((x) => !x.classList.contains('is-gone'));
+      const at = live.indexOf(r);
+      const to = { ArrowDown: at + 1, ArrowUp: at - 1, Home: 0, End: live.length - 1 }[e.key];
       if (to == null) return;
       e.preventDefault();
-      focusRow(shown[Math.max(0, Math.min(shown.length - 1, to))]);
+      focusRow(live[Math.max(0, Math.min(live.length - 1, to))]);
     });
   });
-  const focusRow = (r) => { rows.forEach((x) => { x.tabIndex = x === r ? 0 : -1; }); r.focus(); };
-  const select = (r) => rows.forEach((x) => {
-    x.classList.toggle('is-sel', x === r);
-    x.setAttribute('aria-selected', String(x === r));
-  });
+  const focusRow = (r) => { rows.forEach((x) => { x.tabIndex = x === r ? 0 : -1; }); r?.focus({ preventScroll: true }); };
+  const select = (r) => rows.forEach((x) => { x.classList.toggle('is-sel', x === r); x.setAttribute('aria-selected', String(x === r)); });
 
-  /* ---------------------------------------------------------------- the side menu */
-  const side = win.querySelector('.ui-win__side');
-  side?.removeAttribute('aria-hidden');
-  side?.setAttribute('aria-label', 'Filter the anomalies');
-  const navs = side ? [...side.querySelectorAll('.ui-win__nav')] : [];
-  const count = (word) => navs.find((n) => n.textContent.trim().startsWith(word))?.querySelector('em');
-  const bump = (word, d) => { const em = count(word); if (em) em.textContent = String(Math.max(0, (parseInt(em.textContent, 10) || 0) + d)); };
-  // a menu item's own words (not its icon, its # or its count)
-  const navName = (n) => [...n.childNodes].filter((c) => c.nodeType === 3).map((c) => c.textContent).join('').trim();
-  // New is the whole queue; Mine, Cleared and a source each keep their rows and dim the rest
-  const FILTERS = {
-    New: () => true,
-    Mine: (r) => status(r) === W.you,
-    Cleared: (r) => status(r) === W.done,
-  };
-  let filter = 'New';
-  const applyFilter = () => {
-    const test = FILTERS[filter] || ((r) => r.querySelector('.ui-win__who')?.textContent.trim() === filter);
-    rows.forEach((r) => r.classList.toggle('is-dim', !test(r)));
-    navs.forEach((n) => {
-      const on = navName(n) === filter;
-      n.classList.toggle('is-on', on);
-      n.setAttribute('aria-pressed', String(on));
-    });
-  };
-  navs.forEach((n) => {
-    const name = navName(n);
-    n.querySelector('em')?.setAttribute('aria-hidden', 'true');
-    asButton(n, () => { take(); filter = filter === name && name !== 'New' ? 'New' : name; applyFilter(); }, { pressed: n.classList.contains('is-on') });
-  });
+  // the tally in the window's bar, where the search box was
+  const bar = win.querySelector('.ui-win__bar');
+  const tally = document.createElement('span');
+  tally.className = 'play-tally';
+  tally.setAttribute('role', 'status');
+  bar?.append(tally);
+  // the summary, shown in the queue once it is empty
+  const summary = document.createElement('p');
+  summary.className = 'play-summary';
+  summary.setAttribute('role', 'status');
+  summary.hidden = true;
+  list.after(summary);
 
-  /* ---------------------------------------------------------------- the run */
+  /* ---------------------------------------------------------------- the run and its narrative */
   const steps = [...pipe.querySelectorAll('.ui-pipe__step')];
   const times = steps.map((s) => s.querySelector('[data-time]'));
   const N = steps.length;
   const chip = pipe.querySelector('[data-pipe-chip]');
-  const btn = pipe.querySelector('[data-pipe-btn]');
   const total = pipe.querySelector('[data-pipe-total]');
+  const log = pipe.querySelector('.ui-pipe__log');
   const lines = [...pipe.querySelectorAll('.ui-pipe__line')];
   const head = { run: pipe.querySelector('.ui-pipe__run'), msg: pipe.querySelector('.ui-pipe__msg'), sha: pipe.querySelector('.ui-pipe__sha'), av: pipe.querySelector('.ui-pipe__commit .ui-avatar') };
   const cmd0 = steps[0]?.querySelector('.ui-pipe__cmd');
-  const W2 = {
-    chip: chip?.textContent ?? '', chipDone: chip?.dataset.done ?? '',
-    btn: btn?.textContent ?? '', btnDone: btn?.dataset.done ?? '',
-    cmd0: cmd0?.textContent ?? '', lines: lines.map((l) => l.innerHTML),
-    queued: times.map((t) => t.textContent),
-  };
-  const T = times.map((t, i) => parseInt(t.dataset.time || W2.queued[i], 10) || 1);
-  const fmt = (s) => `${Math.max(0, Math.round(s))}s`;
-  chip?.setAttribute('role', 'status');
+  const W2 = { chip: chip?.textContent ?? '', chipDone: chip?.dataset.done ?? '', cmd0: cmd0?.textContent ?? '', lines: lines.map((l) => l.innerHTML), queued: times.map((t) => t.textContent) };
+  const S = times.map((t, i) => parseInt(t.dataset.time || W2.queued[i], 10) || 1);
+  const fmt = (x) => `${Math.max(0, Math.round(x))}s`;
+  log?.removeAttribute('aria-hidden');
+  log?.setAttribute('aria-live', 'polite');
 
-  let j = Math.max(0, steps.findIndex((s) => s.classList.contains('is-run')));
-  let k = parseFloat(steps[j]?.style.getPropertyValue('--k')) || 0;
-  let token = { dead: true, paused: false };
-  let current = rows.find((r) => status(r) === W.work) || null;
+  // the verdict, under the log
+  const verdict = document.createElement('div');
+  verdict.className = 'play-verdict';
+  verdict.hidden = true;
+  verdict.innerHTML = `<div class="play-verdict__risk"><span class="play-verdict__label"></span><span class="play-meter" aria-hidden="true"><i></i></span></div>
+    <div class="play-verdict__acts"><button type="button" class="play-act play-act--escalate">${T.escalate}</button><button type="button" class="play-act">${T.clear}</button></div>`;
+  const hint = document.createElement('p');
+  hint.className = 'play-pick';
+  hint.textContent = T.pick;
+  pipe.append(verdict, hint);
+
+  let j = 0, k = 0, token = { dead: true }, current = null;
+  const decided = { escalated: 0, cleared: 0 };
 
   const paint = () => {
     steps.forEach((s, i) => {
@@ -116,164 +116,162 @@ export default function init(app) {
       s.classList.toggle('is-done', done);
       s.classList.toggle('is-run', run);
       s.style.setProperty('--k', done ? '1' : run ? k.toFixed(3) : '0');
-      times[i].textContent = done ? fmt(T[i]) : run ? fmt(k * T[i]) : W2.queued[i] && !/\d/.test(W2.queued[i]) ? W2.queued[i] : '';
+      times[i].textContent = done ? fmt(S[i]) : run ? fmt(k * S[i]) : W2.queued[i] && !/\d/.test(W2.queued[i]) ? W2.queued[i] : '';
     });
     const passed = j >= N;
     pipe.classList.toggle('is-passed', passed);
     if (chip) { chip.textContent = passed ? W2.chipDone : W2.chip; chip.classList.toggle('ui-chip--live', !passed); }
-    if (btn) {
-      btn.textContent = passed ? W2.btnDone : W2.btn;
-      if (passed) btn.removeAttribute('aria-pressed'); else btn.setAttribute('aria-pressed', String(token.paused));
-      btn.classList.toggle('is-pressed', !passed && token.paused);
-    }
-    if (total) total.textContent = fmt(T.slice(0, Math.min(j, N)).reduce((a, b) => a + b, 0) + (passed ? 0 : k * T[j]));
-    const on = steps[Math.min(j, N - 1)].dataset.step;
-    lines.forEach((l) => l.classList.toggle('is-on', l.dataset.step === on));
+    if (total) total.textContent = fmt(S.slice(0, Math.min(j, N)).reduce((a, b) => a + b, 0) + (passed ? 0 : k * S[j]));
+    // the narrative: what the current step found, and the step before it
+    const at = Math.min(j, N - 1);
+    const on = steps[at].dataset.step, prev = steps[at - 1]?.dataset.step;
+    lines.forEach((l) => { l.classList.toggle('is-on', l.dataset.step === on); l.classList.toggle('is-prev', l.dataset.step === prev); });
   };
 
-  // the run shows the alert it is working on: its source, its anomaly, an illustrative event id
+  // the run shows the alert it works on: its source, its anomaly, an illustrative event id
   const load = (r) => {
-    const who = r.querySelector('.ui-win__who')?.textContent.trim() || '';
-    const sub = r.querySelector('.ui-win__sub')?.textContent.trim() || '';
-    const av = r.querySelector('.ui-avatar');
-    if (head.run) head.run.textContent = who;
-    if (head.msg) head.msg.textContent = sub;
-    if (head.sha) head.sha.textContent = `evt ${hexOf(who + sub)}`;
+    const w = who(r), s = sub(r), av = r.querySelector('.ui-avatar');
+    if (head.run) head.run.textContent = w;
+    if (head.msg) head.msg.textContent = s;
+    if (head.sha) head.sha.textContent = `evt ${hexOf(w + s)}`;
     if (head.av && av) { head.av.textContent = av.textContent; head.av.dataset.tone = av.dataset.tone || '1'; }
-    const s = slug(who);
-    if (cmd0) cmd0.textContent = W2.cmd0.replace('card-switch', s);
-    lines.forEach((l, i) => { l.innerHTML = W2.lines[i].replace('card-switch', s); });
+    if (cmd0) cmd0.textContent = W2.cmd0.replace('card-switch', slug(w));
+    lines.forEach((l, i) => { l.innerHTML = W2.lines[i].replace('card-switch', slug(w)); });
   };
 
-  const run = async (r, fromJ = 0, fromK = 0) => {
+  const showVerdict = (r) => {
+    const [level, score] = RISK[sub(r)] || ['medium', 0.5];
+    verdict.dataset.level = level;
+    verdict.querySelector('.play-verdict__label').textContent = T.risk[level];
+    verdict.querySelector('.play-meter > i').style.setProperty('--r', String(score));
+    if (chip) chip.textContent = T.risk[level];   // not the kit's "Alerted": the visitor has not decided yet
+    verdict.hidden = false;
+    hint.hidden = true;
+    // at the verdict the log shows the evidence the decision rests on: what scoring found, after what the stream
+    // built (not the last steps, "alert sent" and "board refreshed", which read as if it were already decided)
+    lines.forEach((l) => { l.classList.toggle('is-on', l.dataset.step === 'score'); l.classList.toggle('is-prev', l.dataset.step === 'stream'); });
+    // on a phone the steps stack and the verdict can land below the screen: bring it into view (only then)
+    const r2 = verdict.getBoundingClientRect();
+    if (r2.bottom > innerHeight || r2.top < 0) verdict.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'nearest' });
+  };
+
+  const run = async (r) => {
     token.dead = true;
-    const t = (token = { dead: false, paused: false });
+    const t = (token = { dead: false });
     current = r;
-    j = fromJ; k = fromK;
+    verdict.hidden = true;
+    hint.hidden = true;
+    j = 0; k = 0;
+    load(r);
     paint();
     while (j < N) {
-      const from = k;
-      const ok = await frames(Math.max(500, (1 - from) * T[j] * 520), t, (e) => { k = from + (1 - from) * e; paint(); });
+      const ok = await frames(Math.max(450, S[j] * 480), t, (e) => { k = e; paint(); });
       if (!ok) return;
       j++; k = 0;
       paint();
     }
     if (t !== token) return;
-    t.dead = true;
-    if (status(r) === W.work) { setStatus(r, W.you); bump('Mine', 1); }
-    current = null;
-    paint();
-    applyFilter();
+    showVerdict(r);
   };
 
-  const showPassed = (r) => { token.dead = true; token = { dead: true, paused: false }; load(r); j = N; k = 0; paint(); };
-
-  /* ---------------------------------------------------------------- taking it over from the kit */
-  // taken: the kit's loop is stopped for good; fresh: nothing played since the page loaded or the last reset
-  let taken = false, fresh = true;
+  /* ---------------------------------------------------------------- taking over, picking, deciding */
+  let taken = false, fresh = true, start = null;
   function take(played = true) {
+    if (!taken) {
+      taken = true;
+      own(win); own(pipe);
+      app.classList.add('is-playing');
+      // a fresh queue: the four open alerts, all new, nothing picked
+      rows.forEach((r) => { setStatus(r, W.open); r.classList.remove('is-sel', 'is-gone', 'is-hint'); });
+      select(null);
+      start = { head: [head.run, head.msg, head.sha, head.av, cmd0].map((el) => el?.textContent ?? null), tone: head.av?.dataset.tone, lines: lines.map((l) => l.innerHTML) };
+      verdict.hidden = true;
+      hint.hidden = false;
+      count();
+    }
     if (played && fresh) { fresh = false; pill.played(); }
-    if (taken) return;
-    taken = true;
-    own(win); own(pipe);
-    app.classList.add('is-playing');
-    rows.forEach((r) => r.classList.remove('is-hint'));
-    // the kit's finished picture has one alert mid-run: carry it on from where it stands
-    j = Math.max(0, steps.findIndex((s) => s.classList.contains('is-run')));
-    k = parseFloat(steps[j]?.style.getPropertyValue('--k')) || 0;
-    current = rows.find((r) => status(r) === W.work) || null;
-    start = {
-      statuses: rows.map(status), counts: navs.map((n) => n.querySelector('em')?.textContent ?? null), j, k, current,
-      // the run's header and log exactly as the markup wrote them (its event id is the page's, not a computed one)
-      head: [head.run, head.msg, head.sha, head.av, cmd0].map((el) => el ? el.textContent : null),
-      tone: head.av?.dataset.tone, lines: lines.map((l) => l.innerHTML),
-    };
-    if (current) { select(current); run(current, j, k); }
   }
-
-  // back to the picture the visitor first took over, the alert in the run carrying on
-  let start = null;
-  function reset() {
-    if (!start) return;
-    token.dead = true;
-    rows.forEach((r, i) => setStatus(r, start.statuses[i]));
-    navs.forEach((n, i) => { const em = n.querySelector('em'); if (em && start.counts[i] != null) em.textContent = start.counts[i]; });
-    filter = 'New';
-    applyFilter();
-    select(null);
-    [head.run, head.msg, head.sha, head.av, cmd0].forEach((el, i) => { if (el && start.head[i] != null) el.textContent = start.head[i]; });
-    if (head.av && start.tone) head.av.dataset.tone = start.tone;
-    lines.forEach((l, i) => { l.innerHTML = start.lines[i]; });
-    if (start.current) { select(start.current); run(start.current, start.j, start.k); }
-    fresh = true;
-    rows.forEach((x) => x.classList.remove('is-pointed'));
-    pill.played(false);
-    hint();
-  }
+  const live = () => rows.filter((r) => !r.classList.contains('is-gone'));
+  const count = () => { tally.textContent = T.left(live().length); };
 
   function pick(r) {
     take();
     rows.forEach((x) => x.classList.remove('is-pointed'));
+    if (r.classList.contains('is-gone')) return;
+    if (current && current !== r && current.classList.contains('is-gone') === false && stOf(current).textContent === W.work) setStatus(current, W.open);
     select(r);
-    const st = status(r);
-    if (st === W.open) {
-      if (current && current !== r && status(current) === W.work) { setStatus(current, W.open); bump('New', 1); }
-      setStatus(r, W.work);
-      bump('New', -1);
-      load(r);
-      run(r);
-    } else if (st === W.work) {
-      if (current !== r) { load(r); run(r); }
-    } else {
-      if (current && current !== r && status(current) === W.work) { setStatus(current, W.open); bump('New', 1); current = null; }
-      showPassed(r);
-    }
-    applyFilter();
+    focusRow(r);
+    setStatus(r, W.work, 'is-work');
+    run(r);
   }
 
-  if (btn) {
-    asButton(btn, () => {
-      take();
-      if (j < N && !token.dead) { token.paused = !token.paused; paint(); return; }
-      // the run has passed: opening the alert clears it
-      const r = rows.find((x) => x.classList.contains('is-sel'));
-      if (r && status(r) === W.you) { setStatus(r, W.done); bump('Mine', -1); applyFilter(); }
-    }, { pressed: false });
+  const decide = (how) => {
+    const r = current;
+    if (!r || verdict.hidden) return;
+    take();
+    decided[how === 'escalate' ? 'escalated' : 'cleared']++;
+    setStatus(r, how === 'escalate' ? T.escalated : W.done, how === 'escalate' ? 'is-you' : 'is-done');
+    verdict.hidden = true;
+    current = null;
+    r.classList.add('is-leaving');
+    setTimeout(() => {
+      r.classList.remove('is-leaving');
+      r.classList.add('is-gone');
+      r.setAttribute('aria-hidden', 'true');
+      count();
+      const next = live()[0];
+      if (next) { pick(next); return; }
+      // the queue is empty: the summary
+      summary.textContent = T.done(decided.escalated, decided.cleared);
+      summary.hidden = false;
+      tally.textContent = T.left(0);
+      hint.hidden = true;
+    }, reduced() ? 0 : 320);
+  };
+  verdict.addEventListener('click', (e) => {
+    const b = e.target.closest('.play-act');
+    if (b) decide(b.classList.contains('play-act--escalate') ? 'escalate' : 'clear');
+  });
+
+  // "Reset demo": the four alerts back in the queue, the run back as the page wrote it
+  function reset() {
+    token.dead = true;
+    current = null;
+    decided.escalated = decided.cleared = 0;
+    rows.forEach((r) => { r.classList.remove('is-gone', 'is-leaving', 'is-sel', 'is-pointed'); r.removeAttribute('aria-hidden'); setStatus(r, W.open); });
+    select(null);
+    focusRow(rows[0]);
+    if (start) {
+      [head.run, head.msg, head.sha, head.av, cmd0].forEach((el, i) => { if (el && start.head[i] != null) el.textContent = start.head[i]; });
+      if (head.av && start.tone) head.av.dataset.tone = start.tone;
+      lines.forEach((l, i) => { l.innerHTML = start.lines[i]; });
+    }
+    j = 0; k = 0; paint();
+    summary.hidden = true;
+    verdict.hidden = true;
+    hint.hidden = false;
+    count();
+    fresh = true;
+    pill.played(false);
+    rows[0].classList.add('is-hint');
   }
 
   /* ---------------------------------------------------------------- the cue */
-  // TODO(wording): proposed words, pending Felipe (Documentation/wording-changes.md)
   const pill = cue(app, {
-    invite: 'Try it: pick a new alert',
+    invite: T.invite,
     onStart: () => {
       take(false);
-      const first = rows.find((r) => status(r) === W.open && r.offsetParent !== null);
-      if (first) { focusRow(first); first.classList.add('is-pointed'); hint(first); }
+      const first = live()[0];
+      if (first) { focusRow(first); first.classList.add('is-pointed'); }
     },
-    onReset: () => { reset(); },
+    onReset: reset,
   });
-  // the first new alert glows three times whenever the frame comes into view, until the visitor has played
-  function hint(el = rows.find((r) => status(r) === W.open)) {
-    if (reduced() || !el) return;
-    rows.forEach((r) => r.classList.remove('is-hint'));
-    void el.offsetWidth;                              // restart the animation
-    el.classList.add('is-hint');
+  if (!reduced()) {
+    new IntersectionObserver((es) => {
+      if (!es.some((e) => e.isIntersecting) || !fresh) return;
+      rows.forEach((r) => r.classList.remove('is-hint'));
+      void rows[0].offsetWidth;
+      rows[0].classList.add('is-hint');
+    }, { threshold: 0.4 }).observe(app);
   }
-  new IntersectionObserver((es) => {
-    if (es.some((e) => e.isIntersecting) && fresh) hint();
-  }, { threshold: 0.4 }).observe(app);
-
-  /* ---------------------------------------------------------------- phones: four alerts, then "Show all" */
-  // TODO(wording): proposed words, pending Felipe
-  const more = document.createElement('button');
-  more.type = 'button';
-  more.className = 'play-more';
-  const fold = (on) => {
-    list.classList.toggle('is-folded', on);
-    more.setAttribute('aria-expanded', String(!on));
-    more.textContent = on ? `Show all ${rows.length} alerts` : 'Show fewer';
-  };
-  more.addEventListener('click', () => fold(!list.classList.contains('is-folded')));
-  list.after(more);
-  fold(true);
 }

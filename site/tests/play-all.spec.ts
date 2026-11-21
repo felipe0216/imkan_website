@@ -11,7 +11,10 @@ const open = async (page: Page, path: string, frame: string) => {
   await expect(f.locator('.play-cue__btn')).toBeVisible({ timeout: 20000 });
   return f;
 };
+// Firefox (Playwright 1.65): an expect() polling while a demo animates crashes the next analyze(); waiting with
+// locator.waitFor() never does (bisected 2026-11-21, Documentation/qa/visual-qa.md). The site is not involved.
 const axe = async (page: Page, frame: string) => {
+  await page.locator(frame).waitFor();
   const r = await new AxeBuilder({ page }).include(frame).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
   expect(r.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([]);
 };
@@ -116,19 +119,17 @@ test.describe('framed demos', () => {
     await axe(page, frame);
   });
 
-  test('chat: a suggestion types itself, is sent, and gets its answer and sources', async ({ page, browserName }) => {
+  test('chat: a suggestion types itself, is sent, and gets its answer and sources', async ({ page }) => {
     const frame = '.hero__window[data-play="chat"]';
     const f = await open(page, '/', frame);
     await f.locator('.play-chat__q').nth(1).click();
-    await expect(f.locator('.play-chat__input')).not.toHaveValue('', { timeout: 2000 });   // being typed in
-    await expect(f.locator('.ui-msg--me').last()).toHaveText('Can you go to 10% off?', { timeout: 6000 });
+    // waitFor, then axe, then the assertions (Firefox and expect() during an animation: see the axe helper)
+    await f.locator('.ui-msg--bot').nth(1).locator('.ui-chat__src').first().waitFor({ timeout: 10000 });
+    await axe(page, frame);
+    await expect(f.locator('.ui-msg--me').last()).toHaveText('Can you go to 10% off?');
     const last = f.locator('.ui-msg--bot').last();
-    await expect(last.locator('.ui-chat__answer')).toContainText('outside your approved pricing', { timeout: 6000 });
-    await expect(last.locator('.ui-chat__src')).toHaveText(['Pricing engine'], { timeout: 6000 });
-    // Known issue (2026-11-21, Documentation/qa/visual-qa.md): inside Playwright Test only, Firefox's page crashes
-    // during this axe scan after the chat has played. The same steps in a standalone Firefox script (same browser,
-    // same device settings) never crash and axe finds 0 violations, so the scan runs in Chromium and WebKit here.
-    if (browserName !== 'firefox') await axe(page, frame);
+    await expect(last.locator('.ui-chat__answer')).toContainText('outside your approved pricing');
+    await expect(last.locator('.ui-chat__src')).toHaveText(['Pricing engine']);
     await resets(f);
     await expect(f.locator('.ui-msg--me')).toHaveCount(1);
   });
