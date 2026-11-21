@@ -73,6 +73,22 @@ export default function init(frame) {
   const list = box.querySelector('.play-pv__events');
   const btns = [...box.querySelectorAll('[data-who]')];
 
+  const eventsHtml = (w, on = false) => T.events[w].map((e, i) => `<li data-i="${i}"${on ? ' class="is-on"' : ''}><span class="play-pv__n" aria-hidden="true">${i + 1}</span>${e}</li>`).join('');
+  // the card keeps the height of the taller of its two texts, so switching never resizes it, nor (through the
+  // grid's equal rows) the cards beside it (Felipe, 2026-11-21: "all the boxes ... are changing size")
+  const settle = () => {
+    box.style.minBlockSize = '';
+    let max = 0;
+    for (const w of ['vendor', 'partner']) {
+      say.textContent = T.say[w];
+      list.innerHTML = eventsHtml(w, true);
+      max = Math.max(max, box.offsetHeight);
+    }
+    box.style.minBlockSize = `${Math.ceil(max)}px`;
+    say.textContent = T.say[who];
+    list.innerHTML = eventsHtml(who, true);
+    dots.querySelectorAll('.play-pv__dot').forEach((d) => d.classList.add('is-on'));
+  };
   let who = 'partner', run = 0;
   const show = (w) => {
     who = w;
@@ -85,7 +101,7 @@ export default function init(frame) {
     area.setAttribute('d', `${d} L344 146 L24 146 Z`);
     say.textContent = T.say[w];
     dots.innerHTML = DOTS[w].map(([x, y], i) => `<g class="play-pv__dot" data-i="${i}" transform="translate(${x} ${y})"><circle r="9"/><text y="3.6" text-anchor="middle">${i + 1}</text></g>`).join('');
-    list.innerHTML = T.events[w].map((e, i) => `<li data-i="${i}"><span class="play-pv__n" aria-hidden="true">${i + 1}</span>${e}</li>`).join('');
+    list.innerHTML = eventsHtml(w);
     // the line draws itself from go-live on; the moments light up as the line reaches them
     const len = line.getTotalLength();
     if (reduced()) { box.querySelectorAll('[data-i]').forEach((el) => el.classList.add('is-on')); return; }
@@ -122,4 +138,8 @@ export default function init(frame) {
   });
   const pill = cue(frame, { corner: true, invite: T.invite, onStart: () => { const v = btns[0]; v.focus({ preventScroll: true }); v.click(); } });
   show('partner');
+  settle();
+  document.fonts?.ready.then(() => { settle(); });
+  let lastW = 0;
+  new ResizeObserver(() => { const w = Math.round(box.getBoundingClientRect().width); if (w && w !== lastW) { lastW = w; settle(); } }).observe(box);
 }

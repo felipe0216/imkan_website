@@ -67,7 +67,7 @@ export default function init(frame) {
   said.setAttribute('aria-live', 'polite');
   const note = document.createElement('p');
   note.className = 'play-voice__note';
-  note.hidden = true;
+  note.classList.remove("is-on");
   cap.replaceWith(said);
   said.after(note);
   const play = document.createElement('button');
@@ -112,8 +112,8 @@ export default function init(frame) {
       fallback = setInterval(() => { if (me !== run) { end(); return; } show(k + 1); if (k >= n) setTimeout(end, 500); }, reduced() ? 0 : per);
     };
     show(0);
-    if (!synth || !voices.length) { note.hidden = false; note.textContent = T.noVoice[lang]; byClock(); return; }
-    note.hidden = true;
+    if (!synth || !voices.length) { note.classList.add("is-on"); note.textContent = T.noVoice[lang]; byClock(); return; }
+    note.classList.remove("is-on");
     const u = new SpeechSynthesisUtterance(text);
     u.lang = voices[0].lang;
     // two voices when the device has them, else the same voice at two pitches: the caller lower, the agent brighter
@@ -183,6 +183,22 @@ export default function init(frame) {
   new IntersectionObserver((es) => { if (playing && !es.some((x) => x.isIntersecting)) stop(); }).observe(root);
   document.addEventListener('visibilitychange', () => { if (document.hidden && playing) stop(); });
   synth?.getVoices();                          // some engines load their voices on the first ask
+  // the transcript keeps the height of its longer language (Arabic wraps longer), so the switch never resizes
+  // the card, nor what follows it on the page
+  const settle = () => {
+    if (playing) return;
+    const was = lang;
+    said.style.minBlockSize = '';
+    let max = 0;
+    for (const l of ['ar', 'en']) { lang = l; paint(); max = Math.max(max, said.offsetHeight); }
+    lang = was;
+    paint();
+    said.style.minBlockSize = `${Math.ceil(max)}px`;
+  };
+  settle();
+  document.fonts?.ready.then(() => { if (!playing) settle(); });
+  let lastW = 0;
+  new ResizeObserver(() => { const w = Math.round(said.getBoundingClientRect().width); if (w && w !== lastW) { lastW = w; settle(); } }).observe(said);
   paint();
   paintBtn();
   const pill = cue(frame, { corner: true, invite: T.invite, onStart: () => { start(); play.focus({ preventScroll: true }); } });

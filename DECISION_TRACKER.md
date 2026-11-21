@@ -148,3 +148,11 @@ New text: wording changes 83 to 86, pending. Batch B, the redesigns, as proposed
 - **Proof of value:** a week slider; a small product builds itself, the four commitments tick off, "Cost to you" stays 0.
 
 The self-playing demos (Ask why, the chart, the roadmap, the weeks, the notes) play at rest and pause for 9 s after the visitor's last touch. The old search, console and checklist scripts stay in the repository unused, pending Felipe's OK to delete them. New text: wording changes 87 to 100, pending (the Arabic also needs a native check).
+
+### 2026-11-21: third review fixes (D-033)
+- **Fraud timing:** the seconds shown stay the system's own (the case study says under 10 seconds), so a run at 3 s a step is tagged "Slow motion". Every waiting step reads "Queued". At rest our own slow run replaces the kit's fast one.
+- **Roadmap:** a line says what the pile and the chart show and what to do.
+- **Sales review:** the kit's loop no longer flips the switches by itself or on hover; they change only when pressed.
+- **Steady cards:** the partner, roadmap, proof-of-value and voice cards keep the height of their tallest state, so a press never resizes the row.
+
+New text: wording changes 101 to 103, pending.

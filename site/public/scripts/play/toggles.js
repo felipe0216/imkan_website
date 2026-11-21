@@ -1,10 +1,13 @@
 // The weekly sales review's switches: they really switch, and "3 of 4 on" follows. The switches are the kit's
 // own buttons (role="switch", named); they only get a tab stop.
-import { demo, renum } from './lib.js';
+// The kit's own loop flips the switches by itself (and replays on hover), which read as the switches misbehaving
+// (Felipe, 2026-11-21): it is stopped at load, so a switch changes only when the visitor presses it.
+import { demo, renum, own } from './lib.js';
 
 export default function init(frame) {
   const root = frame.querySelector('[data-ui="toggles"]');
   if (!root) return;
+  own(root);
   let count0 = null;
   demo(frame, root, {
     // TODO(wording): proposed, pending Felipe

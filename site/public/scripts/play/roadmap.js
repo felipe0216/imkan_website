@@ -34,7 +34,11 @@ const T = {
   today: 'Today',
   impact: 'Impact ↑', effort: 'Effort →',
   best: 'High impact, low effort',
-  drag: 'Drag a dot to move it.',
+  // what the visitor is looking at, and what to do, in each state (Felipe, 2026-11-21: "I don't get what I need to do")
+  say: {
+    pile: 'Ten ideas your team could start on. Which one comes first? Press the button to sort them.',
+    chart: 'Each idea sits by its impact (higher is better) and its effort (further right is harder). The top-left one is your first move. Drag a dot to change the plan.',
+  },
   dot: (n, i, e) => `${n}: impact ${i}, effort ${e}. Arrow keys move it.`,
   level: (v) => (v >= 0.67 ? 'high' : v >= 0.34 ? 'medium' : 'low'),
 };
@@ -54,6 +58,7 @@ export default function init(frame) {
   box.className = 'ui ui-panel play-rm';
   box.innerHTML = `
     <div class="play-rm__head"><div class="ui-title">${title}</div></div>
+    <p class="play-rm__say"><span data-for="false">${T.say.pile}</span><span data-for="true">${T.say.chart}</span></p>
     <div class="play-rm__board">
       <span class="play-rm__q" aria-hidden="true">${T.best}</span>
       <span class="play-rm__low" aria-hidden="true"></span>
@@ -74,6 +79,7 @@ export default function init(frame) {
   const thenLine = box.querySelector('.play-rm__then-line');
   const out = box.querySelector('.play-rm__out');
   const go = box.querySelector('.play-rm__go');
+  const sayEl = box.querySelector('.play-rm__say');
 
   let plotted = false;
   const narrow = () => board.getBoundingClientRect().width < 420;
@@ -84,6 +90,7 @@ export default function init(frame) {
 
   const paint = (draw = false) => {
     box.classList.toggle('is-plotted', plotted);
+    sayEl.dataset.state = String(plotted);   // both lines are laid out in one cell, so the card's height never changes
     const best = plotted ? plan() : [];
     chips.forEach((c, k) => {
       const it = items[k];
@@ -179,7 +186,26 @@ export default function init(frame) {
   const pill = cue(frame, { corner: true, invite: T.invite, onStart: () => { go.focus({ preventScroll: true }); if (!plotted) go.click(); else mine(); } });
   if (reduced()) box.classList.add('is-still');
   paint();
+  // the card keeps the height of its taller state (the chart, with its first move named), so sorting never resizes
+  // it, nor the card beside it (the grid's rows are equal)
+  const settle = () => {
+    const was = plotted;
+    box.classList.add('is-measuring');   // no transitions while it measures, so nothing moves on screen
+    box.style.minBlockSize = '';
+    plotted = true; paint();
+    const tall = box.offsetHeight;
+    plotted = was; paint();
+    box.style.minBlockSize = `${Math.max(tall, box.offsetHeight)}px`;
+    void box.offsetHeight;
+    box.classList.remove('is-measuring');
+  };
+  settle();
+  document.fonts?.ready.then(() => { settle(); });
   // the pile's layout depends on the board's width (one chip per row on a phone): laid out again when it changes
-  let wide = null;
-  new ResizeObserver(() => { const n = narrow(); if (n !== wide) { wide = n; if (!plotted) paint(); } }).observe(board);
+  let wide = null, lastW = 0;
+  new ResizeObserver(() => {
+    const w = Math.round(box.getBoundingClientRect().width);
+    if (w && w !== lastW) { lastW = w; settle(); }
+    const n = narrow(); if (n !== wide) { wide = n; if (!plotted) paint(); }
+  }).observe(box);
 }

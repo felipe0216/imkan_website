@@ -84,13 +84,15 @@ html .play-cue__btn:focus-visible { outline: 2px solid var(--p-action); outline-
 
 /* demos in a frame (a card's panel, a hero window): the cue sits in the frame's top-right corner, and the frame
    keeps room above the mock-up for it, so it never covers what the mock-up shows */
-html .has-play-cue { position: relative; }
+html .has-play-cue, html .panel[data-play], html .hero__window[data-play] { position: relative; }
 html .play-cue--corner { position: absolute; inset-block-start: var(--s-3); inset-inline-end: var(--s-3); z-index: 3; margin: 0; }
 html .play-cue--corner .play-cue__btn { min-block-size: 32px; padding: 0 var(--s-3); font-size: 13px; }
 /* the frames' own 48px top padding clears the 44px pill on wider screens; a phone's smaller padding does not */
 @media (max-width: 639px) {
-  html .panel.has-play-cue > .stage { padding-block-start: calc(var(--s-3) + 32px + var(--s-4)); }
-  html .hero__window.has-play-cue { padding-block-start: calc(var(--s-3) + 32px + var(--s-4)); }
+  /* keyed on data-play, which is in the HTML from the start: a class added by script was missed by WebKit's style
+     update here, so a frame grew by the pill's room only after the first press (2026-11-21) */
+  html .panel[data-play] > .stage { padding-block-start: calc(var(--s-3) + 32px + var(--s-4)); }
+  html .hero__window[data-play]:not([data-play="chat"]) { padding-block-start: calc(var(--s-3) + 32px + var(--s-4)); }
 }
 
 /* what can be pressed in a framed demo: a tint under the pointer, a ring for the keyboard, and the step
@@ -202,8 +204,11 @@ html .play-chat__send:focus-visible { outline: 2px solid var(--p-action); outlin
 /* the data strategy roadmap, round 3 (Felipe, 2026-11-21: "it needs to be cool"): a pile of initiatives that fly
    to their places on an impact x effort chart; the low ones fade, a path draws through the best three. */
 html .panel[data-play="roadmap"] > .stage > * { max-width: 560px; }
-html .play-rm { inline-size: 100%; padding: var(--s-4) var(--s-5) var(--s-4); color: var(--p-ink); font-family: var(--font-text); }
+html .play-rm { display: flex; flex-direction: column; inline-size: 100%; padding: var(--s-4) var(--s-5) var(--s-4); color: var(--p-ink); font-family: var(--font-text); }
 html .play-rm__head { display: flex; align-items: center; gap: var(--s-2); }
+html .play-rm__say { display: grid; margin: 6px 0 0; font-size: 13px; line-height: 20px; color: var(--u-muted); }
+html .play-rm__say > span { grid-area: 1 / 1; transition: opacity 300ms ease; }
+html .play-rm__say[data-state="true"] > [data-for="false"], html .play-rm__say[data-state="false"] > [data-for="true"] { visibility: hidden; opacity: 0; }
 html .play-rm__board { position: relative; block-size: 250px; margin-block-start: var(--s-3); border-radius: 12px; background: color-mix(in oklab, var(--p-ink) 3%, #fff); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--p-ink) 8%, transparent); overflow: hidden; }
 html .play-rm__q, html .play-rm__low, html .play-rm__ax, html .play-rm__today, html .play-rm__path { opacity: 0; transition: opacity 500ms ease 300ms; pointer-events: none; }
 html .play-rm.is-plotted :is(.play-rm__q, .play-rm__low, .play-rm__ax, .play-rm__today) { opacity: 1; }
@@ -255,7 +260,7 @@ html .play-rm.is-plotted .play-rm__chip.is-dragging { cursor: grabbing; transiti
 /* a dot's name shows while it is pointed at or focused */
 html .play-rm.is-plotted .play-rm__chip:is(:hover, :focus-visible) .play-rm__name { position: absolute; inset-block-end: calc(100% + 6px); inset-inline-start: 50%; transform: translateX(-50%); max-inline-size: none; padding: 3px 8px; border-radius: 6px; background: var(--p-ink); color: #fff; opacity: 1; }
 html .play-rm__chip:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
-html .play-rm__foot { display: flex; align-items: center; gap: var(--s-3); min-block-size: 58px; margin-block-start: var(--s-3); }
+html .play-rm__foot { display: flex; align-items: center; gap: var(--s-3); min-block-size: 58px; margin-block-start: auto; padding-block-start: var(--s-3); }
 html .play-rm__out { display: grid; gap: 1px; flex: 1; min-inline-size: 0; margin: 0; font-size: 13px; line-height: 18px; }
 html .play-rm__out b { font-size: 16px; line-height: 22px; font-weight: 600; color: var(--p-action); }
 html .play-rm__label { font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--u-muted); }
@@ -444,7 +449,10 @@ html .play-pf__b--after i { inline-size: 34px; background: var(--p-action); }
 html .play-pf__stamp { position: absolute; inset-block-start: 50%; inset-inline-start: 50%; padding: 6px 12px; border: 2px solid var(--p-action); border-radius: 8px; background: #fff; color: var(--p-action); font-size: 13px; line-height: 16px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; opacity: 0; transform: translate(-50%, -50%) rotate(-8deg) scale(1.6); transition: opacity 250ms ease, transform 350ms cubic-bezier(0.34, 1.5, 0.64, 1); }
 html .play-pf__stamp.is-live { opacity: 1; transform: translate(-50%, -50%) rotate(-8deg) scale(1); }
 html .play-pf__side { display: grid; align-content: start; gap: var(--s-3); }
-html .play-pf__phase { min-block-size: 42px; margin: 0; font-size: 13px; line-height: 19px; color: var(--u-muted); }
+html .play-pf__phase { display: grid; margin: 0; font-size: 13px; line-height: 19px; color: var(--u-muted); }
+/* the four phase lines share one cell (the tallest sets its height), one shown at a time, so the card never resizes */
+html .play-pf__phase > span { grid-area: 1 / 1; visibility: hidden; }
+html .play-pf__phase[data-p="0"] > [data-p="0"], html .play-pf__phase[data-p="1"] > [data-p="1"], html .play-pf__phase[data-p="2"] > [data-p="2"], html .play-pf__phase[data-p="3"] > [data-p="3"] { visibility: visible; }
 html .play-pf__phase b { display: block; color: var(--p-ink); font-size: 15px; line-height: 21px; font-weight: 600; }
 html .play-pf__list { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
 html .play-pf__list li { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; line-height: 18px; color: var(--u-muted); transition: color 300ms ease; }
@@ -464,3 +472,12 @@ html .play-pf__slide input:focus-visible { outline: 2px solid var(--p-action); o
 html .play-pf__weeks { display: flex; justify-content: space-between; padding-inline: 7px; font-size: 11px; line-height: 14px; color: var(--u-muted); font-variant-numeric: tabular-nums; }
 @media (max-width: 639px) { html .play-pf__stage { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { html .play-pf * { transition: none !important; } }
+
+/* the run plays slower than the system does (3 s a step); the seconds stay the system's, so it says so */
+html .play-slow { display: inline-flex; align-items: center; margin-inline-end: 8px; padding: 1px 8px; border-radius: 999px; background: color-mix(in oklab, var(--p-action) 10%, #fff); color: var(--p-action); font-size: 11px; line-height: 16px; font-weight: 600; }
+html .play-slow[hidden] { display: none; }
+html .play-rm.is-measuring *, html .play-rm.is-measuring *::before { transition: none !important; animation: none !important; }
+/* the voice transcript keeps the height of its longer language (set from script), so switching never resizes it */
+html .play-voice__said { align-content: start; }
+html .play-voice__note:not(.is-on) { visibility: hidden; }   /* keeps its line, so it never resizes the card */
+html .play-voice__note { min-block-size: 16px; }

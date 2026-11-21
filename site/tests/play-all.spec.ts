@@ -179,6 +179,42 @@ test.describe('framed demos', () => {
     await cueLeaves(f);
   });
 
+  test('sales review: the switches never flip by themselves', async ({ page }) => {
+    const f = await open(page, '/', '#services [data-play="toggles"]');
+    const states = async () => f.locator('[role="switch"]').evaluateAll((els) => els.map((e) => e.getAttribute('aria-checked')).join());
+    const before = await states();
+    await f.hover();
+    await page.waitForTimeout(4000);
+    expect(await states()).toBe(before);
+  });
+
+  test('cards keep their height when their demo changes state', async ({ page }) => {
+    await still(page);
+    await page.goto('/');
+    const h = (sel: string) => page.locator(sel).evaluate((el) => Math.round(el.getBoundingClientRect().height));
+    const cases: [string, string[]][] = [
+      ['#methodology [data-play="partner"]', ['.play-pv__switch [data-who="vendor"]', '.play-pv__switch [data-who="partner"]']],
+      ['#services [data-play="roadmap"]', ['.play-rm__go', '.play-rm__go']],
+      ['#why-us [data-play="voice"]', ['[data-lang="ar"]', '[data-lang="ar"]']],
+    ];
+    for (const [frame, presses] of cases) {
+      const f = page.locator(frame);
+      await f.scrollIntoViewIfNeeded();
+      await expect(f.locator('.play-cue__btn')).toBeVisible({ timeout: 20000 });
+      const before = await h(frame);
+      for (const sel of presses) { await f.locator(sel).click(); await page.waitForTimeout(200); expect(await h(frame)).toBe(before); }
+    }
+    // the proof of value, from week 1 to week 8
+    const pf = '#why-us [data-play="proof"]';
+    await page.locator(pf).scrollIntoViewIfNeeded();
+    const range = page.locator(`${pf} .play-pf__slide input`);
+    await range.focus();
+    await page.keyboard.press('Home');
+    const before = await h(pf);
+    await page.keyboard.press('End');
+    expect(await h(pf)).toBe(before);
+  });
+
   // the chat has no cue pill: its control is in its own header ("Try chatting", then "Clear chat")
   const openChat = async (page: Page) => {
     await page.goto('/');

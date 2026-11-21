@@ -50,7 +50,7 @@ export default function init(frame) {
         <div class="play-pf__stamp" data-live="8">${T.phase[2]}</div>
       </div>
       <div class="play-pf__side">
-        <p class="play-pf__phase" aria-live="polite"></p>
+        <p class="play-pf__phase" aria-live="polite">${T.phase.map((p, i) => `<span data-p="${i}"><b>${p}</b>${i === 3 ? ` ${T.decide}` : ''}</span>`).join('')}</p>
         <ul class="play-pf__list">${labels.map((l, i) => `<li data-i="${i}"><span class="play-pf__box">${check}</span>${l}</li>`).join('')}</ul>
         <p class="play-pf__cost"><span>${T.cost}</span><b>0</b></p>
       </div>
@@ -72,7 +72,7 @@ export default function init(frame) {
     box.dataset.week = String(w);
     box.dataset.phase = String(phaseOf(w));
     meta.textContent = T.of(w);
-    phase.innerHTML = w === 8 ? `<b>${T.phase[3]}</b> ${T.decide}` : `<b>${T.phase[phaseOf(w)]}</b>`;
+    phase.dataset.p = String(w === 8 ? 3 : Math.min(2, phaseOf(w)));
     items.forEach((li, i) => li.classList.toggle('is-done', w >= TICK[i]));
     // the product builds itself: a sketch first (dashed), then built (solid), then live (its results)
     box.querySelectorAll('[data-s]').forEach((el) => { el.classList.toggle('is-sketch', w >= +el.dataset.s); el.classList.toggle('is-built', w >= +el.dataset.b); });

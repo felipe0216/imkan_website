@@ -58,6 +58,14 @@ test.describe('fraud triage demo (#platform)', () => {
     await expect(page.locator('#platform .play-summary')).toBeHidden();
   });
 
+  test('at rest the run plays at the slow pace and says so; every waiting step is Queued', async ({ page }) => {
+    await expect(page.locator('#platform .play-slow')).toBeVisible({ timeout: 8000 });
+    await expect(page.locator('#platform .ui-pipe__time').last()).toHaveText('Queued');
+    // after about 2 s of a 3 s step, the run is still on its first step
+    await page.waitForTimeout(1500);
+    expect(await page.locator('#platform .ui-pipe__step.is-done').count()).toBeLessThan(2);
+  });
+
   test('"Try it" points at the first alert, and leaves once the visitor plays', async ({ page }) => {
     await page.locator('#platform .play-cue__btn').click();
     await expect(rows(page).first()).toBeFocused();

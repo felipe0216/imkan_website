@@ -6,7 +6,10 @@
 //   - the decision takes the alert out of the queue, "n left to review" counts down, the next alert starts by itself;
 //   - with the queue empty, a summary says how many were escalated and cleared, and a few seconds later the four
 //     alerts come back by themselves (no "Reset demo", Felipe 2026-11-21). Picking another alert restarts the run.
-//   - each step of the run takes 3 s (Felipe, 2026-11-21: slower, so it can be followed).
+//   - each step of the run takes 3 s (Felipe, 2026-11-21: slower, so it can be followed). The seconds shown stay the
+//     system's own (the case study: detection in under 10 seconds), so the run says it is in slow motion.
+//   - at rest our own run plays, at the same pace, alert after alert (the kit's run was much faster); the visitor's
+//     first pick takes over.
 // The cleared history, the side menu and the Hold button are hidden in the demo (they made it busy). The risk levels
 // are illustrative, like the rest of the mock-up; every new word is a TODO(wording) proposal pending Felipe.
 import { own, frames, reduced, slug, hexOf, cue } from './lib.js';
@@ -20,6 +23,7 @@ const T = {
   escalated: 'Escalated',
   risk: { high: 'High risk', medium: 'Medium risk', low: 'Low risk' },
   pick: 'Pick an alert to investigate',
+  slow: 'Slow motion',
   done: (e, c) => `All alerts reviewed: ${e} escalated, ${c} cleared`,
 };
 // illustrative risk per open alert, by its anomaly as the page writes it
@@ -97,6 +101,7 @@ export default function init(app) {
   const W2 = { chip: chip?.textContent ?? '', chipDone: chip?.dataset.done ?? '', cmd0: cmd0?.textContent ?? '', lines: lines.map((l) => l.innerHTML), queued: times.map((t) => t.textContent) };
   const S = times.map((t, i) => parseInt(t.dataset.time || W2.queued[i], 10) || 1);
   const fmt = (x) => `${Math.max(0, Math.round(x))}s`;
+  const QUEUED = W2.queued.find((q) => q && !/\d/.test(q)) || '';
   log?.removeAttribute('aria-hidden');
   log?.setAttribute('aria-live', 'polite');
 
@@ -106,6 +111,11 @@ export default function init(app) {
   verdict.hidden = true;
   verdict.innerHTML = `<div class="play-verdict__risk"><span class="play-verdict__label"></span><span class="play-meter" aria-hidden="true"><i></i></span></div>
     <div class="play-verdict__acts"><button type="button" class="play-act play-act--escalate">${T.escalate}</button><button type="button" class="play-act">${T.clear}</button></div>`;
+  const slow = document.createElement('span');
+  slow.className = 'play-slow';
+  slow.textContent = T.slow;
+  slow.hidden = true;
+  total?.parentElement?.before(slow);
   const hint = document.createElement('p');
   hint.className = 'play-pick';
   hint.textContent = T.pick;
@@ -120,7 +130,7 @@ export default function init(app) {
       s.classList.toggle('is-done', done);
       s.classList.toggle('is-run', run);
       s.style.setProperty('--k', done ? '1' : run ? k.toFixed(3) : '0');
-      times[i].textContent = done ? fmt(S[i]) : run ? fmt(k * S[i]) : W2.queued[i] && !/\d/.test(W2.queued[i]) ? W2.queued[i] : '';
+      times[i].textContent = done ? fmt(S[i]) : run ? fmt(k * S[i]) : QUEUED;
     });
     const passed = j >= N;
     pipe.classList.toggle('is-passed', passed);
@@ -159,12 +169,13 @@ export default function init(app) {
     if (r2.bottom > innerHeight || r2.top < 0) verdict.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'nearest' });
   };
 
-  const run = async (r) => {
+  const run = async (r, idle = false) => {
     token.dead = true;
     const t = (token = { dead: false });
-    current = r;
+    if (!idle) current = r;
     verdict.hidden = true;
-    hint.hidden = true;
+    if (!idle) hint.hidden = true;
+    slow.hidden = false;
     j = 0; k = 0;
     load(r);
     paint();
@@ -175,6 +186,14 @@ export default function init(app) {
       paint();
     }
     if (t !== token) return;
+    slow.hidden = true;
+    if (idle) {
+      // at rest: the risk the run found, in the chip, and the evidence in the log; no decision is asked for
+      const [level] = RISK[sub(r)] || ['medium'];
+      if (chip) chip.textContent = T.risk[level];
+      lines.forEach((l) => { l.classList.toggle('is-on', l.dataset.step === 'score'); l.classList.toggle('is-prev', l.dataset.step === 'stream'); });
+      return;
+    }
     showVerdict(r);
   };
 
@@ -183,6 +202,7 @@ export default function init(app) {
   function take(played = true) {
     if (!taken) {
       taken = true;
+      token.dead = true;
       own(win); own(pipe);
       app.classList.add('is-playing');
       // a fresh queue: the four open alerts, all new, nothing picked
@@ -272,6 +292,24 @@ export default function init(app) {
       if (first) { focusRow(first); first.classList.add('is-pointed'); }
     },
   });
+  // at rest: our own run, alert after alert, at the demo's pace, while the frame is on screen
+  let onScreen = false;
+  if (!reduced()) {
+    own(pipe);
+    j = 0; k = 0; paint();
+    new IntersectionObserver((es) => { onScreen = es.some((e) => e.isIntersecting); }, { threshold: 0.2 }).observe(app);
+    (async () => {
+      const nap = (ms) => new Promise((res) => setTimeout(res, ms));
+      for (let i = 0; !taken; i++) {
+        while (!taken && (!onScreen || document.hidden)) await nap(400);
+        if (taken) return;
+        load(rows[i % OPEN]);
+        await run(rows[i % OPEN], true);
+        if (taken) return;
+        await nap(2500);
+      }
+    })();
+  }
   if (!reduced()) {
     new IntersectionObserver((es) => {
       if (!es.some((e) => e.isIntersecting) || !fresh) return;
