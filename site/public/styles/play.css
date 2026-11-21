@@ -156,11 +156,17 @@ html .play-chat__q {
 @media (hover: hover) { html .play-chat__q:hover { background: #fff; border-color: color-mix(in oklab, var(--p-ink) 32%, transparent); } }
 html .play-chat__q.is-pointed { background: color-mix(in oklab, var(--p-action) 12%, var(--p-bg)); border-color: var(--p-action); }
 html .play-chat__q:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
-html .play-chat__bar { display: flex; align-items: center; gap: var(--s-2); margin: var(--s-3) var(--s-5) var(--s-4); padding: 4px 4px 4px var(--s-4); border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--p-ink) 16%, transparent); }
-html .play-chat__bar:focus-within { box-shadow: inset 0 0 0 2px var(--p-action); }
-html .play-chat__input { flex: 1 1 auto; min-inline-size: 0; block-size: 36px; border: 0; background: transparent; color: var(--p-ink); font: 400 14px/20px var(--font-text); outline: none; }
+/* the prompt bar: the text box fills it and carries its own border and focus ring (the focused element shows the
+   ring, not its wrapper); the send button sits inside it, on the right */
+html .play-chat__bar { position: relative; margin: var(--s-3) var(--s-5) var(--s-4); }
+html .play-chat__input {
+  display: block; inline-size: 100%; min-inline-size: 0; block-size: 44px; padding: 0 52px 0 var(--s-4); border: 0; border-radius: 999px;
+  background: #fff; color: var(--p-ink); font: 400 14px/20px var(--font-text); outline: none;
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--p-ink) 16%, transparent);
+}
+html .play-chat__input:focus-visible, html .play-chat__input:focus { box-shadow: inset 0 0 0 2px var(--p-action); }
 html .play-chat__input::placeholder { color: color-mix(in oklab, var(--p-ink) 55%, transparent); }
-html .play-chat__send { display: grid; place-items: center; flex: none; inline-size: 36px; block-size: 36px; border: 0; border-radius: 50%; background: var(--p-action); color: var(--p-action-ink); cursor: pointer; }
+html .play-chat__send { position: absolute; inset-block-start: 4px; inset-inline-end: 4px; display: grid; place-items: center; inline-size: 36px; block-size: 36px; border: 0; border-radius: 50%; background: var(--p-action); color: var(--p-action-ink); cursor: pointer; }
 html .play-chat__send svg { inline-size: 16px; block-size: 16px; }
 html .play-chat__send:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
 @media (max-width: 639px) {
@@ -172,6 +178,67 @@ html .play-chat__send:focus-visible { outline: 2px solid var(--p-action); outlin
   html .play-chat__bar { margin-inline: var(--s-4); }
 }
 @media (prefers-reduced-motion: reduce) { html .play-dots i { animation: none; } }
+
+/* the data strategy roadmap (Felipe, 2026-11-21, "nicer ways to show a roadmap"): a journey of four stops, then an
+   impact x effort grid at the last stop. Our own component in the kit's panel shape, in the site's tokens. */
+html .panel[data-play="roadmap"] > .stage > * { max-width: 560px; }
+html .play-road { inline-size: 100%; padding: var(--s-4) var(--s-5) var(--s-5); color: var(--p-ink); font-family: var(--font-text); }
+html .play-road__head { display: flex; align-items: center; gap: var(--s-2); }
+html .play-road__track { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: var(--s-4) 0 0; padding: 0; list-style: none; }
+html .play-road__track::before, html .play-road__track::after {
+  content: ""; position: absolute; inset-block-start: 15px; inset-inline-start: 12.5%; block-size: 2px; border-radius: 1px;
+}
+html .play-road__track::before { inline-size: 75%; background: color-mix(in oklab, var(--p-ink) 14%, transparent); }
+html .play-road__track::after { inline-size: calc(var(--p, 0%) * 0.75); background: var(--p-action); transition: inline-size 420ms cubic-bezier(0.22, 1, 0.36, 1); }
+html .play-road__track li { display: flex; justify-content: center; }
+html .play-road__stop { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; font: inherit; }
+html .play-road__dot {
+  display: grid; place-items: center; inline-size: 32px; block-size: 32px; border-radius: 50%;
+  border: 2px solid color-mix(in oklab, var(--p-ink) 22%, transparent); background: #fff; font-size: 13px; font-weight: 600;
+  transition: background-color 240ms ease, border-color 240ms ease, color 240ms ease, transform 240ms ease;
+}
+html .play-road__dot svg { inline-size: 14px; block-size: 14px; }
+html .play-road__name { font-size: 12px; line-height: 16px; color: color-mix(in oklab, var(--p-ink) 70%, transparent); }
+html .play-road__stop.is-done .play-road__dot { border-color: var(--p-action); background: color-mix(in oklab, var(--p-action) 12%, #fff); color: var(--p-action); }
+html .play-road__stop.is-on .play-road__dot { border-color: var(--p-action); background: var(--p-action); color: var(--p-action-ink); transform: scale(1.08); box-shadow: 0 0 0 4px color-mix(in oklab, var(--p-action) 16%, transparent); }
+html .play-road__stop.is-on .play-road__name { color: var(--p-ink); font-weight: 600; }
+@media (hover: hover) { html .play-road__stop:not(.is-on):hover .play-road__dot { border-color: var(--p-action); } }
+html .play-road__stop:focus-visible { outline: none; }
+html .play-road__stop:focus-visible .play-road__dot, html .play-road__stop.is-pointed .play-road__dot { outline: 2px solid var(--p-action); outline-offset: 3px; }
+html .play-road__body { min-block-size: 196px; margin-block-start: var(--s-4); padding-block-start: var(--s-4); border-block-start: 1px solid color-mix(in oklab, var(--p-ink) 10%, transparent); }
+html .play-road__label { margin: 0 0 6px; font-size: 14px; line-height: 20px; font-weight: 600; }
+html .play-road__what { margin: 0; font-size: 14px; line-height: 21px; color: color-mix(in oklab, var(--p-ink) 82%, transparent); }
+html .play-road__get { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: var(--s-3) 0 0; font-size: 13px; line-height: 18px; font-weight: 500; }
+html .play-road__get span { padding: 2px 8px; border-radius: 999px; background: color-mix(in oklab, var(--p-action) 10%, #fff); color: var(--p-action); font-size: 12px; font-weight: 600; }
+/* the grid: impact up, effort across; the top-left square is the first move */
+html .play-road__grid { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 0 0 18px 20px; }
+html .play-road__axis { position: absolute; font-size: 12px; line-height: 14px; font-weight: 600; color: color-mix(in oklab, var(--p-ink) 60%, transparent); }
+html .play-road__axis--y { inset-inline-start: 0; inset-block-start: 50%; transform: translate(-30%, -50%) rotate(-90deg); }
+html .play-road__axis--x { inset-block-end: 0; inset-inline-start: 50%; transform: translateX(-50%); }
+html .play-road__cell {
+  position: relative; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 4px; min-block-size: 60px; padding: 6px 8px 6px;
+  border-radius: 10px; background: color-mix(in oklab, var(--p-ink) 5%, #fff); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--p-ink) 8%, transparent);
+}
+html .play-road__cell.is-best { background: color-mix(in oklab, var(--p-action) 8%, #fff); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--p-action) 35%, transparent); }
+html .play-road__cell.is-over { box-shadow: inset 0 0 0 2px var(--p-action); }
+/* each square names its corner, quietly, so the grid reads without a legend */
+html .play-road__corner { order: 99; flex-basis: 100%; margin-block-start: auto; padding-block-start: 4px; text-align: end; font-size: 12px; line-height: 14px; color: color-mix(in oklab, var(--p-ink) 52%, transparent); pointer-events: none; }
+html .play-road__cell.is-best .play-road__corner { color: var(--p-action); font-weight: 600; }
+html .play-road__drop { position: absolute; inset: 0; z-index: 0; border: 0; border-radius: inherit; background: transparent; cursor: pointer; }
+html .play-road__drop:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
+html .play-road__card {
+  position: relative; z-index: 1; display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 6px 10px;
+  border: 1px solid color-mix(in oklab, var(--p-ink) 16%, transparent); border-radius: 8px; background: #fff; color: var(--p-ink);
+  font: 500 12px/16px var(--font-text); text-align: start; cursor: grab; touch-action: none; box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+}
+html .play-road__card.is-held { border-color: var(--p-action); box-shadow: 0 0 0 2px color-mix(in oklab, var(--p-action) 30%, transparent); }
+html .play-road__card.is-dragging { z-index: 5; cursor: grabbing; box-shadow: 0 8px 20px -6px rgb(0 0 0 / 0.3); }
+html .play-road__card.is-first { border-color: var(--p-action); background: var(--p-action); color: var(--p-action-ink); }
+html .play-road__badge { font-size: 12px; line-height: 14px; font-weight: 600; opacity: 0.85; }
+html .play-road__card:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
+html .play-road__tray { display: flex; flex-wrap: wrap; gap: 6px; margin-block-start: var(--s-3); }
+html .play-road__hint { margin: var(--s-2) 0 0; font-size: 12px; line-height: 16px; color: color-mix(in oklab, var(--p-ink) 62%, transparent); }
+html .play-road.is-still * { transition: none !important; }
 
 /* the voice agent: the orb and the caption can be pressed */
 html .has-play-cue .ui-voice__orb.play-hit { border-radius: 50%; }

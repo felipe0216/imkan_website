@@ -123,3 +123,11 @@ Felipe approved the redesign and asked for a dev experiment: make the moving moc
 
 ### 2026-11-20: interactive demos rolled out (D-033)
 Felipe approved the cue pattern ("Approve, roll out"). All 13 moving mock-ups are now demos, on home and careers, with the same "Try it" / "Reset demo" pill: in a frame's top-right corner for card panels and hero windows, above the frame for #platform. The terminal and voice demos replay the kit's own animation through its controller; the careers roles open the real role details. New text (wording changes 44 to 58) is pending Felipe. QA under the revised protocol: contact sheets per demo in Edge, Firefox and WebKit at desktop and phone size, section heights against PR #25, the first screen at 1440x900 and 1366x650.
+
+### 2026-11-21: three demos reworked after Felipe's review (D-033)
+Felipe liked the demos and asked for three changes, approved as proposed ("Approve, build all three"):
+- **Hero chat:** the card takes up to 820px; the visitor's bubbles are plum and the agent's answers white cards; there is a prompt bar; the suggestions type themselves into it. Typed questions get a scripted answer or an honest fallback.
+- **Fraud demo:** becomes alert triage. Four open alerts, a plain-language narrative, a verdict with an illustrative risk level and Escalate or Clear, and a count-down to a summary.
+- **Roadmap:** becomes a journey of four stops, then an impact x effort grid where the visitor places four initiatives and the top-left one is "Your first move".
+
+New text: wording changes 59 to 82, pending.

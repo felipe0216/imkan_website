@@ -83,6 +83,16 @@ Columns: **Page** where it appears, **Original** text, **New** text, **Why**, an
 | 70 | Home, fraud demo (dev branch `feature/interactive-demos` only) | (none: new) | Pick an alert to investigate | Shown in the run before any alert is picked | pending |
 | 71 | Home, fraud demo (dev branch `feature/interactive-demos` only) | (none: new) | All alerts reviewed: 2 escalated, 2 cleared (the numbers follow) | Summary once the queue is empty | pending |
 | 72 | Home, fraud demo (screen readers only) (dev branch `feature/interactive-demos` only) | (none: new) | Open alerts | Name of the alert queue | pending |
+| 73 | Home, roadmap demo (dev branch `feature/interactive-demos` only) | (none: new) | Try it: plan your roadmap | Cue, replaces wording change 44 for this card (the other checklists keep "Try it: tick a step") | pending |
+| 74 | Home, roadmap demo (dev branch `feature/interactive-demos` only) | (none: new) | Decisions / Data / Gaps / Priorities | Short names under the four stops (the full step names are the page's own) | pending |
+| 75 | Home, roadmap demo (dev branch `feature/interactive-demos` only) | (none: new) | List the decisions your team makes every week, and pick the few that move revenue or cost. | What happens at stop 1. Paraphrases the card's promise; no facts or figures | pending |
+| 76 | Home, roadmap demo (dev branch `feature/interactive-demos` only) | (none: new) | For each decision, trace the data it needs and where that data lives today. | What happens at stop 2 | pending |
+| 77 | Home, roadmap demo (dev branch `feature/interactive-demos` only) | (none: new) | Check the quality of that data, who can reach it and which tools are missing. | What happens at stop 3 | pending |
+| 78 | Home, roadmap demo (dev branch `feature/interactive-demos` only) | (none: new) | You get: A short list of priority decisions / A map from each decision to its data / A list of gaps, each with its effort | What each stop produces | pending |
+| 79 | Home, roadmap demo (dev branch `feature/interactive-demos` only) | (none: new) | Impact / Effort; High impact, low effort / High impact, high effort / Low impact, low effort / Low impact, high effort | The grid's axes and squares at stop 4 | pending |
+| 80 | Home, roadmap demo (dev branch `feature/interactive-demos` only) | (none: new) | Your first move | Badge on the card in the high-impact, low-effort square (the card's text promises "the first move") | pending |
+| 81 | Home, roadmap demo (dev branch `feature/interactive-demos` only) | (none: new) | Drag a card into the grid, or press a card and then a square. | How to place the cards | pending |
+| 82 | Home, roadmap demo (screen readers only) (dev branch `feature/interactive-demos` only) | (none: new) | Initiatives to place | Name of the tray of cards. The four cards reuse names already on the page (the Think search and the weekly sales review) | pending |
 
 ### New illustrative UI text (pending approval)
 

@@ -35,7 +35,7 @@ const DEMOS = [
   },
   // demos in a frame: at rest, "Try it", played, reset (the shared pattern in scripts/play/lib.js, demo())
   ...[
-    ['roadmap', '/', '#services [data-play="checklist"]', ['.ui-check:nth-child(3)', '.ui-check:nth-child(4)']],
+    ['roadmap', '/', '#services [data-play="roadmap"]', ['[data-stop="1"]', '[data-stop="3"]', '[data-item="0"]', '.play-road__cell[data-cell="0"] .play-road__drop', '[data-item="3"]', '.play-road__cell[data-cell="3"] .play-road__drop']],
     ['sources', '/', '#services [data-play="files"]', ['.ui-file:nth-child(2)', '.ui-file:nth-child(5)']],
     ['sales-review', '/', '#services [data-play="toggles"]', ['.ui-tg:nth-child(4)', '.ui-tg:nth-child(1)']],
     ['stack', '/', '#methodology [data-play="integrations"]', ['.ui-app:nth-child(1) .ui-app__on']],

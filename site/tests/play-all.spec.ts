@@ -25,16 +25,47 @@ const resets = async (f: Locator) => {
 };
 
 test.describe('framed demos', () => {
-  test('roadmap: a step ticks, the count follows, reset puts it back', async ({ page }) => {
-    const frame = '#services [data-play="checklist"]';
+  test('roadmap: the track travels from stop to stop', async ({ page }) => {
+    const frame = '#services [data-play="roadmap"]';
     const f = await open(page, '/', frame);
-    const box = f.locator('.ui-check:nth-child(4) [role="checkbox"]');
-    await f.locator('.ui-check:nth-child(4)').click();
-    await expect(box).toHaveAttribute('aria-checked', 'true');
-    await expect(f.locator('[data-checks-count]')).toHaveText('3 of 4');
+    await expect(f.locator('[aria-current="step"]')).toHaveAttribute('data-stop', '0');
+    await f.locator('[data-stop="2"]').click();
+    await expect(f.locator('[aria-current="step"]')).toHaveAttribute('data-stop', '2');
+    await expect(f.locator('.play-road__head .ui-meta')).toHaveText('3 of 4');
+    await expect(f.locator('.play-road__label')).toHaveText('Assess data, tools and gaps');
+    await page.keyboard.press('Shift+Tab');                       // the stops are buttons: keyboard too
+    await page.keyboard.press('Enter');
+    await expect(f.locator('[aria-current="step"]')).toHaveAttribute('data-stop', '1');
+  });
+
+  test('roadmap: cards placed by tap, keyboard and drag; the top-left one is the first move', async ({ page }) => {
+    const frame = '#services [data-play="roadmap"]';
+    const f = await open(page, '/', frame);
+    await f.locator('[data-stop="3"]').click();
+    // tap a card, then a square
+    await f.locator('[data-item="2"]').click();
+    await f.locator('.play-road__cell[data-cell="3"] .play-road__drop').click();
+    await expect(f.locator('.play-road__cell[data-cell="3"] [data-item="2"]')).toBeVisible();
+    // keyboard: a card, then the square's button
+    await f.locator('[data-item="0"]').focus();
+    await page.keyboard.press('Enter');
+    await f.locator('.play-road__cell[data-cell="0"] .play-road__drop').focus();
+    await page.keyboard.press('Enter');
+    await expect(f.locator('.play-road__cell[data-cell="0"] [data-item="0"]')).toHaveClass(/is-first/);
+    await expect(f.locator('.play-road__badge')).toHaveText('Your first move');
+    // drag
+    const card = f.locator('[data-item="1"]');
+    const target = f.locator('.play-road__cell[data-cell="1"]');
+    const a = (await card.boundingBox())!, b = (await target.boundingBox())!;
+    await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(a.x + 20, a.y + 10, { steps: 3 });
+    await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 8 });
+    await page.mouse.up();
+    await expect(f.locator('.play-road__cell[data-cell="1"] [data-item="1"]')).toBeVisible();
     await axe(page, frame);
     await resets(f);
-    await expect(f.locator('[data-checks-count]')).toHaveText('2 of 4');
+    await expect(f.locator('[aria-current="step"]')).toHaveAttribute('data-stop', '0');
   });
 
   test('proof plan and the open application tick from the keyboard', async ({ page }) => {
