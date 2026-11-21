@@ -36,15 +36,22 @@ test.describe('framed demos', () => {
     }
   });
 
-  test('sources: dropping a source lowers the count; it joins back', async ({ page }) => {
-    const frame = '#services [data-play="files"]';
+  test('everyday sources: plugged in as they are, three answers become one', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const frame = '#services [data-play="everyday"]';
     const f = await open(page, '/', frame);
-    await f.locator('.ui-file').first().click();
-    await expect(f.locator('[data-files-status]')).toHaveText('5 sources joined');
-    await expect(f.locator('.ui-file').first()).toHaveAttribute('aria-selected', 'false');
-    await f.locator('.ui-file').first().click();
-    await expect(f.locator('[data-files-status]')).toHaveText('6 sources joined', { timeout: 4000 });
+    await expect(f.locator('[data-ev-count]')).toHaveText('3 versions of the truth');
+    for (let i = 0; i < 5; i++) {
+      await f.locator(`.play-ev__src[data-i="${i}"]`).click();
+      await expect(f.locator(`.play-ev__src[data-i="${i}"]`)).toHaveAttribute('aria-pressed', 'true');
+    }
+    await expect(f.locator('[data-ev-count]')).toHaveText('1 version of the truth');
+    await expect(f.locator('.play-ev__how')).toContainText('Scanned forms');
+    await expect(f.locator('.play-ev__again')).toBeVisible();
     await axe(page, frame);
+    await cueLeaves(f);
+    await f.locator('.play-ev__again').click();
+    await expect(f.locator('[data-ev-count]')).toHaveText('3 versions of the truth');
   });
 
   test('sales review: a switch flips and "n of 4 on" follows', async ({ page }) => {
@@ -117,17 +124,17 @@ test.describe('framed demos', () => {
     await expect(f.locator('.play-game__msg')).toContainText('Not yet');
     await f.locator('[data-card="t0"]').click();                  // a trap
     await expect(f.locator('[data-card="t0"]')).toBeDisabled();
-    for (const id of ['s0', 's1', 's2']) {
+    for (const id of ['s0', 's1', 's2', 's3', 's4']) {
       await f.locator(`[data-card="${id}"]`).click();
       await expect(f.locator('.play-game__say')).toHaveClass(/is-yes/);
     }
     await axe(page, frame);
     await cueLeaves(f);
-    await f.locator('[data-card="s3"]').click();
-    await expect(f.locator('.play-game__stop.is-done')).toHaveCount(4);
+    await f.locator('[data-card="s5"]').click();
+    await expect(f.locator('.play-game__stop.is-done')).toHaveCount(6);
     await expect(f.locator('.play-game__done')).toContainText('You are AI ready');
     await expect(f.locator('.play-game')).toHaveClass(/is-ready/);
-    await expect(f.locator('[data-game-tries]')).toContainText('6 picks');
+    await expect(f.locator('[data-game-tries]')).toContainText('8 picks');
     await f.locator('.play-game__again').click();
     await expect(f.locator('.play-game__stop.is-done')).toHaveCount(0);
     await expect(f.locator('.play-game__card:disabled')).toHaveCount(0);
@@ -205,6 +212,7 @@ test.describe('framed demos', () => {
     const cases: [string, string[]][] = [
       ['#methodology [data-play="partner"]', ['.play-pv__switch [data-who="vendor"]', '.play-pv__switch [data-who="partner"]']],
       ['#services [data-play="roadmap"]', ['[data-card="s2"]', '[data-card="t0"]', '[data-card="s0"]']],
+      ['#services [data-play="everyday"]', ['.play-ev__src[data-i="0"]', '.play-ev__src[data-i="1"]', '.play-ev__src[data-i="2"]', '.play-ev__src[data-i="3"]', '.play-ev__src[data-i="4"]']],
       ['#services [data-play="handoff"]', ['.play-ho__task[data-i="0"] .play-ho__btn', '.play-ho__task[data-i="3"] .play-ho__btn']],
       ['#why-us [data-play="voice"]', ['[data-lang="ar"]', '[data-lang="ar"]']],
     ];

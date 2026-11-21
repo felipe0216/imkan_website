@@ -1,6 +1,6 @@
 // "Build a strategy worth executing", round 4 (Felipe, 2026-11-21: "make it a fun exercise ... connect different
 // activities to the right order in the roadmap, so they can learn what things should go first and why").
-// A small game: four empty stops on a track that ends at "AI ready", six cards (four stages and two traps). The prompt
+// A small game: six empty stops on a track that ends at "AI ready", eight cards (six stages and two traps). The prompt
 // asks what comes first, then next; a right card flies to its stop and the track fills; a wrong one shakes and stays,
 // a trap is ruled out. Every pick gets a one-line reason. Four stops filled: "Roadmap complete", in how many picks,
 // and "Play again". The card never changes height: a card that leaves the tray keeps its place.
@@ -10,23 +10,32 @@ import { own, cue, reduced } from './lib.js';
 
 // The stages of data maturity on the way to "AI ready" (Felipe, 2026-11-21: "what you need to do before getting to
 // AI ready, all the things that need to happen before that, in order"). The track ends at a fixed flag, AI ready.
+// Round 2 of the stages (Felipe, 2026-11-22: clearer stages, subtler traps; from strategy to collecting, ownership,
+// quality, processing and testing). Six stages in order, then the AI-ready flag.
 // TODO(wording): proposed, pending Felipe
 const STEPS = [
-  { short: 'Goals', label: 'Pick the decisions AI should improve',
-    right: 'Right. Start with the decisions that move revenue or cost, so every later stage has a purpose.' },
-  { short: 'Collect', label: 'Bring your data into one place',
+  { short: 'Strategy', label: 'Agree the business questions AI should answer',
+    right: 'Right. Start with the questions that move revenue or cost, so every later stage has a purpose.' },
+  { short: 'Collect', label: 'Find where your data lives and bring it together',
     right: 'Right. Spreadsheets here and systems there become one source of truth.',
-    early: 'Not yet. Choose the decisions first, so you know which data to bring together.' },
-  { short: 'Clean', label: 'Clean it and give it owners',
-    right: 'Right. AI learns from your data, so it has to be accurate, complete and looked after by someone.',
-    early: 'Not yet. Clean the data once it sits in one place, or you clean it twice.' },
-  { short: 'Trust', label: 'Report on numbers everyone trusts',
-    right: 'Right. When the team trusts the reports, the data is ready to learn from. You are AI ready.',
-    early: 'Not yet. Reports on data nobody has checked only spread its mistakes.' },
+    early: 'Not yet. Agree the questions first, so you know which data to bring together.' },
+  { short: 'Owners', label: 'Name a person accountable for each dataset',
+    right: 'Right. Data with an owner gets fixed and kept up to date. Data without one drifts.',
+    early: 'Not yet. Bring the data together first, so you can see what each person would own.' },
+  { short: 'Quality', label: 'Fix errors, gaps and duplicates at the source',
+    right: 'Right. Fixed at the source by its owner, a mistake stays fixed instead of coming back every month.',
+    early: 'Not yet. Name the owners first: they are the ones who keep the fixes in place.' },
+  { short: 'Pipelines', label: 'Automate how data flows, with checks built in',
+    right: 'Right. The data now updates on its own, and the checks catch new errors before anyone sees them.',
+    early: 'Not yet. Automating messy data only spreads the mess faster. Fix it first.' },
+  { short: 'Trust', label: 'Test the numbers until the business relies on them',
+    right: 'Right. When the business relies on the numbers, they are ready for AI to learn from. You are AI ready.',
+    early: 'Not yet. Test the numbers once they flow on their own, or you test them all again tomorrow.' },
 ];
+// traps that sound sensible: neither is a stage on the way
 const TRAPS = [
-  { label: 'Buy an AI tool first', why: 'Not a first step. A tool cannot fix data you have not collected or cleaned.' },
-  { label: 'Build dashboards for every team', why: 'Not a step. More charts do not mean more clarity: start from the decisions they should support.' },
+  { label: 'Launch a chatbot pilot', why: 'Tempting, but a pilot on unready data proves nothing. It comes after the groundwork.' },
+  { label: 'Move everything to the cloud', why: 'Not a stage. Where your data lives matters less than whether it is right and owned.' },
 ];
 const N = STEPS.length;
 const T = {
@@ -51,7 +60,7 @@ export default function init(frame) {
   own(kit);
   for (let el = kit; el && el !== frame; el = el.parentElement) el.removeAttribute('aria-hidden');
 
-  // the six cards: the four stages (by their order) and the two traps
+  // the cards: the stages (by their order) and the two traps
   const CARDS = [...STEPS.map((st, i) => ({ id: `s${i}`, label: st.label, step: i })), ...TRAPS.map((t, i) => ({ id: `t${i}`, label: t.label, trap: i }))];
 
   const box = document.createElement('div');

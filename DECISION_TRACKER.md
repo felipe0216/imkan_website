@@ -176,3 +176,10 @@ Both cards keep their tallest height. New text: wording changes 104 to 112, pend
 - **Roadmap game:** now the road to "AI ready": Goals, Collect, Clean, Trust, then a fixed AI-ready flag. Traps: "Buy an AI tool first" and "Build dashboards for every team".
 
 New text: wording changes 113 to 115 (they replace 104 to 108), pending.
+
+### 2026-11-22: six stages to AI ready; everyday sources (D-033)
+Approved by Felipe ("Six stages", "Make your data work"):
+- **Roadmap game:** Strategy, Collect, Owners, Quality, Pipelines, Trust, then AI ready. The traps now sound sensible: "Launch a chatbot pilot" and "Move everything to the cloud". On desktop the cards sit in two columns.
+- **Make your data work for you:** we work with what a client already has. Five everyday sources: an Excel workbook, an orders inbox, a folder of PDF invoices, an accounting system running for years, and scanned paper forms. Each is plugged in as it is, and "March sales" goes from three answers to one. The line under it reads "Nothing to replace. Nothing new to learn." Figures are illustrative.
+
+"Build on what you already own" (Methodology) still shows cloud tools; aligning it is open. New text: wording changes 116 to 122, pending.

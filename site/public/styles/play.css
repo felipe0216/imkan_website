@@ -207,10 +207,10 @@ html .play-chat__send:focus-visible { outline: 2px solid var(--p-action); outlin
 html .panel[data-play="roadmap"] > .stage > * { max-width: 560px; }
 html .play-game { --no: #9a4a3a; display: flex; flex-direction: column; inline-size: 100%; padding: var(--s-4) var(--s-5) var(--s-4); color: var(--p-ink); font-family: var(--font-text); }
 html .play-game__head { display: flex; align-items: center; gap: var(--s-2); }
-html .play-game__track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: var(--s-4) 0 0; padding: 0; list-style: none; }
-html .play-game__track::before, html .play-game__track::after { content: ""; position: absolute; inset-block-start: 16px; inset-inline-start: 10%; block-size: 3px; border-radius: 2px; }
-html .play-game__track::before { inline-size: 80%; background: repeating-linear-gradient(90deg, color-mix(in oklab, var(--p-ink) 22%, transparent) 0 6px, transparent 6px 11px); }
-html .play-game__track::after { inline-size: calc(var(--p, 0%) * 0.8); background: var(--p-action); transition: inline-size 600ms cubic-bezier(0.22, 1, 0.36, 1); }
+html .play-game__track { position: relative; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); margin: var(--s-4) 0 0; padding: 0; list-style: none; }
+html .play-game__track::before, html .play-game__track::after { content: ""; position: absolute; inset-block-start: 16px; inset-inline-start: calc(100% / 14); block-size: 3px; border-radius: 2px; }
+html .play-game__track::before { inline-size: calc(100% * 6 / 7); background: repeating-linear-gradient(90deg, color-mix(in oklab, var(--p-ink) 22%, transparent) 0 6px, transparent 6px 11px); }
+html .play-game__track::after { inline-size: calc(var(--p, 0%) * 6 / 7); background: var(--p-action); transition: inline-size 600ms cubic-bezier(0.22, 1, 0.36, 1); }
 html .play-game__stop { position: relative; z-index: 1; display: grid; justify-items: center; gap: 6px; }
 html .play-game__dot {
   display: grid; place-items: center; inline-size: 34px; block-size: 34px; border-radius: 50%; border: 2px dashed color-mix(in oklab, var(--p-ink) 30%, transparent);
@@ -231,9 +231,11 @@ html .play-game.is-complete .play-game__stop:nth-child(2) .play-game__dot { anim
 html .play-game.is-complete .play-game__stop:nth-child(3) .play-game__dot { animation-delay: 180ms; }
 html .play-game.is-complete .play-game__stop:nth-child(4) .play-game__dot { animation-delay: 270ms; }
 html .play-game.is-complete .play-game__stop:nth-child(5) .play-game__dot { animation-delay: 360ms; }
+html .play-game.is-complete .play-game__stop:nth-child(6) .play-game__dot { animation-delay: 450ms; }
+html .play-game.is-complete .play-game__stop:nth-child(7) .play-game__dot { animation-delay: 540ms; }
 @keyframes play-game-cheer { 0% { transform: scale(1.1); } 40% { transform: scale(1.35) translateY(-4px); } 100% { transform: scale(1.1); } }
 html .play-game__ask { margin: var(--s-4) 0 var(--s-2); font-size: 17px; line-height: 24px; font-weight: 600; }
-html .play-game__tray { display: flex; flex-wrap: wrap; gap: 8px; }
+html .play-game__tray { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 html .play-game__card {
   min-block-size: 40px; padding: 8px 14px; border: 1px solid color-mix(in oklab, var(--p-ink) 16%, transparent); border-radius: 10px;
   background: #fff; color: var(--p-ink); font: 500 14px/20px var(--font-text); text-align: start; cursor: pointer;
@@ -270,7 +272,14 @@ html .play-game__again {
 }
 html .play-game__again:active { transform: scale(0.97); }
 html .play-game__again:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
-@media (max-width: 639px) { html .play-game__card { flex: 1 1 calc(50% - 4px); font-size: 13px; line-height: 18px; } html .play-game__name { font-size: 11px; } }
+@media (max-width: 639px) {
+  html .play-game__card { font-size: 13px; line-height: 18px; padding: 8px 10px; }
+  /* seven stops across a phone: smaller dots; only the next stage and the flag keep their names */
+  html .play-game__dot { inline-size: 28px; block-size: 28px; font-size: 12px; }
+  html .play-game__track::before, html .play-game__track::after { inset-block-start: 13px; }
+  html .play-game__name { font-size: 10px; line-height: 14px; white-space: nowrap; }
+  html .play-game__stop:not(.is-next, .play-game__goal) .play-game__name { visibility: hidden; }
+}
 @media (prefers-reduced-motion: reduce) { html .play-game *, html .play-game__say { animation: none !important; transition: none !important; } }
 
 /* the voice agent: the orb and the caption can be pressed */
@@ -543,3 +552,60 @@ html .play-ho .play-dots { padding-block: 4px; }
   html .play-ho__again { grid-column: 1 / -1; justify-self: start; }
 }
 @media (prefers-reduced-motion: reduce) { html .play-ho *, html .play-ho__feed { animation: none !important; transition: none !important; } }
+
+/* "Make your data work for you", round 2: everyday sources (an Excel workbook, an inbox, PDFs, an old accounting
+   system, paper forms) plugged in as they are; "March sales" goes from three answers to one. */
+html .panel[data-play="everyday"] > .stage > * { max-width: 600px; }
+html .play-ev { inline-size: 100%; padding: var(--s-4) var(--s-5) var(--s-4); color: var(--p-ink); font-family: var(--font-text); }
+html .play-ev__head { display: flex; align-items: center; gap: var(--s-2); }
+html .play-ev__count { padding: 2px 10px; white-space: nowrap; border-radius: 999px; background: color-mix(in oklab, #9a4a3a 11%, #fff); color: #7d3a2d; font-size: 12px; line-height: 18px; font-weight: 600; transition: background-color 400ms ease, color 400ms ease; }
+html .play-ev.is-one .play-ev__count { background: var(--p-action); color: var(--p-action-ink); }
+html .play-ev__body { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--s-3); margin-block-start: var(--s-3); }
+html .play-ev__list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+html .play-ev__src {
+  display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 10px; inline-size: 100%; min-block-size: 48px; padding: 6px 8px;
+  border: 1px solid color-mix(in oklab, var(--p-ink) 10%, transparent); border-radius: 10px; background: #fff; color: var(--p-ink);
+  font: inherit; text-align: start; cursor: pointer; transition: border-color 200ms ease, background-color 300ms ease, transform 160ms ease;
+}
+@media (hover: hover) { html .play-ev__src:not(.is-on):hover { border-color: var(--p-action); transform: translateX(2px); } }
+html .play-ev__src:focus-visible, html .play-ev__src.is-pointed { outline: 2px solid var(--p-action); outline-offset: 2px; }
+html .play-ev__ico { display: grid; place-items: center; inline-size: 28px; block-size: 28px; }
+html .play-ev__ico svg { inline-size: 26px; block-size: 26px; }
+html .play-ev__txt { display: grid; min-inline-size: 0; }
+html .play-ev__name { overflow: hidden; font-size: 13px; line-height: 18px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+html .play-ev__sub { font-size: 12px; line-height: 16px; color: var(--u-muted); }
+html .play-ev__plug { display: grid; justify-items: end; font-size: 12px; line-height: 16px; font-weight: 600; }
+html .play-ev__plug > span { grid-area: 1 / 1; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+html .play-ev__plug-off { border: 1px solid var(--p-action); color: var(--p-action); }
+html .play-ev__plug-on { visibility: hidden; background: var(--p-action); color: var(--p-action-ink); }
+html .play-ev__src.is-on { border-color: color-mix(in oklab, var(--p-action) 30%, transparent); background: color-mix(in oklab, var(--p-action) 6%, #fff); cursor: default; }
+html .play-ev__src.is-on .play-ev__plug-off { visibility: hidden; }
+html .play-ev__src.is-on .play-ev__plug-on { visibility: visible; }
+html .play-ev__src.is-going { border-color: var(--p-action); }
+html .play-ev__fly { position: fixed; z-index: 60; display: grid; place-items: center; pointer-events: none; }
+html .play-ev__fly svg { inline-size: 100%; block-size: 100%; }
+/* the one view: three answers that disagree, converging to one */
+html .play-ev__view { display: grid; align-content: start; gap: 8px; padding: 12px; border-radius: 12px; background: color-mix(in oklab, var(--p-ink) 4%, #fff); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--p-ink) 8%, transparent); transition: background-color 400ms ease, box-shadow 400ms ease; }
+html .play-ev.is-one .play-ev__view { background: color-mix(in oklab, var(--p-action) 7%, #fff); box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--p-action) 45%, transparent); }
+html .play-ev__label { font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--u-muted); }
+html .play-ev__answers { position: relative; display: grid; gap: 4px; min-block-size: 104px; }
+html .play-ev__ans { display: flex; align-items: baseline; gap: 8px; max-block-size: 32px; overflow: hidden; transition: opacity 450ms ease, transform 550ms cubic-bezier(0.34, 1.3, 0.64, 1), max-block-size 450ms ease 200ms; }
+html .play-ev__ans b { color: #7d3a2d; font-size: 20px; line-height: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
+html .play-ev__ans small { color: var(--u-muted); font-size: 12px; line-height: 16px; }
+html .play-ev[data-versions="2"] .play-ev__ans[data-v="1"] { max-block-size: 0; opacity: 0; transform: translateX(16px) scale(0.85); }
+html .play-ev[data-versions="1"] .play-ev__ans[data-v] { opacity: 0; transform: translateY(10px) scale(0.8); }
+html .play-ev__true { position: absolute; inset: 0; max-block-size: none; display: grid; align-content: center; gap: 2px; opacity: 0; transform: scale(0.8); }
+html .play-ev__true b { color: var(--p-action); font-size: 34px; line-height: 40px; text-decoration: none; }
+html .play-ev.is-one .play-ev__true { opacity: 1; transform: none; transition-delay: 250ms; }
+html .play-ev__how { min-block-size: 36px; font-size: 13px; line-height: 18px; color: var(--p-ink); }
+html .play-ev__how.is-pop { animation: play-game-pop 320ms cubic-bezier(0.34, 1.5, 0.64, 1); }
+html .play-ev__ok { display: inline-flex; align-items: center; gap: 6px; color: var(--p-action); font-size: 12px; line-height: 16px; font-weight: 600; visibility: hidden; }
+html .play-ev__ok svg { inline-size: 14px; block-size: 14px; }
+html .play-ev.is-one .play-ev__ok { visibility: visible; }
+html .play-ev__foot { display: flex; align-items: center; gap: var(--s-3); min-block-size: 36px; margin-block-start: var(--s-3); }
+html .play-ev__motto { flex: 1; font-size: 14px; line-height: 20px; font-weight: 600; }
+html .play-ev__again { min-block-size: 34px; padding: 0 14px; border: 1px solid var(--p-action); border-radius: 999px; background: var(--p-action); color: var(--p-action-ink); font: 500 13px/1 var(--font-text); cursor: pointer; white-space: nowrap; }
+html .play-ev__again[hidden] { display: none; }
+html .play-ev__again:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
+@media (max-width: 639px) { html .play-ev__body { grid-template-columns: 1fr; } html .play-ev__foot { flex-wrap: wrap; } }
+@media (prefers-reduced-motion: reduce) { html .play-ev *, html .play-ev__how { animation: none !important; transition: none !important; } }

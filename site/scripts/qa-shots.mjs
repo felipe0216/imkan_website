@@ -39,7 +39,7 @@ const DEMOS = [
     ['partner', '/', '#methodology [data-play="partner"]', ['[data-who="vendor"]'], 1800],
     ['proof', '/', '#why-us [data-play="proof"]', async (p, f) => { await p.locator(`${f} .play-pf__slide input`).fill('8'); }, 1600],
     ['voice', '/', '#why-us [data-play="voice"]', ['.play-voice__play'], 2500],
-    ['sources', '/', '#services [data-play="files"]', ['.ui-file:nth-child(2)', '.ui-file:nth-child(5)']],
+    ['everyday', '/', '#services [data-play="everyday"]', ['.play-ev__src[data-i="0"]', '.play-ev__src[data-i="1"]', '.play-ev__src[data-i="2"]', '.play-ev__src[data-i="3"]', '.play-ev__src[data-i="4"]'], 1400],
     ['sales-review', '/', '#services [data-play="toggles"]', ['.ui-tg:nth-child(4)', '.ui-tg:nth-child(1)']],
     ['stack', '/', '#methodology [data-play="integrations"]', ['.ui-app:nth-child(1) .ui-app__on']],
     ['application', '/careers/', '.hero__window[data-play="checklist"]', ['.ui-check:nth-child(2)', '.ui-check:nth-child(3)']],
