@@ -206,8 +206,10 @@ test.describe('framed demos', () => {
   });
 
   test('cards keep their height when their demo changes state', async ({ page }) => {
+    test.setTimeout(60_000);                                 // six demos played in one test
     await still(page);
     await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);       // cards measure themselves again once fonts load
     const h = (sel: string) => page.locator(sel).evaluate((el) => Math.round(el.getBoundingClientRect().height));
     const cases: [string, string[]][] = [
       ['#methodology [data-play="partner"]', ['.play-pv__switch [data-who="vendor"]', '.play-pv__switch [data-who="partner"]']],
