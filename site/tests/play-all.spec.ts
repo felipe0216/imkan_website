@@ -42,19 +42,8 @@ test.describe('framed demos', () => {
     const frame = '#services [data-play="roadmap"]';
     const f = await open(page, '/', frame);
     await f.locator('[data-stop="3"]').click();
-    // tap a card, then a square
-    await f.locator('[data-item="2"]').click();
-    await f.locator('.play-road__cell[data-cell="3"] .play-road__drop').click();
-    await expect(f.locator('.play-road__cell[data-cell="3"] [data-item="2"]')).toBeVisible();
-    // keyboard: a card, then the square's button
-    await f.locator('[data-item="0"]').focus();
-    await page.keyboard.press('Enter');
-    await f.locator('.play-road__cell[data-cell="0"] .play-road__drop').focus();
-    await page.keyboard.press('Enter');
-    await expect(f.locator('.play-road__cell[data-cell="0"] [data-item="0"]')).toHaveClass(/is-first/);
-    await expect(f.locator('.play-road__badge')).toHaveText('Your first move');
-    // drag: measured once the card has settled in the tray (each placement re-renders the grid; on a slow CI
-    // machine the boxes were read mid-render), then moved in small steps
+    // drag first, on a fresh grid: in Playwright's Firefox a mouse press right after a keyboard Enter is not
+    // delivered as a pointerdown (traced 2026-11-21), which a visitor's real mouse never hits
     const card = f.locator('.play-road__tray [data-item="1"]');
     await card.waitFor();
     await page.waitForTimeout(150);
@@ -66,6 +55,17 @@ test.describe('framed demos', () => {
     await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 14 });
     await page.mouse.up();
     await expect(f.locator('.play-road__cell[data-cell="1"] [data-item="1"]')).toBeVisible();
+    // tap a card, then a square
+    await f.locator('[data-item="2"]').click();
+    await f.locator('.play-road__cell[data-cell="3"] .play-road__drop').click();
+    await expect(f.locator('.play-road__cell[data-cell="3"] [data-item="2"]')).toBeVisible();
+    // keyboard: a card, then the square's button
+    await f.locator('[data-item="0"]').focus();
+    await page.keyboard.press('Enter');
+    await f.locator('.play-road__cell[data-cell="0"] .play-road__drop').focus();
+    await page.keyboard.press('Enter');
+    await expect(f.locator('.play-road__cell[data-cell="0"] [data-item="0"]')).toHaveClass(/is-first/);
+    await expect(f.locator('.play-road__badge')).toHaveText('Your first move');
     await axe(page, frame);
     await resets(f);
     await expect(f.locator('[aria-current="step"]')).toHaveAttribute('data-stop', '0');
