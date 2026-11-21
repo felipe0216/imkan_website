@@ -1,0 +1,27 @@
+[
+ {
+  "check": "same-action",
+  "target": "div.nav__actions > a.btn.btn--primary",
+  "reason": "Deliberate D-020: 'Get in Touch' is plum on bone and gold on the dark close band, each its ground's action colour."
+ },
+ {
+  "check": "button-styles",
+  "target": "(the page)",
+  "reason": "Deliberate D-020: one primary action drawn in its ground's action colour, plum on bone and saffron gold on the dark band."
+ },
+ {
+  "check": "copy-headline",
+  "target": "h1#hero-h",
+  "reason": "'Proven Impact' is Felipe's original heading for the cases (ADR 0007); the lead names the trade and the facts give the figures."
+ },
+ {
+  "check": "container-edges",
+  "target": "div.mo-io__stage",
+  "reason": "The stage is the dealt moment iris-opens' own layer (kit file, unmodified), added beside the .wrap by its script."
+ },
+ {
+  "check": "hero-lines",
+  "target": "section.hero h1",
+  "reason": "The h1 'Proven Impact' is final (two words, one line); the check fills it to test characters, as gate.md allows when the h1 is final and fits."
+ }
+]

@@ -1,0 +1,16 @@
+gate: checking http://localhost:4173/work/ (software); this takes a few minutes on a CPU Chrome
+gate: 2 FAIL open
+  FAIL card-layout      section#cases > div.wrap > div.group:nth-of-type(1) > div.grid "Banking Fraud Detection in  [390]
+       6 of 6 cards drawn one way (one panel, ground, placement and fragment): copies of one card
+       fix: a card layout at most twice on a page: build the other sections another way
+  FAIL card-layout      section#cases > div.wrap > div.group:nth-of-type(2) > div.grid "Real-Time Feature Store fo  [390]
+       5 of 5 cards drawn one way (one panel, ground, placement and fragment): copies of one card
+       fix: a card layout at most twice on a page: build the other sections another way
+  WAIVED copy-headline h1#hero-h "Proven Impact": 'Proven Impact' is Felipe's original heading for the cases (ADR 0007); the lead names the trade and the facts give the figures.
+  WAIVED container-edges section#cases > div.mo-io__stage: The stage is the dealt moment iris-opens' own layer (kit file, unmodified), added beside the .wrap by its script.
+  WAIVED same-action header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--prima: Deliberate D-020: 'Get in Touch' is plum on bone and gold on the dark close band, each its ground's action colour.
+  WAIVED hero-lines section.hero h1: The h1 'Proven Impact' is final (two words, one line); the check fills it to test characters, as gate.md allows when the h1 is final and fits.
+  waiver ignored (matches no open finding): button-styles "(the page)"
+  13 WARN (not blocking), first: flush section#cases > div.mo-io__stage > div.m; cta section#cases "Production Systems"; copy-actions header.nav.nav--centre > div.wrap.nav__b; copy-actions (the page); section-gaps main#top > section.hero.hero--statement 
+A FAIL you judge false: add {"check": "<id>", "target": "<its where, enough to name that one finding>", "reason": "<why, 12+ characters>"} to .taste-skill/waivers.json (one finding each, 5 at most, never for kit-edited or checker-gaming); it goes in your report. Never edit the kit's files or hide the page from the checker.
+GATE: FAIL 2 (round 1 of 3)

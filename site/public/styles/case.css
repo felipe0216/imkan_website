@@ -1,0 +1,38 @@
+/* Case study pages (templates/case.html). Page CSS only; the kit stays unmodified. Logical properties (ADR 0003). */
+
+/* Hero stage: the case's line drawing stands on the page ground, no box (the product hero's rule) */
+.hero--product .hero__stage img { display: block; inline-size: 100%; block-size: 100%; object-fit: contain; }
+@media (max-width: 1023px) { .hero--product .hero__stage { max-block-size: 34svh; } }
+
+/* Overview: the statement the dealt word-highlight runs on */
+#overview > .wrap { display: grid; align-content: start; gap: var(--s-5); }
+#overview .mo-wh__text { font: var(--display-weight) var(--t-h2)/1.2 var(--font-display); letter-spacing: var(--display-tracking); max-inline-size: 36ch; }
+
+.case__text { margin-block-start: var(--s-3); max-inline-size: 58ch; }
+
+.case__sub { margin-block-start: var(--s-6); font-size: var(--t-body); font-weight: 500; }
+.case__chips { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-block-start: var(--s-3); }
+.case__tech { margin-block-start: var(--s-3); color: var(--p-inv-muted); max-inline-size: 58ch; }
+.case__art { border-radius: var(--r-lg); background: var(--p-inv-surface); overflow: hidden; }
+.case__art img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 3 / 2; }
+
+.chip { display: inline-flex; align-items: center; block-size: 28px; padding-inline: 12px; border-radius: 999px; font-size: var(--t-label); font-weight: 500; background: var(--p-inv-surface); color: var(--p-inv-ink); }
+
+/* Impact: the stat large and centred, the results two by two under it */
+.case__impact { display: grid; gap: var(--s-6); }
+.case__big { display: grid; gap: var(--s-2); margin: 0; }
+.case__big .t-stat { font-size: clamp(64px, 9vw, 136px); line-height: 1; letter-spacing: var(--display-tracking-xl); }
+.case__results { list-style: none; margin: 0; padding: 0; inline-size: 100%; text-align: start; row-gap: var(--s-4); }
+.case__results > li { padding-block-start: var(--s-4); border-block-start: 1px solid var(--line); font-size: var(--t-lead); }
+.case__nextline { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: baseline; margin: 0; }
+
+
+@media (max-width: 1023px) { .case__art { margin-block-start: var(--s-6); } }
+/* gate round 1: the overview statement a step smaller (its foot clears the next heading); the phone stat larger */
+#overview .mo-wh__text { font-size: calc(var(--t-h2) * 0.84); }
+@media (max-width: 639px) { .case__big .t-stat { font-size: clamp(88px, 28vw, 128px); } .case__results { row-gap: var(--s-3); } .case__results > li { font-size: var(--t-body); } }
+.case__big--long .t-stat { font-size: clamp(48px, 7vw, 104px); }
+@media (max-width: 639px) { .case__big--long .t-stat { font-size: clamp(48px, 15vw, 72px); } }
+
+/* Work index: on a phone the tiles are the list set in rhythm.css (Phase 7.5 Q3e) */
+@media (min-width: 1024px) { #cases.cases--all .tile__media { aspect-ratio: 5 / 2; } #cases.cases--all .tile__media > img { aspect-ratio: 5 / 2; block-size: 100%; object-fit: contain; } }

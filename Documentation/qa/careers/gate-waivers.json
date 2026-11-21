@@ -1,0 +1,27 @@
+[
+ {
+  "check": "button-styles",
+  "target": "(the page)",
+  "reason": "Deliberate D-020: one primary action drawn in its ground's action colour, plum on bone and saffron gold on the dark close band."
+ },
+ {
+  "check": "same-action",
+  "target": "div.nav__actions > a.btn.btn--primary",
+  "reason": "Same decision as button-styles (D-020): 'Get in Touch' is plum on bone and gold on the dark close band."
+ },
+ {
+  "check": "copy-headline",
+  "target": "h1#hero-h",
+  "reason": "The h1 'Join the Team' is Felipe's original wording (ADR 0007); the pill and lead carry the place and the trade."
+ },
+ {
+  "check": "copy-headings",
+  "target": "h2#past-h",
+  "reason": "Headings are Felipe's original wording ('Past roles', 'Don't see the right role?'), kept by ADR 0007."
+ },
+ {
+  "check": "text-contrast",
+  "target": "span.chip.chip--closed",
+  "reason": "Measured mid-fade of the dealt moment line-carries-colour: #8e6b28 is the gold #ffc233 at half opacity on #1b111d; at rest the label reads 11.4:1."
+ }
+]

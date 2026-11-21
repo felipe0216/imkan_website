@@ -1,0 +1,131 @@
+/* Home page CSS. Only what the kit's recipes call "page CSS": inside visuals, panel heights and the
+   app-frame recipe (sections-library.md). Direction-aware properties only (ADR 0003). */
+
+/* Logo images in the nav and footer */
+.nav__logo img { display: block; block-size: 40px; inline-size: auto; }
+.closing .nav__logo img { block-size: 48px; }
+@media (max-width: 639px) { .nav__logo img { block-size: 32px; } }
+
+/* Hero: the agent's chat inside the lit frame */
+.hero__window .hero__chat { inline-size: min(520px, 100% - 48px); margin-inline: auto; margin-block-start: 32px; }
+.hero__window .hero__chat .ui-chat { inline-size: 100%; }
+
+/* App-frame recipe (sections-library.md, app-frame), verbatim apart from logical properties */
+.app.ui { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); margin-block-start: var(--s-7); background: var(--u-bg); border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow); }
+.app > .app__pane { position: relative; min-inline-size: 0; min-block-size: 0; overflow: hidden; }
+.app > .app__pane + .app__pane { border-inline-start: 1px solid var(--u-line); }
+.app > .app__pane > .ui-panel { inline-size: 100%; border: 0; border-radius: 0; box-shadow: none; }
+.app > .app__pane::after { content: ""; position: absolute; inset: auto 0 0 0; block-size: 64px; background: linear-gradient(transparent, var(--u-bg)); pointer-events: none; }
+@media (min-width: 1024px) and (max-width: 1279px) { .app.ui { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
+@media (max-width: 1023px) {
+  .app.ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .app > .app__pane--list { max-block-size: 252px; }
+  .app > .app__pane--list::after { display: none; }
+  .app .ui-win__side { display: none; }
+  .app .ui-win__body { grid-template-columns: minmax(0, 1fr); }
+  .app > .app__pane + .app__pane { border-inline-start: 0; border-block-start: 1px solid var(--u-line); }
+}
+@media (max-width: 639px) {
+  .app.ui { grid-template-rows: minmax(0, 1fr); }
+  .app > .app__pane--list { display: none; }
+  .app > .app__pane + .app__pane { border-block-start: 0; }
+}
+
+/* One --p-h per card group */
+#services .panel { --p-h: 280px; }
+#methodology .panel { --p-h: 352px; }
+#why-us .panel { --p-h: 560px; }
+@media (max-width: 639px) {
+  #services .panel { --p-h: 220px; }
+  #methodology .panel { --p-h: 340px; }
+  #why-us .panel { --p-h: 380px; }
+}
+
+/* Case tiles on the dark band: the line illustration on the inverse surface */
+.tile--case { display: flex; flex-direction: column; gap: var(--s-2); color: inherit; text-decoration: none; }
+.tile--case .tile__media { display: block; overflow: hidden; border-radius: var(--r-lg); background: var(--p-inv-surface); margin-block-end: var(--s-3); }
+.tile--case .tile__media > img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 3 / 2; transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+.cases-more { margin-block-start: var(--s-6); }
+
+/* Founders: two portraits side by side on the split's right half */
+.people-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); }
+.people-pair img { inline-size: 100%; block-size: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; border-radius: var(--r-lg); }
+
+/* Contact form on the alternate ground (booking-form recipe: 48px padding) */
+.form--panel { background: var(--g-alt); padding: var(--s-7); border-radius: var(--r-lg); }
+.form__pair { display: grid; gap: var(--s-5); }
+@media (min-width: 640px) { .form__pair { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 639px) { .form--panel { padding: var(--s-5); } }
+
+/* ---- Tablet (640 to 1023) and phone: screen counts per layout-v4.md section 2 ---- */
+@media (min-width: 640px) and (max-width: 1023px) {
+  #services .panel, #methodology .panel { --p-h: 300px; }
+  #why-us .panel { --p-h: 300px; }
+  #contact-form .grid > * { grid-column: 1 / -1; }
+}
+@media (max-width: 639px) {
+  #services .panel { --p-h: 200px; }
+  #why-us .panel { --p-h: 320px; }
+  /* D-031: the advantages keep their descriptions on a phone (they were cut to fit one screen) */
+}
+
+/* Phase 4.2 moments: spacing only (the kit styles the moments themselves) */
+.services-marquee { margin-block: var(--s-5) 0; min-inline-size: 0; max-inline-size: 100%; overflow: clip; }
+#services .group { min-inline-size: 0; }
+.statement-figures { margin-block-start: var(--s-7); }
+#statement .t-lead { margin-block-start: var(--s-4); max-width: 62ch; }
+
+/* ---- Phase 4.3: screen counts at 768 and 390 (layout-v4.md section 2) ---- */
+/* tablet: the case tiles stay three across, so no lone tile runs full width */
+@media (min-width: 640px) and (max-width: 1023px) {
+  #cases .grid > .tile--case { grid-column: span 4; }
+  #cases .tile--case { gap: var(--s-1); }
+  #cases > .wrap { row-gap: var(--s-6); }
+}
+@media (max-width: 639px) {
+  #methodology .panel { --p-h: 260px; }
+  #services .panel { --p-h: 160px; }
+  .closing .nav__logo img { block-size: 40px; }
+  #cases .tile--case { gap: var(--s-1); }
+  /* names side by side on a phone; the message box keeps its height (D-031: no squeezing to fit a screen) */
+  #contact-form .form__pair { grid-template-columns: 1fr 1fr; }
+  #contact-form textarea { block-size: 112px; }
+  #contact-form .stack-4 { gap: var(--s-2); }
+  #contact-form .card { padding: var(--s-4); }
+  #contact-form .form__status:empty { display: none; }
+  #contact-form .form > .t-small.muted { display: none; }
+  #contact-form .grid { row-gap: var(--s-4); }
+}
+/* 4.4: on a phone the hero pill runs on the container lines (it is wider than half the container) */
+@media (max-width: 639px) { .hero .pill { inline-size: 100%; justify-content: center; } }
+/* 4.4: the statement's four results carry the screen (sparse at 1440): figures at statement size */
+.statement-figures { margin-block-start: var(--s-9); row-gap: var(--s-7); }
+.statement-figures .t-stat { font-size: clamp(44px, 5.6vw, 88px); line-height: 1; letter-spacing: var(--display-tracking); }
+.statement-figures .t-small { margin-block-start: var(--s-3); font-size: var(--t-body); }
+@media (max-width: 639px) {
+  .statement-figures { margin-block-start: var(--s-7); grid-template-columns: 1fr 1fr; }
+  .statement-figures > .span-3 { grid-column: auto; }
+}
+/* 4.4 gate round 1: the portrait pair on the grid's own gutter, so each portrait ends and starts on a column line */
+.people-pair { column-gap: var(--gutter); }
+/* results one step larger (the extra air that filled the statement's screen is gone with D-031) */
+.statement-figures .t-stat { font-size: clamp(44px, 7.2vw, 104px); }
+@media (max-width: 639px) { .statement-figures { margin-block-start: var(--s-7); } }
+/* contact form: one field per row; only the name pair sits side by side (the kit's .form is two columns) */
+#contact-form .form > * { grid-column: 1 / -1; }
+#contact-form .form__status:empty { display: none; }
+@media (min-width: 640px) { #contact-form textarea { block-size: 112px; } }
+#contact-form .form > .t-small.muted { display: none; }
+
+/* D-023: the scene's line in the metric-normalised face ("Funnel Display Fit", styles/fonts.css) */
+[data-big-scene="letter-bar-floods-the-ground"] .lbf__line { font-family: "Funnel Display Fit", "Funnel Display", system-ui, sans-serif; }
+
+/* V-18, option B (Felipe, Phase 7.5 Q3d): heading, intro, address and email in the left column, the form beside
+   them from the top (desktop). Tablet and phone keep the stacked order. */
+@media (min-width: 1024px) {
+  #contact-form > .wrap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto 1fr; column-gap: var(--gutter); align-items: start; }
+  #contact-form .section-head { grid-column: 1 / span 5; grid-row: 1; margin: 0; }
+  #contact-form .grid--top { display: contents; }
+  #contact-form .grid--top > .span-6:first-child { grid-column: 1 / span 5; grid-row: 2; margin-block-start: var(--s-6); }
+  #contact-form .grid--top > .card { grid-column: 7 / -1; grid-row: 1 / span 2; }
+}

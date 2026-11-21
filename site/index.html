@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="soft" data-ground="sand" data-buttons="tonal" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Remove at cut-over (ADR 0004): keeps preview builds out of search engines. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Imkan.ai: AI and data engineering for Saudi enterprises</title>
+<meta name="description" content="Production-grade data platforms, agentic AI and intelligent automation, aligned with Vision 2030.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Imkan.ai: AI and data engineering for Saudi enterprises">
+<meta property="og:description" content="Production-grade data platforms, agentic AI and intelligent automation, aligned with Vision 2030.">
+<meta property="og:image" content="/share.jpg">
+<link rel="canonical" href="https://imkan.ai/">
+<meta property="og:url" content="https://imkan.ai/">
+<meta name="twitter:card" content="summary_large_image">
+<!-- @include partials/head.html -->
+<link rel="stylesheet" href="/assets/ui/base.css">
+<link rel="stylesheet" href="/assets/ui/chat/fragment.css">
+<link rel="stylesheet" href="/assets/ui/window/fragment.css">
+<link rel="stylesheet" href="/assets/ui/pipeline-board/fragment.css">
+<link rel="stylesheet" href="/assets/ui/checklist/fragment.css">
+<link rel="stylesheet" href="/assets/ui/notify/fragment.css">
+<link rel="stylesheet" href="/assets/ui/toggles/fragment.css">
+<link rel="stylesheet" href="/assets/ui/search/fragment.css">
+<link rel="stylesheet" href="/assets/ui/integrations/fragment.css">
+<link rel="stylesheet" href="/assets/ui/files/fragment.css">
+<link rel="stylesheet" href="/assets/ui/terminal-run/fragment.css">
+<link rel="stylesheet" href="/assets/ui/voice/fragment.css">
+<link rel="stylesheet" href="/assets/scenes/scenes.css">
+<link rel="stylesheet" href="/assets/scenes/letter-bar-floods-the-ground/scene.css">
+<link rel="stylesheet" href="/styles/home.css">
+<link rel="stylesheet" href="/styles/play.css">
+<!-- Organization (D-029): only facts the site already publishes (name, logo, email, city, LinkedIn). -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Imkan.ai","alternateName":"إمكان","url":"https://imkan.ai/","logo":"https://imkan.ai/brand/png/imkan-lockup-large.png","email":"info@imkan.ai","address":{"@type":"PostalAddress","addressLocality":"Riyadh","addressCountry":"SA"},"sameAs":["https://www.linkedin.com/company/imkan-ai"]}
+</script>
+</head>
+<body>
+<!-- type: software (AI; ADR 0009)
+     deal: hero centred, nav nav-centre, close close-type, footer footer-dark, rhythm dark-band, buttons tonal,
+     mark: the IMKAN logo kit (D-017), lit ground sand (sky clashed with the warm bone), grounds none
+     palette: brand, midnight plum and gold (D-018, D-020, D-022); type funnel
+     effect: none in the hero (fluted-glass retired, ADR 0010); the scene letter-bar-floods-the-ground is the page's effect (D-021)
+     scene: letter-bar-floods-the-ground (#impact), before the dark band (#cases)
+     moments (dealt 4.2, seed 4b9ea349): marquee-row (#services), counter-rolls (#statement); hero cursor-spotlight
+       dealt too but left out: two moments in all at most
+     beats: services (marquee) / statement (counters) / impact (scene); methodology between the first two,
+       why-us between the counters and the scene; the back third (contact, about, close) calm -->
+
+<!-- @include partials/nav.html -->
+
+<main id="top">
+  <section class="hero hero--centred" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text">
+      <div class="hero__c">
+        <a class="pill" href="#why-us"><span>Prove Before You Pay</span><span class="muted">6-8 weeks free</span></a>
+        <h1 id="hero-h">Possibility? Engineered!</h1>
+        <p class="hero__lead">Elite Data Engineering, Agentic AI solutions, and Autonomous Intelligence for the future.</p>
+        <div class="btn-row"><a class="btn btn--primary" href="#contact-form">Get in Touch<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="#why-us">Why Us?</a></div>
+      </div>
+      <!-- The window shows case 11 (AI Agents for Customer Negotiations): an agent quoting within approved
+           pricing parameters. Illustrative UI text, pending Felipe's approval (Documentation/wording-changes.md). -->
+      <div class="hero__window" role="figure" aria-label="An Imkan-built AI agent answering a customer's price request within approved pricing, with its sources" data-play="chat">
+        <div class="ly-piece hero__chat" aria-hidden="true">
+          <div class="ui ui-panel ui-chat" data-ui="chat">
+            <div class="ui-head">
+              <span class="ui-agent" aria-hidden="true"></span>
+              <div class="ui-title">Pricing agent</div>
+              <span class="ui-chat__online">Online</span>
+              <span class="ui-spacer"></span>
+            </div>
+            <div class="ui-chat__body">
+              <div class="ui-chat__day">Today, 21:40</div>
+              <div class="ui-msg ui-msg--me" data-chat-q><span class="ui-msg__text">Can you do better on 500 units for next month?</span></div>
+              <div class="ui-msg ui-msg--bot" data-chat-a>
+                <span class="ui-agent ui-msg__av" aria-hidden="true"></span>
+                <span class="ui-msg__col">
+                  <span class="ui-chat__typing" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="ui-chat__answer">Yes. At 500 units I can offer <b>6% off</b>, within your approved pricing, and all 500 are in stock for delivery on the 14th.</span>
+                  <span class="ui-chat__srcs">
+                    <span class="ui-chat__src"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M4 2.5h5l3 3v8H4z"/><path d="M9 2.5v3h3"/></svg>Pricing engine</span>
+                    <span class="ui-chat__src"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M4 2.5h5l3 3v8H4z"/><path d="M9 2.5v3h3"/></svg>Inventory</span>
+                  </span>
+                </span>
+              </div>
+            </div>
+            
+                      </div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- APP-FRAME: case 1, the fraud-detection platform: the alert queue beside the detection run.
+       Illustrative UI text, pending Felipe's approval. -->
+  <section class="section" id="platform" aria-labelledby="platform-h">
+    <div class="wrap">
+      <div class="grid">
+        <h2 id="platform-h" class="span-6">Banking Fraud Detection in Real-Time</h2>
+        <div class="span-6 start-7 stack-4">
+          <p class="muted">Built a production-grade real-time anomaly detection platform for a national financial institution, replacing manual log analysis processes with intelligent automation.</p>
+          <a class="link" href="/work/banking-fraud-detection-in-real-time/">Read More</a>
+        </div>
+      </div>
+      <div class="ui app fill" role="figure" aria-label="The anomaly alert queue beside a detection run that streams logs, scores them and alerts the security team in under ten seconds" data-ui-pause-host data-play="anomalies">
+        <div class="app__pane app__pane--list">
+          <div class="ui ui-panel ui-win" data-ui="window" data-open="New" data-work="Reviewing" data-done="Cleared">
+            <div class="ui-win__bar">
+              <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="ui-win__crumb">Security <i>/</i> <b>Anomalies</b></span>
+              <span class="ui-spacer"></span>
+              <span class="ui-win__search" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg><span class="ui-win__ph">Search</span><span class="ui-kbd">/</span></span>
+            </div>
+            <div class="ui-win__body">
+              <nav class="ui-win__side" aria-hidden="true">
+                <span class="ui-win__nav is-on"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2.5 9h3l1 1.5h3l1-1.5h3"/><path d="M2.5 9 4 3.5h8L13.5 9v3.5h-11z"/></svg>New<em>9</em></span>
+                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="8" cy="6" r="2.5"/><path d="M3.5 13.5c.6-2.3 2.4-3.5 4.5-3.5s3.9 1.2 4.5 3.5"/></svg>Mine<em>3</em></span>
+                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg>Cleared</span>
+                <span class="ui-win__label">Sources</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>Core banking</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>Card switch</span>
+              </nav>
+              <div class="ui-win__main">
+                <div class="ui-win__cols" aria-hidden="true"><span>Source</span><span>Anomaly</span><span>Status</span><span>Age</span></div>
+                <ul class="ui-win__rows">
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">CB</span><span class="ui-win__who">Core banking</span><span class="ui-win__sub">Login burst from a new device</span><span class="ui-win__st" data-st>New</span><span class="ui-win__age">6s</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">CS</span><span class="ui-win__who">Card switch</span><span class="ui-win__sub">Unusual transfer pattern</span><span class="ui-win__st" data-st>New</span><span class="ui-win__age">9s</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">MA</span><span class="ui-win__who">Mobile app</span><span class="ui-win__sub">Session from two countries</span><span class="ui-win__st" data-st>New</span><span class="ui-win__age">21s</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">AT</span><span class="ui-win__who">ATM network</span><span class="ui-win__sub">Repeated failed PIN entries</span><span class="ui-win__st is-you" data-st>Needs you</span><span class="ui-win__age">1m</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="5">PG</span><span class="ui-win__who">Payments gateway</span><span class="ui-win__sub">Spike in declined payments</span><span class="ui-win__st is-done" data-st>Cleared</span><span class="ui-win__age">3m</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">IB</span><span class="ui-win__who">Internet banking</span><span class="ui-win__sub">Password reset loop</span><span class="ui-win__st is-done" data-st>Cleared</span><span class="ui-win__age">4m</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">TR</span><span class="ui-win__who">Treasury</span><span class="ui-win__sub">Off-hours admin access</span><span class="ui-win__st is-done" data-st>Cleared</span><span class="ui-win__age">7m</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">BR</span><span class="ui-win__who">Branch systems</span><span class="ui-win__sub">New service account created</span><span class="ui-win__st is-done" data-st>Cleared</span><span class="ui-win__age">9m</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">SW</span><span class="ui-win__who">Transfers hub</span><span class="ui-win__sub">Large batch outside schedule</span><span class="ui-win__st is-done" data-st>Cleared</span><span class="ui-win__age">12m</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app__pane app__pane--open" data-ui-loop>
+          <div class="ui ui-panel ui-pipe" data-ui="pipeline-board">
+            <div class="ui-pipe__head">
+              <span class="ui-pipe__repo">anomaly-detection</span><i class="ui-pipe__slash">/</i><code class="ui-pipe__ref">live</code>
+              <span class="ui-pipe__run">Card switch</span>
+              <span class="ui-spacer"></span>
+              <span class="ui-pipe__total"><span data-pipe-total>8s</span></span>
+              <span class="ui-chip ui-chip--ink ui-chip--live ui-pipe__chip" data-pipe-chip data-done="Alerted">Scoring</span>
+            </div>
+            <div class="ui-pipe__commit">
+              <span class="ui-avatar" data-tone="3">CS</span>
+              <span class="ui-pipe__msg">Unusual transfer pattern</span>
+              <code class="ui-pipe__sha">evt 7f3a21</code>
+              <span class="ui-btn ui-btn--ghost ui-btn--sm ui-pipe__btn" data-pipe-btn data-done="Open alert">Hold</span>
+            </div>
+            <ol class="ui-pipe__steps">
+              <li class="ui-pipe__step is-done" data-step="ingest"><span class="ui-pipe__ico"></span><span class="ui-pipe__name"><span class="ui-pipe__tool" aria-hidden="true"><img src="/assets/icons/apachekafka.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-pipe__nm">Ingest</span></span><code class="ui-pipe__cmd">kafka: card-switch logs</code><span class="ui-pipe__time" data-time>1s</span><span class="ui-pipe__bar"><i></i></span></li>
+              <li class="ui-pipe__step is-done" data-step="stream"><span class="ui-pipe__ico"></span><span class="ui-pipe__name"><span class="ui-pipe__tool" aria-hidden="true"><img src="/assets/icons/apachespark.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-pipe__nm">Stream</span></span><code class="ui-pipe__cmd">spark: window 60s</code><span class="ui-pipe__time" data-time>2s</span><span class="ui-pipe__bar"><i></i></span></li>
+              <li class="ui-pipe__step is-run" data-step="score" style="--k:0.6"><span class="ui-pipe__ico"></span><span class="ui-pipe__name"><span class="ui-pipe__tool" aria-hidden="true"><img src="/assets/icons/databricks.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-pipe__nm">Score</span></span><code class="ui-pipe__cmd">anomaly model</code><span class="ui-pipe__time" data-time="3s">2s</span><span class="ui-pipe__bar"><i></i></span></li>
+              <li class="ui-pipe__step" data-step="alert"><span class="ui-pipe__ico"></span><span class="ui-pipe__name"><span class="ui-pipe__tool" aria-hidden="true"><img src="/assets/icons/python.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-pipe__nm">Alert</span></span><code class="ui-pipe__cmd">notify security</code><span class="ui-pipe__time" data-time="1s">Queued</span><span class="ui-pipe__bar"><i></i></span></li>
+              <li class="ui-pipe__step" data-step="board"><span class="ui-pipe__ico"></span><span class="ui-pipe__name"><span class="ui-pipe__tool" aria-hidden="true"><img src="/assets/icons/grafana.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-pipe__nm">Board</span></span><code class="ui-pipe__cmd">grafana: update</code><span class="ui-pipe__time" data-time="1s">Queued</span><span class="ui-pipe__bar"><i></i></span></li>
+            </ol>
+            <div class="ui-pipe__log" aria-hidden="true">
+              <span class="ui-pipe__line" data-step="ingest"><b>$</b>consume card-switch.logs</span>
+              <span class="ui-pipe__line" data-step="ingest">412 events in the last second</span>
+              <span class="ui-pipe__line" data-step="stream"><b>$</b>window 60s by account</span>
+              <span class="ui-pipe__line" data-step="stream">features built for 38 accounts</span>
+              <span class="ui-pipe__line is-on" data-step="score"><b>$</b>score anomaly-model</span>
+              <span class="ui-pipe__line is-on" data-step="score">1 account outside its usual pattern</span>
+              <span class="ui-pipe__line" data-step="alert"><b>$</b>notify security-team</span>
+              <span class="ui-pipe__line" data-step="alert">alert sent with the evidence attached</span>
+              <span class="ui-pipe__line" data-step="board"><b>$</b>grafana update anomalies</span>
+              <span class="ui-pipe__line" data-step="board">board refreshed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section g2" id="services" aria-labelledby="services-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <h2 id="services-h">We work with leaders ready to act on Data &amp; AI</h2>
+          <p>Not sure where to start? Stuck after strategy? We meet you where you are and move you forward.</p>
+        </div>
+        <!-- Moment (dealt, 4.2): marquee-row. The industries of the eleven case studies, as written there. -->
+        <div class="services-marquee" data-moment="marquee-row" data-moment-opts='{"speed": 32}'>
+          <ul class="mo-mq__track"><li>Banking &amp; Financial Services</li><li>Logistics &amp; Delivery</li><li>Real Estate &amp; PropTech</li><li>Retail &amp; E-commerce</li><li>Healthcare &amp; Clinical AI</li><li>Customer Service &amp; AI Agents</li><li>Travel &amp; Tourism</li></ul>
+        </div>
+        <div class="grid">
+          <article class="card card--row card--open span-6">
+            <h3>Build a strategy worth executing</h3>
+            <p>Everyone says to "become data-driven", but no one shows you the first move. Here is how a real data strategy actually begins, and where it should take you.</p>
+            <div class="panel" data-play="roadmap">
+              <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:340px;--ax:max(24px, 50% - 170px);--ay:calc(100% - 180px);--ay-sm:calc(100% - 180px)" data-ui-loop>
+                <div class="ui ui-panel ui-checks" data-ui="checklist">
+                  <div class="ui-checks__head"><div class="ui-title">Data strategy roadmap</div><span class="ui-spacer"></span><div class="ui-meta" data-checks-count>2 of 4</div></div>
+                  <div class="ui-checks__bar"><i data-checks-bar style="--k:0.5"></i></div>
+                  <ul class="ui-checks__list">
+                    <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__label">Start with the decisions that matter</span></li>
+                    <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__label">Map each decision to its data</span></li>
+                    <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__label">Assess data, tools and gaps</span></li>
+                    <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__label">Prioritize the roadmap</span></li>
+                  </ul>
+                </div>
+              </div></div>
+            </div>
+          </article>
+          <article class="card card--row card--open span-6">
+            <h3>Make your data work for you</h3>
+            <p>Spreadsheets here, systems there, numbers that never match. Here is how scattered data becomes one source of truth your whole team can rely on.</p>
+            <div class="panel" data-play="files">
+              <div class="stage stage--fade-br"><div class="at-corner wide" style="--w:680px">
+                <div class="ui ui-files" data-ui="files" data-reading="Joining {n} of {total} sources">
+                  <div class="ui-files__status"><span class="ui-dot"></span><span data-files-status>6 sources joined</span></div>
+                  <ul class="ui-files__grid">
+                    <li class="ui-file is-done"><span class="ui-file__icon"><img src="/assets/icons/postgresql.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-file__name">App database</span><span class="ui-file__kind">PostgreSQL</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"></span></li>
+                    <li class="ui-file is-done"><span class="ui-file__icon"><img src="/assets/icons/snowflake.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-file__name">Sales warehouse</span><span class="ui-file__kind">Snowflake</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"></span></li>
+                    <li class="ui-file is-done"><span class="ui-file__icon"><img src="/assets/icons/redis.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-file__name">Web sessions</span><span class="ui-file__kind">Redis</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"></span></li>
+                    <li class="ui-file is-done"><span class="ui-file__icon"><img src="/assets/icons/databricks.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-file__name">Event logs</span><span class="ui-file__kind">Databricks</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"></span></li>
+                    <li class="ui-file is-done"><span class="ui-file__icon"><img src="/assets/icons/python.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-file__name">Finance exports</span><span class="ui-file__kind">Spreadsheets</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"></span></li>
+                    <li class="ui-file is-done"><span class="ui-file__icon"><img src="/assets/icons/grafana.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-file__name">Ops metrics</span><span class="ui-file__kind">Grafana</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"></span></li>
+                  </ul>
+                </div>
+              </div></div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="card card--row card--open span-6">
+          <h3>Deploy AI that saves you time</h3>
+          <p>If your team spends hours copying, checking, and chasing information, that is work software can do. Here is how to spot it and hand it off.</p>
+          <div class="panel" data-play="notify">
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:380px;--ax:max(24px, 50% - 190px);--ay:calc(100% - 180px);--ay-sm:calc(100% - 180px)">
+              <div class="ui ui-notify" data-ui="notify">
+                <ul class="ui-notify__list" data-notify-list>
+                  <li class="ui-note"><span class="ui-agent ui-note__av" aria-hidden="true"></span><span class="ui-note__text"><span class="ui-note__title">Invoice fields extracted<time>now</time></span><span class="ui-note__body">Supplier, amount and due date read</span></span><span class="ui-btn ui-btn--sm ui-note__btn">Open</span></li>
+                  <li class="ui-note"><span class="ui-agent ui-note__av" aria-hidden="true"></span><span class="ui-note__text"><span class="ui-note__title">Request routed to finance<time>2m</time></span><span class="ui-note__body">Classified from the email itself</span></span></li>
+                  <li class="ui-note"><span class="ui-agent ui-note__av" aria-hidden="true"></span><span class="ui-note__text"><span class="ui-note__title">Contract clauses found<time>9m</time></span><span class="ui-note__body">Dates, amounts and renewal terms</span></span></li>
+                </ul>
+              </div>
+            </div></div>
+          </div>
+        </article>
+        <article class="card card--row card--open span-6">
+          <h3>Turn insights into decisions</h3>
+          <p>More charts do not mean more clarity. Here is how to turn the data you already have into decisions your team can act on today.</p>
+          <div class="panel" data-play="toggles">
+            <div class="stage stage--fade-b"><div class="at-right to-edge" style="--ax:32px;--ay:56px">
+              <div class="ui ui-panel ui-toggles" data-ui="toggles">
+                <div class="ui-head"><div class="ui-title">Weekly sales review</div><span class="ui-spacer"></span><div class="ui-meta" data-tg-count>3 of 4 on</div></div>
+                <ul class="ui-toggles__list">
+                  <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Alert when sales miss target</span><span class="ui-tg__sub">To the regional manager</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="Alert when sales miss target" tabindex="-1"><i></i></button></li>
+                  <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Show the trend beside each number</span><span class="ui-tg__sub">Last 12 weeks</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="Show the trend beside each number" tabindex="-1"><i></i></button></li>
+                  <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Suggest the next step</span><span class="ui-tg__sub">One action per view</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="Suggest the next step" tabindex="-1"><i></i></button></li>
+                  <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">Email the full dashboard</span><span class="ui-tg__sub">Every Monday</span></span><button class="ui-switch" type="button" role="switch" aria-checked="false" aria-label="Email the full dashboard" tabindex="-1"><i></i></button></li>
+                </ul>
+              </div>
+            </div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="methodology" aria-labelledby="methodology-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="methodology-h">Context First</h2>
+        <p>We don't just write code. We deconstruct problems to align engineering goals with business reality through a rigorous three-stage process.</p>
+      </div>
+      <div class="grid">
+        <article class="card card--row card--open span-4">
+          <span class="step-num">Think</span>
+          <h3>Start with the right problem</h3>
+          <p>Before we touch any technology, we get clear on the decision you actually want to improve.</p>
+          <div class="panel" data-play="search">
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:380px;--ax:max(24px, 50% - 190px);--ay:40px;--ay-sm:24px" data-ui-loop>
+              <div class="ui ui-panel ui-search" data-ui="search">
+                <div class="ui-search__field"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg><span class="ui-search__q"><span data-search-q>decisions to improve</span><i class="ui-search__caret"></i></span><kbd class="ui-search__kbd">Ctrl K</kbd></div>
+                <div class="ui-search__group">Discovery</div>
+                <ul class="ui-search__list" data-search-list>
+                  <li class="ui-search__row is-sel"><span class="ui-search__ico"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5h5l3 3v8H4z"/><path d="M9 2.5v3h3"/></svg></span><span class="ui-search__t">Weekly pricing <b>decisions</b></span><span class="ui-search__m">Sales</span></li>
+                  <li class="ui-search__row"><span class="ui-search__ico"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5h5l3 3v8H4z"/><path d="M9 2.5v3h3"/></svg></span><span class="ui-search__t">Stock reorder <b>decisions</b></span><span class="ui-search__m">Supply</span></li>
+                  <li class="ui-search__row"><span class="ui-search__ico"><svg class="ui-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5h5l3 3v8H4z"/><path d="M9 2.5v3h3"/></svg></span><span class="ui-search__t">Success in plain numbers</span><span class="ui-search__m">Goals</span></li>
+                </ul>
+                <div class="ui-search__foot"><span><kbd>&uarr;</kbd><kbd>&darr;</kbd> to move</span><span><kbd>Enter</kbd> to open</span></div>
+              </div>
+            </div></div>
+          </div>
+        </article>
+        <article class="card card--row card--open span-4">
+          <span class="step-num">Build</span>
+          <h3>Build on what you already own</h3>
+          <p>We build on the tools and infrastructure you already pay for, so your team adopts it naturally.</p>
+          <div class="panel" data-play="integrations">
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:380px;--ax:max(24px, 50% - 190px);--ay:calc(100% - 180px);--ay-sm:calc(100% - 180px)">
+              <div class="ui ui-panel ui-apps" data-ui="integrations">
+                <div class="ui-head"><div class="ui-title">Your existing stack</div><span class="ui-spacer"></span><div class="ui-meta" data-apps-count>3 connected</div></div>
+                <ul class="ui-apps__list">
+                  <li class="ui-app is-on"><span class="ui-logo ui-logo--sm"><img src="/assets/icons/snowflake.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-app__text"><span class="ui-app__name">Snowflake</span><span class="ui-app__sub">Your warehouse, kept</span></span><span class="ui-app__state"><span class="ui-chip ui-app__on">Connected</span><button class="ui-btn ui-btn--ghost ui-btn--sm ui-app__connect" type="button" tabindex="-1"><span class="ui-spin ui-app__spin" aria-hidden="true"></span><span>Connect</span></button></span></li>
+                  <li class="ui-app is-on"><span class="ui-logo ui-logo--sm"><img src="/assets/icons/postgresql.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-app__text"><span class="ui-app__name">PostgreSQL</span><span class="ui-app__sub">Your app data, as is</span></span><span class="ui-app__state"><span class="ui-chip ui-app__on">Connected</span><button class="ui-btn ui-btn--ghost ui-btn--sm ui-app__connect" type="button" tabindex="-1"><span class="ui-spin ui-app__spin" aria-hidden="true"></span><span>Connect</span></button></span></li>
+                  <li class="ui-app" data-apps-target><span class="ui-logo ui-logo--sm"><img src="/assets/icons/databricks.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-app__text"><span class="ui-app__name">Databricks</span><span class="ui-app__sub">Models on your cluster</span></span><span class="ui-app__state"><span class="ui-chip ui-app__on">Connected</span><button class="ui-btn ui-btn--ghost ui-btn--sm ui-app__connect" type="button" tabindex="-1"><span class="ui-spin ui-app__spin" aria-hidden="true"></span><span>Connect</span></button></span></li>
+                  <li class="ui-app is-on"><span class="ui-logo ui-logo--sm"><img src="/assets/icons/grafana.svg" alt="" width="24" height="24" loading="lazy"></span><span class="ui-app__text"><span class="ui-app__name">Grafana</span><span class="ui-app__sub">Your dashboards stay</span></span><span class="ui-app__state"><span class="ui-chip ui-app__on">Connected</span><button class="ui-btn ui-btn--ghost ui-btn--sm ui-app__connect" type="button" tabindex="-1"><span class="ui-spin ui-app__spin" aria-hidden="true"></span><span>Connect</span></button></span></li>
+                </ul>
+              </div>
+            </div></div>
+          </div>
+        </article>
+        <article class="card card--row card--open span-4">
+          <span class="step-num">Evolve</span>
+          <h3>A partner, not a vendor</h3>
+          <p>We stay on to support and improve well after delivery, so your investment keeps paying off long after go-live.</p>
+          <div class="panel" data-play="terminal">
+            <div class="stage"><div class="at-rise fit" style="--fit-max:440px;--ax:max(24px, 50% - 220px);--ay:32px;--ay-sm:24px">
+              <div class="ui ui-panel ui-term" data-ui="terminal-run">
+                <div class="ui-term__head"><span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ui-term__title">after-go-live</span><span class="ui-meta">checks</span><span class="ui-spacer"></span></div>
+                <div class="ui-term__screen" data-term-screen>
+                  <div class="ui-term__track" data-term-track>
+                    <div class="ui-term__ln ui-term__cmd"><span class="ui-term__cwd">~/<span class="ui-term__up">client/</span>platform</span><span class="ui-term__sig">$</span><span class="ui-term__typed" data-term-cmd>run health-checks</span></div>
+                    <div class="ui-term__ln ui-term__meter" data-term-out data-term-meter><span class="ui-term__bar" style="--p:1"><i></i></span><span class="ui-term__count" data-term-count>4 of 4 checks</span></div>
+                    <div class="ui-term__ln ui-term__log" data-term-out data-term-step><span class="ui-term__path">pipelines/freshness</span><span class="ui-term__n">on time</span><span class="ui-term__t">ok</span></div>
+                    <div class="ui-term__ln ui-term__log" data-term-out data-term-step><span class="ui-term__path">models/drift</span><span class="ui-term__n">stable</span><span class="ui-term__t">ok</span></div>
+                    <div class="ui-term__ln ui-term__log" data-term-out data-term-step><span class="ui-term__path">dashboards/usage</span><span class="ui-term__n">in use</span><span class="ui-term__t">ok</span></div>
+                    <div class="ui-term__ln ui-term__log" data-term-out data-term-step><span class="ui-term__path">alerts/routing</span><span class="ui-term__n">delivered</span><span class="ui-term__t">ok</span></div>
+                    <div class="ui-term__ln ui-term__gap" data-term-out aria-hidden="true"></div>
+                    <div class="ui-term__ln ui-term__done" data-term-out data-term-done><span class="ui-term__ok"></span><b>Healthy</b><span class="ui-term__dim">all checks passed</span></div>
+                    <div class="ui-term__ln ui-term__cmd" data-term-next><span class="ui-term__cwd">~/<span class="ui-term__up">client/</span>platform</span><span class="ui-term__sig">$</span><span class="ui-term__typed"></span><i class="ui-term__caret" aria-hidden="true"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="statement" aria-labelledby="statement-h">
+    <div class="wrap">
+      <h2 id="statement-h">Engineering Without Friction.</h2>
+      <p class="t-lead">No account managers. No junior-only teams. No endless discovery phases. Just senior engineers building production-grade systems aligned with Vision 2030.</p>
+      <!-- Moment (dealt, 4.2): counter-rolls. Four results from the case studies, figures and captions as written there. -->
+      <div class="grid statement-figures" data-moment="counter-rolls">
+        <div class="span-3"><p class="t-stat" role="img" aria-label="5x">5x</p><p class="t-small muted">Lead conversion rate</p></div>
+        <div class="span-3"><p class="t-stat" role="img" aria-label="-32%">-32%</p><p class="t-small muted">Operational costs</p></div>
+        <div class="span-3"><p class="t-stat" role="img" aria-label="87%">87%</p><p class="t-small muted">Forecast accuracy</p></div>
+        <div class="span-3"><p class="t-stat" role="img" aria-label="60%">60%</p><p class="t-small muted">Workload reduction</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section g2" id="why-us" aria-labelledby="why-us-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <h2 id="why-us-h">The imkan.ai Advantage</h2>
+        </div>
+        <div class="grid grid--top">
+          <ul class="rows span-6">
+            <li><span class="rows__name">Prove Before You Pay</span><p>We spend 6-8 weeks on one of your real use cases, completely free, and hand you a working solution. You only commit once you have seen measurable results.</p><span class="rows__value">6-8 weeks free</span></li>
+            <li><span class="rows__name">We Meet You Where You Are</span><p>No dedicated tech team or complex infrastructure? No problem. We build smart solutions on top of the tools you already know, then train your team to own them.</p><span class="rows__value">Zero disruption</span></li>
+            <li><span class="rows__name">Founders at the Front</span><p>Every project is led directly by our founders and senior engineers, from strategy through production. No account managers, no junior-only teams, no hand-offs.</p><span class="rows__value">100% founder oversight</span></li>
+          </ul>
+          <!-- A voice agent on a customer call: "Voice assistants in Arabic and English handling customer
+               inquiries 24/7" (Agentic AI Pioneers). Illustrative UI text, pending Felipe's approval. -->
+          <div class="panel span-6 start-7" role="figure" aria-label="An Imkan-built voice agent on a customer call, answering in Arabic or English" data-play="voice">
+            <div class="stage stage--fade-b"><div class="at-rise to-edge fit" style="--fit-max:264px;--ax:max(24px, 50% - 132px);--ay:48px;--ay-sm:24px">
+              <div class="ui ui-panel ui-voice" data-ui="voice">
+                <div class="ui-voice__top"><span class="ui-chip ui-chip--ink">On a call</span><span class="ui-spacer"></span><span class="ui-voice__time" data-voice-time>01:12</span></div>
+                <div class="ui-voice__orb" data-voice-orb></div>
+                <div class="ui-voice__who"><span class="ui-voice__name">Voice agent</span><span class="ui-voice__with">Arabic and English, 24/7</span></div>
+                <div class="ui-voice__cap" data-voice-cap>Your invoice is received and logged. Anything else I can check?</div>
+                <div class="ui-voice__bar"><span class="ui-voice__btn" aria-hidden="true"></span><span class="ui-voice__wave" aria-hidden="true"><i style="--h:4"></i><i style="--h:7"></i><i style="--h:12"></i><i style="--h:9"></i><i style="--h:16"></i><i style="--h:11"></i><i style="--h:20"></i><i style="--h:14"></i><i style="--h:8"></i><i style="--h:17"></i><i style="--h:12"></i><i style="--h:6"></i><i style="--h:10"></i><i style="--h:18"></i><i style="--h:13"></i><i style="--h:7"></i><i style="--h:15"></i><i style="--h:9"></i><i style="--h:5"></i><i style="--h:11"></i><i style="--h:7"></i><i style="--h:4"></i></span><span class="ui-voice__btn ui-voice__end" aria-hidden="true"></span></div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid--top">
+        <ul class="rows span-6">
+            <li><span class="rows__name">Agentic AI Pioneers</span><p>We go beyond dashboards. We build AI that reads documents, answers questions in plain language, and handles real work in Arabic and English, around the clock.</p><span class="rows__value">24/7 · Arabic &amp; English</span></li>
+            <li><span class="rows__name">Built for the Kingdom</span><p>Saudi-ready from day one. Your data stays in the Kingdom, PDPL, NCA, and CITC compliance is built in, and every solution advances your Vision 2030 goals.</p><span class="rows__value">100% data in KSA</span></li>
+            <li><span class="rows__name">Proven Accelerators</span><p>Reusable components refined across 15+ production deployments mean no greenfield. Your first working version ships in weeks, and budget goes to what sets you apart.</p><span class="rows__value">15+ deployments</span></li>
+        </ul>
+        <!-- "Prove Before You Pay": its own "What this means for you" commitments, as a plan. -->
+        <div class="panel span-6 start-7" role="figure" aria-label="The proof-of-value plan: a real use case, a working solution, no commitment until results, full IP ownership" data-play="checklist">
+          <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:340px;--ax:max(24px, 50% - 170px);--ay:48px;--ay-sm:24px">
+            <div class="ui ui-panel ui-checks" data-ui="checklist">
+              <div class="ui-checks__head"><div class="ui-title">Proof of value, 6-8 weeks</div><span class="ui-spacer"></span><div class="ui-meta" data-checks-count>2 of 4</div></div>
+              <div class="ui-checks__bar"><i data-checks-bar style="--k:0.5"></i></div>
+              <ul class="ui-checks__list">
+                <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__label">A real business use case</span></li>
+                <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__label">A functional, working solution</span></li>
+                <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__label">Zero commitment until results</span></li>
+                <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ui-check__label">Complete IP ownership</span></li>
+              </ul>
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The scene (D-021): "Proven Impact" zooms into its I, whose stem floods into the dark band below. -->
+  <section class="sc" id="impact" data-big-scene="letter-bar-floods-the-ground" style="--h: 1" aria-labelledby="impact-h">
+    <div class="sc__stage">
+      <h2 class="lbf__line" id="impact-h">Proven <span class="lbf__pivot">I</span>mpact</h2>
+      <div class="lbf__ground"><div class="lbf__next"><h2>15+ production-grade AI and data solutions.</h2><p>Delivering measurable results across banking, logistics, healthcare, and beyond.</p></div></div>
+    </div>
+  </section>
+
+  <section class="section g2 ground-inverse" id="cases" aria-labelledby="cases-h">
+    <div class="wrap">
+      <div class="group">
+        <div class="section-head">
+          <h2 id="cases-h">Production Systems</h2>
+        </div>
+        <div class="grid">
+        <a class="tile tile--case span-4" href="/work/smart-lead-scoring-for-property-sales/">
+          <span class="tile__media"><img src="/images/work/smart-lead-scoring-for-property-sales-band.svg" alt="" width="480" height="320" loading="lazy"></span>
+          <span class="t-label muted">Real Estate &amp; PropTech</span>
+          <span class="t-card">Smart Lead Scoring for Property Sales</span>
+          <span class="t-small">5x Lead Conversion Rate</span>
+        </a>
+        <a class="tile tile--case span-4" href="/work/route-optimization-for-last-mile-delivery/">
+          <span class="tile__media"><img src="/images/work/route-optimization-for-last-mile-delivery-band.svg" alt="" width="480" height="320" loading="lazy"></span>
+          <span class="t-label muted">Logistics &amp; Delivery</span>
+          <span class="t-card">Route Optimization for Last-Mile Delivery</span>
+          <span class="t-small">-32% Operational Costs</span>
+        </a>
+        <a class="tile tile--case span-4" href="/work/credit-risk-scoring-with-machine-learning/">
+          <span class="tile__media"><img src="/images/work/credit-risk-scoring-with-machine-learning-band.svg" alt="" width="480" height="320" loading="lazy"></span>
+          <span class="t-label muted">Banking &amp; Financial Services</span>
+          <span class="t-card">Credit Risk Scoring with Machine Learning</span>
+          <span class="t-small">70% Automated Decisions</span>
+        </a>
+        </div>
+      </div>
+      <div class="group">
+        <div class="grid">
+        <a class="tile tile--case span-4" href="/work/demand-forecasting-for-retail-inventory/">
+          <span class="tile__media"><img src="/images/work/demand-forecasting-for-retail-inventory-band.svg" alt="" width="480" height="320" loading="lazy"></span>
+          <span class="t-label muted">Retail &amp; E-commerce</span>
+          <span class="t-card">Demand Forecasting for Retail Inventory</span>
+          <span class="t-small">87% Forecast Accuracy</span>
+        </a>
+        <a class="tile tile--case span-4" href="/work/clinical-ai-safety-and-validation/">
+          <span class="tile__media"><img src="/images/work/clinical-ai-safety-and-validation-band.svg" alt="" width="480" height="320" loading="lazy"></span>
+          <span class="t-label muted">Healthcare &amp; Clinical AI</span>
+          <span class="t-card">Clinical AI Safety &amp; Validation</span>
+          <span class="t-small">NHS-Scale Governance Ready</span>
+        </a>
+        <a class="tile tile--case span-4" href="/work/ai-agents-for-customer-negotiations/">
+          <span class="tile__media"><img src="/images/work/ai-agents-for-customer-negotiations-band.svg" alt="" width="480" height="320" loading="lazy"></span>
+          <span class="t-label muted">Customer Service &amp; AI Agents</span>
+          <span class="t-card">AI Agents for Customer Negotiations</span>
+          <span class="t-small">60% Workload Reduction</span>
+        </a>
+        </div>
+        <p class="cases-more"><a class="link" href="/work/">See All Solutions</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact-form" aria-labelledby="git-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="git-h">Get in Touch</h2>
+        <p>Fill out the form below and we'll get back to you shortly.</p>
+      </div>
+      <div class="grid grid--top">
+        <div class="span-6 stack-4">
+          <address class="t-small">Prince Turki Bin Abdulaziz Al Awwal, King Saud University district, Riyadh</address>
+          <p class="t-small"><a class="link" href="mailto:info@imkan.ai">info@imkan.ai</a></p>
+        </div>
+        <div class="card span-6 start-7"><form class="form" action="/api/contact" method="post" enctype="multipart/form-data" data-endpoint="/api/contact" data-sent="Message Sent! Thank you for reaching out. We'll get back to you shortly." novalidate>
+          <div class="form__pair">
+            <div class="field"><label for="f-first">First Name</label>
+              <input id="f-first" name="firstName" type="text" autocomplete="given-name" required maxlength="100" aria-describedby="f-first-err">
+              <p class="field__error" id="f-first-err" hidden>Write your first name.</p></div>
+            <div class="field"><label for="f-last">Last Name</label>
+              <input id="f-last" name="lastName" type="text" autocomplete="family-name" required maxlength="100" aria-describedby="f-last-err">
+              <p class="field__error" id="f-last-err" hidden>Write your last name.</p></div>
+          </div>
+          <div class="field"><label for="f-phone">Mobile Phone</label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" aria-describedby="f-phone-err">
+            <p class="field__error" id="f-phone-err" hidden>Write a mobile number we can call, with the country code.</p></div>
+          <div class="field"><label for="f-email">Email Address</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254" aria-describedby="f-email-err">
+            <p class="field__error" id="f-email-err" hidden>Write an email address with an @, like name@company.com.</p></div>
+          <div class="field"><label for="f-message">Message (optional)</label>
+            <textarea id="f-message" name="message" rows="6" maxlength="5000"></textarea></div>
+          <input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" hidden>
+          <div class="btn-row"><button class="btn btn--primary" type="submit">Send Message</button></div>
+          <p class="form__status" role="status" data-form-status></p>
+          <p class="t-small muted">We'll get back to you shortly.</p>
+        </form></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="section-head span-6">
+          <h2 id="about-h">Architects of Intelligence</h2>
+          <p>Talent bridging the gap between academic research and industrial application.</p>
+        </div>
+        <div class="span-6 start-7 people-pair">
+          <article class="tile tile--portrait">
+            <img src="/images/team/felipe-araya.jpg" srcset="/images/team/felipe-araya-400.webp 400w, /images/team/felipe-araya-800.webp 800w" sizes="(min-width: 1024px) 300px, 45vw" alt="Felipe Araya" width="800" height="925" loading="lazy">
+            <p class="t-card">Felipe Araya</p>
+            <p class="t-small muted">Lead AI Scientist</p>
+            <p>Leads AI innovation from research to production: generative AI, autonomous agent systems, MLOps and model monitoring.</p>
+          </article>
+          <article class="tile tile--portrait">
+            <img src="/images/team/syed-fawad-ali.jpg" srcset="/images/team/syed-fawad-ali-400.webp 400w, /images/team/syed-fawad-ali-800.webp 800w" sizes="(min-width: 1024px) 300px, 45vw" alt="Dr. Syed Fawad Ali" width="800" height="1025" loading="lazy">
+            <p class="t-card">Dr. Syed Fawad Ali</p>
+            <p class="t-small muted">Lead Data Engineer</p>
+            <p>Builds enterprise data foundations from the ground up: data strategy, modern warehousing, ETL/ELT pipelines and data quality.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+</main>
+
+<!-- @include partials/footer.html -->
+
+<script type="module" src="/assets/system.js"></script>
+<script type="module" src="/assets/motion/motion.js"></script>
+<script type="module" src="/assets/layout/layout.js"></script>
+<script type="module" src="/assets/diagrams/mount.js"></script>
+<script type="module" src="/assets/scenes/scenes.js"></script>
+<script type="module" src="/scripts/play.js"></script>
+</body>
+</html>
