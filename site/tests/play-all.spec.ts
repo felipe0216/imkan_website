@@ -53,14 +53,17 @@ test.describe('framed demos', () => {
     await page.keyboard.press('Enter');
     await expect(f.locator('.play-road__cell[data-cell="0"] [data-item="0"]')).toHaveClass(/is-first/);
     await expect(f.locator('.play-road__badge')).toHaveText('Your first move');
-    // drag
-    const card = f.locator('[data-item="1"]');
+    // drag: measured once the card has settled in the tray (each placement re-renders the grid; on a slow CI
+    // machine the boxes were read mid-render), then moved in small steps
+    const card = f.locator('.play-road__tray [data-item="1"]');
+    await card.waitFor();
+    await page.waitForTimeout(150);
     const target = f.locator('.play-road__cell[data-cell="1"]');
     const a = (await card.boundingBox())!, b = (await target.boundingBox())!;
     await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2);
     await page.mouse.down();
-    await page.mouse.move(a.x + 20, a.y + 10, { steps: 3 });
-    await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 8 });
+    await page.mouse.move(a.x + a.width / 2 + 12, a.y + a.height / 2 + 6, { steps: 4 });
+    await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 14 });
     await page.mouse.up();
     await expect(f.locator('.play-road__cell[data-cell="1"] [data-item="1"]')).toBeVisible();
     await axe(page, frame);

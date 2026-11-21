@@ -99,8 +99,13 @@ export default function init(frame) {
     if (d && held != null) { play(); put(held, +d.dataset.cell); }
   });
 
-  // dragging a card (a pointer), as well as press-then-square
+  // dragging a card (a pointer), as well as press-then-square. The square under the pointer is found from the
+  // squares' own boxes, not by hit-testing (elementFromPoint under a captured, moving card differs between engines)
   let drag = null, dragged = false;
+  const cellAt = (x, y) => [...road.querySelectorAll('.play-road__cell')].find((c) => {
+    const r = c.getBoundingClientRect();
+    return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+  });
   road.addEventListener('pointerdown', (e) => {
     const c = e.target.closest('[data-item]');
     if (!c || e.button !== 0) return;
@@ -113,10 +118,8 @@ export default function init(frame) {
     if (!drag.moved && Math.hypot(dx, dy) < 6) return;
     if (!drag.moved) { drag.moved = true; drag.el.setPointerCapture?.(e.pointerId); drag.el.classList.add('is-dragging'); play(); }
     drag.el.style.translate = `${dx}px ${dy}px`;
-    road.querySelectorAll('.play-road__cell').forEach((cell) => cell.classList.remove('is-over'));
-    drag.el.style.pointerEvents = 'none';
-    document.elementFromPoint(e.clientX, e.clientY)?.closest('.play-road__cell')?.classList.add('is-over');
-    drag.el.style.pointerEvents = '';
+    const over = cellAt(e.clientX, e.clientY);
+    road.querySelectorAll('.play-road__cell').forEach((cell) => cell.classList.toggle('is-over', cell === over));
   });
   const drop = (e) => {
     if (!drag) return;
@@ -124,9 +127,7 @@ export default function init(frame) {
     if (!d.moved) return;
     dragged = true;
     setTimeout(() => { dragged = false; }, 0);
-    d.el.style.pointerEvents = 'none';
-    const cell = document.elementFromPoint(e.clientX, e.clientY)?.closest('.play-road__cell');
-    d.el.style.pointerEvents = '';
+    const cell = cellAt(e.clientX, e.clientY);
     d.el.style.translate = '';
     if (cell) put(d.item, +cell.dataset.cell); else render();
   };
