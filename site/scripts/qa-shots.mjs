@@ -34,7 +34,7 @@ const DEMOS = [
   },
   // demos in a frame: at rest, "Try it", played, reset (the shared pattern in scripts/play/lib.js, demo())
   ...[
-    ['roadmap', '/', '#services [data-play="roadmap"]', ['.play-rm__go'], 2400],
+    ['roadmap', '/', '#services [data-play="roadmap"]', ['[data-card="s2"]', '[data-card="s0"]', '[data-card="s1"]'], 900],
     ['ask-why', '/', '#methodology [data-play="why"]', ['.play-why__btn', '.play-why__btn', '.play-why__btn'], 900],
     ['partner', '/', '#methodology [data-play="partner"]', ['[data-who="vendor"]'], 1800],
     ['proof', '/', '#why-us [data-play="proof"]', async (p, f) => { await p.locator(`${f} .play-pf__slide input`).fill('8'); }, 1600],
@@ -43,7 +43,7 @@ const DEMOS = [
     ['sales-review', '/', '#services [data-play="toggles"]', ['.ui-tg:nth-child(4)', '.ui-tg:nth-child(1)']],
     ['stack', '/', '#methodology [data-play="integrations"]', ['.ui-app:nth-child(1) .ui-app__on']],
     ['application', '/careers/', '.hero__window[data-play="checklist"]', ['.ui-check:nth-child(2)', '.ui-check:nth-child(3)']],
-    ['notes', '/', '#services [data-play="notify"]', ['.ui-note:nth-child(1)', '.ui-note:nth-child(1)']],
+    ['handoff', '/', '#services [data-play="handoff"]', ['.play-ho__task[data-i="0"] .play-ho__btn', '.play-ho__task[data-i="3"] .play-ho__btn'], 1600],
     ['roles', '/careers/', '[data-play="roles"]', ['.ui-note:nth-child(2)']],
     ['chat', '/', '.hero__window[data-play="chat"]', async (p, f) => { await p.locator(`${f} .play-chat__q`).nth(1).click(); await p.waitForTimeout(3400); await p.locator(`${f} .play-chat__input`).fill('Any discount for 2,000 units?'); await p.keyboard.press('Enter'); }, 2600],
   ].map(([name, path, frame, presses, after = 900]) => ({

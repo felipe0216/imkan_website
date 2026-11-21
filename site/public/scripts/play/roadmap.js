@@ -1,211 +1,179 @@
-// "Build a strategy worth executing", round 3 (Felipe, 2026-11-21: "not impressive, it needs to be cool"). The card
-// promises the first move, and this shows it found:
-//   - A messy pile of ten initiatives. "Find the first move" sends each one flying to its place on an impact x effort
-//     chart; the low-impact ones fade out; a path draws from "Today" through the best three, and the first one is
-//     named under the chart: "Your first move".
-//   - The visitor can argue with the plan: drag any dot (or focus it and use the arrow keys) and the path and the
-//     first move follow.
-//   - At rest it plays itself (pile, then chart) so the idea reads without a touch; a press takes over, and untouched
-//     for a while it plays itself again. "Back to the pile" undoes it (no reset button).
-// The positions are illustrative. Without scripts the kit's checklist shows as before. Initiative names come from the
-// page where it has them; new words are TODO(wording) proposals, pending Felipe.
+// "Build a strategy worth executing", round 4 (Felipe, 2026-11-21: "make it a fun exercise ... connect different
+// activities to the right order in the roadmap, so they can learn what things should go first and why").
+// A small game: four empty stops on a track, six activity cards (the page's four steps and two traps). The prompt
+// asks what comes first, then next; a right card flies to its stop and the track fills; a wrong one shakes and stays,
+// a trap is ruled out. Every pick gets a one-line reason. Four stops filled: "Roadmap complete", in how many picks,
+// and "Play again". The card never changes height: a card that leaves the tray keeps its place.
+// Without scripts the kit's checklist shows as before. The four steps are the page's own; every other word is a
+// TODO(wording) proposal, pending Felipe.
 import { own, cue, reduced } from './lib.js';
 
-// TODO(wording): proposed, pending Felipe. Names marked (page) are already on the page; the rest are new.
-// i: impact, e: effort, both 0..1 (illustrative); x/y/r: the chip's place in the pile (%, %, degrees)
-const ITEMS = [
-  { n: 'Weekly pricing decisions', i: 0.9, e: 0.22, x: 30, y: 14, r: -6 },       // (page)
-  { n: 'Stock reorder decisions', i: 0.8, e: 0.5, x: 69, y: 18, r: 4 },          // (page)
-  { n: 'Alert when sales miss target', i: 0.62, e: 0.3, x: 33, y: 52, r: 3 },    // (page)
-  { n: 'Suggest the next step', i: 0.74, e: 0.72, x: 70, y: 37, r: -3 },         // (page)
-  { n: 'Success in plain numbers', i: 0.6, e: 0.34, x: 66, y: 70, r: 5 },        // (page)
-  { n: 'Show the trend beside each number', i: 0.48, e: 0.26, x: 38, y: 33, r: -2 }, // (page)
-  { n: 'Join the finance exports', i: 0.52, e: 0.58, x: 70, y: 87, r: -5 },
-  { n: 'Email the full dashboard', i: 0.2, e: 0.3, x: 28, y: 71, r: 6 },          // (page)
-  { n: 'Rebuild every report', i: 0.36, e: 0.78, x: 34, y: 88, r: 7 },
-  { n: 'A new data lake first', i: 0.18, e: 0.97, x: 72, y: 54, r: -4 },
+// TODO(wording): proposed, pending Felipe (the step labels are read from the page)
+const STEPS = [
+  { short: 'Decisions', right: 'Right. Everything starts with the decisions that move revenue or cost: they tell you which data matters.' },
+  { short: 'Data', right: 'Right. With the decisions chosen, trace the data each one needs and where it lives today.', early: 'Not yet. You cannot map data to decisions you have not chosen.' },
+  { short: 'Gaps', right: 'Right. Now check that data: its quality, who can reach it and which tools are missing.', early: 'Not yet. Check the data once you know which data each decision needs.' },
+  { short: 'Priorities', right: 'Right. With the gaps known, rank the work by impact and effort, and pick your first move.', early: 'Not yet. Rank the work once you know the gaps and what it takes to close them.' },
+];
+const TRAPS = [
+  { label: 'Buy a new data platform', why: 'Not a first step. A tool comes after you know the decisions and data it has to serve.' },
+  { label: 'Build dashboards for every team', why: 'Not a step. More charts do not mean more clarity: start from the decisions they should support.' },
 ];
 const T = {
-  invite: 'Try it: find the first move',
-  find: 'Find the first move',
-  back: 'Back to the pile',
-  first: 'Your first move',
-  then: 'Then',
-  today: 'Today',
-  impact: 'Impact ↑', effort: 'Effort →',
-  best: 'High impact, low effort',
-  // what the visitor is looking at, and what to do, in each state (Felipe, 2026-11-21: "I don't get what I need to do")
-  say: {
-    pile: 'Ten ideas your team could start on. Which one comes first? Press the button to sort them.',
-    chart: 'Each idea sits by its impact (higher is better) and its effort (further right is harder). The top-left one is your first move. Drag a dot to change the plan.',
-  },
-  dot: (n, i, e) => `${n}: impact ${i}, effort ${e}. Arrow keys move it.`,
-  level: (v) => (v >= 0.67 ? 'high' : v >= 0.34 ? 'medium' : 'low'),
+  invite: 'Try it: build the roadmap',
+  first: 'What comes first?',
+  next: 'What comes next?',
+  of: (n) => `Step ${n} of 4`,
+  done: 'Roadmap complete',
+  tries: (n) => (n === 4 ? 'Four picks, four right. A clean run.' : `Done in ${n} picks. Every wrong turn is one a real project avoids.`),
+  again: 'Play again',
+  pick: 'Pick the card that comes next.',
+  inOrder: 'Your roadmap, in order.',
 };
-const LOW = 0.4;            // below this impact an initiative fades out of the plan
-const EVERY = 3000;         // the self-playing pace (Felipe: 3 s)
-const IDLE = 9000;
+
+const shuffle = (a) => { const b = [...a]; for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
 
 export default function init(frame) {
   const kit = frame.querySelector('[data-ui="checklist"]');
   if (!kit) return;
   const title = kit.querySelector('.ui-title')?.textContent.trim() || '';
+  const labels = [...kit.querySelectorAll('.ui-check__label')].map((l) => l.textContent.trim());
+  if (labels.length !== 4) return;
   own(kit);
   for (let el = kit; el && el !== frame; el = el.parentElement) el.removeAttribute('aria-hidden');
 
-  const items = ITEMS.map((it) => ({ ...it }));
+  // the six cards: the four steps (by their order, 0..3) and the two traps
+  const CARDS = [...labels.map((label, i) => ({ id: `s${i}`, label, step: i })), ...TRAPS.map((t, i) => ({ id: `t${i}`, label: t.label, trap: i }))];
+
   const box = document.createElement('div');
-  box.className = 'ui ui-panel play-rm';
+  box.className = 'ui ui-panel play-game';
   box.innerHTML = `
-    <div class="play-rm__head"><div class="ui-title">${title}</div></div>
-    <p class="play-rm__say"><span data-for="false">${T.say.pile}</span><span data-for="true">${T.say.chart}</span></p>
-    <div class="play-rm__board">
-      <span class="play-rm__q" aria-hidden="true">${T.best}</span>
-      <span class="play-rm__low" aria-hidden="true"></span>
-      <span class="play-rm__ax play-rm__ax--y" aria-hidden="true">${T.impact}</span>
-      <span class="play-rm__ax play-rm__ax--x" aria-hidden="true">${T.effort}</span>
-      <svg class="play-rm__path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline class="play-rm__then-line" points=""/><polyline class="play-rm__first-line" points=""/></svg>
-      <span class="play-rm__today" aria-hidden="true">${T.today}</span>
-      ${items.map((it, k) => `<button type="button" class="play-rm__chip" data-k="${k}" style="--x:${it.x}%;--y:${it.y}%;--r:${it.r}deg"><span class="play-rm__badge" aria-hidden="true"></span><span class="play-rm__name">${it.n}</span></button>`).join('')}
-    </div>
-    <div class="play-rm__foot">
-      <p class="play-rm__out" aria-live="polite"></p>
-      <button type="button" class="play-rm__go"></button>
+    <div class="play-game__head"><div class="ui-title">${title}</div><span class="ui-spacer"></span><div class="ui-meta" data-game-count></div></div>
+    <ol class="play-game__track" aria-label="${title}">
+      ${STEPS.map((s, i) => `<li class="play-game__stop" data-stop="${i}"><span class="play-game__dot">${i + 1}</span><span class="play-game__name">${s.short}</span></li>`).join('')}
+    </ol>
+    <p class="play-game__ask" aria-hidden="true"></p>
+    <div class="play-game__tray" role="group"></div>
+    <div class="play-game__say" role="status" aria-live="polite"><span class="play-game__icon" aria-hidden="true"></span><span class="play-game__msg"></span></div>
+    <div class="play-game__end" hidden>
+      <div class="play-game__trophy" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <p class="play-game__done"><b>${T.done}</b><span data-game-tries></span></p>
+      <button type="button" class="play-game__again">${T.again}</button>
     </div>`;
   kit.replaceWith(box);
-  const board = box.querySelector('.play-rm__board');
-  const chips = [...box.querySelectorAll('.play-rm__chip')];
-  const poly = box.querySelector('.play-rm__first-line');
-  const thenLine = box.querySelector('.play-rm__then-line');
-  const out = box.querySelector('.play-rm__out');
-  const go = box.querySelector('.play-rm__go');
-  const sayEl = box.querySelector('.play-rm__say');
+  const track = box.querySelector('.play-game__track');
+  const stops = [...box.querySelectorAll('.play-game__stop')];
+  const tray = box.querySelector('.play-game__tray');
+  const ask = box.querySelector('.play-game__ask');
+  const say = box.querySelector('.play-game__say');
+  const msg = box.querySelector('.play-game__msg');
+  const end = box.querySelector('.play-game__end');
+  const count = box.querySelector('[data-game-count]');
+  const tries = box.querySelector('[data-game-tries]');
 
-  let plotted = false;
-  const narrow = () => board.getBoundingClientRect().width < 420;
-  // where a dot sits on the chart, in % of the board: effort across (left = low), impact up (top = high)
-  const px = (it) => 6 + it.e * 88, py = (it) => 8 + (1 - it.i) * 80;
-  const plan = () => items.map((it, k) => ({ it, k })).filter(({ it }) => it.i >= LOW)
-    .sort((a, b) => (b.it.i - b.it.e * 0.75) - (a.it.i - a.it.e * 0.75)).slice(0, 3);
+  let at = 0, picks = 0, played = false;
 
-  const paint = (draw = false) => {
-    box.classList.toggle('is-plotted', plotted);
-    sayEl.dataset.state = String(plotted);   // both lines are laid out in one cell, so the card's height never changes
-    const best = plotted ? plan() : [];
-    chips.forEach((c, k) => {
-      const it = items[k];
-      if (plotted) {
-        c.style.setProperty('--x', `${px(it)}%`);
-        c.style.setProperty('--y', `${py(it)}%`);
-        c.style.setProperty('--r', '0deg');
-      } else if (narrow()) {
-        // a phone's board is too narrow for two chips side by side: one per row, swaying left and right
-        c.style.setProperty('--x', `${50 + (k % 2 ? 9 : -9)}%`);
-        c.style.setProperty('--y', `${6 + k * 9.8}%`);
-      } else {
-        c.style.setProperty('--x', `${it.x}%`);
-        c.style.setProperty('--y', `${it.y}%`);
-        c.style.setProperty('--r', `${it.r}deg`);
-      }
-      const rank = best.findIndex((b) => b.k === k);
-      c.classList.toggle('is-low', plotted && it.i < LOW);
-      c.classList.toggle('is-pick', rank >= 0);
-      c.classList.toggle('is-first', rank === 0);
-      c.querySelector('.play-rm__badge').textContent = rank >= 0 ? String(rank + 1) : '';
-      c.setAttribute('aria-label', plotted ? T.dot(it.n, T.level(it.i), T.level(it.e)) : it.n);
-      c.tabIndex = plotted ? 0 : -1;
-    });
-    // the route: from "Today" (bottom left) straight to the first move, then, dashed, on to the next two
-    const pts = best.map(({ it }) => `${px(it)},${py(it)}`);
-    poly.setAttribute('points', plotted && pts.length ? `3,96 ${pts[0]}` : '');
-    thenLine.setAttribute('points', plotted ? pts.join(' ') : '');
-    if (plotted && draw && !reduced()) {
-      poly.style.transition = 'none';
-      poly.style.strokeDashoffset = '400';
-      void poly.getBoundingClientRect();
-      poly.style.transition = 'stroke-dashoffset 1100ms cubic-bezier(0.33, 1, 0.68, 1) 650ms';
-      poly.style.strokeDashoffset = '0';
-    } else { poly.style.transition = 'none'; poly.style.strokeDashoffset = '0'; }
-    out.innerHTML = plotted && best.length
-      ? `<span class="play-rm__label">${T.first}</span><b>${best[0].it.n}</b>${best.length > 1 ? `<span class="play-rm__then">${T.then}: ${best.slice(1).map((b) => b.it.n).join(', ')}</span>` : ''}`
-      : '';
-    go.innerHTML = plotted
-      ? `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8a4.5 4.5 0 1 0 1.4-3.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M3 2.5v3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>${T.back}</span>`
-      : `<span>${T.find}</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-    go.classList.toggle('is-back', plotted);
+  const paint = () => {
+    stops.forEach((s, i) => { s.classList.toggle('is-done', i < at); s.classList.toggle('is-next', i === at); });
+    track.style.setProperty('--p', `${(Math.min(at, 3) / 3) * 100}%`);
+    count.textContent = T.of(Math.min(at + 1, 4));
+    ask.textContent = at >= 4 ? T.inOrder : at === 0 ? T.first : T.next;
   };
-  const toggle = () => { plotted = !plotted; paint(true); };
-
-  // the visitor's turn: the button, dragging a dot, the arrow keys on a dot
-  let touched = -Infinity, played = false;
-  const mine = () => { touched = performance.now(); if (!played) { played = true; pill.played(); } };
-  go.addEventListener('click', () => { mine(); toggle(); });
-
-  let drag = null;
-  const setFrom = (k, x, y) => {
-    const r = board.getBoundingClientRect();
-    const fx = Math.min(1, Math.max(0, ((x - r.left) / r.width * 100 - 6) / 88));
-    const fy = Math.min(1, Math.max(0, 1 - ((y - r.top) / r.height * 100 - 8) / 80));
-    items[k].e = fx; items[k].i = fy;
+  const deal = () => {
+    at = 0; picks = 0;
+    tray.innerHTML = shuffle(CARDS).map((c) => `<button type="button" class="play-game__card" data-card="${c.id}">${c.label}</button>`).join('');
+    tray.setAttribute('aria-label', T.pick);
+    say.className = 'play-game__say';
+    msg.textContent = '';
+    end.hidden = true;
+    tray.hidden = false;
+    box.classList.remove('is-complete');
     paint();
   };
-  board.addEventListener('pointerdown', (e) => {
-    const c = e.target.closest('.play-rm__chip');
-    if (!c || !plotted || e.button !== 0) return;
-    mine();
-    drag = { k: +c.dataset.k, id: e.pointerId };
-    c.setPointerCapture?.(e.pointerId);
-    c.classList.add('is-dragging');
-    e.preventDefault();
-  });
-  board.addEventListener('pointermove', (e) => { if (drag && e.pointerId === drag.id) { touched = performance.now(); setFrom(drag.k, e.clientX, e.clientY); } });
-  const end = () => { if (!drag) return; chips[drag.k].classList.remove('is-dragging'); drag = null; };
-  board.addEventListener('pointerup', end);
-  board.addEventListener('pointercancel', end);
-  board.addEventListener('keydown', (e) => {
-    const c = e.target.closest('.play-rm__chip');
-    const d = { ArrowUp: [0, 0.08], ArrowDown: [0, -0.08], ArrowLeft: [-0.08, 0], ArrowRight: [0.08, 0] }[e.key];
-    if (!c || !d || !plotted) return;
-    e.preventDefault();
-    mine();
-    const it = items[+c.dataset.k];
-    it.e = Math.min(1, Math.max(0, it.e + d[0]));
-    it.i = Math.min(1, Math.max(0, it.i + d[1]));
-    paint();
-  });
+  const tell = (kind, text) => {
+    say.className = `play-game__say is-${kind}`;
+    msg.textContent = text;
+    void say.offsetWidth;                       // replay the pop for the same kind twice in a row
+    say.classList.add('is-pop');
+  };
 
-  // at rest: pile, then chart, every few seconds, while it is on screen and untouched
-  let visible = false, beat = 0;
-  setInterval(() => {
-    if (!visible || document.hidden || reduced() || performance.now() - touched < IDLE) return;
-    beat++;
-    // the pile holds one beat, the chart two (it has more to read)
-    if (!plotted || beat % 2 === 0) { if (plotted) items.forEach((it, k) => { it.i = ITEMS[k].i; it.e = ITEMS[k].e; }); toggle(); beat = 0; }
-  }, EVERY);
-  new IntersectionObserver((es) => { visible = es.some((e) => e.isIntersecting); }, { threshold: 0.5 }).observe(box);
-  const pill = cue(frame, { corner: true, invite: T.invite, onStart: () => { go.focus({ preventScroll: true }); if (!plotted) go.click(); else mine(); } });
-  if (reduced()) box.classList.add('is-still');
-  paint();
-  // the card keeps the height of its taller state (the chart, with its first move named), so sorting never resizes
-  // it, nor the card beside it (the grid's rows are equal)
+  // a right card flies to its stop (a copy of it, shrinking into the stop's dot), then the stop fills
+  const fly = (card, stop) => {
+    if (reduced() || !card.animate) return Promise.resolve();
+    const a = card.getBoundingClientRect(), b = stop.querySelector('.play-game__dot').getBoundingClientRect();
+    const ghost = card.cloneNode(true);
+    ghost.className = 'play-game__card play-game__ghost';
+    ghost.removeAttribute('data-card');
+    ghost.setAttribute('aria-hidden', 'true');
+    ghost.tabIndex = -1;
+    Object.assign(ghost.style, { left: `${a.left}px`, top: `${a.top}px`, width: `${a.width}px`, height: `${a.height}px` });
+    document.body.append(ghost);
+    const dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = b.top + b.height / 2 - (a.top + a.height / 2);
+    return ghost.animate([
+      { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+      { transform: `translate(${dx}px, ${dy}px) scale(0.2)`, opacity: 0.3 },
+    ], { duration: 560, easing: 'cubic-bezier(0.5, 0, 0.2, 1)' }).finished.then(() => ghost.remove(), () => ghost.remove());
+  };
+
+  const pick = async (card) => {
+    if (card.disabled || box.classList.contains('is-busy')) return;
+    if (!played) { played = true; pill.played(); }
+    picks++;
+    const c = CARDS.find((x) => x.id === card.dataset.card);
+    if (c.trap != null) {
+      card.classList.add('is-out');
+      card.disabled = true;
+      tell('no', TRAPS[c.trap].why);
+      tray.querySelector('.play-game__card:not(:disabled)')?.focus({ preventScroll: true });
+      return;
+    }
+    if (c.step !== at) {
+      card.classList.remove('is-shake'); void card.offsetWidth; card.classList.add('is-shake');
+      setTimeout(() => card.classList.remove('is-shake'), 450);
+      tell('no', STEPS[c.step].early);
+      return;
+    }
+    // right
+    box.classList.add('is-busy');
+    tell('yes', STEPS[at].right);
+    const flight = fly(card, stops[at]);      // measured before the card leaves the tray
+    card.classList.add('is-placed');
+    card.disabled = true;
+    await flight;
+    box.classList.remove('is-busy');
+    at++;
+    paint();
+    if (at === 4) {
+      box.classList.add('is-complete');
+      tries.textContent = T.tries(picks);
+      setTimeout(() => {
+        tray.hidden = true;
+        end.hidden = false;
+        box.querySelector('.play-game__again').focus({ preventScroll: true });
+      }, reduced() ? 0 : 1600);
+      return;
+    }
+    // the focus stays in the tray, on the first card still to play
+    tray.querySelector('.play-game__card:not(:disabled)')?.focus({ preventScroll: true });
+  };
+
+  tray.addEventListener('click', (e) => { const card = e.target.closest('.play-game__card'); if (card) pick(card); });
+  box.querySelector('.play-game__again').addEventListener('click', () => { deal(); tray.querySelector('.play-game__card')?.focus({ preventScroll: true }); });
+  // the card's height is set by its tallest state (the tray of six cards and a two-line reason), so a pick never
+  // resizes it, nor the card beside it; measured again when the width changes or the fonts arrive
   const settle = () => {
-    const was = plotted;
-    box.classList.add('is-measuring');   // no transitions while it measures, so nothing moves on screen
     box.style.minBlockSize = '';
-    plotted = true; paint();
-    const tall = box.offsetHeight;
-    plotted = was; paint();
-    box.style.minBlockSize = `${Math.max(tall, box.offsetHeight)}px`;
-    void box.offsetHeight;
-    box.classList.remove('is-measuring');
+    const was = [tray.hidden, end.hidden, msg.textContent];
+    tray.hidden = false; end.hidden = true;
+    msg.textContent = [...STEPS.map((s) => s.right), ...STEPS.slice(1).map((s) => s.early), ...TRAPS.map((t) => t.why)].sort((x, y) => y.length - x.length)[0];
+    const h = box.offsetHeight;
+    [tray.hidden, end.hidden, msg.textContent] = was;
+    box.style.minBlockSize = `${Math.ceil(h)}px`;
   };
+  const pill = cue(frame, { corner: true, invite: T.invite, onStart: () => { const c = tray.querySelector('.play-game__card'); c?.focus({ preventScroll: true }); c?.classList.add('is-pointed'); } });
+  deal();
   settle();
-  document.fonts?.ready.then(() => { settle(); });
-  // the pile's layout depends on the board's width (one chip per row on a phone): laid out again when it changes
-  let wide = null, lastW = 0;
-  new ResizeObserver(() => {
-    const w = Math.round(box.getBoundingClientRect().width);
-    if (w && w !== lastW) { lastW = w; settle(); }
-    const n = narrow(); if (n !== wide) { wide = n; if (!plotted) paint(); }
-  }).observe(box);
+  document.fonts?.ready.then(settle);
+  let lastW = 0;
+  new ResizeObserver(() => { const w = Math.round(box.getBoundingClientRect().width); if (w && w !== lastW) { lastW = w; settle(); } }).observe(box);
 }

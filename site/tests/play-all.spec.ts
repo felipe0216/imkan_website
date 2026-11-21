@@ -68,18 +68,6 @@ test.describe('framed demos', () => {
     await axe(page, frame);
   });
 
-  test('notes: a handled note leaves; all handled, they come back', async ({ page }) => {
-    const frame = '#services [data-play="notify"]';
-    const f = await open(page, '/', frame);
-    for (let n = 3; n > 0; n--) {
-      await expect(f.locator('.ui-note')).toHaveCount(n);
-      await f.locator('.ui-note').first().click();
-      await expect(f.locator('.ui-note')).toHaveCount(n - 1);
-    }
-    await expect(f.locator('.ui-note')).toHaveCount(3, { timeout: 12000 });   // they come back one every 3 s
-    await axe(page, frame);
-  });
-
   // the self-playing demos (round 2, 2026-11-21) play by themselves at rest; their tests run with reduced motion, where
   // nothing plays by itself and every change is immediate, so what the test presses is the only thing that moves
   const still = async (page: Page) => { await page.emulateMedia({ reducedMotion: 'reduce' }); };
@@ -119,35 +107,54 @@ test.describe('framed demos', () => {
     await cueLeaves(f);
   });
 
-  test('roadmap: the pile becomes a chart with a first move; arrow keys argue with it', async ({ page }) => {
+  test('roadmap game: a wrong pick says why not, a trap is ruled out, the right order completes it', async ({ page }) => {
     await still(page);
     const frame = '#services [data-play="roadmap"]';
     const f = await open(page, '/', frame);
-    await f.locator('.play-rm__go').click();
-    await expect(f.locator('.play-rm')).toHaveClass(/is-plotted/);
-    await expect(f.locator('.play-rm__out b')).toHaveText('Weekly pricing decisions');
-    await expect(f.locator('.play-rm__chip.is-pick')).toHaveCount(3);
-    // "Alert when sales miss target", moved up and left: it becomes the first move
-    await f.locator('.play-rm__chip[data-k="2"]').focus();
-    for (const key of ['ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowLeft', 'ArrowLeft', 'ArrowLeft']) await page.keyboard.press(key);
-    await expect(f.locator('.play-rm__out b')).toHaveText('Alert when sales miss target');
+    await expect(f.locator('.play-game__ask')).toHaveText('What comes first?');
+    await f.locator('[data-card="s2"]').click();                  // too early
+    await expect(f.locator('.play-game__say')).toHaveClass(/is-no/);
+    await expect(f.locator('.play-game__msg')).toContainText('Not yet');
+    await f.locator('[data-card="t0"]').click();                  // a trap
+    await expect(f.locator('[data-card="t0"]')).toBeDisabled();
+    for (const id of ['s0', 's1', 's2']) {
+      await f.locator(`[data-card="${id}"]`).click();
+      await expect(f.locator('.play-game__say')).toHaveClass(/is-yes/);
+    }
     await axe(page, frame);
     await cueLeaves(f);
-    await f.locator('.play-rm__go').click();
-    await expect(f.locator('.play-rm')).not.toHaveClass(/is-plotted/);
+    await f.locator('[data-card="s3"]').click();
+    await expect(f.locator('.play-game__stop.is-done')).toHaveCount(4);
+    await expect(f.locator('.play-game__done')).toContainText('Roadmap complete');
+    await expect(f.locator('[data-game-tries]')).toContainText('6 picks');
+    await f.locator('.play-game__again').click();
+    await expect(f.locator('.play-game__stop.is-done')).toHaveCount(0);
+    await expect(f.locator('.play-game__card:disabled')).toHaveCount(0);
   });
 
-  test('roadmap: a dot dragged to the top-left becomes the first move', async ({ page }) => {
+  test('hand it off: tasks go to the agent and the hours add up; judgement stays with the team', async ({ page }) => {
     await still(page);
-    const f = await open(page, '/', '#services [data-play="roadmap"]');
-    await f.locator('.play-rm__go').click();
-    const dot = f.locator('.play-rm__chip[data-k="1"]');
-    const a = (await dot.boundingBox())!, b = (await f.locator('.play-rm__board').boundingBox())!;
-    await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2);
-    await page.mouse.down();
-    await page.mouse.move(b.x + b.width * 0.12, b.y + b.height * 0.1, { steps: 12 });
-    await page.mouse.up();
-    await expect(f.locator('.play-rm__out b')).toHaveText('Stock reorder decisions');
+    const frame = '#services [data-play="handoff"]';
+    const f = await open(page, '/', frame);
+    await expect(f.locator('.play-ho__hours')).toHaveText('0 h');
+    await f.locator('.play-ho__task[data-i="0"] .play-ho__btn').click();
+    await expect(f.locator('.play-ho__task[data-i="0"]')).toHaveClass(/is-agent/);
+    await expect(f.locator('.play-ho__hours')).toHaveText('3 h');
+    await expect(f.locator('.play-ho__say')).toContainText('Invoice fields extracted');
+    await f.locator('.play-ho__task[data-i="3"] .play-ho__btn').click();
+    await expect(f.locator('.play-ho__task[data-i="3"]')).toHaveClass(/is-kept/);
+    await expect(f.locator('.play-ho__say')).toContainText('judgement');
+    await expect(f.locator('.play-ho__hours')).toHaveText('3 h');
+    for (const i of [1, 2, 4]) {
+      await f.locator(`.play-ho__task[data-i="${i}"] .play-ho__btn`).click();
+      await expect(f.locator(`.play-ho__task[data-i="${i}"]`)).toHaveClass(/is-agent/);
+    }
+    await expect(f.locator('.play-ho__hours')).toHaveText('11 h');
+    await expect(f.locator('.play-ho__again')).toBeVisible();
+    await axe(page, frame);
+    await cueLeaves(f);
+    await f.locator('.play-ho__again').click();
+    await expect(f.locator('.play-ho__hours')).toHaveText('0 h');
   });
 
   test('proof of value: the weeks tick the commitments off; the cost stays 0', async ({ page }) => {
@@ -196,7 +203,8 @@ test.describe('framed demos', () => {
     const h = (sel: string) => page.locator(sel).evaluate((el) => Math.round(el.getBoundingClientRect().height));
     const cases: [string, string[]][] = [
       ['#methodology [data-play="partner"]', ['.play-pv__switch [data-who="vendor"]', '.play-pv__switch [data-who="partner"]']],
-      ['#services [data-play="roadmap"]', ['.play-rm__go', '.play-rm__go']],
+      ['#services [data-play="roadmap"]', ['[data-card="s2"]', '[data-card="t0"]', '[data-card="s0"]']],
+      ['#services [data-play="handoff"]', ['.play-ho__task[data-i="0"] .play-ho__btn', '.play-ho__task[data-i="3"] .play-ho__btn']],
       ['#why-us [data-play="voice"]', ['[data-lang="ar"]', '[data-lang="ar"]']],
     ];
     for (const [frame, presses] of cases) {

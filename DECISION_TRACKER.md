@@ -163,3 +163,10 @@ Felipe: the bar, the counter and the status labels were not aligned. Now one clo
 - the run's chip names the running step (the page's own step names);
 - at rest the queue follows the run: the alert being run is selected and Reviewing, then Escalated or Cleared by its risk;
 - after the four alerts, they start over as New. The kit's own window loop no longer runs beside ours.
+
+### 2026-11-21: roadmap game and "Hand it off" (D-033)
+Approved by Felipe ("Pick the next step", "Hand it off", push with the rest):
+- **Roadmap:** a game. Four empty stops, six cards: the page's four steps and two traps. Each pick gets a one-line reason: right, not yet, or not a step. A right card flies to its stop; finish with "Roadmap complete" and Play again.
+- **Deploy AI that saves you time:** a team's week of five tasks, tagged copying, checking, chasing (the card's words) or judgement. "Hand off" flies a task's hours into an hours-back meter, and the agent shows the work done (the page's own notes). The judgement task stays with the team. The hours are illustrative.
+
+Both cards keep their tallest height. New text: wording changes 104 to 112, pending.

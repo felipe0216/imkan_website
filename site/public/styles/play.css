@@ -201,83 +201,71 @@ html .play-chat__send:focus-visible { outline: 2px solid var(--p-action); outlin
 }
 @media (prefers-reduced-motion: reduce) { html .play-dots i { animation: none; } }
 
-/* the data strategy roadmap, round 3 (Felipe, 2026-11-21: "it needs to be cool"): a pile of initiatives that fly
-   to their places on an impact x effort chart; the low ones fade, a path draws through the best three. */
+/* the data strategy roadmap, round 4 (Felipe, 2026-11-21: "a fun exercise ... the right order ... and why"): a game.
+   Four stops on a track, six cards; a right card flies into its stop, a wrong one shakes, a trap is ruled out, and
+   each pick gets its reason in a bubble below. In the site's plum, with the muted brick for "not yet". */
 html .panel[data-play="roadmap"] > .stage > * { max-width: 560px; }
-html .play-rm { display: flex; flex-direction: column; inline-size: 100%; padding: var(--s-4) var(--s-5) var(--s-4); color: var(--p-ink); font-family: var(--font-text); }
-html .play-rm__head { display: flex; align-items: center; gap: var(--s-2); }
-html .play-rm__say { display: grid; margin: 6px 0 0; font-size: 13px; line-height: 20px; color: var(--u-muted); }
-html .play-rm__say > span { grid-area: 1 / 1; transition: opacity 300ms ease; }
-html .play-rm__say[data-state="true"] > [data-for="false"], html .play-rm__say[data-state="false"] > [data-for="true"] { visibility: hidden; opacity: 0; }
-html .play-rm__board { position: relative; block-size: 250px; margin-block-start: var(--s-3); border-radius: 12px; background: color-mix(in oklab, var(--p-ink) 3%, #fff); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--p-ink) 8%, transparent); overflow: hidden; }
-html .play-rm__q, html .play-rm__low, html .play-rm__ax, html .play-rm__today, html .play-rm__path { opacity: 0; transition: opacity 500ms ease 300ms; pointer-events: none; }
-html .play-rm.is-plotted :is(.play-rm__q, .play-rm__low, .play-rm__ax, .play-rm__today) { opacity: 1; }
-html .play-rm.is-plotted .play-rm__path { opacity: 1; transition-delay: 0s; }
-html .play-rm__q { position: absolute; inset-block-start: 6px; inset-inline-start: 6px; inline-size: calc(50% - 9px); block-size: calc(48% - 6px); padding: 6px 8px; border-radius: 8px; background: color-mix(in oklab, var(--p-action) 8%, transparent); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--p-action) 25%, transparent); color: var(--p-action); font-size: 11px; line-height: 14px; font-weight: 600; }
-html .play-rm__low { position: absolute; inset: 56% 0 0 0; background: repeating-linear-gradient(-45deg, color-mix(in oklab, var(--p-ink) 5%, transparent) 0 6px, transparent 6px 12px); }
-html .play-rm__ax { position: absolute; color: var(--u-muted); font-size: 11px; line-height: 14px; font-weight: 600; }
-html .play-rm__ax--y { inset-block-start: 8px; inset-inline-end: 10px; }
-html .play-rm__ax--x { inset-block-end: 6px; inset-inline-end: 10px; }
-html .play-rm__today { position: absolute; inset-block-end: 6px; inset-inline-start: 8px; color: var(--p-action); font-size: 11px; line-height: 14px; font-weight: 700; }
-html .play-rm__path { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
-html .play-rm__path polyline { fill: none; stroke: var(--p-action); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-html .play-rm__first-line { stroke-dasharray: 400; }
-html .play-rm__then-line { stroke-width: 1.5; stroke-dasharray: 4 4; opacity: 0.7; }
-html .play-rm__chip {
-  position: absolute; inset-inline-start: var(--x); inset-block-start: var(--y); z-index: 2;
-  display: inline-flex; align-items: center; justify-content: center; gap: 0; min-block-size: 14px; min-inline-size: 14px; padding: 5px 10px;
-  border: 1px solid color-mix(in oklab, var(--p-ink) 16%, transparent); border-radius: 999px; background: #fff; color: var(--p-ink);
-  font: 500 12px/16px var(--font-text); white-space: nowrap; cursor: default; touch-action: none;
-  transform: translate(-50%, -50%) rotate(var(--r, 0deg)); box-shadow: 0 2px 6px -2px rgb(40 20 40 / 0.25);
-  transition: inset-inline-start 900ms cubic-bezier(0.34, 1.3, 0.64, 1), inset-block-start 900ms cubic-bezier(0.34, 1.3, 0.64, 1), transform 700ms ease, padding 500ms ease, background-color 400ms ease, border-color 400ms ease, opacity 400ms ease, min-inline-size 400ms ease, min-block-size 400ms ease;
+html .play-game { --no: #9a4a3a; display: flex; flex-direction: column; inline-size: 100%; padding: var(--s-4) var(--s-5) var(--s-4); color: var(--p-ink); font-family: var(--font-text); }
+html .play-game__head { display: flex; align-items: center; gap: var(--s-2); }
+html .play-game__track { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: var(--s-4) 0 0; padding: 0; list-style: none; }
+html .play-game__track::before, html .play-game__track::after { content: ""; position: absolute; inset-block-start: 16px; inset-inline-start: 12.5%; block-size: 3px; border-radius: 2px; }
+html .play-game__track::before { inline-size: 75%; background: repeating-linear-gradient(90deg, color-mix(in oklab, var(--p-ink) 22%, transparent) 0 6px, transparent 6px 11px); }
+html .play-game__track::after { inline-size: calc(var(--p, 0%) * 0.75); background: var(--p-action); transition: inline-size 600ms cubic-bezier(0.22, 1, 0.36, 1); }
+html .play-game__stop { position: relative; z-index: 1; display: grid; justify-items: center; gap: 6px; }
+html .play-game__dot {
+  display: grid; place-items: center; inline-size: 34px; block-size: 34px; border-radius: 50%; border: 2px dashed color-mix(in oklab, var(--p-ink) 30%, transparent);
+  background: #fff; color: var(--u-muted); font-size: 13px; font-weight: 700; transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease, transform 300ms cubic-bezier(0.34, 1.6, 0.64, 1);
 }
-html .play-rm__chip:nth-of-type(1) { transition-delay: 0ms; }
-html .play-rm__chip:nth-of-type(2) { transition-delay: 45ms; }
-html .play-rm__chip:nth-of-type(3) { transition-delay: 90ms; }
-html .play-rm__chip:nth-of-type(4) { transition-delay: 135ms; }
-html .play-rm__chip:nth-of-type(5) { transition-delay: 180ms; }
-html .play-rm__chip:nth-of-type(6) { transition-delay: 225ms; }
-html .play-rm__chip:nth-of-type(7) { transition-delay: 270ms; }
-html .play-rm__chip:nth-of-type(8) { transition-delay: 315ms; }
-html .play-rm__chip:nth-of-type(9) { transition-delay: 360ms; }
-html .play-rm__chip:nth-of-type(10) { transition-delay: 405ms; }
-html .play-rm__name { display: inline-block; max-inline-size: 240px; overflow: hidden; transition: max-inline-size 500ms ease, opacity 300ms ease; }
-html .play-rm__badge { display: none; }
-/* on the chart: each chip becomes a dot; the best three carry their order, the first one its name */
-/* on the chart a chip is a 24px target (WCAG 2.5.8) with the visible dot drawn inside it */
-html .play-rm.is-plotted .play-rm__chip { padding: 0; background: transparent; border-color: transparent; box-shadow: none; cursor: grab; }
-html .play-rm__chip::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: color-mix(in oklab, var(--p-ink) 45%, #fff); box-shadow: 0 0 0 2px #fff; opacity: 0; transition: opacity 300ms ease, inset 300ms ease, background-color 300ms ease; }
-html .play-rm.is-plotted .play-rm__chip::before { opacity: 1; }
-html .play-rm.is-plotted .play-rm__chip { inline-size: 24px; block-size: 24px; }
-html .play-rm.is-plotted .play-rm__name { position: absolute; max-inline-size: 0; opacity: 0; pointer-events: none; }
-html .play-rm.is-plotted .play-rm__chip.is-low { opacity: 0.3; }
-html .play-rm.is-plotted .play-rm__chip.is-pick::before { inset: 1px; background: color-mix(in oklab, var(--p-action) 70%, #fff); }
-html .play-rm.is-plotted .play-rm__chip.is-pick .play-rm__badge { position: relative; display: inline; color: #fff; font-size: 11px; font-weight: 700; }
-html .play-rm.is-plotted .play-rm__chip.is-first::before { inset: 0; background: var(--p-action); }
-html .play-rm.is-plotted .play-rm__chip.is-first { z-index: 3; inline-size: 28px; block-size: 28px; animation: play-rm-ping 1800ms ease-out 1200ms infinite; }
-@keyframes play-rm-ping { 0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--p-action) 45%, transparent); } 70%, 100% { box-shadow: 0 0 0 12px color-mix(in oklab, var(--p-action) 0%, transparent); } }
-html .play-rm.is-plotted .play-rm__chip.is-dragging { cursor: grabbing; transition: none; z-index: 4; }
-/* a dot's name shows while it is pointed at or focused */
-html .play-rm.is-plotted .play-rm__chip:is(:hover, :focus-visible) .play-rm__name { position: absolute; inset-block-end: calc(100% + 6px); inset-inline-start: 50%; transform: translateX(-50%); max-inline-size: none; padding: 3px 8px; border-radius: 6px; background: var(--p-ink); color: #fff; opacity: 1; }
-html .play-rm__chip:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
-html .play-rm__foot { display: flex; align-items: center; gap: var(--s-3); min-block-size: 58px; margin-block-start: auto; padding-block-start: var(--s-3); }
-html .play-rm__out { display: grid; gap: 1px; flex: 1; min-inline-size: 0; margin: 0; font-size: 13px; line-height: 18px; }
-html .play-rm__out b { font-size: 16px; line-height: 22px; font-weight: 600; color: var(--p-action); }
-html .play-rm__label { font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--u-muted); }
-html .play-rm__then { color: var(--u-muted); }
-html .play-rm__go {
-  display: inline-flex; align-items: center; gap: 8px; flex: none; min-block-size: 40px; margin-inline-start: auto; padding: 0 var(--s-4);
-  border: 1px solid var(--p-action); border-radius: 999px; background: var(--p-action); color: var(--p-action-ink);
+html .play-game__name { font-size: 12px; line-height: 16px; color: var(--u-muted); transition: color 300ms ease; }
+html .play-game__stop.is-next .play-game__dot { border-style: solid; border-color: var(--p-action); color: var(--p-action); animation: play-game-wait 1600ms ease-in-out infinite; }
+html .play-game__stop.is-done .play-game__dot { border: 2px solid var(--p-action); background: var(--p-action); color: var(--p-action-ink); transform: scale(1.1); animation: none; }
+html .play-game__stop.is-done .play-game__name { color: var(--p-ink); font-weight: 600; }
+@keyframes play-game-wait { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--p-action) 35%, transparent); } 50% { box-shadow: 0 0 0 7px color-mix(in oklab, var(--p-action) 0%, transparent); } }
+html .play-game.is-complete .play-game__stop .play-game__dot { animation: play-game-cheer 700ms cubic-bezier(0.34, 1.6, 0.64, 1) both; }
+html .play-game.is-complete .play-game__stop:nth-child(2) .play-game__dot { animation-delay: 90ms; }
+html .play-game.is-complete .play-game__stop:nth-child(3) .play-game__dot { animation-delay: 180ms; }
+html .play-game.is-complete .play-game__stop:nth-child(4) .play-game__dot { animation-delay: 270ms; }
+@keyframes play-game-cheer { 0% { transform: scale(1.1); } 40% { transform: scale(1.35) translateY(-4px); } 100% { transform: scale(1.1); } }
+html .play-game__ask { margin: var(--s-4) 0 var(--s-2); font-size: 17px; line-height: 24px; font-weight: 600; }
+html .play-game__tray { display: flex; flex-wrap: wrap; gap: 8px; }
+html .play-game__card {
+  min-block-size: 40px; padding: 8px 14px; border: 1px solid color-mix(in oklab, var(--p-ink) 16%, transparent); border-radius: 10px;
+  background: #fff; color: var(--p-ink); font: 500 14px/20px var(--font-text); text-align: start; cursor: pointer;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.06); transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, opacity 300ms ease;
+}
+@media (hover: hover) { html .play-game__card:not(:disabled):hover { transform: translateY(-2px); border-color: var(--p-action); box-shadow: 0 6px 14px -8px rgb(40 20 40 / 0.45); } }
+html .play-game__card:active:not(:disabled) { transform: scale(0.97); }
+html .play-game__card:focus-visible, html .play-game__card.is-pointed { outline: 2px solid var(--p-action); outline-offset: 2px; }
+html .play-game__card.is-placed { display: none; }   /* the card keeps its height (set from script), so the page never moves */
+html .play-game__card.is-out { border-style: dashed; background: transparent; color: var(--u-muted); text-decoration: line-through; cursor: default; box-shadow: none; }
+html .play-game__card.is-shake { animation: play-game-shake 420ms ease; border-color: var(--no); }
+@keyframes play-game-shake { 0%, 100% { transform: none; } 20% { transform: translateX(-6px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+html .play-game__ghost { position: fixed; z-index: 60; margin: 0; pointer-events: none; border-color: var(--p-action); box-shadow: 0 10px 24px -8px rgb(40 20 40 / 0.45); }
+html .play-game__say { display: flex; align-items: flex-start; gap: 10px; margin-block-start: var(--s-4); padding: 10px 12px; border-radius: 12px; font-size: 14px; line-height: 20px; visibility: hidden; }
+html .play-game__say.is-yes, html .play-game__say.is-no { visibility: visible; }
+html .play-game__say.is-yes { background: color-mix(in oklab, var(--p-action) 9%, #fff); }
+html .play-game__say.is-no { background: color-mix(in oklab, var(--no) 9%, #fff); }
+html .play-game__say.is-pop { animation: play-game-pop 320ms cubic-bezier(0.34, 1.5, 0.64, 1); }
+@keyframes play-game-pop { from { transform: translateY(6px) scale(0.98); opacity: 0.4; } to { transform: none; opacity: 1; } }
+html .play-game__icon { display: grid; place-items: center; flex: none; inline-size: 20px; block-size: 20px; margin-block-start: 0; border-radius: 50%; color: #fff; font-size: 12px; font-weight: 700; line-height: 1; }
+html .play-game__say.is-yes .play-game__icon { background: var(--p-action); }
+html .play-game__say.is-yes .play-game__icon::before { content: "\2713"; }
+html .play-game__say.is-no .play-game__icon { background: var(--no); }
+html .play-game__say.is-no .play-game__icon::before { content: "\2715"; }
+html .play-game__end { display: grid; justify-items: center; gap: var(--s-2); margin-block-start: var(--s-2); text-align: center; animation: play-game-pop 420ms cubic-bezier(0.34, 1.5, 0.64, 1); }
+html .play-game__end[hidden] { display: none; }
+html .play-game__trophy { display: grid; place-items: center; inline-size: 48px; block-size: 48px; border-radius: 50%; background: var(--p-action); color: var(--p-action-ink); box-shadow: 0 0 0 8px color-mix(in oklab, var(--p-action) 14%, transparent); }
+html .play-game__trophy svg { inline-size: 26px; block-size: 26px; }
+html .play-game__done { display: grid; gap: 2px; margin: 0; font-size: 14px; line-height: 20px; color: var(--u-muted); }
+html .play-game__done b { color: var(--p-ink); font-size: 18px; line-height: 24px; }
+html .play-game__again {
+  min-block-size: 40px; padding: 0 var(--s-5); border: 1px solid var(--p-action); border-radius: 999px; background: var(--p-action); color: var(--p-action-ink);
   font: 500 14px/1 var(--font-text); cursor: pointer; transition: transform 90ms ease;
 }
-html .play-rm__go svg { inline-size: 14px; block-size: 14px; flex: none; }
-html .play-rm__go.is-back { background: transparent; color: var(--p-ink); border-color: color-mix(in oklab, var(--p-ink) 24%, transparent); }
-@media (hover: hover) { html .play-rm__go:hover { filter: brightness(0.94); } }
-html .play-rm__go:active { transform: scale(0.97); }
-html .play-rm__go:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
-html .play-rm.is-still *, html .play-rm.is-still *::before { transition: none !important; animation: none !important; }
-@media (prefers-reduced-motion: reduce) { html .play-rm * { transition: none !important; animation: none !important; } }
-@media (max-width: 639px) { html .play-rm__board { block-size: 280px; } html .play-rm__foot { flex-direction: column; align-items: stretch; } html .play-rm__go { justify-content: center; margin-inline-start: 0; } html .play-rm__chip { font-size: 11px; padding: 4px 8px; } }
+html .play-game__again:active { transform: scale(0.97); }
+html .play-game__again:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
+@media (max-width: 639px) { html .play-game__card { flex: 1 1 calc(50% - 4px); font-size: 13px; line-height: 18px; } html .play-game__name { font-size: 11px; } }
+@media (prefers-reduced-motion: reduce) { html .play-game *, html .play-game__say { animation: none !important; transition: none !important; } }
 
 /* the voice agent: the orb and the caption can be pressed */
 html .has-play-cue .ui-voice__orb.play-hit { border-radius: 50%; }
@@ -476,8 +464,76 @@ html .play-pf__weeks { display: flex; justify-content: space-between; padding-in
 /* the run plays slower than the system does (3 s a step); the seconds stay the system's, so it says so */
 html .play-slow { display: inline-flex; align-items: center; margin-inline-end: 8px; padding: 1px 8px; border-radius: 999px; background: color-mix(in oklab, var(--p-action) 10%, #fff); color: var(--p-action); font-size: 11px; line-height: 16px; font-weight: 600; }
 html .play-slow[hidden] { display: none; }
-html .play-rm.is-measuring *, html .play-rm.is-measuring *::before { transition: none !important; animation: none !important; }
 /* the voice transcript keeps the height of its longer language (set from script), so switching never resizes it */
 html .play-voice__said { align-content: start; }
 html .play-voice__note:not(.is-on) { visibility: hidden; }   /* keeps its line, so it never resizes the card */
 html .play-voice__note { min-block-size: 16px; }
+
+/* "Deploy AI that saves you time", round 3: hand it off. A team's week of tasks, each tagged copying, checking,
+   chasing or judgement; "Hand off" flies its hours into the meter and the agent shows the work done; the judgement
+   task stays with the team. */
+html .panel[data-play="handoff"] > .stage > * { max-width: 540px; }
+html .play-ho { inline-size: 100%; padding: var(--s-4) var(--s-5) var(--s-4); color: var(--p-ink); font-family: var(--font-text); }
+html .play-ho__head { display: flex; align-items: center; gap: var(--s-2); }
+html .play-ho__meter { display: flex; align-items: baseline; gap: 8px; }
+html .play-ho__label { font-size: 12px; line-height: 16px; color: var(--u-muted); }
+html .play-ho__hours { min-inline-size: 3ch; color: var(--p-action); font-size: 22px; line-height: 26px; font-weight: 700; font-variant-numeric: tabular-nums; text-align: end; }
+html .play-ho__bar { block-size: 6px; margin-block-start: 8px; border-radius: 3px; background: color-mix(in oklab, var(--p-ink) 10%, transparent); overflow: hidden; }
+html .play-ho__bar i { display: block; inline-size: 0; block-size: 100%; border-radius: inherit; background: linear-gradient(90deg, color-mix(in oklab, var(--p-action) 70%, #fff), var(--p-action)); }
+html .play-ho__list { display: grid; gap: 6px; margin: var(--s-3) 0 0; padding: 0; list-style: none; }
+html .play-ho__task {
+  display: grid; grid-template-columns: 78px 1fr auto; align-items: center; gap: 10px; min-block-size: 48px; padding: 6px 8px 6px 10px;
+  border-radius: 10px; background: #fff; box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--p-ink) 9%, transparent);
+  transition: background-color 400ms ease, box-shadow 400ms ease, opacity 300ms ease;
+}
+html .play-ho__kind { justify-self: start; padding: 2px 8px; border-radius: 999px; font-size: 11px; line-height: 16px; font-weight: 600; background: color-mix(in oklab, var(--p-ink) 7%, #fff); color: var(--p-ink); }
+html .play-ho__kind[data-kind="judgement"] { background: color-mix(in oklab, #9a4a3a 12%, #fff); color: #7d3a2d; }
+html .play-ho__text { display: grid; min-inline-size: 0; }
+html .play-ho__name { font-size: 14px; line-height: 19px; font-weight: 500; }
+html .play-ho__per { font-size: 12px; line-height: 16px; color: var(--u-muted); transition: color 300ms ease; }
+html .play-ho__state { display: grid; justify-items: end; }
+html .play-ho__state > * { grid-area: 1 / 1; }
+html .play-ho__btn {
+  display: inline-flex; align-items: center; gap: 6px; min-block-size: 34px; padding: 0 12px; border: 1px solid var(--p-action); border-radius: 999px;
+  background: #fff; color: var(--p-action); font: 600 13px/1 var(--font-text); cursor: pointer; transition: background-color 160ms ease, color 160ms ease, transform 90ms ease;
+}
+html .play-ho__btn svg { inline-size: 13px; block-size: 13px; }
+@media (hover: hover) { html .play-ho__btn:hover { background: var(--p-action); color: var(--p-action-ink); } }
+html .play-ho__btn:active { transform: scale(0.96); }
+html .play-ho__btn:focus-visible, html .play-ho__btn.is-pointed { outline: 2px solid var(--p-action); outline-offset: 2px; }
+html .play-ho__tag { visibility: hidden; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 12px; line-height: 16px; font-weight: 600; white-space: nowrap; }
+/* handed to the agent: the row turns plum-tinted, its hours struck through (they are back), the tag says who does it */
+html .play-ho__task.is-going { box-shadow: inset 0 0 0 2px var(--p-action); }
+html .play-ho__task.is-agent { background: color-mix(in oklab, var(--p-action) 7%, #fff); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--p-action) 28%, transparent); }
+html .play-ho__task.is-agent .play-ho__per { text-decoration: line-through; }
+html .play-ho__task:is(.is-agent, .is-kept, .is-going) .play-ho__btn { visibility: hidden; }
+html .play-ho__task.is-agent .play-ho__tag { visibility: visible; background: var(--p-action); color: var(--p-action-ink); }
+html .play-ho__task.is-agent .play-ho__tag::before { content: "\2713"; }
+html .play-ho__task.is-kept .play-ho__tag { visibility: visible; background: color-mix(in oklab, #9a4a3a 12%, #fff); color: #7d3a2d; }
+html .play-ho__task.is-shake { animation: play-game-shake 420ms ease; }
+html .play-ho__fly { position: fixed; z-index: 60; padding: 2px 8px; border-radius: 999px; background: var(--p-action); color: var(--p-action-ink); font: 700 12px/16px var(--font-text); pointer-events: none; }
+/* the agent's line under the tasks */
+html .play-ho__feed { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; min-block-size: 56px; margin-block-start: var(--s-3); padding: 8px 12px; border-radius: 12px; background: color-mix(in oklab, var(--p-ink) 4%, #fff); }
+html .play-ho__av { inline-size: 30px; block-size: 30px; }
+html .play-ho__out { display: grid; min-inline-size: 0; font-size: 13px; line-height: 18px; }
+html .play-ho__who { font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--u-muted); }
+html .play-ho__say { color: var(--p-ink); }
+html .play-ho__say b { font-weight: 600; }
+html .play-ho__say .play-ho__body { color: var(--u-muted); }
+html .play-ho__say time { margin-inline-start: 6px; color: var(--u-muted); font-size: 12px; }
+html .play-ho__feed.is-keep { background: color-mix(in oklab, #9a4a3a 9%, #fff); }
+html .play-ho__feed.is-all { background: color-mix(in oklab, var(--p-action) 10%, #fff); }
+html .play-ho__feed.is-all b { color: var(--p-action); }
+html .play-ho__feed.is-pop .play-ho__out { animation: play-game-pop 320ms cubic-bezier(0.34, 1.5, 0.64, 1); }
+html .play-ho__again { min-block-size: 34px; padding: 0 14px; border: 1px solid var(--p-action); border-radius: 999px; background: var(--p-action); color: var(--p-action-ink); font: 500 13px/1 var(--font-text); cursor: pointer; white-space: nowrap; }
+html .play-ho__again[hidden] { display: none; }
+html .play-ho__again:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
+html .play-ho .play-dots { padding-block: 4px; }
+@media (max-width: 639px) {
+  html .play-ho__head { flex-wrap: wrap; }
+  html .play-ho__task { grid-template-columns: 1fr auto; }
+  html .play-ho__kind { grid-column: 1 / -1; }
+  html .play-ho__feed { grid-template-columns: auto 1fr; }
+  html .play-ho__again { grid-column: 1 / -1; justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) { html .play-ho *, html .play-ho__feed { animation: none !important; transition: none !important; } }
