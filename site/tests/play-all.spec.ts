@@ -15,6 +15,8 @@ const open = async (page: Page, path: string, frame: string) => {
 // locator.waitFor() never does (bisected 2026-11-21, Documentation/qa/visual-qa.md). The site is not involved.
 const axe = async (page: Page, frame: string) => {
   await page.locator(frame).waitFor();
+  // a "Try it" pill fading out (240 ms) is half-transparent text for a moment: scan once it has gone
+  await page.waitForTimeout(350);
   const r = await new AxeBuilder({ page }).include(frame).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
   expect(r.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([]);
 };
