@@ -262,3 +262,11 @@ Pilot result under this protocol (2026-11-20): it renders identically in all thr
 2. The stack's hidden "Connected" chip blocked the Connect button, and the kit had left that button aria-hidden.
 
 **Not a regression, noted for Felipe:** the Careers hero card shares the frame's beige (same on the PR #25 build).
+
+### Known issue: Firefox page crash during the chat's axe scan in Playwright Test (2026-11-21, open)
+
+- **Symptom:** in `play-all.spec.ts`, after the chat demo has played, `AxeBuilder.analyze()` fails with "Page crashed", in Firefox only (desktop and phone, 5 of 6 runs).
+- **Not reproduced outside the runner:** the same steps in a standalone script never crash, and axe finds 0 violations. That covered the same Firefox build, the `Desktop Firefox` device settings, the same WCAG tags, scanning right after the answer appears, and polling the prompt bar while it is typed in.
+- **Ruled out:** tracing (off, still crashes), the smooth scroll (instant scroll, still crashes) and the conversation's region role (removed, still crashes).
+- **For now:** that one scan runs in Chromium and WebKit; the Firefox behaviour tests still run.
+- **To do:** retry after the next Playwright update, and check on a real Firefox by hand.

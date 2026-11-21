@@ -69,6 +69,12 @@ Columns: **Page** where it appears, **Original** text, **New** text, **Why**, an
 | 56 | Home, hero chat (dev branch `feature/interactive-demos` only) | (none: new) | Can you deliver 1,000 units by the 10th? | Third suggested question. Illustrative | pending |
 | 57 | Home, hero chat (dev branch `feature/interactive-demos` only) | (none: new) | I can confirm 600 units for the 10th and the other 400 on the 14th. Shall I hold both? | Answer to it: illustrative stock and delivery figures, no claim about any client | pending |
 | 58 | Careers: past roles mock-up (dev branch `feature/interactive-demos` only) | (none: new) | Try it: open a role | Cue on the roles demo (each role opens its details in Past roles) | pending |
+| 59 | Home, hero chat (dev branch `feature/interactive-demos` only) | (none: new) | Ask the pricing agent | Now the prompt bar's placeholder and name (was the name of the suggestions group, row 53) | pending |
+| 60 | Home, hero chat (screen readers only) (dev branch `feature/interactive-demos` only) | (none: new) | Suggested questions | Name of the group of suggestions | pending |
+| 61 | Home, hero chat (screen readers only) (dev branch `feature/interactive-demos` only) | (none: new) | Conversation | Name of the scrolling conversation area | pending |
+| 62 | Home, hero chat (screen readers only) (dev branch `feature/interactive-demos` only) | (none: new) | Send | Name of the prompt bar's send button | pending |
+| 63 | Home, hero chat (dev branch `feature/interactive-demos` only) | (none: new) | I can quote within your approved pricing: for example, 6% off on 500 units next month. Tell me the quantity and the date. | Answer to a typed pricing question that is not one of the suggestions. Illustrative | pending |
+| 64 | Home, hero chat (dev branch `feature/interactive-demos` only) | (none: new) | I can help with pricing, stock and delivery for your orders. Try one of the suggestions above. | Answer to any other typed question: the demo is scripted, not a live AI | pending |
 
 ### New illustrative UI text (pending approval)
 

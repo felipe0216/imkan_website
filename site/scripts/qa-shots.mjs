@@ -44,7 +44,7 @@ const DEMOS = [
     ['search', '/', '#methodology [data-play="search"]', async (p, f) => { await p.locator(`${f} .play-search__input`).fill('stock'); }],
     ['checks', '/', '#methodology [data-play="terminal"]', ['.ui-term__cmd[role="button"]'], 700],
     ['roles', '/careers/', '[data-play="roles"]', ['.ui-note:nth-child(2)']],
-    ['chat', '/', '.hero__window[data-play="chat"]', ['.play-chat__q:nth-child(2)'], 2600],
+    ['chat', '/', '.hero__window[data-play="chat"]', async (p, f) => { await p.locator(`${f} .play-chat__q`).nth(1).click(); await p.waitForTimeout(3400); await p.locator(`${f} .play-chat__input`).fill('Any discount for 2,000 units?'); await p.keyboard.press('Enter'); }, 2600],
     ['voice', '/', '#why-us [data-play="voice"]', ['.ui-voice__orb'], 450],
   ].map(([name, path, frame, presses, after = 900]) => ({
     name, path, frame, top: '.card',
