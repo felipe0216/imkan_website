@@ -101,6 +101,9 @@ export default function init(app) {
   const W2 = { chip: chip?.textContent ?? '', chipDone: chip?.dataset.done ?? '', cmd0: cmd0?.textContent ?? '', lines: lines.map((l) => l.innerHTML), queued: times.map((t) => t.textContent) };
   const S = times.map((t, i) => parseInt(t.dataset.time || W2.queued[i], 10) || 1);
   const fmt = (x) => `${Math.max(0, Math.round(x))}s`;
+  // while a step runs its seconds count in tenths, so the number moves with its bar (a 1 s step reads 0.5s at half)
+  const fmtRun = (x) => `${Math.max(0, x).toFixed(1)}s`;
+  const names = steps.map((s) => s.querySelector('.ui-pipe__nm')?.textContent.trim() || '');
   const QUEUED = W2.queued.find((q) => q && !/\d/.test(q)) || '';
   log?.removeAttribute('aria-hidden');
   log?.setAttribute('aria-live', 'polite');
@@ -130,12 +133,14 @@ export default function init(app) {
       s.classList.toggle('is-done', done);
       s.classList.toggle('is-run', run);
       s.style.setProperty('--k', done ? '1' : run ? k.toFixed(3) : '0');
-      times[i].textContent = done ? fmt(S[i]) : run ? fmt(k * S[i]) : QUEUED;
+      times[i].textContent = done ? fmt(S[i]) : run ? fmtRun(k * S[i]) : QUEUED;
     });
     const passed = j >= N;
     pipe.classList.toggle('is-passed', passed);
-    if (chip) { chip.textContent = passed ? W2.chipDone : W2.chip; chip.classList.toggle('ui-chip--live', !passed); }
-    if (total) total.textContent = fmt(S.slice(0, Math.min(j, N)).reduce((a, b) => a + b, 0) + (passed ? 0 : k * S[j]));
+    // the chip names the step that is running (the page's own step names), not one word for the whole run
+    if (chip) { chip.textContent = passed ? W2.chipDone : names[j] || W2.chip; chip.classList.toggle('ui-chip--live', !passed); }
+    const spent = S.slice(0, Math.min(j, N)).reduce((a, b) => a + b, 0);
+    if (total) total.textContent = passed ? fmt(spent) : fmtRun(spent + k * S[j]);
     // the narrative: what the current step found, and the step before it
     const at = Math.min(j, N - 1);
     const on = steps[at].dataset.step, prev = steps[at - 1]?.dataset.step;
@@ -295,7 +300,8 @@ export default function init(app) {
   // at rest: our own run, alert after alert, at the demo's pace, while the frame is on screen
   let onScreen = false;
   if (!reduced()) {
-    own(pipe);
+    own(pipe); own(win);
+    rows.forEach((r) => { setStatus(r, W.open); r.classList.remove('is-sel'); });
     j = 0; k = 0; paint();
     new IntersectionObserver((es) => { onScreen = es.some((e) => e.isIntersecting); }, { threshold: 0.2 }).observe(app);
     (async () => {
@@ -303,10 +309,18 @@ export default function init(app) {
       for (let i = 0; !taken; i++) {
         while (!taken && (!onScreen || document.hidden)) await nap(400);
         if (taken) return;
-        load(rows[i % OPEN]);
-        await run(rows[i % OPEN], true);
+        const r = rows[i % OPEN];
+        if (i % OPEN === 0) rows.forEach((x) => setStatus(x, W.open));
+        rows.forEach((x) => x.classList.toggle('is-sel', x === r));
+        setStatus(r, W.work, 'is-work');
+        load(r);
+        await run(r, true);
         if (taken) return;
+        const high = (RISK[sub(r)] || ['medium'])[0] === 'high';
+        setStatus(r, high ? T.escalated : W.done, high ? 'is-you' : 'is-done');
         await nap(2500);
+        if (taken) return;
+        r.classList.remove('is-sel');
       }
     })();
   }

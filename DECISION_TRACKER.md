@@ -156,3 +156,10 @@ The self-playing demos (Ask why, the chart, the roadmap, the weeks, the notes) p
 - **Steady cards:** the partner, roadmap, proof-of-value and voice cards keep the height of their tallest state, so a press never resizes the row.
 
 New text: wording changes 101 to 103, pending.
+
+### 2026-11-21: fraud demo in sync (D-033)
+Felipe: the bar, the counter and the status labels were not aligned. Now one clock drives them all:
+- a running step's seconds count in tenths with its bar;
+- the run's chip names the running step (the page's own step names);
+- at rest the queue follows the run: the alert being run is selected and Reviewing, then Escalated or Cleared by its risk;
+- after the four alerts, they start over as New. The kit's own window loop no longer runs beside ours.
