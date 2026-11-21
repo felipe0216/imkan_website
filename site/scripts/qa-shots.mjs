@@ -28,36 +28,34 @@ const DEMOS = [
       ['at rest (cue)', async () => {}],
       ['"Try it" pressed', async (p) => { await p.locator('#platform .play-cue__btn').click(); await p.waitForTimeout(900); }],
       ['investigating', async (p) => { await p.locator('#platform [data-row]').first().click(); await p.waitForTimeout(1300); }],
-      ['verdict', async (p) => { await p.locator('#platform .play-verdict').waitFor({ state: 'visible', timeout: 10000 }); await p.waitForTimeout(300); }],
-      ['decided: next starts', async (p) => { await p.locator('#platform .play-act--escalate').click(); await p.waitForTimeout(1200); }],
-      ['after "Reset demo"', async (p) => { await p.locator('#platform .play-cue__btn').click(); await p.waitForTimeout(600); }],
+      ['verdict', async (p) => { await p.locator('#platform .play-verdict').waitFor({ state: 'visible', timeout: 25000 }); await p.waitForTimeout(300); }],
+      ['decided: next starts', async (p) => { await p.locator('#platform .play-act--escalate').click(); await p.waitForTimeout(4200); }],
     ],
   },
   // demos in a frame: at rest, "Try it", played, reset (the shared pattern in scripts/play/lib.js, demo())
   ...[
-    ['roadmap', '/', '#services [data-play="roadmap"]', ['[data-stop="1"]', '[data-stop="3"]', '[data-item="0"]', '.play-road__cell[data-cell="0"] .play-road__drop', '[data-item="3"]', '.play-road__cell[data-cell="3"] .play-road__drop']],
+    ['roadmap', '/', '#services [data-play="roadmap"]', ['.play-rm__go'], 2400],
+    ['ask-why', '/', '#methodology [data-play="why"]', ['.play-why__btn', '.play-why__btn', '.play-why__btn'], 900],
+    ['partner', '/', '#methodology [data-play="partner"]', ['[data-who="vendor"]'], 1800],
+    ['proof', '/', '#why-us [data-play="proof"]', async (p, f) => { await p.locator(`${f} .play-pf__slide input`).fill('8'); }, 1600],
+    ['voice', '/', '#why-us [data-play="voice"]', ['.play-voice__play'], 2500],
     ['sources', '/', '#services [data-play="files"]', ['.ui-file:nth-child(2)', '.ui-file:nth-child(5)']],
     ['sales-review', '/', '#services [data-play="toggles"]', ['.ui-tg:nth-child(4)', '.ui-tg:nth-child(1)']],
     ['stack', '/', '#methodology [data-play="integrations"]', ['.ui-app:nth-child(1) .ui-app__on']],
-    ['proof-plan', '/', '#why-us [data-play="checklist"]', ['.ui-check:nth-child(3)']],
     ['application', '/careers/', '.hero__window[data-play="checklist"]', ['.ui-check:nth-child(2)', '.ui-check:nth-child(3)']],
     ['notes', '/', '#services [data-play="notify"]', ['.ui-note:nth-child(1)', '.ui-note:nth-child(1)']],
-    ['search', '/', '#methodology [data-play="search"]', async (p, f) => { await p.locator(`${f} .play-search__input`).fill('stock'); }],
-    ['checks', '/', '#methodology [data-play="terminal"]', ['.ui-term__cmd[role="button"]'], 700],
     ['roles', '/careers/', '[data-play="roles"]', ['.ui-note:nth-child(2)']],
     ['chat', '/', '.hero__window[data-play="chat"]', async (p, f) => { await p.locator(`${f} .play-chat__q`).nth(1).click(); await p.waitForTimeout(3400); await p.locator(`${f} .play-chat__input`).fill('Any discount for 2,000 units?'); await p.keyboard.press('Enter'); }, 2600],
-    ['voice', '/', '#why-us [data-play="voice"]', ['.ui-voice__orb'], 450],
   ].map(([name, path, frame, presses, after = 900]) => ({
     name, path, frame, top: '.card',
     steps: [
       ['at rest (cue)', async () => {}],
-      ['"Try it" pressed', async (p) => { await p.locator(`${frame} .play-cue__btn`).click(); await p.waitForTimeout(500); }],
+      ['"Try it" pressed', async (p) => { await p.locator(`${frame} .play-cue__btn, ${frame} .play-chat__ctl`).first().click(); await p.waitForTimeout(500); }],
       ['played', async (p) => {
         if (typeof presses === 'function') await presses(p, frame);
         else for (const sel of presses) { await p.locator(`${frame} ${sel}`).first().click(); await p.waitForTimeout(300); }
         await p.waitForTimeout(after);
       }],
-      ['after "Reset demo"', async (p) => { await p.locator(`${frame} .play-cue__btn`).click(); await p.waitForTimeout(500); }],
     ],
   })),
 ];

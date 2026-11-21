@@ -18,5 +18,5 @@ export default function init(frame) {
     cmd.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); run(); } });
   }
   // TODO(wording): proposed, pending Felipe
-  cue(frame, { corner: true, invite: 'Try it: run the checks', onStart: run, onReset: run });
+  cue(frame, { corner: true, invite: 'Try it: run the checks', onStart: run });
 }

@@ -4,7 +4,9 @@
 //     the steps says, in plain words, what each step found (the log lines are the page's own);
 //   - the run ends on a verdict: a risk level and two decisions, Escalate or Clear;
 //   - the decision takes the alert out of the queue, "n left to review" counts down, the next alert starts by itself;
-//   - with the queue empty, a summary says how many were escalated and cleared; "Reset demo" starts over.
+//   - with the queue empty, a summary says how many were escalated and cleared, and a few seconds later the four
+//     alerts come back by themselves (no "Reset demo", Felipe 2026-11-21). Picking another alert restarts the run.
+//   - each step of the run takes 3 s (Felipe, 2026-11-21: slower, so it can be followed).
 // The cleared history, the side menu and the Hold button are hidden in the demo (they made it busy). The risk levels
 // are illustrative, like the rest of the mock-up; every new word is a TODO(wording) proposal pending Felipe.
 import { own, frames, reduced, slug, hexOf, cue } from './lib.js';
@@ -27,7 +29,9 @@ const RISK = {
   'Session from two countries': ['medium', 0.64],
   'Repeated failed PIN entries': ['low', 0.31],
 };
-const OPEN = 4;   // the first four rows are the open alerts in the markup (New, New, New, Needs you)
+const OPEN = 4;
+const STEP_MS = 3000;   // each step of the run (Felipe, 2026-11-21)
+const REFILL_MS = 5000; // the summary stays this long, then the queue fills again   // the first four rows are the open alerts in the markup (New, New, New, Needs you)
 
 export default function init(app) {
   const win = app.querySelector('[data-ui="window"]');
@@ -165,7 +169,7 @@ export default function init(app) {
     load(r);
     paint();
     while (j < N) {
-      const ok = await frames(Math.max(450, S[j] * 480), t, (e) => { k = e; paint(); });
+      const ok = await frames(STEP_MS, t, (e) => { k = e; paint(); });
       if (!ok) return;
       j++; k = 0;
       paint();
@@ -226,6 +230,7 @@ export default function init(app) {
       summary.hidden = false;
       tally.textContent = T.left(0);
       hint.hidden = true;
+      refill = setTimeout(reset, REFILL_MS);
     }, reduced() ? 0 : 320);
   };
   verdict.addEventListener('click', (e) => {
@@ -233,8 +238,10 @@ export default function init(app) {
     if (b) decide(b.classList.contains('play-act--escalate') ? 'escalate' : 'clear');
   });
 
-  // "Reset demo": the four alerts back in the queue, the run back as the page wrote it
+  // the queue refilled: the four alerts back, the run back as the page wrote it
+  let refill = 0;
   function reset() {
+    clearTimeout(refill);
     token.dead = true;
     current = null;
     decided.escalated = decided.cleared = 0;
@@ -264,7 +271,6 @@ export default function init(app) {
       const first = live()[0];
       if (first) { focusRow(first); first.classList.add('is-pointed'); }
     },
-    onReset: reset,
   });
   if (!reduced()) {
     new IntersectionObserver((es) => {

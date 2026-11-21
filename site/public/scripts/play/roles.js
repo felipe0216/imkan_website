@@ -34,7 +34,6 @@ export default function init(frame) {
     corner: true,
     invite: 'Try it: open a role',
     onStart: () => { links[0].focus({ preventScroll: true }); links[0].closest('li').classList.add('is-pointed'); },
-    onReset: () => {},
   });
   root.addEventListener('click', () => root.querySelectorAll('.is-pointed').forEach((x) => x.classList.remove('is-pointed')));
 }

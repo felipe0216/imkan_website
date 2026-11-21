@@ -5,6 +5,9 @@
 //   - Three suggestions above the bar. Pressing one types it into the bar, letter by letter, then sends it.
 //   - It is a scripted demo, not a live AI: a typed question is matched to one of the three answers by its words, and
 //     anything else gets one honest fallback line. Nothing typed leaves the page.
+//   - A control in the chat's own header (Felipe, 2026-11-21: inside the chat, no "Reset demo"): "Try chatting" picks
+//     one of the suggestions and plays it; once the visitor has chatted it becomes "Clear chat", which empties the
+//     conversation.
 // The first question and answer are the page's own; the rest are proposals (TODO(wording), pending Felipe).
 import { demo, reduced } from './lib.js';
 
@@ -25,6 +28,11 @@ const ASK = [
 const FALLBACK = { a: 'I can help with pricing, stock and delivery for your orders. Try one of the suggestions above.', srcs: [] };
 const PRICING = { a: 'I can quote within your approved pricing: for example, <b>6% off</b> on 500 units next month. Tell me the quantity and the date.', srcs: ['Pricing engine'] };
 const PLACEHOLDER = 'Ask the pricing agent';
+const CTL = { start: 'Try chatting', clear: 'Clear chat', empty: 'Ask about pricing, stock or delivery.' };
+const ICON = {
+  start: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z" fill="currentColor"/></svg>',
+  clear: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8a4.5 4.5 0 1 0 1.4-3.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M3 2.5v3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+};
 
 // which scripted answer a typed question gets
 const route = (text) => {
@@ -93,6 +101,7 @@ export default function init(frame) {
     const mine = ++token;
     const item = route(q);
     const b = body();
+    b.querySelector('.play-chat__empty')?.remove();
     const me = document.createElement('div');
     me.className = 'ui-msg ui-msg--me';
     const meText = document.createElement('span');
@@ -151,14 +160,56 @@ export default function init(frame) {
   };
   let typing = false;
 
+  // the header control: "Try chatting" until the visitor has chatted, then "Clear chat"
+  let chatted = false;
+  const paintCtl = () => {
+    const c = root.querySelector('.play-chat__ctl');
+    if (!c) return;
+    c.innerHTML = `${chatted ? ICON.clear : ICON.start}<span>${chatted ? CTL.clear : CTL.start}</span>`;
+    c.classList.toggle('is-clear', chatted);
+  };
+  const clear = () => {
+    token++; epoch++; busy = false; typing = false; queue = Promise.resolve();
+    const b = body();
+    b.querySelectorAll('.ui-msg').forEach((m) => m.remove());
+    if (!b.querySelector('.play-chat__empty')) {
+      const p = document.createElement('p');
+      p.className = 'play-chat__empty';
+      p.textContent = CTL.empty;
+      b.append(p);
+    }
+    const box = input();
+    if (box) box.value = '';
+    chatted = false;
+    paintCtl();
+    const live = root.querySelector('.play-chat__live');
+    if (live) live.textContent = '';
+    root.querySelector('.play-chat__ctl')?.focus({ preventScroll: true });
+  };
+  // one of the suggestions, at random, one not asked yet when there is one
+  const tryOne = () => {
+    const qs = [...root.querySelectorAll('.play-chat__q')];
+    const asked = new Set([...root.querySelectorAll('.ui-msg--me .ui-msg__text')].map((m) => m.textContent.trim()));
+    const fresh = qs.filter((q) => !asked.has(q.textContent.trim()));
+    const from = fresh.length ? fresh : qs;
+    const q = from[Math.floor(Math.random() * from.length)];
+    if (!q) return;
+    q.classList.add('is-pointed');
+    setTimeout(() => q.classList.remove('is-pointed'), 900);
+    q.click();
+  };
+
   const api = demo(frame, root, {
-    // TODO(wording): proposed, pending Felipe
-    invite: 'Try it: ask the agent',
+    cue: false,
     prepare(r) {
       // the conversation scrolls: a named region the keyboard can reach to scroll it
       const b = r.querySelector('.ui-chat__body');
       if (b) { b.tabIndex = 0; b.setAttribute('role', 'region'); b.setAttribute('aria-label', 'Conversation'); }   // TODO(wording): proposed
       if (r.querySelector('.play-chat__bar')) return;
+      const ctl = document.createElement('button');
+      ctl.type = 'button';
+      ctl.className = 'play-chat__ctl';
+      r.querySelector('.ui-head')?.append(ctl);
       // the suggestions, then the prompt bar, at the bottom of the card
       const suggest = document.createElement('div');
       suggest.className = 'play-chat__suggest';
@@ -180,11 +231,16 @@ export default function init(frame) {
       r.append(suggest, form, live);
     },
     match: (t) => t.closest('.play-chat__q'),
-    act(b) { typeIn(b.textContent); },
+    act(b) { chatted = true; paintCtl(); typeIn(b.textContent); },
     point: (r) => r.querySelector('.play-chat__q:nth-child(2)'),
-    onReset() { token++; epoch++; busy = false; typing = false; queue = Promise.resolve(); },
   });
-  // sending from the bar (Enter or the arrow); listened for at the root so it survives "Reset demo"
+  paintCtl();
+  root.addEventListener('click', (e) => {
+    if (!e.target.closest('.play-chat__ctl')) return;
+    api.take(false);
+    if (chatted) clear(); else tryOne();
+  });
+  // sending from the bar (Enter or the arrow); listened for at the root
   root.addEventListener('submit', (e) => {
     if (!e.target.matches('.play-chat__bar')) return;
     e.preventDefault();
@@ -192,6 +248,7 @@ export default function init(frame) {
     const box = input();
     const text = box?.value || '';
     if (box) box.value = '';
+    if (text.trim()) { chatted = true; paintCtl(); }
     send(text);
   });
   root.addEventListener('input', (e) => { if (e.target.matches('.play-chat__input')) api.take(); });

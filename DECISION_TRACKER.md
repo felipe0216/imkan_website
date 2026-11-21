@@ -131,3 +131,20 @@ Felipe liked the demos and asked for three changes, approved as proposed ("Appro
 - **Roadmap:** becomes a journey of four stops, then an impact x effort grid where the visitor places four initiatives and the top-left one is "Your first move".
 
 New text: wording changes 59 to 82, pending.
+
+### 2026-11-21: second review, batch A (D-033)
+Felipe reviewed the demos again and approved a plan of quick fixes (A) and five redesigns (B), one at a time ("Approve, start"). Batch A:
+- **No "Reset demo" anywhere:** the "Try it" pill fades away once the visitor plays. Each demo has its own undo or returns by itself.
+- **Fraud triage:** each run step takes 3 s. Picking another alert restarts the run. After the summary the queue refills by itself (5 s).
+- **Deploy AI notes:** our own loop replaces the kit's, which had no tempo setting. One new note every 3 s; handled notes come back one at a time.
+- **Voice frame:** hugs its card from the top instead of a fixed 560px with the card centred.
+- **Hero chat:** a white window up to 1120px wide in its frame. The agent's answers are tinted cards. The header holds "Try chatting" (plays a random suggestion), then "Clear chat" (empties the conversation).
+
+New text: wording changes 83 to 86, pending. Batch B, the redesigns, as proposed:
+- **Voice:** a call you hear. The browser's own speechSynthesis (no package, no files, nothing sent) speaks the caller's question and the agent's answer; the transcript lights up word by word; EN / Arabic switch; captions only where the device has no voice.
+- **Think:** "Ask why", a deck that zooms through a request to the decision to improve.
+- **Roadmap:** ten initiatives fly from a pile onto an impact x effort chart; low ones fade; a route draws to the first move; dots can be dragged or moved with the arrow keys.
+- **Evolve:** a value-over-time chart with a Vendor / Partner switch and three marked moments each.
+- **Proof of value:** a week slider; a small product builds itself, the four commitments tick off, "Cost to you" stays 0.
+
+The self-playing demos (Ask why, the chart, the roadmap, the weeks, the notes) play at rest and pause for 9 s after the visitor's last touch. The old search, console and checklist scripts stay in the repository unused, pending Felipe's OK to delete them. New text: wording changes 87 to 100, pending (the Arabic also needs a native check).

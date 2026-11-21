@@ -54,28 +54,30 @@ export function frames(ms, token, fn) {
   });
 }
 
-/** The visible cue every demo shares: a pill just above the frame's right edge. Before the visitor plays it
-    invites ("Try it: ..."), pressing it calls onStart (point at the first thing to press); after the first play
-    it turns into a reset. Returns { played() } to switch it once the demo has been taken over.
+/** The visible cue every demo shares: a "Try it: ..." pill, above the frame's right edge or in its corner. Pressing it
+    calls onStart (point at the first thing to press). Once the visitor has played, the pill goes (Felipe, 2026-11-21:
+    no "Reset demo"; every demo has its own undo or comes back by itself). played(false) brings the invitation back.
     TODO(wording): the pill's words are proposals (Documentation/wording-changes.md, pending Felipe). */
-export function cue(frame, { invite, reset = 'Reset demo', onStart, onReset, corner = false }) {
+export function cue(frame, { invite, onStart, corner = false }) {
   const bar = document.createElement('div');
   bar.className = corner ? 'play-cue play-cue--corner' : 'play-cue';
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'play-cue__btn';
-  const icon = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>';
-  const icoReset = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8a4.5 4.5 0 1 0 1.4-3.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M3 2.5v3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  let isPlayed = false;
-  const paint = () => {
-    btn.innerHTML = `${isPlayed ? icoReset : icon}<span>${isPlayed ? reset : invite}</span>`;
-    btn.classList.toggle('is-reset', isPlayed);
-  };
-  btn.addEventListener('click', () => { if (isPlayed) onReset(); else onStart(); });
+  btn.innerHTML = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg><span>${invite}</span>`;
+  btn.addEventListener('click', () => onStart());
   bar.append(btn);
   if (corner) { frame.classList.add('has-play-cue'); frame.append(bar); } else frame.before(bar);
-  paint();
-  return { played(on = true) { if (isPlayed !== on) { isPlayed = on; paint(); } } };
+  let isPlayed = false;
+  return {
+    played(on = true) {
+      if (isPlayed === on) return;
+      isPlayed = on;
+      // the pill leaves; if it had the focus, the focus stays inside the demo, not on the page's body
+      if (on && bar.contains(document.activeElement)) frame.querySelector('button, [tabindex="0"]')?.focus({ preventScroll: true });
+      bar.classList.toggle('is-gone', on);
+    },
+  };
 }
 
 export const slug =(s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -87,43 +89,40 @@ export function hexOf(s) {
   return (h >>> 0).toString(16).slice(0, 6).padStart(6, '0');
 }
 
-/** A small demo in a frame (a card's panel, a hero window): the cue in the frame's top-right corner, the kit's loop
-    stopped on the visitor's first real action, and "Reset demo" putting the fragment's markup back as it was
-    when first taken over. Clicks and keys are delegated to the fragment's root, so a reset (which restores the
-    markup) needs only prepare() again.
+/** A small demo in a frame (a card's panel, a hero window): the cue in the frame's top-right corner (cue: false for
+    none), the kit's loop stopped on the visitor's first real action, and reset() putting the fragment's markup back
+    as it was when first taken over (a demo's own control calls it, "Clear chat"). Clicks and keys are delegated to
+    the fragment's root, so a reset (which restores the markup) needs only prepare() again.
       prepare(root)   roles, tab stops and names on the fragment's controls (at load and after a reset)
       match(target)   the control an event landed on, or null
       act(el, event)  what pressing it does
       point(root)     the control "Try it" points at
       keys(e)         optional: other keys (arrows) */
-export function demo(frame, root, { invite, prepare, match, act, point, keys, onReset: afterReset }) {
+export function demo(frame, root, { invite, prepare, match, act, point, keys, onReset: afterReset, cue: withCue = true }) {
   let taken = false, fresh = true, snap = null;
   const unpoint = () => root.querySelectorAll('.is-pointed').forEach((el) => el.classList.remove('is-pointed'));
   function take(played = true) {
     // the kit puts its finished picture back as it stops (some fragments by rewriting their markup), so the
     // controls are prepared again before the picture is kept for "Reset demo"
     if (!taken) { taken = true; own(root); prepare(root); snap = root.innerHTML; }
-    if (played && fresh) { fresh = false; pill.played(); }
+    if (played && fresh) { fresh = false; pill?.played(); }
   }
-  const pill = cue(frame, {
-    corner: true,
-    invite,
-    onStart() {
-      take(false);
-      const el = point(root);
-      if (!el) return;
-      el.focus({ preventScroll: true });
-      (el.closest('li') || el).classList.add('is-pointed');
-    },
-    onReset() {
-      if (snap == null) return;
-      root.innerHTML = snap;
-      prepare(root);
-      fresh = true;
-      pill.played(false);
-      afterReset?.();
-    },
-  });
+  const start = () => {
+    take(false);
+    const el = point(root);
+    if (!el) return;
+    el.focus({ preventScroll: true });
+    (el.closest('li') || el).classList.add('is-pointed');
+  };
+  const reset = () => {
+    if (snap == null) return;
+    root.innerHTML = snap;
+    prepare(root);
+    fresh = true;
+    pill?.played(false);
+    afterReset?.();
+  };
+  const pill = withCue ? cue(frame, { corner: true, invite, onStart: start }) : null;
   // a mock-up was hidden from assistive technology as a picture; as a demo its controls must be reachable
   for (let el = root; el && el !== frame; el = el.parentElement) el.removeAttribute('aria-hidden');
   prepare(root);
@@ -146,7 +145,7 @@ export function demo(frame, root, { invite, prepare, match, act, point, keys, on
     e.preventDefault();
     go(el, e);
   });
-  return { take };
+  return { take, reset, start };
 }
 
 /** "3 of 4" -> "2 of 4": the first number in a phrase the page wrote, replaced (never new words) */

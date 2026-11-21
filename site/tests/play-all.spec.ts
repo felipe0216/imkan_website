@@ -1,8 +1,8 @@
 import { test, expect, type Page, type Locator } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-// Every framed demo (D-033): it shows its cue, it does what it says when pressed, "Reset demo" puts it back
-// where that applies, and axe finds nothing once it has been played. The anomalies demo has its own file.
+// Every framed demo (D-033): it shows its cue, it does what it says when pressed, the cue leaves once it is played
+// (no "Reset demo", 2026-11-21), and axe finds nothing once it has been played. The anomalies demo has its own file.
 
 const open = async (page: Page, path: string, frame: string) => {
   await page.goto(path);
@@ -18,61 +18,13 @@ const axe = async (page: Page, frame: string) => {
   const r = await new AxeBuilder({ page }).include(frame).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
   expect(r.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([]);
 };
-const resets = async (f: Locator) => {
-  await expect(f.locator('.play-cue__btn')).toContainText('Reset');
-  await f.locator('.play-cue__btn').click();
-  await expect(f.locator('.play-cue__btn')).toContainText('Try it');
+const cueLeaves = async (f: Locator) => {
+  await expect(f.locator('.play-cue')).toHaveClass(/is-gone/);
 };
 
 test.describe('framed demos', () => {
-  test('roadmap: the track travels from stop to stop', async ({ page }) => {
-    const frame = '#services [data-play="roadmap"]';
-    const f = await open(page, '/', frame);
-    await expect(f.locator('[aria-current="step"]')).toHaveAttribute('data-stop', '0');
-    await f.locator('[data-stop="2"]').click();
-    await expect(f.locator('[aria-current="step"]')).toHaveAttribute('data-stop', '2');
-    await expect(f.locator('.play-road__head .ui-meta')).toHaveText('3 of 4');
-    await expect(f.locator('.play-road__label')).toHaveText('Assess data, tools and gaps');
-    await page.keyboard.press('Shift+Tab');                       // the stops are buttons: keyboard too
-    await page.keyboard.press('Enter');
-    await expect(f.locator('[aria-current="step"]')).toHaveAttribute('data-stop', '1');
-  });
-
-  test('roadmap: cards placed by tap, keyboard and drag; the top-left one is the first move', async ({ page }) => {
-    const frame = '#services [data-play="roadmap"]';
-    const f = await open(page, '/', frame);
-    await f.locator('[data-stop="3"]').click();
-    // drag first, on a fresh grid: in Playwright's Firefox a mouse press right after a keyboard Enter is not
-    // delivered as a pointerdown (traced 2026-11-21), which a visitor's real mouse never hits
-    const card = f.locator('.play-road__tray [data-item="1"]');
-    await card.waitFor();
-    await page.waitForTimeout(150);
-    const target = f.locator('.play-road__cell[data-cell="1"]');
-    const a = (await card.boundingBox())!, b = (await target.boundingBox())!;
-    await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2);
-    await page.mouse.down();
-    await page.mouse.move(a.x + a.width / 2 + 12, a.y + a.height / 2 + 6, { steps: 4 });
-    await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 14 });
-    await page.mouse.up();
-    await expect(f.locator('.play-road__cell[data-cell="1"] [data-item="1"]')).toBeVisible();
-    // tap a card, then a square
-    await f.locator('[data-item="2"]').click();
-    await f.locator('.play-road__cell[data-cell="3"] .play-road__drop').click();
-    await expect(f.locator('.play-road__cell[data-cell="3"] [data-item="2"]')).toBeVisible();
-    // keyboard: a card, then the square's button
-    await f.locator('[data-item="0"]').focus();
-    await page.keyboard.press('Enter');
-    await f.locator('.play-road__cell[data-cell="0"] .play-road__drop').focus();
-    await page.keyboard.press('Enter');
-    await expect(f.locator('.play-road__cell[data-cell="0"] [data-item="0"]')).toHaveClass(/is-first/);
-    await expect(f.locator('.play-road__badge')).toHaveText('Your first move');
-    await axe(page, frame);
-    await resets(f);
-    await expect(f.locator('[aria-current="step"]')).toHaveAttribute('data-stop', '0');
-  });
-
-  test('proof plan and the open application tick from the keyboard', async ({ page }) => {
-    for (const [path, frame] of [['/', '#why-us [data-play="checklist"]'], ['/careers/', '.hero__window[data-play="checklist"]']]) {
+  test('the open application ticks from the keyboard', async ({ page }) => {
+    for (const [path, frame] of [['/careers/', '.hero__window[data-play="checklist"]']]) {
       const f = await open(page, path, frame);
       const box = f.locator('[role="checkbox"][aria-checked="false"]').first();
       await box.focus();
@@ -100,7 +52,7 @@ test.describe('framed demos', () => {
     await expect(f.locator('.ui-tg:nth-child(4) [role="switch"]')).toHaveAttribute('aria-checked', 'true');
     await expect(f.locator('[data-tg-count]')).toHaveText('4 of 4 on');
     await axe(page, frame);
-    await resets(f);
+    await cueLeaves(f);
   });
 
   test('stack: Connected disconnects, Connect connects again', async ({ page }) => {
@@ -122,44 +74,122 @@ test.describe('framed demos', () => {
       await f.locator('.ui-note').first().click();
       await expect(f.locator('.ui-note')).toHaveCount(n - 1);
     }
-    await expect(f.locator('.ui-note')).toHaveCount(3, { timeout: 5000 });
+    await expect(f.locator('.ui-note')).toHaveCount(3, { timeout: 12000 });   // they come back one every 3 s
     await axe(page, frame);
   });
 
-  test('search: typing filters the rows', async ({ page }) => {
-    const frame = '#methodology [data-play="search"]';
+  // the self-playing demos (round 2, 2026-11-21) play by themselves at rest; their tests run with reduced motion, where
+  // nothing plays by itself and every change is immediate, so what the test presses is the only thing that moves
+  const still = async (page: Page) => { await page.emulateMedia({ reducedMotion: 'reduce' }); };
+
+  test('ask why: each press goes a layer down, to the decision to improve', async ({ page }) => {
+    await still(page);
+    const frame = '#methodology [data-play="why"]';
     const f = await open(page, '/', frame);
-    await f.locator('.play-search__input').fill('stock');
-    await expect(f.locator('.ui-search__row:not(.is-stale)')).toHaveCount(1);
-    await expect(f.locator('.ui-search__row.is-sel')).toContainText('Stock reorder');
+    const btn = f.locator('.play-why__btn');
+    await expect(f.locator('[data-why-count]')).toHaveText('1 of 4');
+    for (let n = 0; n < 3; n++) await btn.click();
+    await expect(f.locator('[data-why-count]')).toHaveText('4 of 4');
+    await expect(f.locator('.play-why__card[data-pos="now"]')).toContainText('Weekly pricing decisions');
+    await expect(btn).toHaveText('Ask again');
     await axe(page, frame);
-    await resets(f);
-    await expect(f.locator('.play-search__input')).toHaveValue('decisions to improve');
+    await cueLeaves(f);
+    await btn.click();
+    await expect(f.locator('[data-why-count]')).toHaveText('1 of 4');
   });
 
-  test('checks: pressing the command runs them again', async ({ page }) => {
-    const frame = '#methodology [data-play="terminal"]';
+  test('ask why: at rest it plays by itself', async ({ page }) => {
+    const f = await open(page, '/', '#methodology [data-play="why"]');
+    await f.scrollIntoViewIfNeeded();
+    await expect(f.locator('[data-why-count]')).not.toHaveText('1 of 4', { timeout: 8000 });
+  });
+
+  test('partner or vendor: the switch changes the future after go-live', async ({ page }) => {
+    await still(page);
+    const frame = '#methodology [data-play="partner"]';
     const f = await open(page, '/', frame);
-    await f.locator('.ui-term__cmd[role="button"]').click();
-    // one read, not a polling expect(), while the run animates (Firefox: see the axe helper)
-    await page.waitForTimeout(300);
-    expect(await f.locator('[data-ui="terminal-run"]').getAttribute('class')).not.toMatch(/is-ui-held/);
+    await expect(f.locator('.play-pv__say')).toHaveText(/keeps growing/);
+    await f.locator('.play-pv__switch [data-who="vendor"]').click();
+    await expect(f.locator('.play-pv__switch [data-who="vendor"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(f.locator('.play-pv__say')).toHaveText(/fades/);
+    await expect(f.locator('.play-pv__events li.is-on')).toHaveCount(3);
     await axe(page, frame);
+    await cueLeaves(f);
   });
 
-  test('voice: tapping the orb replays the line', async ({ page }) => {
+  test('roadmap: the pile becomes a chart with a first move; arrow keys argue with it', async ({ page }) => {
+    await still(page);
+    const frame = '#services [data-play="roadmap"]';
+    const f = await open(page, '/', frame);
+    await f.locator('.play-rm__go').click();
+    await expect(f.locator('.play-rm')).toHaveClass(/is-plotted/);
+    await expect(f.locator('.play-rm__out b')).toHaveText('Weekly pricing decisions');
+    await expect(f.locator('.play-rm__chip.is-pick')).toHaveCount(3);
+    // "Alert when sales miss target", moved up and left: it becomes the first move
+    await f.locator('.play-rm__chip[data-k="2"]').focus();
+    for (const key of ['ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowLeft', 'ArrowLeft', 'ArrowLeft']) await page.keyboard.press(key);
+    await expect(f.locator('.play-rm__out b')).toHaveText('Alert when sales miss target');
+    await axe(page, frame);
+    await cueLeaves(f);
+    await f.locator('.play-rm__go').click();
+    await expect(f.locator('.play-rm')).not.toHaveClass(/is-plotted/);
+  });
+
+  test('roadmap: a dot dragged to the top-left becomes the first move', async ({ page }) => {
+    await still(page);
+    const f = await open(page, '/', '#services [data-play="roadmap"]');
+    await f.locator('.play-rm__go').click();
+    const dot = f.locator('.play-rm__chip[data-k="1"]');
+    const a = (await dot.boundingBox())!, b = (await f.locator('.play-rm__board').boundingBox())!;
+    await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(b.x + b.width * 0.12, b.y + b.height * 0.1, { steps: 12 });
+    await page.mouse.up();
+    await expect(f.locator('.play-rm__out b')).toHaveText('Stock reorder decisions');
+  });
+
+  test('proof of value: the weeks tick the commitments off; the cost stays 0', async ({ page }) => {
+    await still(page);
+    const frame = '#why-us [data-play="proof"]';
+    const f = await open(page, '/', frame);
+    const range = f.locator('.play-pf__slide input');
+    await range.focus();
+    await page.keyboard.press('Home');
+    await expect(f.locator('[data-pf-week]')).toHaveText('Week 1 of 8');
+    await expect(f.locator('.play-pf__list li.is-done')).toHaveCount(1);
+    await page.keyboard.press('End');
+    await expect(f.locator('[data-pf-week]')).toHaveText('Week 8 of 8');
+    await expect(f.locator('.play-pf__list li.is-done')).toHaveCount(4);
+    await expect(f.locator('.play-pf__cost b')).toHaveText('0');
+    await axe(page, frame);
+    await cueLeaves(f);
+  });
+
+  test('voice: play starts the call, the switch replays it in Arabic', async ({ page }) => {
     const frame = '#why-us [data-play="voice"]';
     const f = await open(page, '/', frame);
-    await f.locator('[data-voice-orb]').click();
-    // one read, not a polling expect(), while the line plays (Firefox: see the axe helper)
-    await page.waitForTimeout(600);
-    expect(await f.locator('[data-ui="voice"]').getAttribute('class')).toMatch(/is-talking/);
+    await f.locator('.play-voice__play').click();
+    await expect(f.locator('.play-voice__play')).toHaveAttribute('aria-label', 'Stop the call');
+    await expect(f.locator('[data-ui="voice"]')).toHaveClass(/is-talking/);
+    await f.locator('[data-lang="ar"]').click();
+    await expect(f.locator('.play-voice__line').first()).toHaveAttribute('lang', 'ar');
+    await f.locator('.play-voice__play').click();
+    await expect(f.locator('.play-voice__play')).toHaveAttribute('aria-label', 'Play the call');
     await axe(page, frame);
+    await cueLeaves(f);
   });
 
-  test('chat: a suggestion types itself, is sent, and gets its answer and sources', async ({ page }) => {
+  // the chat has no cue pill: its control is in its own header ("Try chatting", then "Clear chat")
+  const openChat = async (page: Page) => {
+    await page.goto('/');
+    const f = page.locator('.hero__window[data-play="chat"]');
+    await expect(f.locator('.play-chat__ctl')).toHaveText('Try chatting', { timeout: 20000 });
+    return f;
+  };
+
+  test('chat: a suggestion types itself, is sent, and gets its answer and sources; "Clear chat" empties it', async ({ page }) => {
     const frame = '.hero__window[data-play="chat"]';
-    const f = await open(page, '/', frame);
+    const f = await openChat(page);
     await f.locator('.play-chat__q').nth(1).click();
     // waitFor, then axe, then the assertions (Firefox and expect() during an animation: see the axe helper)
     await f.locator('.ui-msg--bot').nth(1).locator('.ui-chat__src').first().waitFor({ timeout: 10000 });
@@ -168,13 +198,23 @@ test.describe('framed demos', () => {
     const last = f.locator('.ui-msg--bot').last();
     await expect(last.locator('.ui-chat__answer')).toContainText('outside your approved pricing');
     await expect(last.locator('.ui-chat__src')).toHaveText(['Pricing engine']);
-    await resets(f);
-    await expect(f.locator('.ui-msg--me')).toHaveCount(1);
+    await expect(f.locator('.play-chat__ctl')).toHaveText('Clear chat');
+    await f.locator('.play-chat__ctl').click();
+    await expect(f.locator('.ui-msg')).toHaveCount(0);
+    await expect(f.locator('.play-chat__empty')).toBeVisible();
+    await expect(f.locator('.play-chat__ctl')).toHaveText('Try chatting');
+  });
+
+  test('chat: "Try chatting" plays one of the suggestions by itself', async ({ page }) => {
+    const f = await openChat(page);
+    const qs = await f.locator('.play-chat__q').allTextContents();
+    await f.locator('.play-chat__ctl').click();
+    await f.locator('.ui-msg--bot').nth(1).locator('.ui-chat__answer').waitFor({ timeout: 10000 });
+    expect(qs).toContain((await f.locator('.ui-msg--me').last().textContent())!.trim());
   });
 
   test('chat: a typed question is matched to its answer, others get the fallback', async ({ page }) => {
-    const frame = '.hero__window[data-play="chat"]';
-    const f = await open(page, '/', frame);
+    const f = await openChat(page);
     await f.locator('.play-chat__input').fill('When can you deliver 1,000 units?');
     await page.keyboard.press('Enter');
     await expect(f.locator('.ui-msg--bot').last().locator('.ui-chat__answer')).toContainText('600 units', { timeout: 8000 });
