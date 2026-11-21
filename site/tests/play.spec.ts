@@ -4,14 +4,14 @@ import AxeBuilder from '@axe-core/playwright';
 // The fraud frame (#platform) as a triage demo (D-033, revised 2026-11-21): four open alerts; picking one runs the
 // detection and ends on a verdict (risk, Escalate or Clear); a decision takes the alert out and starts the next;
 // an empty queue shows a summary, then the four alerts come back by themselves (no "Reset demo", 2026-11-21).
-// Each step of a run takes 3 s, so the whole-queue test runs with reduced motion (the run completes at once).
+// Each step of a run takes 2 s, so the whole-queue test runs with reduced motion (the run completes at once).
 
 const app = (page: Page) => page.locator('#platform .app');
 const rows = (page: Page) => page.locator('#platform [data-row]:not(.play-history)');
 
 test.describe('fraud triage demo (#platform)', () => {
   test.beforeEach(async ({ page }) => {
-    test.setTimeout(60_000);                 // a run is five steps of 3 s
+    test.setTimeout(60_000);                 // a run is five steps of 2 s
     await page.goto('/');
     await page.locator('#platform').scrollIntoViewIfNeeded();
     await expect(page.locator('#platform .play-cue__btn')).toBeVisible({ timeout: 20000 });
@@ -61,7 +61,7 @@ test.describe('fraud triage demo (#platform)', () => {
   test('at rest the run plays at the slow pace and says so; every waiting step is Queued', async ({ page }) => {
     await expect(page.locator('#platform .play-slow')).toBeVisible({ timeout: 8000 });
     await expect(page.locator('#platform .ui-pipe__time').last()).toHaveText('Queued');
-    // after about 2 s of a 3 s step, the run is still on its first step
+    // about 1.5 s into a 2 s step, the run is still on its first step
     await page.waitForTimeout(1500);
     expect(await page.locator('#platform .ui-pipe__step.is-done').count()).toBeLessThan(2);
   });

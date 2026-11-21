@@ -207,10 +207,10 @@ html .play-chat__send:focus-visible { outline: 2px solid var(--p-action); outlin
 html .panel[data-play="roadmap"] > .stage > * { max-width: 560px; }
 html .play-game { --no: #9a4a3a; display: flex; flex-direction: column; inline-size: 100%; padding: var(--s-4) var(--s-5) var(--s-4); color: var(--p-ink); font-family: var(--font-text); }
 html .play-game__head { display: flex; align-items: center; gap: var(--s-2); }
-html .play-game__track { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: var(--s-4) 0 0; padding: 0; list-style: none; }
-html .play-game__track::before, html .play-game__track::after { content: ""; position: absolute; inset-block-start: 16px; inset-inline-start: 12.5%; block-size: 3px; border-radius: 2px; }
-html .play-game__track::before { inline-size: 75%; background: repeating-linear-gradient(90deg, color-mix(in oklab, var(--p-ink) 22%, transparent) 0 6px, transparent 6px 11px); }
-html .play-game__track::after { inline-size: calc(var(--p, 0%) * 0.75); background: var(--p-action); transition: inline-size 600ms cubic-bezier(0.22, 1, 0.36, 1); }
+html .play-game__track { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: var(--s-4) 0 0; padding: 0; list-style: none; }
+html .play-game__track::before, html .play-game__track::after { content: ""; position: absolute; inset-block-start: 16px; inset-inline-start: 10%; block-size: 3px; border-radius: 2px; }
+html .play-game__track::before { inline-size: 80%; background: repeating-linear-gradient(90deg, color-mix(in oklab, var(--p-ink) 22%, transparent) 0 6px, transparent 6px 11px); }
+html .play-game__track::after { inline-size: calc(var(--p, 0%) * 0.8); background: var(--p-action); transition: inline-size 600ms cubic-bezier(0.22, 1, 0.36, 1); }
 html .play-game__stop { position: relative; z-index: 1; display: grid; justify-items: center; gap: 6px; }
 html .play-game__dot {
   display: grid; place-items: center; inline-size: 34px; block-size: 34px; border-radius: 50%; border: 2px dashed color-mix(in oklab, var(--p-ink) 30%, transparent);
@@ -220,11 +220,17 @@ html .play-game__name { font-size: 12px; line-height: 16px; color: var(--u-muted
 html .play-game__stop.is-next .play-game__dot { border-style: solid; border-color: var(--p-action); color: var(--p-action); animation: play-game-wait 1600ms ease-in-out infinite; }
 html .play-game__stop.is-done .play-game__dot { border: 2px solid var(--p-action); background: var(--p-action); color: var(--p-action-ink); transform: scale(1.1); animation: none; }
 html .play-game__stop.is-done .play-game__name { color: var(--p-ink); font-weight: 600; }
+/* the destination: a flag at the end of the track, lit when the four stages are in place */
+html .play-game__goal .play-game__dot { border-style: solid; border-color: color-mix(in oklab, var(--p-action) 35%, transparent); background: color-mix(in oklab, var(--p-action) 6%, #fff); color: var(--p-action); }
+html .play-game__goal .play-game__dot svg { inline-size: 16px; block-size: 16px; }
+html .play-game__goal .play-game__name { color: var(--p-action); font-weight: 600; }
+html .play-game.is-ready .play-game__goal .play-game__dot { border-color: var(--p-action); background: var(--p-action); color: var(--p-action-ink); transform: scale(1.18); box-shadow: 0 0 0 6px color-mix(in oklab, var(--p-action) 16%, transparent); }
 @keyframes play-game-wait { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--p-action) 35%, transparent); } 50% { box-shadow: 0 0 0 7px color-mix(in oklab, var(--p-action) 0%, transparent); } }
 html .play-game.is-complete .play-game__stop .play-game__dot { animation: play-game-cheer 700ms cubic-bezier(0.34, 1.6, 0.64, 1) both; }
 html .play-game.is-complete .play-game__stop:nth-child(2) .play-game__dot { animation-delay: 90ms; }
 html .play-game.is-complete .play-game__stop:nth-child(3) .play-game__dot { animation-delay: 180ms; }
 html .play-game.is-complete .play-game__stop:nth-child(4) .play-game__dot { animation-delay: 270ms; }
+html .play-game.is-complete .play-game__stop:nth-child(5) .play-game__dot { animation-delay: 360ms; }
 @keyframes play-game-cheer { 0% { transform: scale(1.1); } 40% { transform: scale(1.35) translateY(-4px); } 100% { transform: scale(1.1); } }
 html .play-game__ask { margin: var(--s-4) 0 var(--s-2); font-size: 17px; line-height: 24px; font-weight: 600; }
 html .play-game__tray { display: flex; flex-wrap: wrap; gap: 8px; }

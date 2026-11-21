@@ -1,34 +1,45 @@
 // "Build a strategy worth executing", round 4 (Felipe, 2026-11-21: "make it a fun exercise ... connect different
 // activities to the right order in the roadmap, so they can learn what things should go first and why").
-// A small game: four empty stops on a track, six activity cards (the page's four steps and two traps). The prompt
+// A small game: four empty stops on a track that ends at "AI ready", six cards (four stages and two traps). The prompt
 // asks what comes first, then next; a right card flies to its stop and the track fills; a wrong one shakes and stays,
 // a trap is ruled out. Every pick gets a one-line reason. Four stops filled: "Roadmap complete", in how many picks,
 // and "Play again". The card never changes height: a card that leaves the tray keeps its place.
-// Without scripts the kit's checklist shows as before. The four steps are the page's own; every other word is a
+// Without scripts the kit's checklist shows as before. The title is the page's own; every other word is a
 // TODO(wording) proposal, pending Felipe.
 import { own, cue, reduced } from './lib.js';
 
-// TODO(wording): proposed, pending Felipe (the step labels are read from the page)
+// The stages of data maturity on the way to "AI ready" (Felipe, 2026-11-21: "what you need to do before getting to
+// AI ready, all the things that need to happen before that, in order"). The track ends at a fixed flag, AI ready.
+// TODO(wording): proposed, pending Felipe
 const STEPS = [
-  { short: 'Decisions', right: 'Right. Everything starts with the decisions that move revenue or cost: they tell you which data matters.' },
-  { short: 'Data', right: 'Right. With the decisions chosen, trace the data each one needs and where it lives today.', early: 'Not yet. You cannot map data to decisions you have not chosen.' },
-  { short: 'Gaps', right: 'Right. Now check that data: its quality, who can reach it and which tools are missing.', early: 'Not yet. Check the data once you know which data each decision needs.' },
-  { short: 'Priorities', right: 'Right. With the gaps known, rank the work by impact and effort, and pick your first move.', early: 'Not yet. Rank the work once you know the gaps and what it takes to close them.' },
+  { short: 'Goals', label: 'Pick the decisions AI should improve',
+    right: 'Right. Start with the decisions that move revenue or cost, so every later stage has a purpose.' },
+  { short: 'Collect', label: 'Bring your data into one place',
+    right: 'Right. Spreadsheets here and systems there become one source of truth.',
+    early: 'Not yet. Choose the decisions first, so you know which data to bring together.' },
+  { short: 'Clean', label: 'Clean it and give it owners',
+    right: 'Right. AI learns from your data, so it has to be accurate, complete and looked after by someone.',
+    early: 'Not yet. Clean the data once it sits in one place, or you clean it twice.' },
+  { short: 'Trust', label: 'Report on numbers everyone trusts',
+    right: 'Right. When the team trusts the reports, the data is ready to learn from. You are AI ready.',
+    early: 'Not yet. Reports on data nobody has checked only spread its mistakes.' },
 ];
 const TRAPS = [
-  { label: 'Buy a new data platform', why: 'Not a first step. A tool comes after you know the decisions and data it has to serve.' },
+  { label: 'Buy an AI tool first', why: 'Not a first step. A tool cannot fix data you have not collected or cleaned.' },
   { label: 'Build dashboards for every team', why: 'Not a step. More charts do not mean more clarity: start from the decisions they should support.' },
 ];
+const N = STEPS.length;
 const T = {
-  invite: 'Try it: build the roadmap',
+  invite: 'Try it: the road to AI ready',
   first: 'What comes first?',
   next: 'What comes next?',
-  of: (n) => `Step ${n} of 4`,
-  done: 'Roadmap complete',
-  tries: (n) => (n === 4 ? 'Four picks, four right. A clean run.' : `Done in ${n} picks. Every wrong turn is one a real project avoids.`),
+  of: (n) => `Stage ${n} of ${N}`,
+  goal: 'AI ready',
+  done: 'You are AI ready',
+  tries: (n) => (n === N ? `${N} picks, ${N} right. A clean run.` : `Done in ${n} picks. Every wrong turn is one a real project avoids.`),
   again: 'Play again',
   pick: 'Pick the card that comes next.',
-  inOrder: 'Your roadmap, in order.',
+  inOrder: 'Your road to AI ready, in order.',
 };
 
 const shuffle = (a) => { const b = [...a]; for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
@@ -37,13 +48,11 @@ export default function init(frame) {
   const kit = frame.querySelector('[data-ui="checklist"]');
   if (!kit) return;
   const title = kit.querySelector('.ui-title')?.textContent.trim() || '';
-  const labels = [...kit.querySelectorAll('.ui-check__label')].map((l) => l.textContent.trim());
-  if (labels.length !== 4) return;
   own(kit);
   for (let el = kit; el && el !== frame; el = el.parentElement) el.removeAttribute('aria-hidden');
 
-  // the six cards: the four steps (by their order, 0..3) and the two traps
-  const CARDS = [...labels.map((label, i) => ({ id: `s${i}`, label, step: i })), ...TRAPS.map((t, i) => ({ id: `t${i}`, label: t.label, trap: i }))];
+  // the six cards: the four stages (by their order) and the two traps
+  const CARDS = [...STEPS.map((st, i) => ({ id: `s${i}`, label: st.label, step: i })), ...TRAPS.map((t, i) => ({ id: `t${i}`, label: t.label, trap: i }))];
 
   const box = document.createElement('div');
   box.className = 'ui ui-panel play-game';
@@ -51,6 +60,7 @@ export default function init(frame) {
     <div class="play-game__head"><div class="ui-title">${title}</div><span class="ui-spacer"></span><div class="ui-meta" data-game-count></div></div>
     <ol class="play-game__track" aria-label="${title}">
       ${STEPS.map((s, i) => `<li class="play-game__stop" data-stop="${i}"><span class="play-game__dot">${i + 1}</span><span class="play-game__name">${s.short}</span></li>`).join('')}
+      <li class="play-game__stop play-game__goal"><span class="play-game__dot" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 14V2.5M4 3h7.5l-1.8 2.6L11.5 8.2H4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg></span><span class="play-game__name">${T.goal}</span></li>
     </ol>
     <p class="play-game__ask" aria-hidden="true"></p>
     <div class="play-game__tray" role="group"></div>
@@ -62,7 +72,7 @@ export default function init(frame) {
     </div>`;
   kit.replaceWith(box);
   const track = box.querySelector('.play-game__track');
-  const stops = [...box.querySelectorAll('.play-game__stop')];
+  const stops = [...box.querySelectorAll('.play-game__stop:not(.play-game__goal)')];
   const tray = box.querySelector('.play-game__tray');
   const ask = box.querySelector('.play-game__ask');
   const say = box.querySelector('.play-game__say');
@@ -75,9 +85,10 @@ export default function init(frame) {
 
   const paint = () => {
     stops.forEach((s, i) => { s.classList.toggle('is-done', i < at); s.classList.toggle('is-next', i === at); });
-    track.style.setProperty('--p', `${(Math.min(at, 3) / 3) * 100}%`);
-    count.textContent = T.of(Math.min(at + 1, 4));
-    ask.textContent = at >= 4 ? T.inOrder : at === 0 ? T.first : T.next;
+    track.style.setProperty('--p', `${(at / N) * 100}%`);
+    box.classList.toggle('is-ready', at >= N);
+    count.textContent = T.of(Math.min(at + 1, N));
+    ask.textContent = at >= N ? T.inOrder : at === 0 ? T.first : T.next;
   };
   const deal = () => {
     at = 0; picks = 0;
@@ -143,7 +154,7 @@ export default function init(frame) {
     box.classList.remove('is-busy');
     at++;
     paint();
-    if (at === 4) {
+    if (at === N) {
       box.classList.add('is-complete');
       tries.textContent = T.tries(picks);
       setTimeout(() => {

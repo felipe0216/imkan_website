@@ -6,7 +6,7 @@
 //   - the decision takes the alert out of the queue, "n left to review" counts down, the next alert starts by itself;
 //   - with the queue empty, a summary says how many were escalated and cleared, and a few seconds later the four
 //     alerts come back by themselves (no "Reset demo", Felipe 2026-11-21). Picking another alert restarts the run.
-//   - each step of the run takes 3 s (Felipe, 2026-11-21: slower, so it can be followed). The seconds shown stay the
+//   - each step of the run takes 2 s (Felipe, 2026-11-21: slow enough to follow). The seconds shown stay the
 //     system's own (the case study: detection in under 10 seconds), so the run says it is in slow motion.
 //   - at rest our own run plays, at the same pace, alert after alert (the kit's run was much faster); the visitor's
 //     first pick takes over.
@@ -34,7 +34,7 @@ const RISK = {
   'Repeated failed PIN entries': ['low', 0.31],
 };
 const OPEN = 4;
-const STEP_MS = 3000;   // each step of the run (Felipe, 2026-11-21)
+const STEP_MS = 2000;   // each step of the run (Felipe, 2026-11-21: 2 s)
 const REFILL_MS = 5000; // the summary stays this long, then the queue fills again   // the first four rows are the open alerts in the markup (New, New, New, Needs you)
 
 export default function init(app) {

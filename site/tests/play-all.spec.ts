@@ -125,7 +125,8 @@ test.describe('framed demos', () => {
     await cueLeaves(f);
     await f.locator('[data-card="s3"]').click();
     await expect(f.locator('.play-game__stop.is-done')).toHaveCount(4);
-    await expect(f.locator('.play-game__done')).toContainText('Roadmap complete');
+    await expect(f.locator('.play-game__done')).toContainText('You are AI ready');
+    await expect(f.locator('.play-game')).toHaveClass(/is-ready/);
     await expect(f.locator('[data-game-tries]')).toContainText('6 picks');
     await f.locator('.play-game__again').click();
     await expect(f.locator('.play-game__stop.is-done')).toHaveCount(0);

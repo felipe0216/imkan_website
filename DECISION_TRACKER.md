@@ -170,3 +170,9 @@ Approved by Felipe ("Pick the next step", "Hand it off", push with the rest):
 - **Deploy AI that saves you time:** a team's week of five tasks, tagged copying, checking, chasing (the card's words) or judgement. "Hand off" flies a task's hours into an hours-back meter, and the agent shows the work done (the page's own notes). The judgement task stays with the team. The hours are illustrative.
 
 Both cards keep their tallest height. New text: wording changes 104 to 112, pending.
+
+### 2026-11-21: fraud steps 2 s; roadmap game on data maturity (D-033)
+- **Fraud demo:** each step takes 2 s. The bar, the seconds, the total, the chip and the statuses still share one clock.
+- **Roadmap game:** now the road to "AI ready": Goals, Collect, Clean, Trust, then a fixed AI-ready flag. Traps: "Buy an AI tool first" and "Build dashboards for every team".
+
+New text: wording changes 113 to 115 (they replace 104 to 108), pending.
