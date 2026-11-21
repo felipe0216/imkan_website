@@ -138,7 +138,9 @@ test.describe('framed demos', () => {
     const frame = '#methodology [data-play="terminal"]';
     const f = await open(page, '/', frame);
     await f.locator('.ui-term__cmd[role="button"]').click();
-    await expect(f.locator('[data-ui="terminal-run"]')).not.toHaveClass(/is-ui-held/, { timeout: 2000 });
+    // one read, not a polling expect(), while the run animates (Firefox: see the axe helper)
+    await page.waitForTimeout(300);
+    expect(await f.locator('[data-ui="terminal-run"]').getAttribute('class')).not.toMatch(/is-ui-held/);
     await axe(page, frame);
   });
 
@@ -146,7 +148,9 @@ test.describe('framed demos', () => {
     const frame = '#why-us [data-play="voice"]';
     const f = await open(page, '/', frame);
     await f.locator('[data-voice-orb]').click();
-    await expect(f.locator('[data-ui="voice"]')).toHaveClass(/is-talking/, { timeout: 2000 });
+    // one read, not a polling expect(), while the line plays (Firefox: see the axe helper)
+    await page.waitForTimeout(600);
+    expect(await f.locator('[data-ui="voice"]').getAttribute('class')).toMatch(/is-talking/);
     await axe(page, frame);
   });
 
