@@ -21,3 +21,11 @@
   --p-inv-accent: #ffc233; --p-inv-accent-ink: #1b111d;
   --p-inv-action: #ffc233; --p-inv-action-ink: #1b111d;
 }
+
+/* D-034: the frames behind the mock-ups (the kit's lit ground) are the palette's own bone, one step down, and flat
+   (Felipe, 2026-11-22: the kit's sand was not one of his colours). Set here so the kit's files stay unmodified:
+   the ground tokens on html[data-ground] (above the kit's :root sand), and no mesh on a tech page's panels. */
+html[data-ground] {
+  --ground-bg: #e3ded3; --ground-surface: #efece5; --ground-ink: #1b111d; --ground-muted: #4c4150; --ground-accent: #5e1654;
+}
+html:root:has(meta[name="site-kind"]:is([content])) .panel:not([data-fx], .panel--device) { background-image: none; }

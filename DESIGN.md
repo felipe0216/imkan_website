@@ -109,7 +109,7 @@ The site is built with the `design-taste-frontend` kit, loaded **unmodified** fr
 | `icons/icon.css` | Real-icon sizing |
 | `moments/`, `effects/`, scene folders | Copied in unmodified when Phase 3 and 4 deal them |
 
-Head setup: `<html lang="en" data-type="software" data-radius="soft" data-buttons="tonal">`, with `<meta name="page-type" content="software">` and `<meta name="site-kind" content="software">`. `data-ground="sand"` (D-025; v1's `sky` clashed with bone).
+Head setup: `<html lang="en" data-type="software" data-radius="soft" data-buttons="tonal">`, with `<meta name="page-type" content="software">` and `<meta name="site-kind" content="software">`. `data-ground="sand"` (D-025; v1's `sky` clashed with bone), with its colours overridden to flat bone in `tokens.css` (D-034): the frames behind the mock-ups are the palette's surface `#e3ded3`, with no mesh.
 
 ## Colour
 
@@ -132,7 +132,7 @@ Its `:root` block is kept **as printed**, in a `<style>` after the kit's links. 
 }
 ```
 
-The brand assets (favicon, avatars, email tile) use a slightly deeper midnight plum, `#120914`; that is the logo's tile colour, not a page colour.
+The brand assets (avatars, email tile) use a slightly deeper midnight plum, `#120914`; that is the logo's tile colour, not a page colour. The favicon is the light icon: a bone tile with the plum K (D-034).
 
 Assumption: the kit's checker does not compare the `:root` block with `start.mjs` output (checked in `consistency.mjs` and `gate.mjs`: it does not); the contrast checks run in the browser and still apply to the result.
 
@@ -201,7 +201,7 @@ Files in `site/public/brand/`, guide in `Documentation/brand/README.md`, overvie
 - **Colourways:**
   - On bone: `imkan-lockup.svg` (plum K, plum-black text), `-ink`, `-black`, `-gold-ink`.
   - On dark: `-on-dark` (gold K, bone text), `-bone`.
-- **Where:** nav and documents use the primary; the dark band and footer use `-on-dark`. The favicon and avatars are a gold K on midnight plum. The email signature uses the gold-on-midnight-plum tile (D-019).
+- **Where:** nav and documents use the primary; the dark band and footer use `-on-dark`. The avatars are a gold K on midnight plum; the favicon is a plum K on bone (D-034). The email signature uses the gold-on-midnight-plum tile (D-019).
 - **Rules:**
   - Clear space at least the I bar's width.
   - No recolouring, stretching or effects.
@@ -253,7 +253,7 @@ Other pages (ADR 0005): `/careers/`, `/work/`, `/work/<slug>/` (11), `/privacy/`
 1. ~~The scene~~: approved (D-021).
 2. **Arabic check** of the logo (O-006, Phase 2.5).
 3. **Illustrative UI text** in the hero and product windows needs Felipe's approval, and must not claim anything the case studies do not (O-005).
-4. ~~`data-ground`~~: `sand` (D-025).
+4. ~~`data-ground`~~: `sand` (D-025), shown as flat bone (D-034).
 
 ## Do's and Don'ts
 
