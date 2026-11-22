@@ -104,19 +104,6 @@ html .has-play-cue :is([tabindex="0"], button):focus-visible { outline: 2px soli
 /* a tinted row (hovered or pointed at) must not paint over the card's rounded corners */
 html .has-play-cue .ui-panel[data-ui] { overflow: clip; }
 html .has-play-cue li.is-pointed { background-color: color-mix(in oklab, var(--p-action) 9%, transparent); box-shadow: inset 3px 0 0 var(--p-action); }
-/* a dropped source steps back, so the change reads at a glance (only its small dot went before) */
-html .has-play-cue .ui-file[aria-selected="false"]:not(.is-reading) { opacity: 0.5; }
-html .has-play-cue .ui-file.is-pointed { box-shadow: 0 0 0 2px var(--p-action); background-color: transparent; }
-
-/* the "Think" search: the query as a real text box, in the kit's own type and place */
-html .play-search__q { flex: 1 1 auto; min-inline-size: 0; }
-html .play-search__q .ui-search__caret { display: none; }
-html .play-search__input {
-  inline-size: 100%; min-inline-size: 0; margin: 0; padding: 0; border: 0; background: transparent;
-  color: inherit; font: inherit; letter-spacing: inherit; outline: none;
-}
-html .has-play-cue .play-search__input:focus-visible { outline: none; }
-html .has-play-cue .ui-search__field:focus-within { box-shadow: inset 0 -2px 0 var(--p-action); }
 
 /* the hero chat (Felipe, 2026-11-21: "use more of the box", clearer who is who, a prompt bar).
    The card takes up to 820px of the frame (the three suggestions fit one line); the conversation scrolls inside a fixed-height area, so the hero never

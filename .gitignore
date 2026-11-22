@@ -37,3 +37,7 @@ coverage/
 
 # Windows device-name file created by tools writing to /dev/null; never commit it
 nul
+
+# qa-shots intermediates: keep only the contact sheets (*-sheet.png)
+Documentation/qa/visual/**/*-[0-9].png
+Documentation/qa/visual/**/*-sheet.html
