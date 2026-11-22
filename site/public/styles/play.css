@@ -85,15 +85,14 @@ html .play-cue__btn:focus-visible { outline: 2px solid var(--p-action); outline-
 /* demos in a frame (a card's panel, a hero window): the cue sits in the frame's top-right corner, and the frame
    keeps room above the mock-up for it, so it never covers what the mock-up shows */
 html .has-play-cue, html .panel[data-play], html .hero__window[data-play] { position: relative; }
-html .play-cue--corner { position: absolute; inset-block-start: var(--s-3); inset-inline-end: var(--s-3); z-index: 3; margin: 0; }
+/* --cue-top / --cue-end (lib.js place) line the pill up with the mock-up; the frame's corner is the fallback */
+html .play-cue--corner { position: absolute; inset-block-start: var(--cue-top, var(--s-3)); inset-inline-end: var(--cue-end, var(--s-3)); z-index: 3; margin: 0; }
 html .play-cue--corner .play-cue__btn { min-block-size: 32px; padding: 0 var(--s-3); font-size: 13px; }
-/* the frames' own 48px top padding clears the 44px pill on wider screens; a phone's smaller padding does not */
-@media (max-width: 639px) {
-  /* keyed on data-play, which is in the HTML from the start: a class added by script was missed by WebKit's style
-     update here, so a frame grew by the pill's room only after the first press (2026-11-21) */
-  html .panel[data-play] > .stage { padding-block-start: calc(var(--s-3) + 32px + var(--s-4)); }
-  html .hero__window[data-play]:not([data-play="chat"]) { padding-block-start: calc(var(--s-3) + 32px + var(--s-4)); }
-}
+/* room above the mock-up for the 32px pill with 16px either side, at every width (2026-11-22: the frames' own 48px
+   left it squeezed). Keyed on data-play, which is in the HTML from the start: a class added by script was missed by
+   WebKit's style update here, so a frame grew by the pill's room only after the first press (2026-11-21) */
+html .panel[data-play] > .stage { padding-block-start: calc(32px + 2 * var(--s-4)); }
+html .hero__window[data-play]:not([data-play="chat"]) { padding-block-start: calc(32px + 2 * var(--s-4)); }
 
 /* what can be pressed in a framed demo: a tint under the pointer, a ring for the keyboard, and the step
    "Try it" points at, marked until the visitor acts */

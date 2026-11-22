@@ -67,7 +67,7 @@ export function cue(frame, { invite, onStart, corner = false }) {
   btn.innerHTML = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg><span>${invite}</span>`;
   btn.addEventListener('click', () => onStart());
   bar.append(btn);
-  if (corner) { frame.classList.add('has-play-cue'); frame.append(bar); } else frame.before(bar);
+  if (corner) { frame.classList.add('has-play-cue'); frame.append(bar); place(frame, bar); } else frame.before(bar);
   let isPlayed = false;
   return {
     played(on = true) {
@@ -78,6 +78,24 @@ export function cue(frame, { invite, onStart, corner = false }) {
       bar.classList.toggle('is-gone', on);
     },
   };
+}
+
+/* A corner pill lines up with the mock-up, not the frame (Felipe, 2026-11-22: in the frame's corner it looked squeezed
+   and off frame): its right edge on the mock-up's right edge, centred in the room above the mock-up. Measured again
+   when the frame's size changes or the fonts arrive; without room above (a phone), the CSS corner place stays. */
+function place(frame, bar) {
+  const set = () => {
+    const ui = [...frame.querySelectorAll('.ui')].find((el) => !bar.contains(el) && el.offsetParent !== null);
+    if (!ui) return;
+    const f = frame.getBoundingClientRect(), u = ui.getBoundingClientRect(), h = bar.offsetHeight;
+    const room = u.top - f.top;
+    if (!h || room < h + 12) { bar.style.removeProperty('--cue-top'); bar.style.removeProperty('--cue-end'); return; }
+    bar.style.setProperty('--cue-top', `${Math.round((room - h) / 2)}px`);
+    bar.style.setProperty('--cue-end', `${Math.max(0, Math.round(f.right - u.right))}px`);
+  };
+  set();
+  document.fonts?.ready.then(set);
+  new ResizeObserver(set).observe(frame);
 }
 
 export const slug =(s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
