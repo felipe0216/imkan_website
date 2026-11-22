@@ -60,8 +60,10 @@ test.describe('fraud triage demo (#platform)', () => {
 
   test('at rest the run plays at the slow pace and says so; every waiting step is Queued', async ({ page }) => {
     await expect(page.locator('#platform .play-slow')).toBeVisible({ timeout: 8000 });
+    // start from a fixed point: an alert's run on its first step (the loop may be anywhere when the page opens)
+    await expect(page.locator('#platform .ui-pipe__step').first()).toHaveClass(/is-run/, { timeout: 15000 });
     await expect(page.locator('#platform .ui-pipe__time').last()).toHaveText('Queued');
-    // about 1.5 s into a 2 s step, the run is still on its first step
+    // 1.5 s later, at 2 s a step, the run is at most on its second step
     await page.waitForTimeout(1500);
     expect(await page.locator('#platform .ui-pipe__step.is-done').count()).toBeLessThan(2);
   });

@@ -104,7 +104,8 @@ export default function init(app) {
   // while a step runs its seconds count in tenths, so the number moves with its bar (a 1 s step reads 0.5s at half)
   const fmtRun = (x) => `${Math.max(0, x).toFixed(1)}s`;
   const names = steps.map((s) => s.querySelector('.ui-pipe__nm')?.textContent.trim() || '');
-  const QUEUED = W2.queued.find((q) => q && !/\d/.test(q)) || '';
+  // the page's word for a waiting step; the kit's loop may be mid-run when it is read, so fall back to the page's own
+  const QUEUED = W2.queued.find((q) => q && !/\d/.test(q)) || 'Queued';
   log?.removeAttribute('aria-hidden');
   log?.setAttribute('aria-live', 'polite');
 
