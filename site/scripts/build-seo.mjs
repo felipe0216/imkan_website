@@ -5,7 +5,7 @@
 import { readdirSync, readFileSync, writeFileSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 
-const ORIGIN = 'https://imkan.ai';
+const ORIGIN = 'https://www.imkan.ai';
 const SKIP = new Set(['node_modules', 'dist', 'public', 'partials', 'templates', 'tests', 'test-results', 'playwright-report', '.taste-skill', 'scripts', 'content']);
 const pages = [];
 (function walk(dir) {
