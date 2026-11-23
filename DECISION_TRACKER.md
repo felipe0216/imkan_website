@@ -197,3 +197,4 @@ Approved by Felipe ("Six stages", "Make your data work"):
 - Built in one file, `theme.css`, over the kit's tokens (kit unmodified). `boot.js` sets `<html data-theme>` in the head before the body is drawn (no flash): saved choice first, else the device setting, followed live. The nav button has `aria-pressed` and the label "Dark mode" (wording 123, pending).
 - Fixes found on the way: the industry tags and the privacy callout used the fixed light surface (now the ground's own); the fraud demo keeps its light window in dark mode; case heroes switched to the `-band.svg` drawings (the `-ink.svg` files are now unused; deleting them needs Felipe's OK).
 - Tests: a dark-mode accessibility scan for every page and a test for the button were added to `smoke.spec.ts`.
+- Fraud demo: the steps show as a row from a 1280px window (the kit turned the row on only from about 1366px); tablets and phones keep the stacked list (Felipe, 2026-11-23). In `play.css`, kit unmodified.

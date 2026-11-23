@@ -595,3 +595,33 @@ html .play-ev__again[hidden] { display: none; }
 html .play-ev__again:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
 @media (max-width: 639px) { html .play-ev__body { grid-template-columns: 1fr; } html .play-ev__foot { flex-wrap: wrap; } }
 @media (prefers-reduced-motion: reduce) { html .play-ev *, html .play-ev__how { animation: none !important; transition: none !important; } }
+
+/* the fraud demo's steps as a row on every laptop and desktop (Felipe, 2026-11-23: the stacked list showed on a
+   1280px window; the kit turns the row on at 680px of the board's own width, which a 1280px window misses by ~30px).
+   The kit's row from 640px (a 1280px window), with tighter gaps so five steps fit; narrower (tablets, phones) keeps the stacked list, where the names stay readable. */
+@container ui-pipe (min-width: 640px) and (max-width: 679px) {
+  .ui-pipe .ui-pipe__steps { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 14px; padding: 14px; }
+  .ui-pipe .ui-pipe__step {
+    grid-template-columns: 18px minmax(0, 1fr); grid-template-rows: 20px 16px 4px; row-gap: 8px; column-gap: 8px;
+    height: auto; padding: 9px; border: 1px solid var(--u-line-2); border-radius: var(--u-r2);
+    background: var(--u-bg); box-shadow: none; transition: background-color 240ms var(--u-ease);
+  }
+  .ui-pipe .ui-pipe__step.is-run { background: var(--u-bg); border-color: color-mix(in oklab, var(--u-accent) 46%, transparent); box-shadow: var(--u-shadow-sm); }
+  .ui-pipe .ui-pipe__step:not(.is-done, .is-run) { background: var(--u-fill); border-color: var(--u-line); }
+  .ui-pipe .ui-pipe__ico { grid-area: 1 / 1; }
+  .ui-pipe .ui-pipe__name { grid-area: 1 / 2; min-width: 0; overflow: hidden; }
+  .ui-pipe .ui-pipe__time { grid-area: 2 / 2; min-width: 0; text-align: left; }
+  .ui-pipe .ui-pipe__cmd { display: none; }
+  .ui-pipe .ui-pipe__bar { position: relative; left: auto; right: auto; bottom: auto; grid-area: 3 / 1 / 4 / 3; height: 4px; border-radius: 2px; }
+  .ui-pipe .ui-pipe__step + .ui-pipe__step .ui-pipe__ico::before { content: none; }
+  .ui-pipe .ui-pipe__step:not(:last-child)::after {
+    content: ""; position: absolute; left: calc(100% + 1px); top: 18px; width: 14px; height: 1.5px; margin-top: -0.75px;
+    background: var(--u-line-2); transition: background-color 240ms var(--u-ease);
+  }
+  .ui-pipe .ui-pipe__step.is-done:not(:last-child)::after { background: color-mix(in oklab, var(--u-ink) 38%, transparent); }
+  .ui-pipe .ui-pipe__log {
+    display: block; min-height: 82px; margin: 0 14px 14px; padding: 11px 14px;
+    border-radius: var(--u-r2); background: var(--u-fill); box-shadow: inset 0 0 0 1px var(--u-line);
+    font: 12px/20px var(--ui-mono, ui-monospace, monospace); color: var(--u-text-2);
+  }
+}
