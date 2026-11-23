@@ -105,13 +105,13 @@ html .services-marquee { margin-block: var(--s-6) var(--s-7); }
 html .mo-mq:not(.is-live) .mo-mq__track { gap: var(--s-2); row-gap: var(--s-2); }
 html .mo-mq:not(.is-live) .mo-mq__track > li {
   display: inline-flex; align-items: center; min-block-size: 32px; padding-inline: var(--s-4); border-radius: 999px;
-  background: var(--p-surface); color: var(--ink); font: 500 var(--t-small)/1.2 var(--font-text); letter-spacing: 0;
+  background: var(--surface); color: var(--ink); font: 500 var(--t-small)/1.2 var(--font-text); letter-spacing: 0;
 }
 @media (prefers-reduced-motion: reduce) {
   html .mo-mq.is-live .mo-mq__track { gap: var(--s-2); }
   html .mo-mq.is-live .mo-mq__track > li {
     display: inline-flex; align-items: center; min-block-size: 32px; padding-inline: var(--s-4); border-radius: 999px;
-    background: var(--p-surface); color: var(--ink); font: 500 var(--t-small)/1.2 var(--font-text); letter-spacing: 0;
+    background: var(--surface); color: var(--ink); font: 500 var(--t-small)/1.2 var(--font-text); letter-spacing: 0;
   }
 }
 /* phones: the same tags, still (it was hidden there: D-031 shows it); the moving copy and its pause button go */
@@ -122,7 +122,7 @@ html .mo-mq:not(.is-live) .mo-mq__track > li {
   html .mo-mq .mo-mq__clone, html .mo-mq .mo-mq__pause { display: none; }
   html .mo-mq .mo-mq__track > li {
     display: inline-flex; align-items: center; min-block-size: 32px; padding-inline: var(--s-3); border-radius: 999px;
-    background: var(--p-surface); color: var(--ink); font: 500 var(--t-label)/1.2 var(--font-text); letter-spacing: 0;
+    background: var(--surface); color: var(--ink); font: 500 var(--t-label)/1.2 var(--font-text); letter-spacing: 0;
   }
 }
 

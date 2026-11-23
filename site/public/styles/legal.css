@@ -15,7 +15,7 @@
 .legal__body p, .legal__body li { line-height: 1.65; }
 .legal__body p + p { margin-block-start: var(--s-3); }
 .legal__body ul { margin-block: var(--s-3); padding-inline-start: 1.2em; display: grid; gap: var(--s-2); }
-.legal__callout { margin-block-start: var(--s-4); padding: var(--s-6); border-radius: var(--r-lg); background: var(--p-surface); }
+.legal__callout { margin-block-start: var(--s-4); padding: var(--s-6); border-radius: var(--r-lg); background: var(--surface); }
 
 @media (max-width: 1023px) {
   .legal__toc { position: static; grid-column: 1 / -1; margin-block-end: var(--s-6); }

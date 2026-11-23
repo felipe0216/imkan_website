@@ -48,7 +48,7 @@
 
 /* the CV field's button in the kit's secondary look, not the browser's */
 #apply input[type="file"] { padding: 6px; block-size: auto; cursor: pointer; }
-#apply input[type="file"]::file-selector-button { margin-inline-end: var(--s-3); padding: 8px 14px; border: 0; border-radius: var(--r-btn, 8px); background: var(--p-surface); color: var(--ink); font: 500 var(--t-small)/1 var(--font-text); cursor: pointer; }
+#apply input[type="file"]::file-selector-button { margin-inline-end: var(--s-3); padding: 8px 14px; border: 0; border-radius: var(--r-btn, 8px); background: var(--surface); color: var(--ink); font: 500 var(--t-small)/1 var(--font-text); cursor: pointer; }
 
 /* Tablet and phone (D-031: sections fit their content, so nothing is cut or squeezed to fit a screen) */
 @media (min-width: 640px) and (max-width: 1023px) {
