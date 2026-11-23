@@ -138,6 +138,7 @@ Columns: **Page** where it appears, **Original** text, **New** text, **Why**, an
 | 125 | Home, services card 3 (dev branch `feature/interactive-demos` only) | Deploy AI that saves you time | Deploy AI &amp; automations that save you time | Felipe, 2026-11-24 ("Deploy AI & automations that saves you time"); "save" to agree with "automations" | Felipe, 2026-11-24 |
 | 126 | Home, the four services (dev branch `feature/interactive-demos` only) | (none: new) | Step 1, Step 2, Step 3, Step 4 | Felipe, 2026-11-24: read the services as steps | Felipe |
 | 127 | Every page, the nav (dev branch `feature/interactive-demos` only) | Services menu: Data Strategy &amp; Architecture / Build a strategy worth executing; Engineering &amp; Data Preparation / Make your data work for you; AI &amp; Automation / Deploy AI that saves you time; Insights &amp; Action / Turn insights into decisions | Services (one link, no menu) | Felipe, 2026-11-24: all four went to the same place | Felipe |
+| 128 | Every page, the nav mode button | (icons: moon, sun) | Dark mode / Light mode (the visible label, naming the mode it switches to) | Felipe, 2026-11-24: words instead of a sun and a moon | Felipe |
 
 Rows 59 to 63 (the search demo's words), 76 to 82 and 96 to 98, 102 to 103 (older roadmaps), the notes demo's words and the console's words no longer show: those demos were replaced on 2026-11-21 (rows 87 onwards).
 

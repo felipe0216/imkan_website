@@ -1,6 +1,6 @@
 /* D-035: light and dark mode (Felipe, 2026-11-23: more contrast, more gold; light mode is "Rhythm", the bone page
    with plum-black and gold bands and plum-black frames; dark mode is "Midnight", the plum-black page). <html data-theme="light|dark"> is set by boot.js from the
-   visitor's choice (the nav button, kept in localStorage) or, without one, their device setting. Without scripts the
+   visitor's choice (the nav button, kept in localStorage); light is the default for everyone (2026-11-24). Without scripts the
    page shows light mode. Set here, over the kit's tokens, so the kit's files stay unmodified. Gold (#ffc233) sits on plum-black,
    or is a fill with plum-black text on it (11.4:1); never gold text on bone. */
 
@@ -75,22 +75,22 @@ html[data-theme="dark"] .nav .nav__logo .nav__logo-light { display: none; }
 html[data-theme="dark"] .nav .nav__logo .nav__logo-dark { display: block; }
 
 html .theme-toggle {
-  display: inline-grid; place-items: center; flex: none; inline-size: 40px; block-size: 40px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center; flex: none; block-size: 40px; padding: 0 var(--s-4);
   border: 1px solid var(--line-strong); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer;
+  font: 500 14px/1 var(--font-text); white-space: nowrap;
   transition: background-color 160ms ease, border-color 160ms ease;
 }
 @media (hover: hover) { html .theme-toggle:hover { background: color-mix(in oklab, var(--ink) 8%, transparent); } }
 html .theme-toggle:focus-visible { outline: 2px solid var(--action); outline-offset: 2px; }
-html .theme-toggle svg { inline-size: 18px; block-size: 18px; }
-/* the button shows what it switches to: the moon in light mode, the sun in dark mode */
-html .theme-toggle .theme-toggle__sun { display: none; }
-html[data-theme="dark"] .theme-toggle .theme-toggle__sun { display: block; }
-html[data-theme="dark"] .theme-toggle .theme-toggle__moon { display: none; }
+/* the button names the mode it switches to: "Dark mode" in light mode, "Light mode" in dark mode */
+html .theme-toggle .theme-toggle__to-light { display: none; }
+html[data-theme="dark"] .theme-toggle .theme-toggle__to-light { display: inline; }
+html[data-theme="dark"] .theme-toggle .theme-toggle__to-dark { display: none; }
 /* no script, no switch */
 html:not([data-theme]) .theme-toggle { display: none; }
 /* on a phone the bar keeps the button beside "Get in Touch" (the kit hides everything else there) */
 @media (max-width: 1023px) {
-  html .nav:not(.is-open) .nav__actions > .theme-toggle { display: inline-grid; }
+  html .nav:not(.is-open) .nav__actions > .theme-toggle { display: inline-flex; }
   html .nav.is-open .nav__actions > .theme-toggle { order: 3; align-self: center; margin-inline: auto; }
 }
 html:not([data-theme]) .nav .nav__actions > .theme-toggle { display: none; }
@@ -113,4 +113,8 @@ html[data-theme="dark"] .play-cue__btn { background: var(--t-gold); border-color
 html[data-theme="dark"] .app.ui {
   --fx-bg: #ffffff; --fx-surface: var(--p-surface); --fx-ink: var(--p-ink); --fx-muted: var(--p-muted);
   --fx-accent: var(--p-accent); --fx-accent-ink: var(--p-accent-ink); color: var(--p-ink);
+}
+/* phones: the worded button does not fit beside "Get in Touch" and the menu button, so it lives in the open menu */
+@media (max-width: 639px) {
+  html .nav:not(.is-open) .nav__actions > .theme-toggle { display: none; }
 }

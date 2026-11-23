@@ -36,10 +36,10 @@ for (const path of PAGES) {
       expect(serious.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`)).toEqual([]);
     });
 
-    // D-035: the same scan in dark mode (the device setting decides when the visitor has not chosen)
+    // D-035: the same scan in dark mode (the visitor's saved choice; light is the default)
     test.describe('dark mode', () => {
-      test.use({ colorScheme: 'dark' });
       test('has no serious or critical accessibility violations', async ({ page }) => {
+        await page.addInitScript(() => localStorage.setItem('imkan-theme', 'dark'));
         await page.goto(path);
         await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
         await page.waitForFunction(() => document.documentElement.classList.contains('m-enter-done') || !document.documentElement.classList.contains('m-enter'));
@@ -52,20 +52,24 @@ for (const path of PAGES) {
   });
 }
 
-// D-035: the mode button switches, is remembered on this browser, and wins over the device setting
+// D-035: light by default (even on a dark device), the button names the mode it switches to, the choice is remembered
 test('the mode button switches light and dark and remembers the choice', async ({ page }) => {
-  await page.emulateMedia({ colorScheme: 'light' });
+  await page.emulateMedia({ colorScheme: 'dark' });
   await page.goto('/');
   const html = page.locator('html');
   const button = page.locator('[data-theme-toggle]');
+  // on a phone the button lives in the menu
+  const reveal = async () => { const menu = page.locator('.nav__toggle'); if (await menu.isVisible() && !(await button.isVisible())) await menu.click(); };
   await expect(html).toHaveAttribute('data-theme', 'light');
-  await expect(button).toHaveAttribute('aria-pressed', 'false');
+  await reveal();
+  await expect(button).toHaveAccessibleName('Dark mode');
   await button.click();
   await expect(html).toHaveAttribute('data-theme', 'dark');
-  await expect(button).toHaveAttribute('aria-pressed', 'true');
+  await expect(button).toHaveAccessibleName('Light mode');
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#1b111d');
   await page.reload();
   await expect(html).toHaveAttribute('data-theme', 'dark');
+  await reveal();
   await page.locator('[data-theme-toggle]').click();
   await expect(html).toHaveAttribute('data-theme', 'light');
 });

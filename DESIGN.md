@@ -154,7 +154,7 @@ Assumption: the kit's checker does not compare the `:root` block with `start.mjs
 
 ### Rules
 
-- **Two modes (D-035).** Light ("Rhythm"): bone and ink, with the opening and Methodology as plum-black bands, the figures as a gold band, and the mock-up frames plum-black (`#271d29` on the dark bands). Dark: plum-black throughout, frames `#271d29`. Both in `site/public/styles/theme.css`; `<html data-theme="light|dark">` from boot.js (device setting, or the nav button's saved choice).
+- **Two modes (D-035).** Light ("Rhythm"): bone and ink, with the opening and Methodology as plum-black bands, the figures as a gold band, and the mock-up frames plum-black (`#271d29` on the dark bands). Dark: plum-black throughout, frames `#271d29`. Both in `site/public/styles/theme.css`; `<html data-theme="light|dark">` from boot.js: light by default, or the nav button's saved choice. The button is worded ("Dark mode" / "Light mode", naming the mode it switches to); on phones it sits in the menu.
 - **Plum acts, ink reads.** Plum is for the one filled button per view, links, the focus ring and the logo's K. Body text is never plum.
 - **Gold on plum-black, or as a fill.** Gold text on bone fails contrast (1.4:1), so never. On plum-black it is the button, the "Try it" pills and the big figures; as a fill (the figures band, buttons, pills) it carries plum-black text (11.4:1).
 - **One dark band** (rhythm `dark-band`): one section at the middle of the page or later, plus the footer.

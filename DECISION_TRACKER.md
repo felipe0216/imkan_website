@@ -203,3 +203,4 @@ Approved by Felipe ("Six stages", "Make your data work"):
 - Felipe: "make it the main website in the main branch, this is the website that is going live". The new site (with the demos and the two modes) merges into `main`, replacing the old React site.
 - `noindex` removed from every page but the 404 page; the smoke test now checks that. robots.txt and the sitemap already point at imkan.ai. Forms leave test mode on the live domain by themselves.
 - Still open after launch: Felipe's review of the remaining pending wording rows, the Arabic voice check (O-006), the real-device check (Q5).
+- 2026-11-24: light mode is the default for everyone (the device setting no longer decides); the nav button is worded, "Dark mode" / "Light mode", naming the mode it switches to, and on phones it sits in the open menu (it pushed the menu button off a 390px screen). Felipe.
