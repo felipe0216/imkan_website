@@ -1,8 +1,8 @@
-/* D-035: light and dark mode (Felipe, 2026-11-23: more contrast, more gold; light mode is the bone page with plum
-   bands and plum frames, dark mode is the plum-black page). <html data-theme="light|dark"> is set by boot.js from the
+/* D-035: light and dark mode (Felipe, 2026-11-23: more contrast, more gold; light mode is "Rhythm", the bone page
+   with plum-black and gold bands and plum-black frames; dark mode is "Midnight", the plum-black page). <html data-theme="light|dark"> is set by boot.js from the
    visitor's choice (the nav button, kept in localStorage) or, without one, their device setting. Without scripts the
-   page shows light mode. Set here, over the kit's tokens, so the kit's files stay unmodified. Gold (#ffc233) only ever
-   sits on plum or plum-black, with plum-black text on it (11.4:1); never on bone. */
+   page shows light mode. Set here, over the kit's tokens, so the kit's files stay unmodified. Gold (#ffc233) sits on plum-black,
+   or is a fill with plum-black text on it (11.4:1); never gold text on bone. */
 
 :root {
   --t-plum: #5e1654; --t-plum-deep: #4b1043; --t-plum-surface: #6e2763; --t-plum-muted: #e6d3e2;
@@ -30,19 +30,29 @@ html .panel .play-cue__btn:focus-visible, html .hero__window .play-cue__btn:focu
 /* the big figures are gold wherever the ground is plum or plum-black */
 html .ground-inverse .t-stat { color: var(--t-gold); }
 
-/* ---------------------------------------------------------------- light mode (the default) */
-html:not([data-theme="dark"]) { --t-frame: var(--t-plum); }
-/* the plum bands: the opening and the figures */
-html:not([data-theme="dark"]) :is(.hero, #statement) {
-  --bg: var(--t-plum); --surface: var(--t-plum-surface); --card: var(--t-plum-surface);
-  --ink: var(--p-bg); --muted: var(--t-plum-muted); --accent: var(--t-gold); --accent-ink: var(--p-ink);
-  --action: var(--t-gold); --action-ink: var(--p-ink);
-  --line: color-mix(in oklab, var(--p-bg) 16%, transparent); --line-strong: color-mix(in oklab, var(--p-bg) 32%, transparent);
-  background: var(--t-plum); color: var(--p-bg);
+/* ---------------------------------------------------------------- light mode (the default): Rhythm */
+/* the bone page as before, with light and dark bands: the opening and Methodology plum-black, the figures a gold band.
+   Frames are plum-black on bone and one step lighter (#271d29) on the dark bands. */
+html:not([data-theme="dark"]) { --t-frame: var(--p-inv-bg); }
+html:not([data-theme="dark"]) :is(.hero, #methodology) {
+  --bg: var(--p-inv-bg); --surface: var(--p-inv-surface); --ink: var(--p-inv-ink); --muted: var(--p-inv-muted);
+  --accent: var(--p-inv-accent); --accent-ink: var(--p-inv-accent-ink); --card: var(--p-inv-surface);
+  --action: var(--p-inv-action); --action-ink: var(--p-inv-action-ink);
+  --line: color-mix(in oklab, var(--p-inv-ink) 12%, transparent); --line-strong: color-mix(in oklab, var(--p-inv-ink) 24%, transparent);
+  --fx-bg: var(--bg); --fx-surface: var(--surface); --fx-ink: var(--ink); --fx-muted: var(--muted);
+  --fx-accent: var(--accent); --fx-accent-ink: var(--accent-ink);
+  --t-frame: var(--t-night-frame);
+  background: var(--p-inv-bg); color: var(--p-inv-ink);
 }
-html:not([data-theme="dark"]) #statement .t-stat { color: var(--t-gold); }
-/* the frame inside the plum opening is one step deeper, so it reads as a frame */
-html:not([data-theme="dark"]) .hero { --t-frame: var(--t-plum-deep); }
+html:not([data-theme="dark"]) .ground-inverse { --t-frame: var(--t-night-frame); }
+/* the gold band: plum-black text and figures on gold (11.4:1) */
+html:not([data-theme="dark"]) #statement {
+  --bg: var(--t-gold); --surface: #ffd466; --card: #ffd466; --ink: var(--p-ink); --muted: #3f2f14;
+  --accent: var(--p-ink); --accent-ink: var(--t-gold); --action: var(--p-ink); --action-ink: var(--t-gold);
+  --line: color-mix(in oklab, var(--p-ink) 14%, transparent); --line-strong: color-mix(in oklab, var(--p-ink) 28%, transparent);
+  background: var(--t-gold); color: var(--p-ink);
+}
+html:not([data-theme="dark"]) #statement .t-stat { color: var(--p-ink); }
 
 /* ---------------------------------------------------------------- dark mode */
 html[data-theme="dark"] { --t-frame: var(--t-night-frame); color-scheme: dark; }

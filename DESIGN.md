@@ -109,7 +109,7 @@ The site is built with the `design-taste-frontend` kit, loaded **unmodified** fr
 | `icons/icon.css` | Real-icon sizing |
 | `moments/`, `effects/`, scene folders | Copied in unmodified when Phase 3 and 4 deal them |
 
-Head setup: `<html lang="en" data-type="software" data-radius="soft" data-buttons="tonal">`, with `<meta name="page-type" content="software">` and `<meta name="site-kind" content="software">`. `data-ground="sand"` (D-025; v1's `sky` clashed with bone), with its colours overridden in `tokens.css` (D-034); the frames behind the mock-ups are flat plum in light mode and `#271d29` in dark mode (`theme.css`, D-035), with no mesh. The mock-ups inside stay light in both modes.
+Head setup: `<html lang="en" data-type="software" data-radius="soft" data-buttons="tonal">`, with `<meta name="page-type" content="software">` and `<meta name="site-kind" content="software">`. `data-ground="sand"` (D-025; v1's `sky` clashed with bone), with its colours overridden in `tokens.css` (D-034); the frames behind the mock-ups are flat plum-black in light mode (`#271d29` on its dark bands) and `#271d29` in dark mode (`theme.css`, D-035), with no mesh. The mock-ups inside stay light in both modes.
 
 ## Colour
 
@@ -149,15 +149,14 @@ Assumption: the kit's checker does not compare the `:root` block with `start.mjs
 | Gold on the dark band / on its cards | 11.4 / 10.1 |
 | Plum-black label on the gold button | 11.4 |
 | Gold on bone | **1.4: never** |
-| Gold on plum (light mode band and frames) | 7.6 |
-| Light muted `#e6d3e2` on plum | 8.6 |
-| Bone on plum | 10.4 |
+| Plum-black text on the gold band | 11.4 |
+| Muted `#3f2f14` on the gold band | 8.0 |
 
 ### Rules
 
-- **Two modes (D-035).** Light: bone and ink, with the opening and the figures band in plum and the mock-up frames plum. Dark: plum-black throughout, frames `#271d29`. Both in `site/public/styles/theme.css`; `<html data-theme="light|dark">` from boot.js (device setting, or the nav button's saved choice).
+- **Two modes (D-035).** Light ("Rhythm"): bone and ink, with the opening and Methodology as plum-black bands, the figures as a gold band, and the mock-up frames plum-black (`#271d29` on the dark bands). Dark: plum-black throughout, frames `#271d29`. Both in `site/public/styles/theme.css`; `<html data-theme="light|dark">` from boot.js (device setting, or the nav button's saved choice).
 - **Plum acts, ink reads.** Plum is for the one filled button per view, links, the focus ring and the logo's K. Body text is never plum.
-- **Gold only on plum or plum-black.** On bone it fails contrast (1.4:1). On plum and plum-black it is the button, the "Try it" pills and the big figures, always with plum-black text on it (11.4:1).
+- **Gold on plum-black, or as a fill.** Gold text on bone fails contrast (1.4:1), so never. On plum-black it is the button, the "Try it" pills and the big figures; as a fill (the figures band, buttons, pills) it carries plum-black text (11.4:1).
 - **One dark band** (rhythm `dark-band`): one section at the middle of the page or later, plus the footer.
 - **Flat colour only.** The plum-to-black gradient was previewed and not chosen (D-018).
 - **Never:** glows, glassmorphism, backdrop blur, scrims over photographs, coloured highlight bars behind words, a third accent.
