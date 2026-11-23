@@ -1,0 +1,4 @@
+# The design-taste-frontend kit must stay byte-identical to the skill's copy
+# (its gate fails "kit-edited"), so git never rewrites these files.
+site/public/assets/** -text
+.claude/skills/design-taste-frontend/assets/** -text

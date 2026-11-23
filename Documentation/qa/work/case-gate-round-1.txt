@@ -1,0 +1,22 @@
+gate: checking http://localhost:4173/work/banking-fraud-detection-in-real-time/ (software); this takes a few minutes on a CPU Chrome
+gate: 4 FAIL open
+  FAIL one-heading      h2#challenge-h "The Challenge"  [1440]
+       headings of two sections show whole on one screen at 3 of 73 scroll positions (4.1%; at scroll 1100, 1150, 1200px), here with "national": at most 3% on a desktop (SR-5)
+       fix: make the sections one screen tall so their headings sit a screen apart and two never share one
+  FAIL no-visual        section#impact "Impact & Results"  [390]
+       pictures, effects and mocks cover 13% of this section; a feature section needs a visual (about 25% or more)
+       fix: give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits
+  FAIL section-gaps     section#challenge / section#impact  [390]
+       730px between these sections, +63% against the median 447px of gaps at a change of ground
+       fix: use one gap between sections (all within 25% of each other)
+  FAIL section-gaps     section#impact / footer#contact  [390]
+       163px between these sections, -63% against the median 447px of gaps at a change of ground
+       fix: use one gap between sections (all within 25% of each other)
+  WAIVED button-styles (the page): Deliberate D-020: one primary action drawn in its ground's action colour, plum on bone and saffron gold on the dark close band.
+  WAIVED copy-headline h1#hero-h "Banking Fraud Detection in Real-Time": The h1 is the case study's own title from the old site (ADR 0007); the lead carries the category and the result.
+  WAIVED copy-headings h2#challenge-h "The Challenge": The case headings are the old site's own (The Challenge, Impact & Results), kept by ADR 0007.
+  WAIVED same-action header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--prima: Same decision as button-styles (D-020): 'Get in Touch' is plum on bone and gold on the dark close band.
+  WAIVED hero-lines section.hero h1: The h1 is final (each case's own title, at most 41 characters) and fits two lines at 1440; the check fills it to test characters, as gate.md allows.
+  16 WARN (not blocking), first: same-action section#impact > div.wrap.case__impact >; copy-actions header.nav.nav--centre > div.wrap.nav__b; copy-actions (the page); section-gaps section#challenge / section#impact; section-gaps section#impact / footer#contact
+A FAIL you judge false: add {"check": "<id>", "target": "<its where, enough to name that one finding>", "reason": "<why, 12+ characters>"} to .taste-skill/waivers.json (one finding each, 5 at most, never for kit-edited or checker-gaming); it goes in your report. Never edit the kit's files or hide the page from the checker.
+GATE: FAIL 4 (round 1 of 3)

@@ -26,3 +26,18 @@ dist-ssr
 # Local environment files & SWA CLI credentials
 .env
 .env.local
+
+# Redesign tooling output
+playwright-report/
+test-results/
+.playwright-cli/
+.taste-skill/
+shots/
+coverage/
+
+# Windows device-name file created by tools writing to /dev/null; never commit it
+nul
+
+# qa-shots intermediates: keep only the contact sheets (*-sheet.png)
+Documentation/qa/visual/**/*-[0-9].png
+Documentation/qa/visual/**/*-sheet.html

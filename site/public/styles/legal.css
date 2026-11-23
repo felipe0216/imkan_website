@@ -1,0 +1,23 @@
+/* Privacy and Terms (templates/legal.html): a plain reading page. Page CSS only; logical properties (ADR 0003). */
+.legal__head { display: grid; gap: var(--s-3); margin-block-end: var(--s-8); }
+.legal__head h1 { font-size: var(--t-h2); }
+
+/* contents: stays in view beside the text on wide screens */
+.legal__toc { align-self: start; position: sticky; inset-block-start: calc(var(--nav-h, 72px) + var(--s-6)); display: grid; gap: var(--s-3); }
+.legal__toc ol { margin: 0; padding-inline-start: 1.4em; display: grid; gap: var(--s-2); font-size: var(--t-small); }
+.legal__toc a { color: var(--muted); text-decoration: none; }
+.legal__toc a:hover, .legal__toc a:focus-visible { color: var(--ink); text-decoration: underline; }
+
+.legal__body { max-inline-size: 68ch; }
+.legal__body h2 { font-size: var(--t-h3); margin-block: var(--s-8) var(--s-3); scroll-margin-block-start: calc(var(--nav-h, 72px) + var(--s-5)); }
+.legal__body h2:first-child { margin-block-start: 0; }
+.legal__body h3 { font-size: var(--t-body); font-weight: 500; margin-block: var(--s-5) var(--s-2); }
+.legal__body p, .legal__body li { line-height: 1.65; }
+.legal__body p + p { margin-block-start: var(--s-3); }
+.legal__body ul { margin-block: var(--s-3); padding-inline-start: 1.2em; display: grid; gap: var(--s-2); }
+.legal__callout { margin-block-start: var(--s-4); padding: var(--s-6); border-radius: var(--r-lg); background: var(--surface); }
+
+@media (max-width: 1023px) {
+  .legal__toc { position: static; grid-column: 1 / -1; margin-block-end: var(--s-6); }
+  .legal__body { grid-column: 1 / -1; }
+}

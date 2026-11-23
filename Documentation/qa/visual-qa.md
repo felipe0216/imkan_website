@@ -1,0 +1,274 @@
+# Phase 7.5: visual QA and cross-browser
+
+Standards: `DESIGN.md` (Layout; Browser support and visual QA), D-031, D-032.
+
+## Q1 baseline (2026-11-20, before any fix)
+
+Run on the built site (`vite preview`), `QA=1 npx playwright test layout`: 17 pages × 13 sizes (2560×1300 down to 360×640) × 3 engines = 663 checks; **78 pass, 585 fail**.
+
+**The three engines report the same problems** (Chromium, Firefox and WebKit counts match within one), so the layout issues come from the layout itself, not from a browser difference.
+
+Issues per kind, Chromium (Firefox and WebKit the same):
+
+| Kind | Count | Meaning |
+|---|---|---|
+| rhythm | 598 | section padding is the kit's 120/72px, not the D-031 rhythm (fixed by Q3a, expected) |
+| void | 415 | section taller than its content (screen-height sections) |
+| overlap | 51 | content runs past its section's bottom into the next one |
+| tap | 51 | footer links 16 to 20px tall and too close together (WCAG 2.5.8) |
+| frame-cut | 42 | a rounded frame cuts through mock-up text (home) |
+| text-spill | 26 | text wider than its box: the Think / Build / Evolve labels in their circles (home) |
+| type | 12 | careers: founder names (`p.t-card`) at 15px on phones; a few lines under 16px |
+
+Per page, Chromium, without rhythm: `/` 155, `/careers/` 46, each case page 32 to 34, `/work/` 11, `/privacy/` 9, `/terms/` 9, `/404/` 3.
+
+Other tests in Firefox and WebKit (smoke, accessibility, CSP, keyboard, reduced motion): 364 run; after two test fixes (axe now waits for the entrance fade; WebKit focuses the skip link directly, since Safari's Tab skips links by default), all pass on the built site.
+
+CSS lint (`npm run lint:css`, Baseline widely available): our own CSS passes. The kit uses 31 newer features (mostly `text-wrap: balance/pretty`, `text-box`, `@starting-style`, `content-visibility`), all progressive: older browsers ignore them. Checked in Q4.
+
+## Q2 defect list (2026-11-20)
+
+How it was found:
+- The layout test (Q1) in all three engines, plus a **collision check** added in Q2: text over other text or over a box it doesn't belong to. The first Q1 run missed V-01 to V-03.
+- 278 window-by-window screenshots, taken the way a visitor scrolls (not a stretched full-page capture, which changes screen-height layouts):
+  - Chrome: home, careers, work index, one case, privacy and 404 at 1440×900, 1366×650, 768×1024 and 390×844.
+  - Firefox and WebKit: home, a case and careers at 1440×900 and 390×844.
+- Screenshots use reduced motion, so moments are at rest. Evidence is in `Documentation/qa/visual/`.
+
+**Root cause of V-01 to V-08:** sections are fixed to the screen height (the kit's rule, replaced by D-031). Content that's taller than the screen spills, gets clipped or gets covered. Content that's shorter leaves voids. To make things fit one screen, copy was hidden on smaller screens.
+
+**Browsers:** the three engines show the same defects. The only engine difference (V-16) is line breaks.
+
+Batches: (a) section rhythm, (b) type, (c) media frames and mock-ups, (d) components, (e) phone, (f) content.
+
+| # | Where | Sizes | What | Cause | Batch | Evidence |
+|---|---|---|---|---|---|---|
+| V-01 | Home, Services | 1280×720, 1366×650, 1536×730 | The first row's mock-up panels run over the second row's headings and text ("Deploy AI that saves you time") | Section fixed to two screens; panels have fixed heights | a, c | `v01-home-1366-mockups-over-text.jpg` |
+| V-02 | Every page, footer | 1366×650 | The gold "Get in Touch" bar covers the logo and the Company / Solutions / Stay Connected links | Closing footer fixed to one screen | a | `v02-footer-1366-cta-over-links.jpg` |
+| V-03 | Privacy, Terms | every desktop size | The footer is drawn over the legal text. The section is one screen tall, the text is 4 to 7 screens | Section fixed to one screen | a (critical) | `v03-privacy-1440-footer-over-text.jpg` |
+| V-04 | Case pages, The Challenge | 1366×650 (10 of 11) | Text clipped at the bottom (the technology list is cut mid-sentence) | Section fixed to one screen, overflow hidden | a | `v04-case-1366-text-clipped.jpg` |
+| V-05 | Home, hero and Banking Fraud window | 1366×650, 1280×720, 390×664, 360×640 | Hero content runs 57px past its section; the fraud window is squeezed and its list cut | Screen-height hero and section | a, c | `v05-home-1366-fraud-window-squeezed.jpg` |
+| V-06 | Case Overview, Challenge, Impact; home statement, Why us, About; careers perks, past roles, apply | 415 checks | Large empty areas: one paragraph alone on a whole screen (case Overview, up to 1,090px empty), about 300px empty above "The Challenge" on phone, up to 593px under Impact | Sections stretched to one or two screens | a | `v06-case-390-void.jpg` |
+| V-07 | Home methodology and contact; careers perks, past roles, apply | short laptops (1280×720 to 1536×730) | Content runs 14 to 155px into the next section | Section fixed to one screen | a | test output |
+| V-08 | Home, careers, cases | phone and tablet | **Copy hidden to fit one screen:** advantage descriptions, perk descriptions, role details, the founders' photos by the form, case art (tablet), the industry and result lines on the work index (phone), the form's note | Kit's "cut the phone copy" rule | a, e (restore) | `v08-home-390-advantage-copy-hidden.jpg` |
+| V-09 | Home, Why us | phone | Advantage tags wrap onto 2 or 3 lines ("100% / founder / oversight") | Narrow value column | e | `v08-home-390-advantage-copy-hidden.jpg` |
+| V-10 | Home, Context First | every size | "Think", "Build", "Evolve" overflow their 30px circles | Fixed circle size for a word | d | `v10-home-1440-step-labels.jpg` |
+| V-11 | Home, industries | desktop | The industry list (the marquee's static form) is a loose run of text with uneven gaps, sitting directly on the cards below it. It's hidden at some widths | Marquee fallback not styled as a list | d | `v11-home-1440-industries-runon.jpg` |
+| V-12 | Home, every mock-up frame | every size | Fades cut through mock-up text ("Assess data, tools and gaps", "Contract clauses found", "Email the full dashboard"). The sources card is cut through its labels. Mock-ups sit inconsistently in a row (top, middle, bottom) | Frames take "the height left over" (D-031: fixed aspect ratio, full mock-up) | c | `v01`, `v11` |
+| V-13 | Home, hero | every size | The chat window fades out into a large empty band | Frame height, fade | c | home screenshots |
+| V-14 | Home, cases | phone | One case card goes full width between half-width ones; the grid looks uneven | Grid fit to one screen | e | home 390 screenshots |
+| V-15 | Careers | phone | Founder names and the "We're always looking" line at 14 to 15px | Phone type reduced to fit | b | test output |
+| V-16 | Every page | Firefox, WebKit | Lines break one word earlier or later than in Chrome (WebKit sets Funnel Sans slightly wider). Harmless once heights follow content, rechecked in Q4 | Engine text layout | a, Q4 | `v16-engines-line-breaks.jpg` |
+| V-17 | Header, footer | 1366×650; phone | Nav links too close for the 24px target rule at 1366; "Privacy" and "Terms" each wrap onto their own line in the phone footer | Spacing | d | test output |
+| V-18 | Home, Get in Touch | desktop | The left column holds only the address and email next to a tall form; unbalanced | Layout choice | d (design, needs approval) | home 1440 screenshots |
+| V-19 | Privacy, Terms | every size | **Content bug:** a content-inventory note, "Button: Close (plus a top-right icon-only close button, no aria-label)", and a stray "---" are published at the end of both pages | Extraction carried the note | f (log in wording-changes) | `content/privacy.md:137`, `content/terms.md:105` |
+
+Felipe's own items: (to add)
+
+## Q3 batch (a): section rhythm (2026-11-20)
+
+What changed:
+- **New `site/public/styles/rhythm.css`**, loaded after the kit and `tokens.css`. Kit files are unmodified.
+  - Every section and the closing footer is as tall as its content, plus `--rhythm` padding above and below: 128px from 1280 up, 96px from 640 to 1279, 72px below 640.
+  - The two parts of a two-part section stack at their own height, `--rhythm-split` apart (96 / 80 / 64).
+  - A `.fill` frame gets a height of its own.
+  - The hero keeps a minimum of one screen (capped at 1040px) and grows on short windows.
+- **Page CSS:** removed the rules that squeezed, centred or hid content to fit one screen (statement, careers, case Impact and Challenge, work index). The copy is back at every size (wording-changes 39).
+- **V-19:** the stray inventory note is removed from Privacy and Terms (wording-changes 38). Legal pages regenerated.
+- **Test fixes:**
+  - The empty-space check now counts framed boxes and painted decorative text.
+  - Overlap is measured on what is actually painted, not on what a frame clips.
+  - The full-screen scene is exempt, like the hero.
+
+Result, Chromium, 17 pages × 13 sizes: **208 of 221 pass** (before: 78 of 221 per engine, about 1,900 findings).
+- What fails belongs to later batches: frames cutting mock-up text (c, home Services and Methodology) and the step labels (d).
+- Smoke, accessibility, CSP and keyboard: 182 pass.
+- CSS lint: pass.
+
+Fixed: V-01, V-02, V-03, V-04, V-05 (overlap; the fraud window's crop stays for c), V-06, V-07, V-08, V-19.
+
+Evidence (before on the left, after on the right):
+- `a-v01-before-after.jpg`: Services at 1366×650
+- `a-v02-before-after.jpg`: footer at 1366×650
+- `a-v03-before-after.jpg`: Privacy at 1440×900
+- `a-v08-before-after.jpg`: advantages on a phone
+
+Open for Felipe: at 1366 and 1440, two sections on the same ground now sit 256px apart (128 + 128), which reads airy. A fluid value (about 104px at 1366, 128px from 1700 up) would tighten laptops without changing large screens.
+
+### Batch (a) follow-up: laptop padding tightened (Felipe: "Tighten")
+
+From 1280 up, `--rhythm` is fluid: `clamp(96px, 7.19vw + 5.8px, 128px)`. That's about 104px at 1366, 109px at 1440 and 128px from about 1700 up. Two sections on one ground now sit about 208px apart on a laptop, not 256px. The layout test computes the same value.
+
+## Q3 batch (b): type hierarchy (2026-11-20)
+
+The type inventory (`scratchpad` script over 6 pages at 1440 and 390) found no text too small. Reading copy is 16px or more, and labels are 13 to 14px. **The problem was that the same role appeared in several styles:**
+
+| Role | Before | After |
+|---|---|---|
+| Card titles (Services, Methodology, Why us) | 18px / 560 (from `cards.css`) | 20px / 500 Funnel Sans (`--t-card`), the same as the case tiles and the founders' names beside them |
+| Row names (Why us advantages, careers perks) | 16px / 500, the same size as the description under them | `--t-lead` (20px desktop, 18px phone) |
+| Small subheads ("Our Solution", "Technology Stack", a role's headings, legal 2.1 etc.) | 16px / 500 in the **display** face, which looks thinner than the body text | 20px / 500 Funnel Sans (18px phone) |
+
+Rules are in `rhythm.css` ("Type hierarchy"). The kit is unmodified. Fixed: V-15 (careers 14px text, gone with batch a's removal of the phone squeeze) and the hierarchy item in D-031.
+
+Checks: layout 208 of 221 (unchanged; what's left is batches c and d), Chromium suite pass, CSS lint pass.
+
+## Q3 batch (c): frames and mock-ups (2026-11-20)
+
+The kit puts each mock-up at fixed offsets inside a frame of fixed height, "rising out of the bottom edge", and fades out whatever the edge cuts. With real UI text inside, that read as cut-off screens.
+
+What changed (`rhythm.css`, "Frames"):
+- **Card frames:**
+  - The mock-up is in the flow and centred.
+  - The frame grows around it with 48px of ground on each side (32px on phone), with no fade.
+  - Cards in a row keep equal frames, so mock-ups in a row share one middle line.
+- **Hero:**
+  - The chat window is centred, whole and unfaded.
+  - The frame takes what the first screen leaves and grows on short windows.
+- **Fraud-detection window:** as tall as its content, no fade over the last rows. On a tablet the alert list shows whole (it was capped at 252px).
+- **Joined-sources grid:** fits a narrow frame (tablet), with tiles from 120px.
+
+Result: no frame cuts through text at any size (was 42). Layout test **208 of 221**: all 13 failures are the step labels (batch d). Chromium suite 182 pass.
+
+Fixed: V-05 (crop), V-12, V-13.
+
+Evidence (before on the left):
+- `c-services-before-after.jpg`
+- `c-hero-before-after.jpg`
+- `c-fraud-window-before-after.jpg` (1366×650)
+
+## Q3 batch (d): components (2026-11-20)
+
+What changed (`rhythm.css`, "Components"; `partials/footer.html`):
+- **V-10, the methodology steps:** "Think", "Build" and "Evolve" are pills sized to the word (28px tall), not 32px number circles the word ran out of.
+- **V-11, the industries:**
+  - At rest (reduced motion) the list is a row of tags, not a loose run of display text.
+  - It sits 32px under the intro and 48px over the cards.
+  - Phones show it again (it was hidden) as still tags; the moving copy and its pause button are left out there.
+  - With motion on, desktop keeps the moving row.
+- **V-17, footer:**
+  - Footer links are at least 24px tall targets.
+  - Privacy and Terms are one group (markup in `partials/footer.html`) that never splits across lines; on a phone they sit together under the copyright line.
+- **Test:** tags count as labels (13 to 14px allowed), like chips.
+
+Result: **the layout test passes 221 of 221 in Chromium.** Chromium suite 182 pass, CSS lint pass.
+
+**V-18, contact section: not changed, three options for Felipe** (`d-contact-options.jpg`; no new copy in any of them):
+- **A (now):** heading and intro across the top; address and email alone in the left column beside the form. The left column is mostly empty.
+- **B (recommended):** heading, intro, address and email in the left column, the form beside them from the top. The usual contact layout, and the two columns end close to each other.
+- **C:** one centred column (heading, intro, details on one line, then the form at a reading width). Calm, but the only centred section on the page.
+
+Evidence (before on the left):
+- `d-steps-before-after.jpg`
+- `d-industries-before-after.jpg`
+- `d-footer-phone-before-after.jpg`
+
+## Q3 batch (e): phone details, and contact layout B (2026-11-20)
+
+- **V-18, contact (Felipe: option B):** on desktop, the heading, intro, address and email form the left column, with the form beside them from the top (`home.css`). Tablet and phone keep the stacked order. Evidence: `e-contact-b-live.jpg`.
+  - Wording note for Felipe: the intro says "Fill out the form **below**"; on desktop the form is now beside it. Not changed (that would be a wording change); "Fill out the form and we'll get back to you shortly." would fit every layout.
+- **V-09, advantage rows on a phone:** each row stacks its name, its fact as a small muted line, and its description at full width. The fact no longer wraps over three lines in a narrow column. Careers perks keep their icon layout. Evidence: `e-advantages-phone-before-after.jpg`.
+- **V-14, case tiles on a phone (home and work index):** a list, one case per row, with the drawing (120px) on the left and industry, title and result on the right. The two-column grid left a lone tile in each group of three and on the eleven-case index. Evidence: `e-cases-phone-before-after.jpg`.
+- **Phone pass:** home, careers, work index, a case, privacy and 404 at 390×844 and 360×640, all checked. Nothing else found.
+
+Result: layout test **221 of 221** in Chromium; Chromium suite 182 pass; CSS lint pass.
+
+**Q3 complete.** All 19 defects (V-01 to V-19) are fixed. Two notes wait on Felipe: the "below" wording, and wording-changes 38 and 39.
+
+## Q4: all three engines (2026-11-20)
+
+On the built site (`vite preview`), Playwright's Firefox 159 and WebKit 27.2 (Safari's engine), plus Chrome:
+
+| Check | Chromium | Firefox | WebKit |
+|---|---|---|---|
+| Layout test, 17 pages × 13 sizes | 221 / 221 | 221 / 221 | 221 / 221 |
+| Smoke, accessibility, CSP, keyboard, reduced motion (desktop and phone) | 182 / 182 | all pass | all pass |
+| Page height, 5 pages × 2 widths | reference | within 2px | within 2px, except Privacy on phone, 53px taller (long text breaks into a few more lines) |
+
+**What differs between engines, and why it's acceptable:**
+- **Line breaks.** WebKit sets Funnel Sans a hair wider and handles `text-wrap: pretty` and `balance` its own way, so a line can end one word earlier ("up to 1 / day"). Firefox balances some titles differently. Section heights follow content (D-031), so nothing overlaps or clips when a paragraph gains a line.
+- **Font smoothing.** On Windows, WebKit draws light text on the dark band thinner. Real Safari on a Mac and iPhone uses Apple's own text rendering; that's covered by Felipe's device check (Q5).
+
+`v16-engines-line-breaks.jpg` (Q2) and the Q4 screenshots show the same pattern; no engine-specific CSS was needed.
+
+**Newer kit CSS and its fallbacks** (the lint's 31 kit findings):
+
+| Feature | Without it |
+|---|---|
+| `text-wrap: balance / pretty` | normal line breaking |
+| `text-box` trim (split heroes) | a few px more space above the heading (Firefox today) |
+| `@starting-style` (menu opening) | the menu opens without its short fade |
+| `content-visibility`, `::details-content` | normal rendering; no opening animation on FAQ details (not used on our pages) |
+| `round()`, relative colours `oklch(from ...)` (backgrounds, mock-up surfaces) | **Mock-ups would lose their white surface.** Added a fallback in `rhythm.css` (`@supports not (color: oklch(from red l c h))`): white surfaces. Every supported browser (Chrome 119+, Safari 18+, Firefox 128+) has the feature; the fallback only matters for older ones. |
+
+**Test fix:** one Firefox-phone accessibility run (1 of 364) flagged contrast once; it didn't reproduce in 29 repeats. The scan now also waits for every finite animation to end, not just the 0.7s entrance timer.
+
+**Q4 complete.**
+
+## Demo QA protocol (D-033, revised 2026-11-20)
+
+Why it changed: the anomalies pilot passed 27 scripted tests, yet Felipe saw static, broken-looking mock-ups. He was looking at the in-app Browser pane, which I had loaded at phone width for a test and then widened without a reload. The kit decides "phone, hold every mock-up still" once, at load, so all 12 mock-ups stayed still. And I had never checked whole pages by eye, nor whether a visitor can tell the demo is interactive. From now on a demo is not done until all of these hold:
+
+1. **Fresh loads only.** Every screenshot comes from a page loaded at its final size. Never resize after load, and never verify in the hidden in-app pane (it throttles animation and scales the view).
+2. **Contact sheet, reviewed by eye.** `node scripts/qa-shots.mjs` captures each demo in Chrome, Firefox and WebKit, at desktop (1440) and phone (390), at rest, mid-run and finished, and tiles them into `Documentation/qa/visual/demo-<name>-sheet.png`. I review the sheet, then send it to Felipe before calling the demo done.
+3. **Before vs after, whole page.** Section heights on the branch are compared with the PR #25 build at desktop and phone. Any change outside the demo's own section is a defect until explained. Full-page screenshots of both go with the report.
+4. **Discoverability.** From the "at rest" picture alone, a first-time visitor must be able to tell they can click it. If they can't, the demo is not done.
+5. **Scripted checks still run:** `tests/play.spec.ts` (mouse, keyboard, axe) in all six projects, plus smoke, accessibility and CSP. Test output goes outside OneDrive, with at most 3 workers. A failure is rerun on a quiet machine before it is called flaky.
+6. **Links Felipe can open.** Every hand-off gives a URL for his own browser, the exact steps to try, and what he should see.
+
+Pilot result under this protocol (2026-11-20): it renders identically in all three engines at both sizes (`demo-anomalies-sheet.png`), and nothing outside #platform changed (section heights equal to PR #25 at 1440; at 390 only #platform grew, 723 to 1272 px, by showing the queue). **It fails item 4:** at rest nothing signals that the queue can be clicked. Phones: the 9-row queue makes the section 549 px taller.
+
+### Cues added (2026-11-20, same day)
+
+- **Cue:** a plum "Try it: pick a new alert" pill sits above the frame's right edge. Pressing it marks the first new alert (plum bar and tint) and moves focus to it. After the first play it becomes an outlined "Reset demo", which restores the demo exactly (counts, statuses, run header). The first new alert glows three times each time the frame comes into view, until the visitor plays.
+- **Phones:** four alerts, then "Show all 9 alerts" / "Show fewer". The window's 312 px minimum height is lifted so no blank band is left. The run is slower (about 4.5 s) so there is time to press Hold.
+- **Labels:** all four are proposals, logged as wording changes 40 to 43 (pending).
+- **Found by eye, missed by the tests:**
+  1. The first sheet scrolled the pill under the sticky navigation. The QA script now frames each shot from the section's top.
+  2. "Try it" gave no visible response to a mouse click, because a focus ring only shows for keyboard focus. Hence the marked state.
+  3. Reset showed a computed event ID instead of the page's.
+  4. A blank band appeared under the folded phone queue.
+- **Result:** passes items 1 to 6.
+  - Contact sheet: `demo-anomalies-sheet.png`. Full size: `demo-anomalies-desktop-rest.png`, `demo-anomalies-desktop-tryit.png`, `demo-anomalies-phone-tryit.png`.
+  - Section heights against PR #25: only #platform changed (+32 px desktop, +345 px phone).
+  - `play.spec.ts`: 34 passed and 6 skipped by design, plus the two WebKit load timeouts passing on rerun (24 of 24 over 2 repeats).
+- **Chrome missing:** Chrome was no longer installed on this machine during this round. The Chromium runs used Edge (`PW_CHANNEL=msedge`, same engine).
+
+### Rollout to all 13 demos (2026-11-20)
+
+| Demo | Where | What the visitor does |
+|---|---|---|
+| Hero chat | Home hero | Picks one of 3 questions (2 proposed, TODO); the agent types the answer and shows only the sources it used |
+| Anomalies | Home #platform | (pilot) picks an alert, Hold, Open alert, filters |
+| Roadmap, proof plan, application | Home Services, Why us; Careers hero | Ticks and unticks steps; bar and "n of 4" follow |
+| Sources | Home Services | Drops a source (it dims, count falls) and joins it back ("Joining n of 6 sources") |
+| Sales review | Home Services | Flips the switches; "n of 4 on" follows |
+| Notes | Home Services | Clears notes; once all are cleared, the agent brings them back |
+| Search | Home Methodology | Types in a real text box; rows filter, matches bold, arrows move |
+| Stack | Home Methodology | Connect (spinner, Connected) and disconnect; count follows |
+| Checks | Home Methodology | Presses the command; the kit's own run plays again |
+| Voice | Home Why us | Taps the orb or caption; the kit's own line plays again |
+| Past roles | Careers | Opens a role from the mock-up in the Past roles list |
+
+**Found by eye and fixed:**
+1. Dropped sources were too subtle (now dimmed).
+2. A tinted row painted over a card's rounded corners (cards now clip).
+3. The chat's question chips took two rows inside the 400px card and pushed the chat past the first screen at 1440x900 (bottom 917px against 804px before). They now sit in one row under the card, and the chat is back at 804px.
+4. Chips outside the card lost their colours (the kit's variables stop at the card). They now use the page tokens.
+5. The pill's extra top room was only needed on phones; desktop frames already clear it.
+
+**Found by tests and fixed:**
+1. The kit rewrites some mock-ups as it stops, so the first click landed on a replaced note. The control is now found again after the takeover, and the controls are prepared again.
+2. The stack's hidden "Connected" chip blocked the Connect button, and the kit had left that button aria-hidden.
+
+**Not a regression, noted for Felipe:** the Careers hero card shares the frame's beige (same on the PR #25 build).
+
+### Firefox page crash during axe scans in Playwright Test (2026-11-21, found and worked around)
+
+- **Symptom:** in `play-all.spec.ts`, after the chat demo has played, `AxeBuilder.analyze()` fails with "Page crashed", in Firefox only (desktop and phone, 5 of 6 runs).
+- **Not reproduced outside the runner:** the same steps in a standalone script never crash, and axe finds 0 violations. That covered the same Firefox build, the `Desktop Firefox` device settings, the same WCAG tags, scanning right after the answer appears, and polling the prompt bar while it is typed in.
+- **Ruled out:** tracing (off, still crashes), the smooth scroll (instant scroll, still crashes) and the conversation's region role (removed, still crashes).
+- **For now:** that one scan runs in Chromium and WebKit; the Firefox behaviour tests still run.
+- **To do:** retry after the next Playwright update, and check on a real Firefox by hand.
+- **Cause found by bisecting:** an `expect(...)` assertion immediately before `AxeBuilder.analyze()` crashes the Firefox page (Playwright 1.65.1). A `locator.waitFor()` for the same wait never crashes. It is reproducible in a 3-variant test, and the site's code is not involved (removing the live regions, the region role and the smooth scroll changed nothing).
+- **Workaround:** the axe helpers wait on the frame with `locator.waitFor()` first. The Firefox chat scan is back on.

@@ -1,0 +1,162 @@
+/* D-031: sections fit their content, on a fixed rhythm (Phase 7.5 Q3a).
+   The kit makes every section exactly one or two screens tall (system.css, "one section per screen"). That only
+   fits a window close to 900px tall: shorter windows spill content into the next section, taller ones leave
+   voids. Here every section is as tall as its content plus one padding token above and below; only the hero
+   keeps a screen-based height, as a minimum. The kit's files stay unmodified (DESIGN.md); this file loads after
+   them and after tokens.css. `html` in each selector gives it one more element of weight than the kit's rule. */
+
+:root { --rhythm: 72px; --rhythm-split: 64px; }
+@media (min-width: 640px) { :root { --rhythm: 96px; --rhythm-split: 80px; } }
+/* laptops to large screens: fluid, about 104px at 1366 and 128px from about 1700 up (Felipe: "Tighten") */
+@media (min-width: 1280px) { :root { --rhythm: clamp(96px, 7.19vw + 5.8px, 128px); --rhythm-split: calc(var(--rhythm) * 0.75); } }
+
+/* Every section and the closing footer: content height, rhythm padding. */
+html main > :is(section, .section):not(.hero, .section--hero),
+html footer.closing {
+  height: auto; min-height: 0;
+  padding-block: var(--rhythm);
+}
+/* the bottom padding still clears the phone's action bar when the kit sets one */
+html main > :is(section, .section):not(.hero, .section--hero):last-child,
+html footer.closing { padding-block-end: calc(var(--rhythm) + var(--bar, 0px)); }
+html main > :is(section, .section) > :is(.wrap, .container),
+html footer.closing > .wrap { height: auto; }
+
+/* Two-part sections (.g2, .g2m): the two groups stack at their own heights, a fixed gap apart.
+   (The kit gave each group one screen, so the shorter one left a void.) */
+html main > :is(section, .section):is(.g2, .g2m) > :is(.wrap, .container),
+html footer.closing:is(.g2, .g2m) > .wrap {
+  display: grid; grid-template-rows: auto; grid-auto-rows: auto; row-gap: var(--rhythm-split);
+}
+html main > :is(section, .section):is(.g2, .g2m) > :is(.wrap, .container) > * { align-self: start; }
+html main > :is(section, .section).g2 > :is(.wrap, .container) > :last-child { margin-block: 0; }
+
+/* A .fill took "what the screen leaves"; without a screen height it gets a height of its own. */
+html main > :is(section, .section) > .wrap > .fill,
+html .group > .fill { flex: none; min-height: var(--fill-h, clamp(360px, 38vw, 560px)); }
+
+/* The hero: at least the first screen (capped on very tall screens), and it grows when a short window
+   cannot hold it, instead of running under the next section. The grid row makes its .wrap fill it. */
+html main > :is(.hero, .section--hero) {
+  height: auto; min-height: min(100vh, 1040px); min-height: min(100svh, 1040px);
+  display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr;
+}
+html main > :is(.hero, .section--hero) > :is(.wrap, .container) { height: auto; }
+
+/* Type hierarchy (Phase 7.5 Q3b): one style per role, everywhere.
+   Item titles (card titles, row names, role titles, founders' names) share the kit's --t-card: 20px on desktop,
+   18px on a phone, Funnel Sans 500. cards.css loads after system.css and set its own 18px/560, so card titles were
+   a step smaller than the case tiles and founders' names beside them. */
+html .card > h3, html .card__title { font-size: var(--t-card); line-height: 1.3; font-weight: 500; letter-spacing: -0.01em; }
+/* a row's name was body size, the same as its description under it: one step up */
+html .rows__name { font-size: var(--t-lead); line-height: 1.3; }
+@media (max-width: 639px) { html .rows__name { font-size: var(--t-card); } }
+/* small subheads inside a section ("Our Solution", "Technology Stack", a role's "Responsibilities", a legal 2.1):
+   text face at 500, a step above body. At 16px the display face (the h3 default) looked thinner than the text. */
+html :is(.case__sub, .role__body h3, .legal__body h3) { font-family: var(--font-text); font-size: var(--t-lead); line-height: 1.3; font-weight: 500; letter-spacing: -0.01em; }
+@media (max-width: 639px) { html :is(.case__sub, .role__body h3, .legal__body h3) { font-size: var(--t-card); } }
+
+/* Frames (Phase 7.5 Q3c, D-031): every mock-up shows in full, centred in its frame, never cut by an edge or a fade.
+   The kit places a fragment at fixed offsets inside a frame of fixed height ("rising out of the bottom edge")
+   and dissolves what the edge cuts. With text inside the fragments that read as cut-off UI (V-12, V-13).
+   Here the fragment is in the flow, the frame grows around it with even ground on every side, and cards in a
+   row keep equal frames (the grid stretches them), so every fragment in a row sits on the same middle line. */
+html .panel > .stage {
+  position: relative; inset: auto; display: flex; align-items: center; justify-content: center;
+  min-height: var(--p-h); padding: var(--s-7) var(--s-6);
+  -webkit-mask: none; mask: none;
+}
+html .panel > .stage > * {
+  position: relative; inset: auto; translate: none;
+  width: 100%; max-width: var(--fit-max, 400px);
+}
+html .panel > .stage > * > :is([data-ui], .ui) { width: 100%; max-width: 100%; height: auto; }
+/* a wide fragment (the joined sources) and a list that ran to the edge get the frame's width instead */
+html .panel > .stage > :is(.wide, .to-edge) { max-width: 520px; }
+@media (max-width: 639px) { html .panel > .stage { padding: var(--s-6) var(--s-5); } }
+
+/* Hero: the chat window centred in its frame, whole, with no fade; the frame takes what the first screen leaves */
+html .hero--centred .hero__window {
+  flex: 1 0 auto; min-height: 0; display: flex; align-items: center; justify-content: center;
+  padding: var(--s-7) var(--s-6); -webkit-mask-image: none; mask-image: none;
+}
+html .hero--centred .hero__window > .ly-piece { position: relative; inset: auto; transform: none; width: 100%; max-width: 560px; }
+html .hero__window .hero__chat, html .hero__window .hero__apply { margin-block-start: 0; }
+@media (max-width: 639px) { html .hero--centred .hero__window { padding: var(--s-5) var(--s-4); } }
+
+/* The fraud-detection app frame: as tall as its panes' content, no fade over the last rows */
+html main .app.ui.fill { min-height: 0; }
+html .app > .app__pane { overflow: visible; }
+html .app > .app__pane::after { display: none; }
+/* on a tablet the alert list stacks above the run: shown whole (it was capped at 252px and cut) */
+@media (max-width: 1023px) { html .app > .app__pane--list { max-block-size: none; } }
+/* the joined-sources grid keeps inside a narrow frame (tablet): no 300px floor, tiles from 120px */
+html .panel .ui-files { min-width: 0; }
+html .panel .ui-files__grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+
+/* Components (Phase 7.5 Q3d) */
+/* V-10: the methodology steps carry a word (Think, Build, Evolve), not a number: a pill sized to the word,
+   not the kit's 32px circle the word ran out of */
+html .step-num { width: fit-content; align-self: flex-start; justify-self: start; margin-block-end: var(--s-2); height: 28px; padding-inline: var(--s-3); font-variant-numeric: normal; }
+
+/* V-11: the industries at rest (reduced motion, phones) are a row of tags, not a loose run of display text;
+   space between the row and the cards under it */
+html .services-marquee { margin-block: var(--s-6) var(--s-7); }
+html .mo-mq:not(.is-live) .mo-mq__track { gap: var(--s-2); row-gap: var(--s-2); }
+html .mo-mq:not(.is-live) .mo-mq__track > li {
+  display: inline-flex; align-items: center; min-block-size: 32px; padding-inline: var(--s-4); border-radius: 999px;
+  background: var(--surface); color: var(--ink); font: 500 var(--t-small)/1.2 var(--font-text); letter-spacing: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  html .mo-mq.is-live .mo-mq__track { gap: var(--s-2); }
+  html .mo-mq.is-live .mo-mq__track > li {
+    display: inline-flex; align-items: center; min-block-size: 32px; padding-inline: var(--s-4); border-radius: 999px;
+    background: var(--surface); color: var(--ink); font: 500 var(--t-small)/1.2 var(--font-text); letter-spacing: 0;
+  }
+}
+/* phones: the same tags, still (it was hidden there: D-031 shows it); the moving copy and its pause button go */
+@media (max-width: 639px) {
+  html .services-marquee { display: block; }
+  html .mo-mq .mo-mq__track { animation: none !important; flex-wrap: wrap; white-space: normal; gap: var(--s-2); }
+  html .mo-mq.is-live .mo-mq__rail { display: block; overflow: visible; padding-right: 0; -webkit-mask-image: none; mask-image: none; }
+  html .mo-mq .mo-mq__clone, html .mo-mq .mo-mq__pause { display: none; }
+  html .mo-mq .mo-mq__track > li {
+    display: inline-flex; align-items: center; min-block-size: 32px; padding-inline: var(--s-3); border-radius: 999px;
+    background: var(--surface); color: var(--ink); font: 500 var(--t-label)/1.2 var(--font-text); letter-spacing: 0;
+  }
+}
+
+/* V-17: footer links are at least 24px tall targets (WCAG 2.5.8); Privacy and Terms stay together on the
+   bottom line instead of breaking one per line on a phone */
+html .footer__col a { display: inline-flex; align-items: center; min-block-size: 24px; }
+html .footer__legal-links { display: inline-flex; gap: var(--s-4); margin-inline-start: var(--s-4); white-space: nowrap; }
+html .footer__legal a { display: inline-flex; align-items: center; min-block-size: 24px; }
+@media (max-width: 639px) { html .footer__legal-links { display: flex; margin-inline-start: 0; margin-block-start: var(--s-2); } }
+
+/* Phone details (Phase 7.5 Q3e) */
+@media (max-width: 639px) {
+  /* V-09: a row (an advantage, a perk) stacks on a phone: its name, its fact as a small line under it, then
+     its description at the full width (the fact had a narrow column of its own and wrapped to three lines) */
+  html .rows:not(.perks) > li { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-2); }
+  html .rows:not(.perks) .rows__value { order: 1; grid-column: 1; grid-row: auto; text-align: start; max-width: none; white-space: normal; color: var(--muted); font-size: var(--t-small); }
+  html .rows:not(.perks) > li > p { order: 2; grid-column: 1; max-width: none; }
+  /* V-14: on a phone the case tiles are a list, one per row: the drawing on the left, industry, title and result
+     on the right. Two across left a lone tile in each group of three (and on the work index's eleven). */
+  html main #cases .grid { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-5); }
+  html main #cases .grid > .tile--case { grid-column: 1 / -1; display: grid; grid-template-columns: 120px minmax(0, 1fr); column-gap: var(--s-4); row-gap: var(--s-1); align-content: start; }
+  html main #cases .tile--case > .tile__media { grid-column: 1; grid-row: 1 / span 3; align-self: start; margin: 0; aspect-ratio: 3 / 2; }
+  html main #cases .tile--case > .tile__media > img { aspect-ratio: 3 / 2; block-size: 100%; object-fit: contain; }
+  html main #cases .tile--case > :not(.tile__media) { grid-column: 2; }
+  html main #cases .tile--case :is(.t-small, .t-label) { display: block; }
+}
+
+/* Fallbacks (Phase 7.5 Q4, D-032). The kit gives each mock-up its surface with relative colour syntax
+   (oklch(from ...)): Chrome 119, Safari 18 and Firefox 128 and up. In an older browser that value is dropped and
+   the mock-ups would lose their white cards, so give them plain white there (all our frames are on light ground). */
+@supports not (color: oklch(from red l c h)) {
+  html .stage, html .hero__window { --frag: #ffffff; --fx-bg: #ffffff; }
+}
+
+/* step labels (Felipe, 2026-11-24: Think, Build, Evolve more noticeable; the services as Step 1 to 4): a filled chip
+   in the ground's action colour, plum with bone text on bone, gold with plum-black text on the dark grounds */
+html .step-num { height: 32px; padding-inline: var(--s-4); border-color: var(--action); background: var(--action); color: var(--action-ink); font-size: 14px; font-weight: 600; letter-spacing: 0.01em; }

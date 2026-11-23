@@ -1,0 +1,31 @@
+/* The brand tokens: start.mjs brand --page software --bg "#efece5" --surface "#e3ded3" --ink "#1b111d" --muted "#4c4150"
+   --accent "#5e1654" --type funnel, as printed (D-018, D-022), then the D-020 override. A file, not a <style>, so the CSP
+   allows styles from 'self' only (D-029). Loaded after the kit's CSS: layout.css resets --ly-scale. */
+:root {
+  --p-bg: #efece5; --p-surface: #e3ded3; --p-ink: #1b111d; --p-muted: #4c4150;
+  --p-accent: #5e1654; --p-accent-ink: #efece5; --p-action: #5e1654; --p-action-ink: #efece5;
+  --p-inv-bg: #1b111d; --p-inv-surface: #271d29; --p-inv-ink: #efece5; --p-inv-muted: #979092;
+  --p-inv-accent: #efece5; --p-inv-accent-ink: #1b111d; --p-inv-action: #efece5; --p-inv-action-ink: #1b111d;
+  --font-display: "Funnel Display", system-ui, sans-serif;
+  --font-text: "Funnel Sans", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.03em;
+  --display-tracking-xl: -0.04em;
+  --ly-scale: 0.98;
+}
+
+/* D-020: the saffron-gold highlight and a lighter muted on the dark band (the one deviation from the printed block) */
+:root {
+  --p-inv-muted: #cbbccf;
+  --p-inv-accent: #ffc233; --p-inv-accent-ink: #1b111d;
+  --p-inv-action: #ffc233; --p-inv-action-ink: #1b111d;
+}
+
+/* D-034: the frames behind the mock-ups (the kit's lit ground) are the palette's own bone, one step down, and flat
+   (Felipe, 2026-11-22: the kit's sand was not one of his colours). Set here so the kit's files stay unmodified:
+   the ground tokens on html[data-ground] (above the kit's :root sand), and no mesh on a tech page's panels. */
+html[data-ground] {
+  --ground-bg: #e3ded3; --ground-surface: #efece5; --ground-ink: #1b111d; --ground-muted: #4c4150; --ground-accent: #5e1654;
+}
+html:root:has(meta[name="site-kind"]:is([content])) .panel:not([data-fx], .panel--device) { background-image: none; }
