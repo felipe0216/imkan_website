@@ -15,13 +15,14 @@ for (const path of PAGES) {
       expect(problems).toEqual([]);
     });
 
-    test('has the basics: lang, title, one h1, noindex during the redesign', async ({ page }) => {
+    test('has the basics: lang, title, one h1; indexable, except the 404 page', async ({ page }) => {
       await page.goto(path);
       await expect(page.locator('html')).toHaveAttribute('lang', 'en');
       expect((await page.title()).trim().length).toBeGreaterThan(0);
       await expect(page.locator('h1')).toHaveCount(1);
-      // Remove this check at cut-over, when the new site goes live (ADR 0004).
-      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+      // live since the cut-over (2026-11-24): search engines may index every page but the 404 page
+      if (path.startsWith('/404')) await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+      else await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
     });
 
     test('has no serious or critical accessibility violations', async ({ page }) => {

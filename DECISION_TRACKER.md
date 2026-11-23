@@ -198,3 +198,8 @@ Approved by Felipe ("Six stages", "Make your data work"):
 - Fixes found on the way: the industry tags and the privacy callout used the fixed light surface (now the ground's own); the fraud demo keeps its light window in dark mode; case heroes switched to the `-band.svg` drawings (the `-ink.svg` files are now unused; kept on purpose for a light hero later, Felipe 2026-11-24).
 - Tests: a dark-mode accessibility scan for every page and a test for the button were added to `smoke.spec.ts`.
 - Fraud demo: the steps show as a row from a 1280px window (the kit turned the row on only from about 1366px); tablets and phones keep the stacked list (Felipe, 2026-11-23). In `play.css`, kit unmodified.
+
+### 2026-11-24: cut-over to production
+- Felipe: "make it the main website in the main branch, this is the website that is going live". The new site (with the demos and the two modes) merges into `main`, replacing the old React site.
+- `noindex` removed from every page but the 404 page; the smoke test now checks that. robots.txt and the sitemap already point at imkan.ai. Forms leave test mode on the live domain by themselves.
+- Still open after launch: Felipe's review of the remaining pending wording rows, the Arabic voice check (O-006), the real-device check (Q5).
