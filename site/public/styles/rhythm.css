@@ -156,3 +156,7 @@ html .footer__legal a { display: inline-flex; align-items: center; min-block-siz
 @supports not (color: oklch(from red l c h)) {
   html .stage, html .hero__window { --frag: #ffffff; --fx-bg: #ffffff; }
 }
+
+/* step labels (Felipe, 2026-11-24: Think, Build, Evolve more noticeable; the services as Step 1 to 4): a filled chip
+   in the ground's action colour, plum with bone text on bone, gold with plum-black text on the dark grounds */
+html .step-num { height: 32px; padding-inline: var(--s-4); border-color: var(--action); background: var(--action); color: var(--action-ink); font-size: 14px; font-weight: 600; letter-spacing: 0.01em; }

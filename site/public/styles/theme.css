@@ -91,7 +91,7 @@ html:not([data-theme]) .theme-toggle { display: none; }
 /* on a phone the bar keeps the button beside "Get in Touch" (the kit hides everything else there) */
 @media (max-width: 1023px) {
   html .nav:not(.is-open) .nav__actions > .theme-toggle { display: inline-grid; }
-  html .nav.is-open .nav__actions > .theme-toggle { order: 3; align-self: center; }
+  html .nav.is-open .nav__actions > .theme-toggle { order: 3; align-self: center; margin-inline: auto; }
 }
 html:not([data-theme]) .nav .nav__actions > .theme-toggle { display: none; }
 
