@@ -160,3 +160,14 @@ html .footer__legal a { display: inline-flex; align-items: center; min-block-siz
 /* step labels (Felipe, 2026-11-24: Think, Build, Evolve more noticeable; the services as Step 1 to 4): a filled chip
    in the ground's action colour, plum with bone text on bone, gold with plum-black text on the dark grounds */
 html .step-num { height: 32px; padding-inline: var(--s-4); border-color: var(--action); background: var(--action); color: var(--action-ink); font-size: 14px; font-weight: 600; letter-spacing: 0.01em; }
+
+/* cards in a row share their rows (Felipe, 2026-11-24: the frames in a row did not line up once one text ran a line
+   longer): label, title, text and frame each take the tallest of the row, so every frame starts and ends on one line.
+   From 640px, where cards sit side by side; a phone stacks them. */
+@media (min-width: 640px) {
+  html .grid > .card.card--open:has(> .step-num + h3 + p + .panel) {
+    display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; align-content: start;
+  }
+  html .grid > .card.card--open:has(> .step-num + h3 + p + .panel) > p { align-self: start; }
+  /* no row gap: the label, the text and the frame keep their own margins, so the spacing is as before */
+}
