@@ -1,6 +1,9 @@
 // Shared helpers for the interactive mock-ups (see /scripts/play.js).
 
 const rmq = matchMedia('(prefers-reduced-motion: reduce)');
+// a phone stacks the cards: a card can fit its content there, since no card beside it has to match its height
+const stackq = matchMedia('(max-width: 639px)');
+export const stacked = () => stackq.matches;
 export const reduced = () => rmq.matches;
 
 const STUB = { destroy() {}, pause() {}, resume() {}, restart() {}, hold() {} };

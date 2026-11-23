@@ -11,7 +11,7 @@
 // At rest it plays itself (a source every 3 s); a press takes over, and untouched for a while it plays again.
 // The figures are illustrative. Without scripts the kit's sources grid shows as before. Every word is a
 // TODO(wording) proposal, pending Felipe.
-import { own, cue, reduced } from './lib.js';
+import { own, cue, reduced, stacked } from './lib.js';
 
 // TODO(wording): proposed, pending Felipe. Figures illustrative.
 const ICON = {
@@ -150,7 +150,8 @@ export default function init(frame) {
     how.textContent = SOURCES.map((s) => s.how).sort((a, b) => b.length - a.length)[0]; again.hidden = false;
     const h = box.offsetHeight;
     [how.textContent, again.hidden] = was;
-    box.style.minBlockSize = `${Math.ceil(h)}px`;
+    // on a phone the card fits its content and grows with a longer message; side by side it keeps the tallest
+    box.style.minBlockSize = stacked() ? '' : `${Math.ceil(h)}px`;
   };
   settle();
   document.fonts?.ready.then(settle);
