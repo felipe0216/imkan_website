@@ -6,7 +6,7 @@
 // and "Play again". The card never changes height: a card that leaves the tray keeps its place.
 // Without scripts the kit's checklist shows as before. The title is the page's own; every other word is a
 // TODO(wording) proposal, pending Felipe.
-import { own, cue, reduced } from './lib.js';
+import { own, cue, reduced, stacked } from './lib.js';
 
 // The stages of data maturity on the way to "AI ready" (Felipe, 2026-11-21: "what you need to do before getting to
 // AI ready, all the things that need to happen before that, in order"). The track ends at a fixed flag, AI ready.
@@ -188,7 +188,8 @@ export default function init(frame) {
     msg.textContent = [...STEPS.map((s) => s.right), ...STEPS.slice(1).map((s) => s.early), ...TRAPS.map((t) => t.why)].sort((x, y) => y.length - x.length)[0];
     const h = box.offsetHeight;
     [tray.hidden, end.hidden, msg.textContent] = was;
-    box.style.minBlockSize = `${Math.ceil(h)}px`;
+    // on a phone the card fits its content and grows with a longer message; side by side it keeps the tallest
+    box.style.minBlockSize = stacked() ? '' : `${Math.ceil(h)}px`;
   };
   const pill = cue(frame, { corner: true, invite: T.invite, onStart: () => { const c = tray.querySelector('.play-game__card'); c?.focus({ preventScroll: true }); c?.classList.add('is-pointed'); } });
   deal();

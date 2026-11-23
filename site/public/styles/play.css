@@ -625,3 +625,17 @@ html .play-ev__again:focus-visible { outline: 2px solid var(--p-action); outline
     font: 12px/20px var(--ui-mono, ui-monospace, monospace); color: var(--u-text-2);
   }
 }
+
+/* phones, the hero chat's suggestions (2026-11-24: the first one ran past the card's edge and read as cut off):
+   each wraps to at most two lines, so it fits and the next one peeks in, and the row fades at its right edge so it
+   reads as a row that scrolls */
+@media (max-width: 639px) {
+  html .play-chat__q { white-space: normal; max-inline-size: 220px; text-align: start; }
+  html .play-chat__suggest {
+    align-items: stretch; scroll-snap-type: x proximity; scroll-padding-inline: var(--s-4);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+  }
+  html .play-chat__q { scroll-snap-align: start; }
+  html .play-chat__suggest::after { content: ""; flex: none; inline-size: 12px; }
+}

@@ -10,7 +10,7 @@
 // At rest it plays itself (a task every 3 s); a press takes over, and untouched for a while it plays again.
 // The hours are illustrative, not a client's figures. Without scripts the kit's notes show as before. New words
 // are TODO(wording) proposals, pending Felipe.
-import { own, cue, reduced } from './lib.js';
+import { own, cue, reduced, stacked } from './lib.js';
 
 // TODO(wording): proposed, pending Felipe. "note" is the agent's result: n = the page's own note (by index).
 const TASKS = [
@@ -184,7 +184,8 @@ export default function init(frame) {
     feed.className = 'play-ho__feed is-keep'; sayEl.textContent = T.keep; again.hidden = false;
     const h = box.offsetHeight;
     [sayEl.innerHTML, feed.className, again.hidden] = was;
-    box.style.minBlockSize = `${Math.ceil(h)}px`;
+    // on a phone the card fits its content and grows with a longer message; side by side it keeps the tallest
+    box.style.minBlockSize = stacked() ? '' : `${Math.ceil(h)}px`;
   };
   const pill = cue(frame, { corner: true, invite: T.invite, onStart: () => { const b = rows.find((r, i) => !TASKS[i].keep && !done.has(i))?.querySelector('.play-ho__btn'); b?.focus({ preventScroll: true }); b?.classList.add('is-pointed'); } });
   settle();

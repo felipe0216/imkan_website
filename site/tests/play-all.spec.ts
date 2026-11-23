@@ -218,7 +218,11 @@ test.describe('framed demos', () => {
       ['#services [data-play="handoff"]', ['.play-ho__task[data-i="0"] .play-ho__btn', '.play-ho__task[data-i="3"] .play-ho__btn']],
       ['#why-us [data-play="voice"]', ['[data-lang="ar"]', '[data-lang="ar"]']],
     ];
+    // on a phone the cards are stacked, so the three Services demos fit their content and grow with a longer message
+    // (2026-11-24); every other demo, and all of them side by side, keep one height
+    const stackedView = (page.viewportSize()?.width ?? 1440) < 640;
     for (const [frame, presses] of cases) {
+      if (stackedView && frame.startsWith('#services')) continue;
       const f = page.locator(frame);
       await f.scrollIntoViewIfNeeded();
       await expect(f.locator('.play-cue__btn')).toBeVisible({ timeout: 20000 });
