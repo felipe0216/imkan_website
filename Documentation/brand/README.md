@@ -6,6 +6,8 @@ The files live in `site/public/brand/`, so they are served at `https://www.imkan
 
 Logo pack in the three looks (light, dark, light with gold) for slides, documents and social media: `assets/logos/` (see its README).
 
+PowerPoint templates in the three looks, with example decks: `assets/slides/` (see its README). The brand fonts (Funnel Display and Funnel Sans, OFL) to install for them: `assets/fonts/`.
+
 | Use | File |
 |---|---|
 | Website, documents, light backgrounds | `svg/imkan-lockup.svg` (plum mark, plum-black text) |
