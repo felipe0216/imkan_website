@@ -61,5 +61,20 @@ for (const [look, l] of Object.entries(LOOKS)) {
   png(`imkan-avatar-${look}-1024.png`, 1024, 1024, 1, l.ground);
 }
 
-execFileSync('node', [path.join(ROOT, 'Documentation/logo/render-png.mjs'), BROWSER, ...jobs], { stdio: 'inherit' });
+// email signature logos (item 3): the logo on a solid tile, so mail apps in dark mode cannot hide it. White tiles for the
+// light looks (email bodies are white), plum-black for the dark one (the dark signature's own background). Served from the
+// site, because email images must load from a public https address: https://www.imkan.ai/brand/email/...
+const EMAIL = path.join(ROOT, 'site/public/brand/email');
+mkdirSync(EMAIL, { recursive: true });
+const EP = 12; // tight padding: the signature's own spacing does the rest
+const ew = LOCKUP_W + 2 * EP, eh = 100 + 2 * EP;
+export const EMAIL_SIZE = { w: 180, h: Math.round(180 * eh / ew) }; // shown at 180 px wide in the signature
+for (const [look, l] of Object.entries(LOOKS)) {
+  const tileC = look === 'dark' ? C.ink : '#ffffff';
+  const file = path.join(EMAIL, `imkan-email-${look}.svg`);
+  writeFileSync(file, svg(`${-EP} ${-EP} ${ew} ${eh}`, ew, eh, `<rect x="${-EP}" y="${-EP}" width="${ew}" height="${eh}" fill="${tileC}"/>${inner(l.kit)}`));
+  for (const s of [2, 3]) jobs.push(`${path.join(EMAIL, `imkan-email-${look}@${s}x.png`)}|${file}|${EMAIL_SIZE.w * s}|${EMAIL_SIZE.h * s}|1|${tileC}`);
+}
+
+execFileSync('node',[path.join(ROOT, 'Documentation/logo/render-png.mjs'), BROWSER, ...jobs], { stdio: 'inherit' });
 console.log(`clear space: at least ${CLEAR} units (the I bar) around the 100-unit mark; padded files use ${PAD}`);
