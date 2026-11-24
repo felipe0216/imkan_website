@@ -1,8 +1,10 @@
 <!-- Shared <head> for every page: icons, metas, the self-hosted fonts, the kit's CSS, the brand tokens and the kit's head
      lines (D-018, D-020, D-022, D-029). No inline <style> or <script>: the CSP allows 'self' only. Page <title>, description,
      og tags, canonical and page CSS stay in each page. -->
-<link rel="icon" href="/brand/favicon.ico" sizes="32x32">
-<link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
+<!-- the icons sit at the site root too (/favicon.ico, /favicon.svg): search engines and browsers look there first -->
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/brand/png/icon-light-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="/brand/png/apple-touch-icon.png">
 <link rel="manifest" href="/brand/site.webmanifest">
 <meta name="theme-color" content="#efece5">
