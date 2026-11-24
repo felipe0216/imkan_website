@@ -2,50 +2,196 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>IMKAN email signature</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IMKAN email signatures</title>
 <!--
-  IMKAN email signature (Phase 2.4, logo D-017, palette D-018).
-  How to use: open this file in a browser, select the signature block below (from the logo to the last line),
-  copy, and paste it into Gmail (Settings > See all settings > Signature) or Outlook (Settings > Mail > Compose and reply).
-  Replace every [PLACEHOLDER] first. Do not change the inline styles: email clients ignore <style> blocks.
+  IMKAN email signatures in the three looks: light, dark and light with gold (DECISION_TRACKER 2026-11-24).
+  Open this file in Chrome or Edge, type your details, press "Copy signature" under the one you want, and paste it into
+  your mail app (steps at the bottom). Nothing you type is saved or sent anywhere: it stays in this browser tab.
 
-  TODO (O-004): the logo loads from https://imkan.ai/brand/png/imkan-email-logo-gold-dark@2x.png, which only exists after
-  the new site goes live (Phase 8). Until then the image will not load. Do not paste the signature before cut-over,
-  or temporarily upload the PNG from site/public/brand/png/ into your mail client instead.
-
-  Logo options: swap the file name in the <img src> below for the one you want. All are 163x60 tiles.
-  - imkan-email-logo@2x.png            plum mark, plum-black text, white tile
-  - imkan-email-logo-black@2x.png      all black, white tile
-  - imkan-email-logo-gold@2x.png       gold mark, plum-black text, white tile (the gold mark is pale on white: 1.6:1)
-  - imkan-email-logo-gold-dark@2x.png  gold mark, bone text, midnight plum tile (default, D-019)
-
-  Design notes:
-  - Table layout and inline styles, because Outlook and Gmail strip most CSS.
-  - The logo is a 2x PNG shown at 163x60 (the logo is 147x44 inside 8px of white padding) so it stays sharp on retina screens.
-  - Each PNG has a solid tile behind the logo so it stays readable when a mail app switches to dark mode.
-  - Arial is used for the text because email clients cannot load the site's fonts; the logo itself is an image.
+  How the signatures are built (do not change without checking in Gmail and Outlook):
+  - Tables and inline styles only, because Gmail and Outlook remove <style> blocks and most layout CSS.
+  - The logo is a PNG with a solid tile behind it, loaded from https://www.imkan.ai/brand/email/ (email images must come
+    from a public https address). It is shown at 180x61 and drawn at 2x, so it stays sharp on high-resolution screens.
+  - The text is Arial: mail apps cannot load the website's fonts. The logo carries the brand type.
+  - Gold is never used for text on white; on the dark signature it is.
 -->
+<style>
+  :root { --ink: #1b111d; --muted: #4c4150; --bone: #efece5; --line: #e3ded3; --plum: #5e1654; --gold: #ffc233; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bone); color: var(--ink); font: 15px/1.5 Arial, Helvetica, sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 24px; margin: 0 0 4px; }
+  h2 { font-size: 17px; margin: 0 0 4px; }
+  p.lead { color: var(--muted); margin: 0 0 24px; }
+  form { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; background: #fff; padding: 16px; border-radius: 12px; border: 1px solid var(--line); }
+  label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+  input { font: inherit; color: var(--ink); padding: 8px 10px; border: 1px solid #cfc8bb; border-radius: 8px; min-height: 40px; }
+  input:focus-visible { outline: 2px solid var(--plum); outline-offset: 1px; }
+  section.look { margin-top: 28px; }
+  .note { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
+  .views { display: grid; grid-template-columns: 1fr; gap: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+  .view { padding: 20px; overflow-x: auto; }
+  .view--white { background: #fff; }
+  .view small { display: block; font-size: 12px; color: #77707a; margin-bottom: 10px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+  button { font: 600 14px/1 Arial, Helvetica, sans-serif; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--ink); background: var(--ink); color: var(--bone); cursor: pointer; }
+  button.quiet { background: transparent; color: var(--ink); }
+  button:focus-visible { outline: 2px solid var(--plum); outline-offset: 2px; }
+  .status { font-size: 13px; color: var(--muted); min-height: 1.5em; }
+  .steps { margin-top: 40px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; }
+  .steps h3 { font-size: 15px; margin: 16px 0 4px; }
+  .steps ol { margin: 0; padding-left: 20px; }
+</style>
 </head>
-<body style="margin:0;padding:24px;background:#ffffff">
+<body>
+<main>
+  <h1>IMKAN email signatures</h1>
+  <p class="lead">Type your details, then copy the signature you want. Nothing you type is saved or sent anywhere.</p>
 
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif">
-  <tr>
-    <td style="padding:0 10px 0 0;vertical-align:middle;border-right:1px solid #e3ded3">
-      <a href="https://imkan.ai" style="text-decoration:none"><img src="https://imkan.ai/brand/png/imkan-email-logo-gold-dark@2x.png" width="163" height="60" alt="IMKAN" style="display:block;border:0;width:163px;height:60px"></a>
-    </td>
-    <td style="padding:0 0 0 18px;vertical-align:middle">
-      <div style="font-size:15px;line-height:20px;font-weight:bold;color:#1b111d">[FULL NAME]</div>
-      <div style="font-size:13px;line-height:18px;color:#4c4150">[JOB TITLE], Imkan.ai</div>
-      <div style="font-size:13px;line-height:18px;color:#4c4150;padding-top:4px">
-        <a href="https://imkan.ai" style="color:#5e1654;text-decoration:none;font-weight:bold">imkan.ai</a>
-        <span style="color:#a39aa6">&nbsp;|&nbsp;</span>
-        <a href="mailto:[EMAIL]" style="color:#5e1654;text-decoration:none">[EMAIL]</a>
-        <span style="color:#a39aa6">&nbsp;|&nbsp;</span>
-        <span>[PHONE, OPTIONAL]</span>
-      </div>
-    </td>
-  </tr>
-</table>
+  <form id="details" autocomplete="on" onsubmit="return false">
+    <label>Full name <input name="name" placeholder="Full name" autocomplete="name"></label>
+    <label>Job title <input name="title" placeholder="Job title" autocomplete="organization-title"></label>
+    <label>Email <input name="email" type="email" placeholder="name@imkan.ai" autocomplete="email"></label>
+    <label>Phone (optional) <input name="phone" type="tel" placeholder="+966 ..." autocomplete="tel"></label>
+  </form>
 
+  <section class="look" data-look="light">
+    <h2>Light</h2>
+    <p class="note">Plum K, plum-black text, plum links. The everyday signature.</p>
+    <div class="views">
+      <div class="view view--white"><small>In a normal (light) mail app</small><div class="sig"></div></div>
+    </div>
+    <div class="actions"><button type="button" data-copy="rich">Copy signature</button><button type="button" class="quiet" data-copy="html">Copy HTML code</button><span class="status" role="status"></span></div>
+  </section>
+
+  <section class="look" data-look="dark">
+    <h2>Dark</h2>
+    <p class="note">Gold K and bone text on plum-black, gold links. A bolder signature that stands out in a white email.</p>
+    <div class="views">
+      <div class="view view--white"><small>In a normal (light) mail app</small><div class="sig"></div></div>
+    </div>
+    <div class="actions"><button type="button" data-copy="rich">Copy signature</button><button type="button" class="quiet" data-copy="html">Copy HTML code</button><span class="status" role="status"></span></div>
+  </section>
+
+  <section class="look" data-look="light-gold">
+    <h2>Light with gold</h2>
+    <p class="note">Gold K, plum-black text, a gold line between the logo and the text.</p>
+    <div class="views">
+      <div class="view view--white"><small>In a normal (light) mail app</small><div class="sig"></div></div>
+    </div>
+    <div class="actions"><button type="button" data-copy="rich">Copy signature</button><button type="button" class="quiet" data-copy="html">Copy HTML code</button><span class="status" role="status"></span></div>
+  </section>
+
+  <div class="steps">
+    <h2>Adding it to your mail app</h2>
+    <h3>Gmail (web)</h3>
+    <ol>
+      <li>Press <b>Copy signature</b> under the one you want.</li>
+      <li>In Gmail: the gear icon (top right), <b>See all settings</b>, the <b>General</b> tab, scroll to <b>Signature</b>.</li>
+      <li><b>Create new</b>, give it a name (for example "IMKAN"), click in the box and paste (Ctrl+V).</li>
+      <li>Under <b>Signature defaults</b>, pick it for new emails and for replies.</li>
+      <li>Scroll to the bottom and press <b>Save Changes</b>.</li>
+    </ol>
+    <h3>Outlook (new Outlook for Windows, and Outlook on the web)</h3>
+    <ol>
+      <li>Press <b>Copy signature</b>.</li>
+      <li>In Outlook: the gear icon (top right), <b>Account</b>, <b>Signatures</b>, <b>+ New signature</b>.</li>
+      <li>Name it, click in the box, paste (Ctrl+V), and press <b>Save</b>.</li>
+      <li>Under <b>Select default signatures</b>, pick it for new messages and for replies, and press <b>Save</b>.</li>
+    </ol>
+    <h3>Outlook (classic, for Windows)</h3>
+    <ol>
+      <li>Press <b>Copy signature</b>.</li>
+      <li>In Outlook: <b>File</b>, <b>Options</b>, <b>Mail</b>, <b>Signatures...</b>, <b>New</b>, name it.</li>
+      <li>Click in the edit box, paste (Ctrl+V), pick it as the default for new messages and replies, and press <b>OK</b>.</li>
+    </ol>
+    <h3>Apple Mail (Mac)</h3>
+    <ol>
+      <li>Press <b>Copy signature</b>.</li>
+      <li>In Mail: <b>Mail</b>, <b>Settings</b>, <b>Signatures</b>, pick the account, press <b>+</b>.</li>
+      <li>Untick <b>Always match my default message font</b>, then paste (Cmd+V) into the right-hand box.</li>
+    </ol>
+    <h3>Dark mode</h3>
+    <p class="note">When a reader's mail app is in dark mode, it recolours the text to keep it readable. The logo keeps its solid tile (white, or plum-black for the dark signature), so it always shows as designed.</p>
+    <h3>If the logo does not show</h3>
+    <p class="note">Some mail apps hide images from new senders until the reader allows them; that is the reader's setting, not the signature. The logo loads from www.imkan.ai, so it needs an internet connection.</p>
+  </div>
+</main>
+
+<script>
+(function () {
+  var BASE = 'https://www.imkan.ai/brand/email/';
+  var SITE = 'https://www.imkan.ai/';
+  var LOOKS = {
+    'light':      { bg: '',        logo: 'imkan-email-light@2x.png',      name: '#1b111d', title: '#4c4150', link: '#5e1654', sep: '#b3aab5', rule: '1px solid #e3ded3' },
+    'dark':       { bg: '#1b111d', logo: 'imkan-email-dark@2x.png',       name: '#efece5', title: '#cbbccf', link: '#ffc233', sep: '#6b5d6e', rule: '1px solid #4a3c4c' },
+    'light-gold': { bg: '',        logo: 'imkan-email-light-gold@2x.png', name: '#1b111d', title: '#4c4150', link: '#1b111d', sep: '#b3aab5', rule: '3px solid #ffc233' }
+  };
+  var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var FONT = 'font-family:Arial,Helvetica,sans-serif;';
+
+  function build(look, d) {
+    var l = LOOKS[look];
+    var name = esc(d.name.trim() || 'Full name');
+    var title = esc(d.title.trim() || 'Job title');
+    var email = d.email.trim() || 'name@imkan.ai';
+    var phone = d.phone.trim();
+    var sep = '<span style="color:' + l.sep + ';">&nbsp;&nbsp;|&nbsp;&nbsp;</span>';
+    var a = function (href, text, bold) { return '<a href="' + esc(href) + '" style="color:' + l.link + ';text-decoration:none;' + (bold ? 'font-weight:bold;' : '') + '">' + text + '</a>'; };
+    var links = a(SITE, 'imkan.ai', true) + sep + a('mailto:' + email, esc(email)) + (phone ? sep + a('tel:' + phone.replace(/[^+\d]/g, ''), esc(phone)) : '');
+    var cell = 'padding:0;' + FONT;
+    var inner =
+      '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;' + FONT + '">' +
+        '<tr>' +
+          '<td style="padding:0 18px 0 0;vertical-align:middle;">' +
+            '<a href="' + SITE + '" style="text-decoration:none;"><img src="' + BASE + l.logo + '" width="180" height="61" alt="IMKAN" style="display:block;border:0;outline:none;width:180px;height:61px;"></a>' +
+          '</td>' +
+          '<td style="padding:0 0 0 18px;vertical-align:middle;border-left:' + l.rule + ';">' +
+            '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">' +
+              '<tr><td style="' + cell + 'font-size:15px;line-height:20px;font-weight:bold;color:' + l.name + ';">' + name + '</td></tr>' +
+              '<tr><td style="' + cell + 'font-size:13px;line-height:18px;color:' + l.title + ';">' + title + ', Imkan.ai</td></tr>' +
+              '<tr><td style="' + cell + 'padding-top:6px;font-size:13px;line-height:18px;color:' + l.title + ';">' + links + '</td></tr>' +
+            '</table>' +
+          '</td>' +
+        '</tr>' +
+      '</table>';
+    if (!l.bg) return inner;
+    // the dark look: the whole signature sits on a plum-black panel (bgcolor too, for Outlook)
+    return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" bgcolor="' + l.bg + '" style="border-collapse:collapse;background-color:' + l.bg + ';">' +
+      '<tr><td bgcolor="' + l.bg + '" style="padding:16px 22px 16px 16px;background-color:' + l.bg + ';">' + inner + '</td></tr></table>';
+  }
+
+  var form = document.getElementById('details');
+  function data() { var f = new FormData(form); return { name: f.get('name') || '', title: f.get('title') || '', email: f.get('email') || '', phone: f.get('phone') || '' }; }
+  function render() {
+    var d = data();
+    document.querySelectorAll('section.look').forEach(function (s) {
+      var html = build(s.dataset.look, d);
+      s.querySelector('.sig').innerHTML = html;
+            s.dataset.html = html;
+    });
+  }
+  form.addEventListener('input', render);
+  render();
+
+  function say(s, msg) { var st = s.querySelector('.status'); st.textContent = msg; setTimeout(function () { st.textContent = ''; }, 4000); }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-copy]'); if (!b) return;
+    var s = b.closest('section.look');
+    var d = data();
+    if (!d.name.trim() || !d.title.trim() || !d.email.trim()) { say(s, 'Fill in your name, job title and email first.'); return; }
+    if (b.dataset.copy === 'html') {
+      var ta = document.createElement('textarea'); ta.value = s.dataset.html; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); ta.remove(); say(s, 'HTML code copied.'); return;
+    }
+    // copy the rendered signature (what mail apps paste as a formatted signature)
+    var node = s.querySelector('.sig'); var r = document.createRange(); r.selectNodeContents(node);
+    var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    var ok = document.execCommand('copy'); sel.removeAllRanges();
+    say(s, ok ? 'Copied. Paste it into your mail app’s signature box.' : 'Copy did not work: select the signature with the mouse and press Ctrl+C.');
+  });
+})();
+</script>
 </body>
 </html>

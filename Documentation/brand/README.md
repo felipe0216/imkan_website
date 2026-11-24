@@ -2,7 +2,9 @@
 
 Logo: IK Monogram "B. Open K" with IMKAN in Geist 500 and إمكان in IBM Plex Sans Arabic 500 (D-017). Palette: midnight plum and gold (D-018). Overview: `logo-kit.jpg`.
 
-The files live in `site/public/brand/`, so after cut-over they are served at `https://imkan.ai/brand/...`. All text in the logo is outlined, so no font is needed to display it.
+The files live in `site/public/brand/`, so they are served at `https://www.imkan.ai/brand/...`. All text in the logo is outlined, so no font is needed to display it.
+
+Logo pack in the three looks (light, dark, light with gold) for slides, documents and social media: `assets/logos/` (see its README).
 
 | Use | File |
 |---|---|
@@ -16,7 +18,7 @@ The files live in `site/public/brand/`, so after cut-over they are served at `ht
 | Slides, Word, anything that needs a PNG | `png/imkan-lockup[-variant]-large.png` (1042x312, transparent) for every lockup colourway |
 | Small PNGs (44 px tall at 1x/2x/3x) | `png/imkan-lockup[-variant]@{1,2,3}x.png` for every lockup colourway; variants: none (primary), `-on-dark`, `-ink`, `-bone`, `-gold-ink`, `-black` |
 | Mark only as PNG | `png/imkan-symbol[-ink,-gold,-bone]-{256,1024}.png` (transparent) |
-| Email signature | Default `png/imkan-email-logo-gold-dark@2x.png` (D-019); alternatives `png/imkan-email-logo[,-black,-gold]@{1,2,3}x.png` (163x60 tiles), template in `email-signature.html` |
+| Email signature | `Documentation/brand/email-signature.html`: open it, type your details, copy one of the three looks (light, dark, light with gold), steps for Gmail, Outlook and Apple Mail inside. Logos `email/imkan-email-{light,dark,light-gold}@{2,3}x.png`, served from `https://www.imkan.ai/brand/email/`. The older 163x60 tiles (`png/imkan-email-logo*`) stay for signatures already in use |
 | Favicon | `favicon.svg`, `favicon.ico` (16/32/48), `png/favicon-{16,32,48}.png` |
 | Phone home screen | `png/apple-touch-icon.png` (180), `png/icon-{192,512}.png`, `png/icon-light-{192,512}.png`, `site.webmanifest` |
 | LinkedIn, X, WhatsApp, Teams avatar | `png/imkan-avatar-dark-1024.png` (gold on midnight plum), `png/imkan-avatar-light-1024.png`, `png/imkan-avatar-{dark,light}-400.png` |
