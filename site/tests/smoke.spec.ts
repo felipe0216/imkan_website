@@ -23,6 +23,12 @@ for (const path of PAGES) {
       // live since the cut-over (2026-11-24): search engines may index every page but the 404 page
       if (path.startsWith('/404')) await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
       else await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+      // link previews (LinkedIn, WhatsApp, Facebook) need the share image as a full address, with its size
+      if (!path.startsWith('/404')) {
+        await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://www.imkan.ai/share.jpg');
+        await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute('content', '1200');
+        await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute('content', '630');
+      }
     });
 
     test('has no serious or critical accessibility violations', async ({ page }) => {
