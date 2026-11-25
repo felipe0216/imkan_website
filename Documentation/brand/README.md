@@ -6,7 +6,7 @@ The files live in `site/public/brand/`, so they are served at `https://www.imkan
 
 Logo pack in the three looks (light, dark, light with gold) for slides, documents and social media: `assets/logos/` (see its README).
 
-PowerPoint templates in the three looks, with example decks: `assets/slides/` (see its README). Word templates (a letterhead and a report per look, with PDF examples): `assets/documents/` (see its README). The two-page company profile (PDF, three looks): `assets/profile/`. The brand fonts (Funnel Display and Funnel Sans, OFL) to install for them: `assets/fonts/`. LinkedIn banners (company page and personal profiles): `assets/social/`. Business cards (print-ready, with a template): `assets/cards/`.
+PowerPoint templates in the three looks, with example decks: `assets/slides/` (see its README). Word templates (a letterhead and a report per look, with PDF examples): `assets/documents/` (see its README). The two-page company profile (PDF, three looks): `assets/profile/`. The brand fonts to install for them: `assets/fonts/` (Funnel Display and Funnel Sans; IBM Plex Sans Arabic for Arabic text; all OFL). LinkedIn banners (company page and personal profiles): `assets/social/`. Business cards (print-ready, with a template): `assets/cards/`.
 
 | Use | File |
 |---|---|
