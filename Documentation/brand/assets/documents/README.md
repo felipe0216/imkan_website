@@ -27,7 +27,7 @@ Optional: to see the templates under **File > New > Personal**, copy the `.dotx`
 - **Report, first page:** the cover (logo, title, subtitle, prepared for, date), then a contents page.
 - **Every later page:** a small logo top left (and the report's title top right, taken from the cover), `imkan.ai` and "Page 2 of 4" at the foot.
 
-**To do (Felipe):** the letterhead's legal line is a prompt, "TODO: company legal name, CR number, VAT number, registered address", because these details are not on the website and must not be invented. Once supplied, they are set once in `build-docs.ps1` and the templates rebuilt.
+**To do (Felipe):** the letterhead footer gives the registered address (confirmed by Felipe) under a prompt, "TODO: company legal name, CR number, VAT number", because these details are not on the website and must not be invented. Once supplied, they are set once in `build-docs.ps1` and the templates rebuilt.
 
 ## Styles
 

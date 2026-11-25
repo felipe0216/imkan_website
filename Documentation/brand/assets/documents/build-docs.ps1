@@ -190,10 +190,13 @@ function Build-Letterhead($word, [string]$look, [bool]$sample) { Step 'Build-Let
   $anchor = $sec.Headers.Item(2).Range.Paragraphs.Item(1).Range
   if ($def.band) { $null = Add-Ground $fh $anchor 112 'ink' }
   $null = Add-Logo $fh $anchor $(if ($def.band) { 'dark' } else { $def.pageLogo }) $SIDE 40 34
-  # first-page footer: the legal details, left as a prompt until Felipe supplies them (CLAUDE.md: never invent company facts)
+  # first-page footer: the legal details. The registered address is confirmed (Felipe, 2026-11-25, as on the old site's contact section);
+  # the legal name, CR and VAT stay a prompt until Felipe supplies them (CLAUDE.md: never invent company facts)
   $ff = $sec.Footers.Item(2).Range
-  $legal = 'TODO: company legal name, CR number, VAT number, registered address'
-  $ff.Text = $legal; $ff = $sec.Footers.Item(2).Range; $null = $ff.MoveEnd(1, -1)
+  $legal = 'TODO: company legal name, CR number, VAT number'
+  $address = '8392 Prince Turki Bin Abdulaziz Al Awwal, 5246 King Saud University district, Riyadh, 12371, Saudi Arabia'
+  $ff.Text = "$legal`r$address"
+  $ff = $sec.Footers.Item(2).Range.Paragraphs.Item(1).Range; $null = $ff.MoveEnd(1, -1)
   $cc = $doc.ContentControls.Add(1, $ff); $cc.Title = $legal; $cc.Tag = 'imkan-prompt'
   Set-RunningHeadFoot $doc $look $false
 
