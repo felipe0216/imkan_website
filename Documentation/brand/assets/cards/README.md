@@ -12,12 +12,16 @@ Print-ready business cards in the three looks. Front: the logo centred. Back: na
 
 ## Making a person's cards
 
-1. Add the person to `PEOPLE` in `build-cards.mjs`, with the details they gave you (never guessed):
-   `{ slug: 'felipe-araya', name: 'Felipe Araya', title: 'Lead AI Scientist', phone: '+966 …', email: '…@imkan.ai' }`
-2. Run `node Documentation/brand/assets/cards/build-cards.mjs`.
-3. Their cards appear in a folder named after the slug: one PDF per look, page 1 the front, page 2 the back.
+This repository is public, so people's phones and emails never go into it.
 
-Because the cards hold a person's phone and email, think twice before committing a person's folder to the repository; the template is enough to keep there.
+1. Put each person's details, as they gave them (never guessed), in `local/people.json` on your computer. That folder is git-ignored:
+   ```json
+   [
+     { "slug": "full-name", "name": "Full name", "title": "Job title", "phone": "+966 5x xxx xxxx", "email": "name@imkan.ai" }
+   ]
+   ```
+2. Run `node Documentation/brand/assets/cards/build-cards.mjs`.
+3. Their cards appear in `local/<slug>/`: one PDF per look, page 1 the front, page 2 the back. Send those to the printer; keep a copy somewhere shared and private (not this repository).
 
 ## For the printer
 
