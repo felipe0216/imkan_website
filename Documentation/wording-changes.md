@@ -152,6 +152,15 @@ These are the words inside the drawn product windows. They describe what the rea
 - **Methodology panels:** a discovery search ("decisions to improve"), "Your existing stack" (Snowflake, PostgreSQL, Databricks, Grafana) and an "after-go-live" health check (freshness, drift, usage, alert routing).
 - **Why us panels:** a voice agent call ("Voice agent", "Arabic and English, 24/7", "Your invoice is received and logged. Anything else I can check?") and "Proof of value, 6-8 weeks" (four items shortened from "What this means for you").
 
+## Company profile PDF (2026-11-25), pending Felipe's review
+
+Everything else in `Documentation/brand/assets/profile/` is the live site's wording, unchanged. Two labels are new:
+
+| # | Page | Original | New | Why | Approved |
+|---|---|---|---|---|---|
+| 129 | Company profile, page 1 | (none) | Label above the headline: "Company profile" | Says what the document is | pending |
+| 130 | Company profile, page 1 | (none; the site shows the industries as tags with no heading) | Label: "Industries" | The tags need a heading on paper | pending |
+
 ## Not wording changes, noted for completeness
 
 - **Careers:** all six roles are past their 30-day window. The new page shows them as closed under the existing "Past roles" grouping, and the open application stays available (Felipe, 2026-11-16). Text unchanged.
