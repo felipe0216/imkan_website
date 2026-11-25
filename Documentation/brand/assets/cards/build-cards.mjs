@@ -1,9 +1,10 @@
 // Builds print-ready business cards in the three looks (extra brand asset 4, DECISION_TRACKER 2026-11-25).
 // 85 x 55 mm trim with 3 mm bleed (PDF page 91 x 61 mm), front (logo) and back (details), printed to PDF by Edge or Chrome.
-// Add a person to PEOPLE and rebuild: each person gets cards/<slug>/imkan-card-<slug>-<look>.pdf.
+// The repository is public, so real people's details stay out of it: list them in cards/local/people.json (git-ignored),
+// and their cards are written to cards/local/<slug>/imkan-card-<slug>-<look>.pdf. Only the template is committed.
 // Never invent details: names, titles, phones and emails come from the people themselves.
 //   node Documentation/brand/assets/cards/build-cards.mjs ["C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"]
-import { writeFileSync, mkdirSync, existsSync, rmSync } from 'node:fs';
+import { writeFileSync, readFileSync, mkdirSync, existsSync, rmSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -14,10 +15,18 @@ const BROWSER = process.argv[2] || 'C:/Program Files (x86)/Microsoft/Edge/Applic
 const url = (p) => pathToFileURL(path.join(ROOT, p)).href;
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-// slug: file name. The template entry shows the prompts; add real people below it.
+// slug: file name. The template shows the prompts; real people come from local/people.json, an array of the same shape.
+const LOCAL = path.join(HERE, 'local');
 const PEOPLE = [
-  { slug: 'template', name: 'Full name', title: 'Job title', phone: 'Mobile number', email: 'name@imkan.ai' },
+  { slug: 'template', name: 'Full name', title: 'Job title', phone: 'Mobile number', email: 'name@imkan.ai', dir: HERE },
+  ...(existsSync(path.join(LOCAL, 'people.json'))
+    ? JSON.parse(readFileSync(path.join(LOCAL, 'people.json'), 'utf8')).map((p) => ({ ...p, dir: LOCAL }))
+    : []),
 ];
+for (const p of PEOPLE) {
+  for (const k of ['slug', 'name', 'title', 'phone', 'email']) if (!p[k]) throw new Error(`people.json: ${p.slug || '?'} has no ${k}`);
+  if (!/^[a-z0-9-]+$/.test(p.slug)) throw new Error(`people.json: slug "${p.slug}" must be lower-case letters, digits and hyphens`);
+}
 
 const K = 'M0 0H24V100H0Z M36 50L72 0H100L62 50L100 100H72Z';
 // gold is never text on bone: the light-gold back keeps plum-black text and puts the gold in the K
@@ -58,7 +67,7 @@ html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 const TMP = path.join(HERE, '.build');
 mkdirSync(TMP, { recursive: true });
 for (const p of PEOPLE) {
-  const dir = path.join(HERE, p.slug);
+  const dir = path.join(p.dir, p.slug);
   mkdirSync(dir, { recursive: true });
   for (const look of Object.keys(LOOKS)) {
     const html = path.join(TMP, `${p.slug}-${look}.html`);

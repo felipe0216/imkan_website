@@ -41,3 +41,6 @@ nul
 # qa-shots intermediates: keep only the contact sheets (*-sheet.png)
 Documentation/qa/visual/**/*-[0-9].png
 Documentation/qa/visual/**/*-sheet.html
+
+# Business cards with real people's phones and emails: kept on this computer, never in this public repository
+Documentation/brand/assets/cards/local/

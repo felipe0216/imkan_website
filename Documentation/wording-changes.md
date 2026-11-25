@@ -160,6 +160,8 @@ Everything else in `Documentation/brand/assets/profile/` is the live site's word
 |---|---|---|---|---|---|
 | 129 | Company profile, page 1 | (none) | Label above the headline: "Company profile" | Says what the document is | pending |
 | 130 | Company profile, page 1 | (none; the site shows the industries as tags with no heading) | Label: "Industries" | The tags need a heading on paper | pending |
+| 131 | Bilingual letterhead, header | (none) | Arabic: "إمكان" (the brand name, as in the logo) and "سجل تجاري 7053412040" (CR number) | Felipe: keep the Arabic to the company name and contact details; the brand name, not a translated legal name | pending (Arabic check) |
+| 132 | Bilingual letterhead, footer | 8392 Prince Turki Bin Abdulaziz Al Awwal, 5246 King Saud University district, Riyadh, 12371, Saudi Arabia | English on three lines without the commas at the breaks; Arabic: "8392 الأمير تركي بن عبدالعزيز الأول / 5246 حي جامعة الملك سعود / الرياض 12371، المملكة العربية السعودية" | Address in both languages; the Arabic is a translation | pending (Arabic check) |
 
 ## Not wording changes, noted for completeness
 
