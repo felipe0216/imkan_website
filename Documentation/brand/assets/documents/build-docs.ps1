@@ -8,8 +8,10 @@
 # Felipe's choices (2026-11-24): white pages in every look; the dark look is a plum-black report cover and a plum-black band
 # on the letter's first page, white pages inside; a letterhead and a report template per look.
 # Needs: Windows, Word 365 (16.0), and the Funnel fonts installed (../fonts, see ../slides/README.md).
-# usage: powershell -ExecutionPolicy Bypass -File Documentation\brand\assets\documents\build-docs.ps1 [-Only light,dark]
-param([string[]]$Only = @('light', 'dark', 'light-gold'))
+# usage: powershell -ExecutionPolicy Bypass -File Documentation\brand\assets\documents\build-docs.ps1 [-Only light,dark] [-Kinds letterhead,report,bilingual]
+param([string[]]$Only = @('light', 'dark', 'light-gold'), [string[]]$Kinds = @('letterhead', 'report', 'bilingual'))
+# powershell -File passes "light,dark" as one string: split it
+$Only = @($Only | ForEach-Object { $_ -split ',' }); $Kinds = @($Kinds | ForEach-Object { $_ -split ',' })
 $ErrorActionPreference = 'Stop'
 $LOG = $env:IMKAN_BUILD_LOG
 function Step([string]$m) { if ($LOG) { Add-Content $LOG ((Get-Date -Format 'HH:mm:ss') + ' ' + $m) } }
@@ -19,7 +21,7 @@ $LOGO_DIR = (Resolve-Path (Join-Path $HERE '..\logos\svg')).Path
 
 Add-Type -AssemblyName System.Drawing
 $installed = (New-Object System.Drawing.Text.InstalledFontCollection).Families.Name
-foreach ($fontName in 'Funnel Display', 'Funnel Sans') { if ($installed -notcontains $fontName) { throw "Font '$fontName' is not installed. See ../slides/README.md, Fonts." } }
+foreach ($fontName in 'Funnel Display', 'Funnel Sans', 'IBM Plex Sans Arabic') { if ($installed -notcontains $fontName) { throw "Font '$fontName' is not installed. See ../slides/README.md, Fonts." } }
 
 # ---- the site's colours (site/public/styles/tokens.css), nothing new ----
 $HEX = @{ bone = 'EFECE5'; surface = 'E3DED3'; ink = '1B111D'; muted = '4C4150'; plum = '5E1654'; gold = 'FFC233'
@@ -221,6 +223,96 @@ function Build-Letterhead($word, [string]$look, [bool]$sample) { Step 'Build-Let
   $doc
 }
 
+# ---- bilingual letterhead: logo centred, English details left, Arabic details right (Felipe, 2026-11-25) ----
+# The wording lives in bilingual-text.json (UTF-8): this script is read as ANSI by Windows PowerShell 5.1.
+$BI = Get-Content (Join-Path $HERE 'bilingual-text.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$ARABIC = 'IBM Plex Sans Arabic'
+$COL_SIDE = 165; $COL_MID = $PAGE_W - 2 * $SIDE - 2 * $COL_SIDE
+
+# a borderless one-row table of three cells across the text width
+function New-TriTable($range) {
+  $t = $range.Tables.Add($range, 1, 3); $t.Borders.Enable = $WD_FALSE
+  $t.TopPadding = 0; $t.BottomPadding = 0; $t.LeftPadding = 0; $t.RightPadding = 0; $t.Rows.LeftIndent = 0
+  $t.AllowAutoFit = $WD_FALSE
+  $w = @($COL_SIDE, $COL_MID, $COL_SIDE); for ($i = 1; $i -le 3; $i++) { $t.Cell(1, $i).Width = [single]$w[$i - 1] }
+  $t
+}
+# fill a cell with lines; $rtl makes them right-to-left Arabic paragraphs in IBM Plex Sans Arabic
+function Set-CellLines($cell, [string[]]$lines, [bool]$rtl, [int]$align, [double]$size, [string]$color) {
+  $cell.Range.Text = ($lines -join "`r")
+  $r = $cell.Range; $r.Font.Size = [single]$size; $r.Font.Color = C $color
+  $r.ParagraphFormat.SpaceBefore = 0; $r.ParagraphFormat.SpaceAfter = 0; $r.ParagraphFormat.LineSpacingRule = 5; $r.ParagraphFormat.LineSpacing = [single](12 * 1.3)
+  if ($rtl) {
+    $r.Select(); $r.Application.Selection.RtlRun()  # Word lays out and formats (the *Bi properties) Arabic only in runs marked right to left; only Selection has RtlRun
+    $r.Font.NameBi = $ARABIC; $r.Font.SizeBi = [single]$size; $r.LanguageID = 1025  # Arabic (Saudi Arabia)
+    $r.ParagraphFormat.ReadingOrder = 0  # right to left
+  }
+  # in a right-to-left paragraph Word reads Alignment as start/end, so 0 sets Arabic flush right
+  $r.ParagraphFormat.Alignment = $align
+  $cell.VerticalAlignment = 1  # centred
+  $r
+}
+
+function Build-Bilingual($word, [string]$look, [bool]$sample) { Step 'Build-Bilingual';
+  $def = $LOOK_DEF[$look]
+  $doc = New-Doc $word; $doc.PageSetup.TopMargin = 150
+  $null = Set-Styles $doc $look
+  # a paragraph style for Arabic text in the body: right to left, IBM Plex Sans Arabic
+  $ar = $doc.Styles.Add('Imkan Arabic', 1); $ar.BaseStyle = 'Normal'
+  $ar.Font.NameBi = $ARABIC; $ar.Font.SizeBi = 11; $ar.ParagraphFormat.ReadingOrder = 0; $ar.LanguageID = 1025
+  $ar.ParagraphFormat.Alignment = 0  # start, which is the right edge for right-to-left text
+  $sec = $doc.Sections.Item(1)
+  $onBand = [bool]$def.band
+  $nameColor = $(if ($onBand) { 'bone' } else { 'ink' }); $subColor = $(if ($onBand) { 'lilac' } else { 'muted' })
+
+  # first-page header: name and CR in English (left) and Arabic (right), the logo between them
+  $fh = $sec.Headers.Item(2); $fh.Range.Text = ''
+  $t = New-TriTable $fh.Range; $t.Rows.Item(1).HeightRule = 2; $t.Rows.Item(1).Height = 52  # exactly
+  $en = Set-CellLines $t.Cell(1, 1) @($BI.en.name, $BI.en.cr) $false 0 8.5 $subColor
+  $p1 = $en.Paragraphs.Item(1).Range; $p1.Font.Name = 'Funnel Display'; $p1.Font.Size = 12; $p1.Font.Color = C $nameColor
+  $arr = Set-CellLines $t.Cell(1, 3) @($BI.ar.name, $BI.ar.cr) $true 0 9 $subColor
+  $p1 = $arr.Paragraphs.Item(1).Range; $p1.Font.SizeBi = 13; $p1.Font.BoldBi = $WD_TRUE; $p1.Font.Color = C $nameColor
+  $tail = $fh.Range.Paragraphs.Last.Range; $tail.Font.Size = 1; $tail.ParagraphFormat.SpaceAfter = 0; $tail.ParagraphFormat.LineSpacingRule = 0
+  $anchor = $fh.Range.Paragraphs.Last.Range
+  if ($onBand) { $null = Add-Ground $fh $anchor 112 'ink' }
+  $logoH = 30
+  $null = Add-Logo $fh $anchor $(if ($onBand) { 'dark' } else { $def.pageLogo }) (($PAGE_W - $logoH * $LOCKUP_RATIO) / 2) 41 $logoH
+
+  # first-page footer: the registered address in both languages, the contact details between them
+  $ff = $sec.Footers.Item(2); $ff.Range.Text = ''
+  $t = New-TriTable $ff.Range
+  $null = Set-CellLines $t.Cell(1, 1) @($BI.en.address) $false 0 8 'muted'
+  $null = Set-CellLines $t.Cell(1, 2) @($BI.contact) $false 1 8 'muted'
+  $null = Set-CellLines $t.Cell(1, 3) @($BI.ar.address) $true 0 8.5 'muted'
+  $tail = $ff.Range.Paragraphs.Last.Range; $tail.Font.Size = 1; $tail.ParagraphFormat.SpaceAfter = 0; $tail.ParagraphFormat.LineSpacingRule = 0
+  Set-RunningHeadFoot $doc $look $false
+
+  # selecting the Arabic runs moved the cursor into the footer: back to the body
+  try { $word.ActiveWindow.ActivePane.View.SeekView = 0 } catch { }; $doc.Range(0, 0).Select()
+  $sel = $word.Selection; $sel.HomeKey(6) | Out-Null
+  $sel.Style = $doc.Styles.Item($ST.normal)
+  if (-not $sample) {
+    Add-Prompt $sel 'Date' 6; $sel.TypeParagraph(); $sel.TypeParagraph()
+    Add-Prompt $sel 'Recipient name, organisation and address'; $sel.TypeParagraph(); $sel.TypeParagraph()
+    $sel.Font.Bold = $WD_TRUE; Add-Prompt $sel 'Subject'; $sel.Font.Bold = $WD_FALSE; $sel.TypeParagraph()
+    Add-Prompt $sel 'Greeting'; $sel.TypeParagraph()
+    Add-Prompt $sel 'Letter text'; $sel.TypeParagraph(); $sel.TypeParagraph()
+    Add-Prompt $sel 'Sign-off, name and title'
+  } else {
+    $sel.TypeText((Get-Date -Format 'd MMMM yyyy')); $sel.TypeParagraph(); $sel.TypeParagraph()
+    $sel.TypeText("Recipient name`vOrganisation`vCity"); $sel.TypeParagraph(); $sel.TypeParagraph()
+    $sel.Font.Bold = $WD_TRUE; $sel.TypeText("Using the Imkan.ai bilingual letterhead, $($def.title.ToLower()) look"); $sel.Font.Bold = $WD_FALSE; $sel.TypeParagraph()
+    $sel.TypeText('Hello,'); $sel.TypeParagraph()
+    foreach ($line in @(
+      'This letterhead carries the company details in English and Arabic: the name and CR number at the top, the registered address at the foot. Open the template, then type over each grey prompt.',
+      'For a paragraph in Arabic, choose the Imkan Arabic style: it sets the text right to left in IBM Plex Sans Arabic. The fonts folder has the font to install.',
+      'From the second page on, a small logo sits at the top and the page number at the bottom.')) { $sel.TypeText($line); $sel.TypeParagraph() }
+    $sel.TypeParagraph(); $sel.TypeText("Name`vTitle, Imkan.ai")
+  }
+  Convert-Prompts $doc
+  $doc
+}
+
 # ---- report: a cover page in the look, contents, then the body styles ----
 function Build-Report($word, [string]$look, [bool]$sample) { Step 'Build-Report';
   $def = $LOOK_DEF[$look]
@@ -302,15 +394,17 @@ try {
     $look = [string]$item
     if (-not $LOOK_DEF.Contains($look)) { throw "unknown look $look" }
     Write-Host "== $look"
-    foreach ($kind in 'letterhead', 'report') {
+    foreach ($kind in $Kinds) {
       foreach ($sample in $false, $true) {
-        $doc = if ($kind -eq 'letterhead') { Build-Letterhead $word $look $sample } else { Build-Report $word $look $sample }
-        if ($kind -eq 'letterhead') { $doc.SetDefaultTableStyle('Imkan table', $WD_FALSE) }
+        $doc = switch ($kind) { 'letterhead' { Build-Letterhead $word $look $sample } 'report' { Build-Report $word $look $sample }
+                                'bilingual' { Build-Bilingual $word $look $sample } default { throw "unknown kind $kind" } }
+        if ($kind -ne 'report') { $doc.SetDefaultTableStyle('Imkan table', $WD_FALSE) }
         Step "built $kind sample=$sample"
-        Set-DocProp $doc 'Title' "Imkan.ai $kind, $($LOOK_DEF[$look].title.ToLower())"
+        $label = $(if ($kind -eq 'bilingual') { 'bilingual letterhead' } else { $kind })
+        Set-DocProp $doc 'Title' "Imkan.ai $label, $($LOOK_DEF[$look].title.ToLower())"
         Step "built $kind sample=$sample"
         Set-DocProp $doc 'Author' 'Imkan.ai'
-        $base = Join-Path $HERE "imkan-$kind-$look"
+        $base = Join-Path $HERE $(if ($kind -eq 'bilingual') { "imkan-letterhead-bilingual-$look" } else { "imkan-$kind-$look" })
         if ($sample) {
           $doc.Fields.Update() | Out-Null
           $doc.SaveAs2("$base-sample.docx", 16)

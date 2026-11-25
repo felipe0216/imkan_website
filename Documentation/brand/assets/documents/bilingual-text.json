@@ -1,0 +1,14 @@
+{
+  "_note": "Wording of the bilingual letterhead (build-docs.ps1). English as Felipe supplied it; the Arabic address is a translation for review (Documentation/wording-changes.md). Kept in its own UTF-8 file because Windows PowerShell 5.1 reads the script as ANSI.",
+  "en": {
+    "name": "Imkan dot AI",
+    "cr": "CR 7053412040",
+    "address": ["8392 Prince Turki Bin Abdulaziz Al Awwal", "5246 King Saud University district", "Riyadh, 12371, Saudi Arabia"]
+  },
+  "ar": {
+    "name": "إمكان",
+    "cr": "سجل تجاري 7053412040",
+    "address": ["8392 الأمير تركي بن عبدالعزيز الأول", "5246 حي جامعة الملك سعود", "الرياض 12371، المملكة العربية السعودية"]
+  },
+  "contact": ["imkan.ai", "info@imkan.ai"]
+}

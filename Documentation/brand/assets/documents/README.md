@@ -10,6 +10,13 @@ Word templates in the three brand looks: a **letterhead** (letters, quotations, 
 
 Each has a filled-in example, as Word and PDF (`*-sample.docx`, `*-sample.pdf`). `preview/` has every example page as a PNG; `preview.png` shows all three looks.
 
+## Bilingual letterhead (English and Arabic)
+
+`imkan-letterhead-bilingual-<look>.dotx`, in the same three looks, with a filled-in example (`-sample.docx`, `-sample.pdf`). The first page has the logo in the middle, the English name and CR number on the left and the Arabic ones on the right (flush right, right to left); the footer has the registered address in English on the left and in Arabic on the right, with `imkan.ai` and `info@imkan.ai` between them. Later pages match the English letterhead.
+
+- Arabic text uses **IBM Plex Sans Arabic** (`../fonts`, install it like Funnel). For an Arabic paragraph in the letter, choose the **Imkan Arabic** style.
+- The wording sits in `bilingual-text.json`. The Arabic company name is the brand name إمكان, as in the logo (Felipe). The Arabic address is a translation waiting for review (wording-changes.md, rows 131 and 132).
+
 ## Using a template
 
 1. Install the fonts once: `../fonts/`, select the six `.ttf` files, right-click, **Install** (Mac: double-click each, **Install Font**). Without them Word shows the embedded Funnel, but typing may fall back to another font.
@@ -24,6 +31,7 @@ Optional: to see the templates under **File > New > Personal**, copy the `.dotx`
 ## What is on each page
 
 - **Letterhead, first page:** the logo top left, `imkan.ai` and `info@imkan.ai` top right, the company's legal details at the foot.
+- **Bilingual letterhead, first page:** see above.
 - **Report, first page:** the cover (logo, title, subtitle, prepared for, date), then a contents page.
 - **Every later page:** a small logo top left (and the report's title top right, taken from the cover), `imkan.ai` and "Page 2 of 4" at the foot.
 
@@ -54,4 +62,4 @@ Colours are the website's own (`site/public/styles/tokens.css`): plum-black `#1B
 powershell -ExecutionPolicy Bypass -File Documentation\brand\assets\documents\build-docs.ps1
 ```
 
-`-Only light,dark` builds some looks only. Edit the script, not the files, so the looks stay in step. The page previews are made from the PDFs with Windows' own PDF renderer (not part of the build).
+`-Only light,dark` builds some looks only; `-Kinds letterhead,report,bilingual` some templates only. Edit the script, not the files, so the looks stay in step. The page previews are made from the PDFs with Windows' own PDF renderer (not part of the build).
